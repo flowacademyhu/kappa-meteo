@@ -133,7 +133,7 @@ jobs:
   #      uses: FirebaseExtended/action-hosting-deploy@v0
   #      with:
   #        repoToken: '${{ secrets.GITHUB_TOKEN }}'
-  #        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KAPPA_METEO_708E0B88 }}'
+  #        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KAPPA_METEO }}'
   #        channelId: live
   #        projectId: kappa-meteo-708e0b88
   #      env:
