@@ -1,11 +1,12 @@
-import React from "react";
-import Menu from "./Menu.js";
+import React from 'react';
+import Menu from './Menu.js';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
-} from "react-router-dom";
+  Redirect,
+} from 'react-router-dom';
+import Footer from './Footer.js';
 
 export default function App() {
   return (
@@ -16,15 +17,13 @@ export default function App() {
         </header>
         <main>
           <Switch>
-            <Route path="/home">Térképnézet</Route>
-            <Route path="/histericdata">Hisztorikus Adatok</Route>
-            <Redirect from="/" to="/home" />
+            <Route path="/térképnézet">Térképnézet</Route>
+            <Route path="/hisztorikus adatok">Hisztorikus Adatok</Route>
+            <Redirect from="/" to="/térképnézet" />
           </Switch>
         </main>
       </div>
-      <footer>
-        Valami
-      </footer>
+      <Footer>Made by Buci, Barna, Fixo, Nándi, Vasi &#169;</Footer>
     </Router>
   );
 }
