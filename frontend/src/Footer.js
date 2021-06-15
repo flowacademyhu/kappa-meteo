@@ -1,6 +1,5 @@
 var style = {
   backgroundColor: '#c54b3c',
-  borderTop: '1px solid #E7E7E7',
   textAlign: 'center',
   padding: '20px',
   position: 'fixed',
