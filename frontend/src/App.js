@@ -2,7 +2,7 @@ import Map from './Map/Map.js';
 
 function App() {
   return (
-    <div>
+    <div data-testid="map-container">
       <Map />
     </div>
   );
