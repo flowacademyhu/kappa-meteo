@@ -1,7 +1,9 @@
 package hu.flowacademy.meteo.bootstrap;
 
+import hu.flowacademy.meteo.model.DailyData;
 import hu.flowacademy.meteo.model.TenMinuteData;
 
+import hu.flowacademy.meteo.repository.DailyDataRepository;
 import hu.flowacademy.meteo.repository.TenMinuteDataRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,12 +22,15 @@ import java.util.*;
 @RequiredArgsConstructor
 public class InitDataLoader implements CommandLineRunner {
 
+
     private final TenMinuteDataRepository tenMinutesRepository;
+    private final DailyDataRepository dailyDataRepository;
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public void run(String... args) throws Exception {
         List<TenMinuteData> tenMinutes = executeTenMinutesSave();
+        List<DailyData> dailyData = executeDailySave();
     }
 
     @Transactional
@@ -34,6 +39,14 @@ public class InitDataLoader implements CommandLineRunner {
         log.info("saved {} tenminutes", tenMinutes.size());
         return tenMinutes;
     }
+
+    @Transactional
+    private List<DailyData> executeDailySave() {
+        List<DailyData> daily = dailyDataRepository.saveAll(populateDaily());
+        log.info("saved {} daily", daily.size());
+        return daily;
+    }
+
 
     private List<TenMinuteData> populateTenMinutes() {
         String line = "";
@@ -44,6 +57,30 @@ public class InitDataLoader implements CommandLineRunner {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";", -1);
                 TenMinuteData temp = TenMinuteData.builder().date(data[0])
+                        .airHumidity(data[1]).airPressure(data[2]).windSpeed(data[3])
+                        .solarCellChargingVoltage(data[4]).externalBatteryVoltage(data[5])
+                        .irradiation(data[6]).freeze(data[7]).rain(data[8]).windDirection(data[9])
+                        .windGust(data[10]).soilMoisture90cm(data[11]).leafMoisture(data[12])
+                        .soilTemperature0cm(data[13]).airTemperature(data[14]).internalBatteryVoltage(data[15])
+                        .soilMoisture30cm(data[16]).soilMoisture60cm(data[17]).lightUnit(data[18]).soilMoisture120cm(data[19])
+                        .precipitationCounter(data[20]).build();
+                list.add(temp);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    private List<DailyData> populateDaily() {
+        String line = "";
+        List<DailyData> list = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/CSIHA_HQ_napi.csv"));
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(";", -1);
+                DailyData temp = DailyData.builder().date(data[0])
                         .airHumidity(data[1]).airPressure(data[2]).windSpeed(data[3])
                         .solarCellChargingVoltage(data[4]).externalBatteryVoltage(data[5])
                         .irradiation(data[6]).freeze(data[7]).rain(data[8]).windDirection(data[9])

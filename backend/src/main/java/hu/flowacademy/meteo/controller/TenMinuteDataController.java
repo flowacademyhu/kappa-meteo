@@ -14,7 +14,7 @@ public class TenMinuteDataController {
 
     private final TenMinuteDataService tenMinuteDataService;
 
-    @GetMapping("api/ten-min")
+    @GetMapping("api/tenmin")
     public List<TenMinuteData> findAll() {
         return tenMinuteDataService.findAll();
     }
