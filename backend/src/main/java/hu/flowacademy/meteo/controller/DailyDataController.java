@@ -1,6 +1,6 @@
 package hu.flowacademy.meteo.controller;
 
-import hu.flowacademy.meteo.model.HourlyData;
+import hu.flowacademy.meteo.model.DailyData;
 import hu.flowacademy.meteo.service.DailyDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ public class DailyDataController {
     private final DailyDataService dailyDataService;
 
     @GetMapping("api/daily")
-    public List<HourlyData> findAll() {
+    public List<DailyData> findAll() {
         return dailyDataService.findAll();
     }
 }
