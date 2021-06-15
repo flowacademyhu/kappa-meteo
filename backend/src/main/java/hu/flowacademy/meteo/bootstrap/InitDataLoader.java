@@ -1,6 +1,7 @@
 package hu.flowacademy.meteo.bootstrap;
 
 import hu.flowacademy.meteo.model.TenMinuteData;
+
 import hu.flowacademy.meteo.repository.TenMinuteDataRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

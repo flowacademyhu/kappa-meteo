@@ -16,6 +16,7 @@ import javax.persistence.Id;
 @Entity
 public class TenMinuteData {
 
+
     @Id
     @GeneratedValue
     private int id;
