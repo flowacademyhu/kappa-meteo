@@ -1,6 +1,4 @@
-import logo from './logo.svg';
-import './icon.css';
-import Map from './Map.js';
+import Map from './Map/Map.js';
 
 function App() {
   return (
