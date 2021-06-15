@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class TenMinutes {
+public class TenMinuteData {
 
     @Id
     @GeneratedValue
