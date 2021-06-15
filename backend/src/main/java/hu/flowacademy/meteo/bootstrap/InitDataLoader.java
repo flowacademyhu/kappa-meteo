@@ -4,7 +4,6 @@ import hu.flowacademy.meteo.model.HourlyData;
 import hu.flowacademy.meteo.model.TenMinuteData;
 import hu.flowacademy.meteo.repository.HourlyDataRepository;
 import hu.flowacademy.meteo.model.DailyData;
-import hu.flowacademy.meteo.model.TenMinuteData;
 import hu.flowacademy.meteo.repository.DailyDataRepository;
 import hu.flowacademy.meteo.repository.TenMinuteDataRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +47,7 @@ public class InitDataLoader implements CommandLineRunner {
     @Transactional
     private List<HourlyData> executeHourlyDataSave() {
         List<HourlyData> hourlyDataList = hourlyDataRepository.saveAll(populateHourlyData());
-        log.info("saved {} dailyData", hourlyDataList.size());
+        log.info("saved {} hourly", hourlyDataList.size());
         return hourlyDataList;
     }
     private List<DailyData> executeDailySave() {
