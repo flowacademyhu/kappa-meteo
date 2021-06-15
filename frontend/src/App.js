@@ -12,16 +12,16 @@ export default function App() {
   return (
     <Router>
       <div className="container">
-        <header>
-          <Menu />
-        </header>
+      <nav class="navbar navbar-expand-lg bg-dark justify-content-center">
+        <Menu/>
         <main>
           <Switch>
-            <Route path="/térképnézet">Térképnézet</Route>
-            <Route path="/hisztorikus adatok">Hisztorikus Adatok</Route>
-            <Redirect from="/" to="/térképnézet" />
+            <Route path="/mapview" />
+            <Route path="/historicdata" />
+            <Redirect from="/" to="/mapview" />
           </Switch>
         </main>
+        </nav>
       </div>
       <Footer>Made by Buci, Barna, Fixo, Nándi, Vasi &#169;</Footer>
     </Router>
