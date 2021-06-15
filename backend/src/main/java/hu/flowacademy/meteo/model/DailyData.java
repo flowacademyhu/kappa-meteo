@@ -15,6 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 public class DailyData {
+
     @Id
     @GeneratedValue
     private int id;
