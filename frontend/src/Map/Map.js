@@ -5,8 +5,8 @@ import MyPopup from '../Popup/MyPopup.js';
 import MyIcon from '../Icon/MyIcon';
 
 export default function Map() {
- // let [latitude, setLatitude] = useState();
- // let [longitude, setLongitude] = useState();
+  // let [latitude, setLatitude] = useState();
+  // let [longitude, setLongitude] = useState();
 
   return (
     <div>
