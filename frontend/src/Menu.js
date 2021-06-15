@@ -1,8 +1,6 @@
 import React from 'react';
 import './Menu.css';
 
-const items = ['Térképnézet', 'Hisztorikus adatok'];
-
 export default function Menu() {
   return (
     <ul className="nav justify-content-center">
