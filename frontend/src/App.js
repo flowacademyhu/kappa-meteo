@@ -12,7 +12,7 @@ export default function App() {
   return (
     <Router>
       <div className="container">
-      <nav class="navbar navbar-expand-lg bg-dark justify-content-center">
+      <nav className="navbar navbar-expand-lg bg-dark justify-content-center">
         <Menu/>
         <main>
           <Switch>
