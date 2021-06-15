@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import './map.css';
 import MyPopup from '../Popup/MyPopup.js';
 import MyIcon from '../Icon/MyIcon';
 
 export default function Map() {
+  // , { useState }
   // let [latitude, setLatitude] = useState();
   // let [longitude, setLongitude] = useState();
 
