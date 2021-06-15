@@ -7,6 +7,7 @@ import {
   Redirect
 } from "react-router-dom";
 
+
 export default function App() {
   return (
     <Router>
@@ -16,15 +17,12 @@ export default function App() {
         </header>
         <main>
           <Switch>
-            <Route path="/home">Térképnézet</Route>
-            <Route path="/histericdata">Hisztorikus Adatok</Route>
+            <Route path="/térképnézet">Térképnézet</Route>
+            <Route path="/hisztorikus adatok">Hisztorikus adatok</Route>
             <Redirect from="/" to="/home" />
           </Switch>
         </main>
       </div>
-      <footer>
-        Valami
-      </footer>
     </Router>
   );
 }

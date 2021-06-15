@@ -1,18 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./Menu.css";
 
-const items = ["Térképnézet", "Hisztorikus Adatok"];
+
+const items = ["Térképnézet", "Hisztorikus adatok"];
 
 export default function Menu() {
-    return (
-        <ul className="nav nav-pills my-2">
+  return (
+    <nav className="navbar justify-content-center">
       {items.map(i => (
-        <li key={i} className="nav-item">
+        <button className="btn btn-outline-success m-2 p-2" key={i}>
           <NavLink className="nav-link" to={`/${i.toLowerCase()}`}>
             {i}
           </NavLink>
-        </li>
+        </button>
       ))}
-    </ul>
-    );
+    </nav>
+  );
 }
