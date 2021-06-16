@@ -32,34 +32,31 @@ public class InitDataLoader implements CommandLineRunner {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (tenMinutesRepository.countTenMinuteData() == 0) {
-            List<TenMinuteData> tenMinuteDataList = executeTenMinutesSave();
+            executeTenMinutesSave();
         }
         if (hourlyDataRepository.countHourlyData() == 0) {
-            List<HourlyData> hourlyDataList = executeHourlyDataSave();
+            executeHourlyDataSave();
         }
         if (dailyDataRepository.countDailyData() == 0) {
-            List<DailyData> dailyData = executeDailySave();
+            executeDailySave();
         }
     }
 
-    private List<TenMinuteData> executeTenMinutesSave() {
+    private void executeTenMinutesSave() {
         List<TenMinuteData> tenMinutes = tenMinutesRepository.saveAll(populateTenMinutes());
         log.info("saved {} tenminutes", tenMinutes.size());
-        return tenMinutes;
     }
 
-    private List<HourlyData> executeHourlyDataSave() {
+    private void executeHourlyDataSave() {
         List<HourlyData> hourlyDataList = hourlyDataRepository.saveAll(populateHourlyData());
         log.info("saved {} hourly", hourlyDataList.size());
-        return hourlyDataList;
     }
 
-    private List<DailyData> executeDailySave() {
+    private void executeDailySave() {
         List<DailyData> daily = dailyDataRepository.saveAll(populateDaily());
         log.info("saved {} daily", daily.size());
-        return daily;
     }
 
     DateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.forLanguageTag("HU-hu"));
