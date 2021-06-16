@@ -65,18 +65,11 @@ public class InitDataLoader implements CommandLineRunner {
     DateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.forLanguageTag("HU-hu"));
     DateFormat format2 = new SimpleDateFormat("yyyy. MM. dd. HH:mm", Locale.forLanguageTag("HU-hu"));
 
-    public double doubleFormatter(String str) {
+    public Object doubleFormatter(String str) {
         if (str.equals("")) {
-            str = "0.0";
+            return null;
         }
         return Double.parseDouble(str.replace(",", "."));
-    }
-
-    public int intFormatter(String str) {
-        if (str.equals("")) {
-            str = "0";
-        }
-        return Integer.parseInt(str.replace(",", "."));
     }
 
     private List<TenMinuteData> populateTenMinutes() {
@@ -88,19 +81,19 @@ public class InitDataLoader implements CommandLineRunner {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";", -1);
                 TenMinuteData temp = TenMinuteData.builder().date(format.parse(data[0]))
-                        .airHumidity(doubleFormatter(data[1])).airPressure(doubleFormatter(data[2]))
-                        .windSpeed(doubleFormatter(data[3]))
-                        .solarCellChargingVoltage(doubleFormatter(data[4]))
-                        .externalBatteryVoltage(doubleFormatter(data[5]))
-                        .irradiation(doubleFormatter(data[6])).freeze(doubleFormatter(data[7]))
-                        .rain(doubleFormatter(data[8])).windDirection(doubleFormatter(data[9]))
-                        .windGust(doubleFormatter(data[10])).soilMoisture90cm(doubleFormatter(data[11]))
-                        .leafMoisture(doubleFormatter(data[12]))
-                        .soilTemperature0cm(doubleFormatter(data[13])).airTemperature(doubleFormatter(data[14]))
-                        .internalBatteryVoltage(doubleFormatter(data[15]))
-                        .soilMoisture30cm(doubleFormatter(data[16])).soilMoisture60cm(doubleFormatter(data[17]))
-                        .lightUnit(doubleFormatter(data[18])).soilMoisture120cm(doubleFormatter(data[19]))
-                        .precipitationCounter(doubleFormatter(data[20])).build();
+                        .airHumidity((Double) doubleFormatter(data[1])).airPressure((Double) doubleFormatter(data[2]))
+                        .windSpeed((Double) doubleFormatter(data[3]))
+                        .solarCellChargingVoltage((Double) doubleFormatter(data[4]))
+                        .externalBatteryVoltage((Double) doubleFormatter(data[5]))
+                        .irradiation((Double) doubleFormatter(data[6])).freeze((Double) doubleFormatter(data[7]))
+                        .rain((Double) doubleFormatter(data[8])).windDirection((Double) doubleFormatter(data[9]))
+                        .windGust((Double) doubleFormatter(data[10])).soilMoisture90cm((Double) doubleFormatter(data[11]))
+                        .leafMoisture((Double) doubleFormatter(data[12]))
+                        .soilTemperature0cm((Double) doubleFormatter(data[13])).airTemperature((Double) doubleFormatter(data[14]))
+                        .internalBatteryVoltage((Double) doubleFormatter(data[15]))
+                        .soilMoisture30cm((Double) doubleFormatter(data[16])).soilMoisture60cm((Double) doubleFormatter(data[17]))
+                        .lightUnit((Double) doubleFormatter(data[18])).soilMoisture120cm((Double) doubleFormatter(data[19]))
+                        .precipitationCounter((Double) doubleFormatter(data[20])).build();
                 list.add(temp);
             }
         } catch (IOException | ParseException e) {
@@ -118,19 +111,19 @@ public class InitDataLoader implements CommandLineRunner {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";", -1);
                 HourlyData temp = HourlyData.builder().date(format2.parse(data[0]))
-                        .airHumidity(doubleFormatter(data[1])).airPressure(doubleFormatter(data[2]))
-                        .windSpeed(doubleFormatter(data[3]))
-                        .solarCellChargingVoltage(doubleFormatter(data[4]))
-                        .externalBatteryVoltage(doubleFormatter(data[5]))
-                        .irradiation(doubleFormatter(data[6])).freeze(doubleFormatter(data[7]))
-                        .rain(doubleFormatter(data[8])).windDirection(doubleFormatter(data[9]))
-                        .windGust(doubleFormatter(data[10])).soilMoisture90cm(doubleFormatter(data[11]))
-                        .leafMoisture(doubleFormatter(data[12]))
-                        .soilTemperature0cm(doubleFormatter(data[13])).airTemperature(doubleFormatter(data[14]))
-                        .internalBatteryVoltage(doubleFormatter(data[15]))
-                        .soilMoisture30cm(doubleFormatter(data[16])).soilMoisture60cm(doubleFormatter(data[17]))
-                        .lightUnit(doubleFormatter(data[18])).soilMoisture120cm(doubleFormatter(data[19]))
-                        .precipitationCounter(doubleFormatter(data[20])).build();
+                        .airHumidity((Double) doubleFormatter(data[1])).airPressure((Double) doubleFormatter(data[2]))
+                        .windSpeed((Double) doubleFormatter(data[3]))
+                        .solarCellChargingVoltage((Double) doubleFormatter(data[4]))
+                        .externalBatteryVoltage((Double) doubleFormatter(data[5]))
+                        .irradiation((Double) doubleFormatter(data[6])).freeze((Double) doubleFormatter(data[7]))
+                        .rain((Double) doubleFormatter(data[8])).windDirection((Double) doubleFormatter(data[9]))
+                        .windGust((Double) doubleFormatter(data[10])).soilMoisture90cm((Double) doubleFormatter(data[11]))
+                        .leafMoisture((Double) doubleFormatter(data[12]))
+                        .soilTemperature0cm((Double) doubleFormatter(data[13])).airTemperature((Double) doubleFormatter(data[14]))
+                        .internalBatteryVoltage((Double) doubleFormatter(data[15]))
+                        .soilMoisture30cm((Double) doubleFormatter(data[16])).soilMoisture60cm((Double) doubleFormatter(data[17]))
+                        .lightUnit((Double) doubleFormatter(data[18])).soilMoisture120cm((Double) doubleFormatter(data[19]))
+                        .precipitationCounter((Double) doubleFormatter(data[20])).build();
                 list.add(temp);
             }
         } catch (IOException | ParseException e) {
@@ -148,19 +141,19 @@ public class InitDataLoader implements CommandLineRunner {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";", -1);
                 DailyData temp = DailyData.builder().date(format.parse(data[0]))
-                        .airHumidity(doubleFormatter(data[1])).airPressure(doubleFormatter(data[2]))
-                        .windSpeed(doubleFormatter(data[3]))
-                        .solarCellChargingVoltage(doubleFormatter(data[4]))
-                        .externalBatteryVoltage(doubleFormatter(data[5]))
-                        .irradiation(doubleFormatter(data[6])).freeze(doubleFormatter(data[7]))
-                        .rain(doubleFormatter(data[8])).windDirection(doubleFormatter(data[9]))
-                        .windGust(doubleFormatter(data[10])).soilMoisture90cm(doubleFormatter(data[11]))
-                        .leafMoisture(doubleFormatter(data[12]))
-                        .soilTemperature0cm(doubleFormatter(data[13])).airTemperature(doubleFormatter(data[14]))
-                        .internalBatteryVoltage(doubleFormatter(data[15]))
-                        .soilMoisture30cm(doubleFormatter(data[16])).soilMoisture60cm(doubleFormatter(data[17]))
-                        .lightUnit(doubleFormatter(data[18])).soilMoisture120cm(doubleFormatter(data[19]))
-                        .precipitationCounter(doubleFormatter(data[20])).build();
+                        .airHumidity((Double) doubleFormatter(data[1])).airPressure((Double) doubleFormatter(data[2]))
+                        .windSpeed((Double) doubleFormatter(data[3]))
+                        .solarCellChargingVoltage((Double) doubleFormatter(data[4]))
+                        .externalBatteryVoltage((Double) doubleFormatter(data[5]))
+                        .irradiation((Double) doubleFormatter(data[6])).freeze((Double) doubleFormatter(data[7]))
+                        .rain((Double) doubleFormatter(data[8])).windDirection((Double) doubleFormatter(data[9]))
+                        .windGust((Double) doubleFormatter(data[10])).soilMoisture90cm((Double) doubleFormatter(data[11]))
+                        .leafMoisture((Double) doubleFormatter(data[12]))
+                        .soilTemperature0cm((Double) doubleFormatter(data[13])).airTemperature((Double) doubleFormatter(data[14]))
+                        .internalBatteryVoltage((Double) doubleFormatter(data[15]))
+                        .soilMoisture30cm((Double) doubleFormatter(data[16])).soilMoisture60cm((Double) doubleFormatter(data[17]))
+                        .lightUnit((Double) doubleFormatter(data[18])).soilMoisture120cm((Double) doubleFormatter(data[19]))
+                        .precipitationCounter((Double) doubleFormatter(data[20])).build();
                 list.add(temp);
             }
         } catch (IOException | ParseException e) {
