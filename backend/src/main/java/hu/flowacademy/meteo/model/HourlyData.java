@@ -1,6 +1,5 @@
 package hu.flowacademy.meteo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +15,7 @@ import java.util.Date;
 @Entity
 public class HourlyData {
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     private Station station;
 
@@ -25,7 +24,6 @@ public class HourlyData {
     @JsonIgnore
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm", timezone = "UTC")
     private Date date;
     private Double airHumidity;
     private Double airPressure;

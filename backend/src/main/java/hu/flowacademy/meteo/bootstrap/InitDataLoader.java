@@ -78,9 +78,8 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     private List<MetDataDto> populateDataBase(String name, DateFormat format) throws IOException {
-        String line = "";
+        String line;
         List<MetDataDto> list = new ArrayList<>();
-
         BufferedReader br = new BufferedReader(new FileReader("src/main/resources/" + name + ".csv", StandardCharsets.UTF_8));
         br.readLine();
         while ((line = br.readLine()) != null) {
