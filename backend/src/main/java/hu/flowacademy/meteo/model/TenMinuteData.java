@@ -1,11 +1,13 @@
 package hu.flowacademy.meteo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Data
@@ -23,25 +25,26 @@ public class TenMinuteData {
     @JsonIgnore
     private int id;
 
-    private String date;
-    private String airHumidity;
-    private String airPressure;
-    private String windSpeed;
-    private String solarCellChargingVoltage;
-    private String externalBatteryVoltage;
-    private String irradiation;
-    private String freeze;
-    private String rain;
-    private String windDirection;
-    private String windGust;
-    private String soilMoisture90cm;
-    private String leafMoisture;
-    private String soilTemperature0cm;
-    private String airTemperature;
-    private String internalBatteryVoltage;
-    private String soilMoisture30cm;
-    private String soilMoisture60cm;
-    private String lightUnit;
-    private String soilMoisture120cm;
-    private String precipitationCounter;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Budapest")
+    private Date date;
+    private double airHumidity;
+    private double airPressure;
+    private double windSpeed;
+    private double solarCellChargingVoltage;
+    private double externalBatteryVoltage;
+    private double irradiation;
+    private int freeze;
+    private double rain;
+    private double windDirection;
+    private double windGust;
+    private double soilMoisture90cm;
+    private int leafMoisture;
+    private double soilTemperature0cm;
+    private double airTemperature;
+    private double internalBatteryVoltage;
+    private double soilMoisture30cm;
+    private double soilMoisture60cm;
+    private double lightUnit;
+    private double soilMoisture120cm;
+    private double precipitationCounter;
 }
