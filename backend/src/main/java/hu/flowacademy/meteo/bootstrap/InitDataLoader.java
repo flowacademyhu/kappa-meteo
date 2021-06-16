@@ -2,10 +2,12 @@ package hu.flowacademy.meteo.bootstrap;
 
 import hu.flowacademy.meteo.dto.MetDataDto;
 import hu.flowacademy.meteo.model.HourlyData;
+import hu.flowacademy.meteo.model.Station;
 import hu.flowacademy.meteo.model.TenMinuteData;
 import hu.flowacademy.meteo.repository.HourlyDataRepository;
 import hu.flowacademy.meteo.model.DailyData;
 import hu.flowacademy.meteo.repository.DailyDataRepository;
+import hu.flowacademy.meteo.repository.StationRepository;
 import hu.flowacademy.meteo.repository.TenMinuteDataRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,11 +34,12 @@ public class InitDataLoader implements CommandLineRunner {
     private final TenMinuteDataRepository tenMinutesRepository;
     private final HourlyDataRepository hourlyDataRepository;
     private final DailyDataRepository dailyDataRepository;
+    private final StationRepository stationRepository;
 
     DateFormat DATE_FORMAT_HU = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.forLanguageTag("HU-hu"));
     DateFormat DATE_FORMAT_HU_SPACED = new SimpleDateFormat("yyyy. MM. dd. HH:mm", Locale.forLanguageTag("HU-hu"));
 
-    String[] fileName = {"CSIHA_HQ_10perc", "CSIHA_HQ_orai", "CSIHA_HQ_napi"};
+    String[] fileName = {"CSIHA_HQ_10perc", "CSIHA_HQ_orai", "CSIHA_HQ_napi", "public_allomasok"};
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
@@ -49,6 +52,9 @@ public class InitDataLoader implements CommandLineRunner {
         }
         if (dailyDataRepository.count() == 0) {
             executeDailySave();
+        }
+        if (stationRepository.count() == 0) {
+            executeStationSave();
         }
     }
 
@@ -70,6 +76,11 @@ public class InitDataLoader implements CommandLineRunner {
         log.info("saved {} daily", daily.size());
     }
 
+    private void executeStationSave() throws IOException {
+        List<Station> stations = stationRepository.saveAll(populateStations(fileName[3]));
+        log.info("saved {} station", stations.size());
+    }
+
     public Object doubleFormatter(String str) {
         if (str.equals("")) {
             return null;
@@ -80,7 +91,7 @@ public class InitDataLoader implements CommandLineRunner {
     private List<MetDataDto> populateDataBase(String name, DateFormat format) throws IOException {
         String line;
         List<MetDataDto> list = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/" + name + ".csv", StandardCharsets.UTF_8));
+        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/" + name + ".csv", StandardCharsets.ISO_8859_1));
         br.readLine();
         while ((line = br.readLine()) != null) {
             try {
@@ -105,6 +116,26 @@ public class InitDataLoader implements CommandLineRunner {
                 System.out.println(e);
             }
         }
+        br.close();
+        return list;
+    }
+
+    private List<Station> populateStations(String name) throws IOException {
+        String line;
+        List<Station> list = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/" + name + ".csv", StandardCharsets.ISO_8859_1));
+        br.readLine();
+        while ((line = br.readLine()) != null) {
+            try {
+                String[] data = line.split(",", -1);
+                Station temp = Station.builder().name(data[0]).longitude((Double) doubleFormatter(data[1])).latitude((Double) doubleFormatter(data[2])).build();
+                list.add(temp);
+
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        br.close();
         return list;
     }
 }

@@ -19,7 +19,9 @@ public class Station {
     @Id
     @GeneratedValue
     private Long id;
-    private String stationLocation;
+    private String name;
+    private Double longitude;
+    private Double latitude;
 
     @OneToMany(mappedBy = "station")
     private List<TenMinuteData> tenMinuteData;
