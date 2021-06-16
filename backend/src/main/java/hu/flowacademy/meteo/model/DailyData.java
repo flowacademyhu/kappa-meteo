@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Data
@@ -43,4 +41,9 @@ public class DailyData {
     private String lightUnit;
     private String soilMoisture120cm;
     private String precipitationCounter;
+
+    @OneToOne
+    @JoinColumn
+    @JsonIgnore
+    private Station station;
 }

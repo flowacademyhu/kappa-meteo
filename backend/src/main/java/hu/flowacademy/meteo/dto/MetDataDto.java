@@ -1,24 +1,16 @@
-package hu.flowacademy.meteo.model;
+package hu.flowacademy.meteo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class TenMinuteData {
+public class MetDataDto {
 
-    @Id
-    @GeneratedValue
-    @JsonIgnore
-    private int id;
     private String date;
     private String airHumidity;
     private String airPressure;
@@ -40,9 +32,4 @@ public class TenMinuteData {
     private String lightUnit;
     private String soilMoisture120cm;
     private String precipitationCounter;
-
-    @OneToOne
-    @JoinColumn
-    @JsonIgnore
-    private Station station;
 }

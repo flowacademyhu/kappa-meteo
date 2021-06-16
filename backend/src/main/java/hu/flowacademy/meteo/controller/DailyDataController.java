@@ -4,9 +4,8 @@ import hu.flowacademy.meteo.model.DailyData;
 import hu.flowacademy.meteo.service.DailyDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,8 +13,8 @@ public class DailyDataController {
 
     private final DailyDataService dailyDataService;
 
-    @GetMapping("api/daily")
-    public List<DailyData> findAll() {
-        return dailyDataService.findAll();
+    @GetMapping("api/daily/{id}")
+    public DailyData findOne(@PathVariable Integer id) {
+        return dailyDataService.findOne(id);
     }
 }

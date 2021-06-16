@@ -6,15 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class TenMinuteDataService {
 
     private final TenMinuteDataRepository tenMinuteDataRepository;
-    public List<TenMinuteData> findAll() {
-        return tenMinuteDataRepository.findAll();
+
+    public TenMinuteData findOne(Integer id) {
+        return tenMinuteDataRepository.findByStationId(id);
     }
 }

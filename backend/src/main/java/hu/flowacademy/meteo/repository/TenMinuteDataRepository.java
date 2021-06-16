@@ -10,4 +10,6 @@ public interface TenMinuteDataRepository extends JpaRepository<TenMinuteData, In
 
     @Query("SELECT count(*) FROM TenMinuteData")
     int countTenMinuteData();
+
+    TenMinuteData findByStationId(Integer id);
 }

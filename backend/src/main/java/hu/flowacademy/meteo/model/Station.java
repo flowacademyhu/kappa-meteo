@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Data
 @Builder
@@ -19,7 +20,15 @@ public class Station {
 
     @Id
     @GeneratedValue
-    private int stationId;
+    private int id;
     private String stationLocation;
-    
+
+    @OneToOne(mappedBy = "station")
+    private TenMinuteData tenMinuteData;
+
+    @OneToOne(mappedBy = "station")
+    private HourlyData hourlyData;
+
+    @OneToOne(mappedBy = "station")
+    private DailyData dailyData;
 }

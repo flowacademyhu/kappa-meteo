@@ -10,4 +10,6 @@ public interface HourlyDataRepository extends JpaRepository<HourlyData, Integer>
 
     @Query("SELECT count(*) FROM HourlyData")
     int countHourlyData();
+
+    HourlyData findByStationId(Integer id);
 }

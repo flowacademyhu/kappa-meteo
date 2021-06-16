@@ -10,4 +10,6 @@ public interface DailyDataRepository extends JpaRepository<DailyData, Integer> {
 
     @Query("SELECT count(*) FROM DailyData")
     int countDailyData();
+
+    DailyData findByStationId(Integer id);
 }
