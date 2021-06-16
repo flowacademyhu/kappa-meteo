@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import MyPopup from '../Popup/MyPopup.js';
@@ -11,9 +11,22 @@ const StyledMapContainer = styled(MapContainer)`
 `;
 
 export default function Map() {
-  // , { useState }
-  // let [latitude, setLatitude] = useState();
-  // let [longitude, setLongitude] = useState();
+
+ const [latitude, setLatitude] = useState();
+ const [longitude, setLongitude] = useState();
+ const [coordinates,setCoordinates] = useState([]);
+
+ useEffect(async () => {
+  try {
+    const response = await axios.get(
+      "https://api.exchangerate.host/latest?base=huf"
+    );
+    setLatitude(response.data.);
+    setLongitude(response.data.)
+  } catch (error) {
+    console.error(error);
+  }
+}, []);
 
   return (
     <StyledMapContainer
@@ -25,7 +38,7 @@ export default function Map() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[46.255973, 20.14187]} icon={MyIcon}>
+      <Marker position={[latitude, longitude]} icon={MyIcon}>
         <MyPopup />
       </Marker>
     </StyledMapContainer>
