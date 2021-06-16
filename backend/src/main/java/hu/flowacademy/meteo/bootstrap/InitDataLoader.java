@@ -32,13 +32,13 @@ public class InitDataLoader implements CommandLineRunner {
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public void run(String... args) throws Exception {
-        if (tenMinutesRepository.findAll().size() == 0) {
+        if (tenMinutesRepository.countTenMinuteData() == 0) {
             List<TenMinuteData> tenMinuteDataList = executeTenMinutesSave();
         }
-        if (hourlyDataRepository.findAll().size() == 0) {
+        if (hourlyDataRepository.countHourlyData() == 0) {
             List<HourlyData> hourlyDataList = executeHourlyDataSave();
         }
-        if (dailyDataRepository.findAll().size() == 0) {
+        if (dailyDataRepository.countDailyData() == 0) {
             List<DailyData> dailyData = executeDailySave();
         }
     }
