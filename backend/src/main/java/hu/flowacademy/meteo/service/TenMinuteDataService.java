@@ -14,6 +14,7 @@ import java.util.List;
 public class TenMinuteDataService {
 
     private final TenMinuteDataRepository tenMinuteDataRepository;
+
     public List<TenMinuteData> findAll() {
         return tenMinuteDataRepository.findAll();
     }
