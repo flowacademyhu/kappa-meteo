@@ -1,8 +1,8 @@
 import L from 'leaflet';
+import sunicon from './sun.png'
 
 const MyIcon = new L.icon({
-  iconUrl:
-    'https://previews.123rf.com/images/zo3listic/zo3listic1906/zo3listic190600257/125378576-sun-icon-sun-vector-icon.jpg',
+  iconUrl: sunicon,
   iconSize: [64, 64],
 });
 

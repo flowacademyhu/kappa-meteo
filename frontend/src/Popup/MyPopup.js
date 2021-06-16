@@ -1,8 +1,6 @@
 import { Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+
 export default function MyPopup() {
-  return (
-    <Popup>
-      Jó lesz ez srácok <br /> Menni fog ez!
-    </Popup>
-  );
+  return <Popup></Popup>;
 }
