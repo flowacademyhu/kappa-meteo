@@ -8,9 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
-
 
 @Data
 @Builder
@@ -27,7 +25,6 @@ public class DailyData {
     @GeneratedValue
     @JsonIgnore
     private int id;
-
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Budapest")
     private Date date;

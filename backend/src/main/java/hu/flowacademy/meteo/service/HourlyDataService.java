@@ -4,16 +4,16 @@ import hu.flowacademy.meteo.model.HourlyData;
 import hu.flowacademy.meteo.repository.HourlyDataRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class HourlyDataService {
 
     private final HourlyDataRepository hourlyDataRepository;
 
-    public List<HourlyData> findAll() {
-        return hourlyDataRepository.findAll();
+    public HourlyData findOne(Integer id) {
+        return hourlyDataRepository.findByStationId(id);
     }
 }

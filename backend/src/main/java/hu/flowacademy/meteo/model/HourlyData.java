@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -48,4 +47,5 @@ public class HourlyData {
     private double lightUnit;
     private double soilMoisture120cm;
     private double precipitationCounter;
+
 }

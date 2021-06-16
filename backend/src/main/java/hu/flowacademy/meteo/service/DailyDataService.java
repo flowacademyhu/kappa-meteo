@@ -5,16 +5,16 @@ import hu.flowacademy.meteo.model.DailyData;
 import hu.flowacademy.meteo.repository.DailyDataRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class DailyDataService {
 
     private final DailyDataRepository dailyDataRepository;
 
-    public List<DailyData> findAll() {
-        return dailyDataRepository.findAll();
+    public DailyData findOne(Integer id) {
+        return dailyDataRepository.findByStationId(id);
     }
 }
