@@ -43,14 +43,12 @@ public class InitDataLoader implements CommandLineRunner {
         }
     }
 
-    @Transactional
     private List<TenMinuteData> executeTenMinutesSave() {
         List<TenMinuteData> tenMinutes = tenMinutesRepository.saveAll(populateTenMinutes());
         log.info("saved {} tenminutes", tenMinutes.size());
         return tenMinutes;
     }
 
-    @Transactional
     private List<HourlyData> executeHourlyDataSave() {
         List<HourlyData> hourlyDataList = hourlyDataRepository.saveAll(populateHourlyData());
         log.info("saved {} hourly", hourlyDataList.size());
