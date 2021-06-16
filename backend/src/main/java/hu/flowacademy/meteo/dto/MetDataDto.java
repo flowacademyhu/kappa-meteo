@@ -14,26 +14,26 @@ import java.util.Date;
 @NoArgsConstructor
 public class MetDataDto {
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm", timezone = "Europe/Budapest")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm", timezone = "UTC")
     private Date date;
-    private double airHumidity;
-    private double airPressure;
-    private double windSpeed;
-    private double solarCellChargingVoltage;
-    private double externalBatteryVoltage;
-    private double irradiation;
-    private int freeze;
-    private double rain;
-    private double windDirection;
-    private double windGust;
-    private double soilMoisture90cm;
-    private int leafMoisture;
-    private double soilTemperature0cm;
-    private double airTemperature;
-    private double internalBatteryVoltage;
-    private double soilMoisture30cm;
-    private double soilMoisture60cm;
-    private double lightUnit;
-    private int soilMoisture120cm;
+    private Double airHumidity;
+    private Double airPressure;
+    private Double windSpeed;
+    private Double solarCellChargingVoltage;
+    private Double externalBatteryVoltage;
+    private Double irradiation;
+    private Double freeze;
+    private Double rain;
+    private Double windDirection;
+    private Double windGust;
+    private Double soilMoisture90cm;
+    private Double leafMoisture;
+    private Double soilTemperature0cm;
+    private Double airTemperature;
+    private Double internalBatteryVoltage;
+    private Double soilMoisture30cm;
+    private Double soilMoisture60cm;
+    private Double lightUnit;
+    private Double soilMoisture120cm;
     private int precipitationCounter;
 }
