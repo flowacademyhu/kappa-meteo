@@ -11,10 +11,6 @@ const StyledMapContainer = styled(MapContainer)`
 `;
 
 export default function Map() {
-  // , { useState }
-  // let [latitude, setLatitude] = useState();
-  // let [longitude, setLongitude] = useState();
-
   return (
     <StyledMapContainer
       center={[46.255973, 20.14187]}
