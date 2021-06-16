@@ -40,7 +40,7 @@ public class InitDataLoader implements CommandLineRunner {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws IOException {
         if (tenMinutesRepository.count() == 0) {
             executeTenMinutesSave();
         }
@@ -52,19 +52,19 @@ public class InitDataLoader implements CommandLineRunner {
         }
     }
 
-    private void executeTenMinutesSave() {
+    private void executeTenMinutesSave() throws IOException {
         List<TenMinuteData> tenMinutes = tenMinutesRepository.saveAll(populateDataBase(fileName[0], DATE_FORMAT_HU)
                 .stream().map(MetDataDto::toTenEntity).collect(Collectors.toList()));
         log.info("saved {} tenminutes", tenMinutes.size());
     }
 
-    private void executeHourlyDataSave() {
+    private void executeHourlyDataSave() throws IOException {
         List<HourlyData> hourlyDataList = hourlyDataRepository.saveAll(populateDataBase(fileName[1], DATE_FORMAT_HU_SPACED)
                 .stream().map(MetDataDto::toHourlyEntity).collect(Collectors.toList()));
         log.info("saved {} hourly", hourlyDataList.size());
     }
 
-    private void executeDailySave() {
+    private void executeDailySave() throws IOException {
         List<DailyData> daily = dailyDataRepository.saveAll(populateDataBase(fileName[2], DATE_FORMAT_HU)
                 .stream().map(MetDataDto::toDailyEntity).collect(Collectors.toList()));
         log.info("saved {} daily", daily.size());
@@ -77,13 +77,14 @@ public class InitDataLoader implements CommandLineRunner {
         return Double.parseDouble(str.replace(",", "."));
     }
 
-    private List<MetDataDto> populateDataBase(String name, DateFormat format) {
+    private List<MetDataDto> populateDataBase(String name, DateFormat format) throws IOException {
         String line = "";
         List<MetDataDto> list = new ArrayList<>();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/" + name + ".csv", StandardCharsets.UTF_8));
-            br.readLine();
-            while ((line = br.readLine()) != null) {
+
+        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/" + name + ".csv", StandardCharsets.UTF_8));
+        br.readLine();
+        while ((line = br.readLine()) != null) {
+            try {
                 String[] data = line.split(";", -1);
                 MetDataDto temp = MetDataDto.builder().date(format.parse(data[0]))
                         .airHumidity((Double) doubleFormatter(data[1])).airPressure((Double) doubleFormatter(data[2]))
@@ -100,9 +101,10 @@ public class InitDataLoader implements CommandLineRunner {
                         .lightUnit((Double) doubleFormatter(data[18])).soilMoisture120cm((Double) doubleFormatter(data[19]))
                         .precipitationCounter((Double) doubleFormatter(data[20])).build();
                 list.add(temp);
+
+            } catch (NumberFormatException | ParseException e) {
+                System.out.println(e);
             }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
         }
         return list;
     }

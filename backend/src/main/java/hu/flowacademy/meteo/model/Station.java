@@ -20,7 +20,7 @@ public class Station {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     private String stationLocation;
 
     @OneToOne(mappedBy = "station")

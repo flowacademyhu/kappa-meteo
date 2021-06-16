@@ -24,7 +24,7 @@ public class DailyData {
     @Id
     @GeneratedValue
     @JsonIgnore
-    private long id;
+    private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm", timezone = "UTC")
     private Date date;
