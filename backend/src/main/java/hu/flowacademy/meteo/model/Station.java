@@ -31,5 +31,4 @@ public class Station {
 
     @OneToOne(mappedBy = "station")
     private DailyData dailyData;
-
 }

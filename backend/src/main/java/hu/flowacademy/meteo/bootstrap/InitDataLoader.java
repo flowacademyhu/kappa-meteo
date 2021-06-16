@@ -16,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -23,11 +26,9 @@ import java.util.*;
 @RequiredArgsConstructor
 public class InitDataLoader implements CommandLineRunner {
 
-
     private final TenMinuteDataRepository tenMinutesRepository;
     private final HourlyDataRepository hourlyDataRepository;
     private final DailyDataRepository dailyDataRepository;
-
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
@@ -61,6 +62,23 @@ public class InitDataLoader implements CommandLineRunner {
         return daily;
     }
 
+    DateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.forLanguageTag("HU-hu"));
+    DateFormat format2 = new SimpleDateFormat("yyyy. MM. dd. HH:mm", Locale.forLanguageTag("HU-hu"));
+
+    public double doubleFormatter(String str) {
+        if (str.equals("")) {
+            str = "0.0";
+        }
+        return Double.parseDouble(str.replace(",", "."));
+    }
+
+    public int intFormatter(String str) {
+        if (str.equals("")) {
+            str = "0";
+        }
+        return Integer.parseInt(str.replace(",", "."));
+    }
+
     private List<TenMinuteData> populateTenMinutes() {
         String line = "";
         List<TenMinuteData> list = new ArrayList<>();
@@ -69,17 +87,23 @@ public class InitDataLoader implements CommandLineRunner {
             br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";", -1);
-                TenMinuteData temp = TenMinuteData.builder().date(data[0])
-                        .airHumidity(data[1]).airPressure(data[2]).windSpeed(data[3])
-                        .solarCellChargingVoltage(data[4]).externalBatteryVoltage(data[5])
-                        .irradiation(data[6]).freeze(data[7]).rain(data[8]).windDirection(data[9])
-                        .windGust(data[10]).soilMoisture90cm(data[11]).leafMoisture(data[12])
-                        .soilTemperature0cm(data[13]).airTemperature(data[14]).internalBatteryVoltage(data[15])
-                        .soilMoisture30cm(data[16]).soilMoisture60cm(data[17]).lightUnit(data[18]).soilMoisture120cm(data[19])
-                        .precipitationCounter(data[20]).build();
+                TenMinuteData temp = TenMinuteData.builder().date(format.parse(data[0]))
+                        .airHumidity(doubleFormatter(data[1])).airPressure(doubleFormatter(data[2]))
+                        .windSpeed(doubleFormatter(data[3]))
+                        .solarCellChargingVoltage(doubleFormatter(data[4]))
+                        .externalBatteryVoltage(doubleFormatter(data[5]))
+                        .irradiation(doubleFormatter(data[6])).freeze(doubleFormatter(data[7]))
+                        .rain(doubleFormatter(data[8])).windDirection(doubleFormatter(data[9]))
+                        .windGust(doubleFormatter(data[10])).soilMoisture90cm(doubleFormatter(data[11]))
+                        .leafMoisture(doubleFormatter(data[12]))
+                        .soilTemperature0cm(doubleFormatter(data[13])).airTemperature(doubleFormatter(data[14]))
+                        .internalBatteryVoltage(doubleFormatter(data[15]))
+                        .soilMoisture30cm(doubleFormatter(data[16])).soilMoisture60cm(doubleFormatter(data[17]))
+                        .lightUnit(doubleFormatter(data[18])).soilMoisture120cm(doubleFormatter(data[19]))
+                        .precipitationCounter(doubleFormatter(data[20])).build();
                 list.add(temp);
             }
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
         return list;
@@ -87,26 +111,32 @@ public class InitDataLoader implements CommandLineRunner {
 
     private List<HourlyData> populateHourlyData() {
         String line = "";
-        List<HourlyData> hourlyDataList = new ArrayList<>();
+        List<HourlyData> list = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/resources/CSIHA_HQ_orai.csv"));
             br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";", -1);
-                HourlyData temp = HourlyData.builder().date(data[0])
-                        .airHumidity(data[1]).airPressure(data[2]).windSpeed(data[3])
-                        .solarCellChargingVoltage(data[4]).externalBatteryVoltage(data[5])
-                        .irradiation(data[6]).freeze(data[7]).rain(data[8]).windDirection(data[9])
-                        .windGust(data[10]).soilMoisture90cm(data[11]).leafMoisture(data[12])
-                        .soilTemperature0cm(data[13]).airTemperature(data[14]).internalBatteryVoltage(data[15])
-                        .soilMoisture30cm(data[16]).soilMoisture60cm(data[17]).lightUnit(data[18]).soilMoisture120cm(data[19])
-                        .precipitationCounter(data[20]).build();
-                hourlyDataList.add(temp);
+                HourlyData temp = HourlyData.builder().date(format2.parse(data[0]))
+                        .airHumidity(doubleFormatter(data[1])).airPressure(doubleFormatter(data[2]))
+                        .windSpeed(doubleFormatter(data[3]))
+                        .solarCellChargingVoltage(doubleFormatter(data[4]))
+                        .externalBatteryVoltage(doubleFormatter(data[5]))
+                        .irradiation(doubleFormatter(data[6])).freeze(doubleFormatter(data[7]))
+                        .rain(doubleFormatter(data[8])).windDirection(doubleFormatter(data[9]))
+                        .windGust(doubleFormatter(data[10])).soilMoisture90cm(doubleFormatter(data[11]))
+                        .leafMoisture(doubleFormatter(data[12]))
+                        .soilTemperature0cm(doubleFormatter(data[13])).airTemperature(doubleFormatter(data[14]))
+                        .internalBatteryVoltage(doubleFormatter(data[15]))
+                        .soilMoisture30cm(doubleFormatter(data[16])).soilMoisture60cm(doubleFormatter(data[17]))
+                        .lightUnit(doubleFormatter(data[18])).soilMoisture120cm(doubleFormatter(data[19]))
+                        .precipitationCounter(doubleFormatter(data[20])).build();
+                list.add(temp);
             }
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-        return hourlyDataList;
+        return list;
     }
 
     private List<DailyData> populateDaily() {
@@ -117,17 +147,23 @@ public class InitDataLoader implements CommandLineRunner {
             br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";", -1);
-                DailyData temp = DailyData.builder().date(data[0])
-                        .airHumidity(data[1]).airPressure(data[2]).windSpeed(data[3])
-                        .solarCellChargingVoltage(data[4]).externalBatteryVoltage(data[5])
-                        .irradiation(data[6]).freeze(data[7]).rain(data[8]).windDirection(data[9])
-                        .windGust(data[10]).soilMoisture90cm(data[11]).leafMoisture(data[12])
-                        .soilTemperature0cm(data[13]).airTemperature(data[14]).internalBatteryVoltage(data[15])
-                        .soilMoisture30cm(data[16]).soilMoisture60cm(data[17]).lightUnit(data[18]).soilMoisture120cm(data[19])
-                        .precipitationCounter(data[20]).build();
+                DailyData temp = DailyData.builder().date(format.parse(data[0]))
+                        .airHumidity(doubleFormatter(data[1])).airPressure(doubleFormatter(data[2]))
+                        .windSpeed(doubleFormatter(data[3]))
+                        .solarCellChargingVoltage(doubleFormatter(data[4]))
+                        .externalBatteryVoltage(doubleFormatter(data[5]))
+                        .irradiation(doubleFormatter(data[6])).freeze(doubleFormatter(data[7]))
+                        .rain(doubleFormatter(data[8])).windDirection(doubleFormatter(data[9]))
+                        .windGust(doubleFormatter(data[10])).soilMoisture90cm(doubleFormatter(data[11]))
+                        .leafMoisture(doubleFormatter(data[12]))
+                        .soilTemperature0cm(doubleFormatter(data[13])).airTemperature(doubleFormatter(data[14]))
+                        .internalBatteryVoltage(doubleFormatter(data[15]))
+                        .soilMoisture30cm(doubleFormatter(data[16])).soilMoisture60cm(doubleFormatter(data[17]))
+                        .lightUnit(doubleFormatter(data[18])).soilMoisture120cm(doubleFormatter(data[19]))
+                        .precipitationCounter(doubleFormatter(data[20])).build();
                 list.add(temp);
             }
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
         return list;

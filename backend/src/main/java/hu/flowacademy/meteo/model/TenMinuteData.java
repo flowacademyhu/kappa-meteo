@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -24,7 +25,7 @@ public class TenMinuteData {
     @JsonIgnore
     private int id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Budapest")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm", timezone = "UTC")
     private Date date;
     private double airHumidity;
     private double airPressure;
@@ -32,12 +33,12 @@ public class TenMinuteData {
     private double solarCellChargingVoltage;
     private double externalBatteryVoltage;
     private double irradiation;
-    private int freeze;
+    private double freeze;
     private double rain;
     private double windDirection;
     private double windGust;
     private double soilMoisture90cm;
-    private int leafMoisture;
+    private double leafMoisture;
     private double soilTemperature0cm;
     private double airTemperature;
     private double internalBatteryVoltage;
