@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import MyPopup from '../Popup/MyPopup.js';
 import MyIcon from '../Icon/MyIcon';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
@@ -11,22 +12,19 @@ const StyledMapContainer = styled(MapContainer)`
 `;
 
 export default function Map() {
+ // const [latitude, setLatitude] = useState();
+ // const [longitude, setLongitude] = useState();
+  const [coordinates, setCoordinates] = useState([]);
 
- const [latitude, setLatitude] = useState();
- const [longitude, setLongitude] = useState();
- const [coordinates,setCoordinates] = useState([]);
-
- useEffect(async () => {
-  try {
-    const response = await axios.get(
-      "https://api.exchangerate.host/latest?base=huf"
-    );
-    setLatitude(response.data.);
-    setLongitude(response.data.)
-  } catch (error) {
-    console.error(error);
-  }
-}, []);
+  useEffect(async () => {
+    try {
+      const response = await axios.get('http://localhost:8081/api/coordinates');
+      setCoordinates(response.data);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   return (
     <StyledMapContainer
@@ -38,7 +36,10 @@ export default function Map() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[latitude, longitude]} icon={MyIcon}>
+      <Marker
+        position={[coordinates[1].latitude, coordinates[1].longitude]}
+        icon={MyIcon}
+      >
         <MyPopup />
       </Marker>
     </StyledMapContainer>
