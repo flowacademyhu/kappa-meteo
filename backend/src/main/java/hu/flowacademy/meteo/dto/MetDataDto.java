@@ -1,6 +1,5 @@
 package hu.flowacademy.meteo.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import hu.flowacademy.meteo.model.DailyData;
 import hu.flowacademy.meteo.model.HourlyData;
 import hu.flowacademy.meteo.model.TenMinuteData;
@@ -17,7 +16,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class MetDataDto {
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm", timezone = "UTC")
     private Date date;
     private Double airHumidity;
     private Double airPressure;
