@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import sunicon from './sun.png'
+import sunicon from './sun.png';
 
 const MyIcon = new L.icon({
   iconUrl: sunicon,
