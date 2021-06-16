@@ -41,13 +41,13 @@ public class InitDataLoader implements CommandLineRunner {
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public void run(String... args) {
-        if (tenMinutesRepository.countTenMinuteData() == 0) {
+        if (tenMinutesRepository.count() == 0) {
             executeTenMinutesSave();
         }
-        if (hourlyDataRepository.countHourlyData() == 0) {
+        if (hourlyDataRepository.count() == 0) {
             executeHourlyDataSave();
         }
-        if (dailyDataRepository.countDailyData() == 0) {
+        if (dailyDataRepository.count() == 0) {
             executeDailySave();
         }
     }
