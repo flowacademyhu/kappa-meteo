@@ -10,15 +10,19 @@ const data = [
   { argument: 1, value: 10 },
   { argument: 2, value: 20 },
   { argument: 3, value: 30 },
+  { argument: 4, value: 40 },
+  { argument: 5, value: 50 },
 ];
 
 export default () => (
-  <Paper>
-    <Chart data={data}>
-      <ArgumentAxis />
-      <ValueAxis />
+  <div className="row row-cols-1 row-cols-md-1 g-5 m-2">
+    <Paper>
+      <Chart data={data}>
+        <ArgumentAxis />
+        <ValueAxis />
 
-      <LineSeries valueField="value" argumentField="argument" />
-    </Chart>
-  </Paper>
+        <LineSeries valueField="value" argumentField="argument" />
+      </Chart>
+    </Paper>
+  </div>
 );
