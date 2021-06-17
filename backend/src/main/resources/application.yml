@@ -1,3 +1,8 @@
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
 server:
   port: 8081
 spring:
@@ -9,3 +14,5 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: create-drop # create, create-drop, update, validate, none
+      show_sql: true
+      format_sql: true
