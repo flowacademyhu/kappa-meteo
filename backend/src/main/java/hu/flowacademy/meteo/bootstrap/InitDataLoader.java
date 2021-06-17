@@ -130,7 +130,6 @@ public class InitDataLoader implements CommandLineRunner {
                 String[] data = line.split(",", -1);
                 Station temp = Station.builder().name(data[0]).longitude((Double) doubleFormatter(data[1])).latitude((Double) doubleFormatter(data[2])).build();
                 list.add(temp);
-
             } catch (NumberFormatException e) {
                 log.error("Error while reading at the line: {}", br.readLine());
             }
