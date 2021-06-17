@@ -11,9 +11,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class BaseData {
+@MappedSuperclass
+public abstract class BaseData {
 
     @Id
     @GeneratedValue
