@@ -23,25 +23,30 @@ export default function Map() {
       .catch((error) => console.log(error));
   }, []);
 
-
   const generateCordinate = (coordinates) => {
-    currentCoordinates = coordinates.map((e) => {
-      console.log(e);
-      return (
-        <>
-          <Marker
-            key={e.id}
-            position={[
-              parseInt(e.latitude).toFixed(6),
-              parseInt(e.longitude).toFixed(6),
-            ]}
-            icon={MyIcon}
-          >
-            <MyPopup />
-          </Marker>
-        </>
-      );
-    });
+    return (
+      <>
+        {coordinates
+          .filter(
+            (e) =>
+              !isNaN(parseFloat(e.latitude)) && !isNaN(parseFloat(e.longitude))
+          )
+          .map((e) => (
+            <Marker
+              key={e.id}
+              name={e.name}
+              position={[parseFloat(e.longitude), parseFloat(e.latitude)]}
+              icon={MyIcon}
+            >
+              <MyPopup
+                name={e.name}
+                latitude={e.latitude}
+                longitude={e.longitude}
+              ></MyPopup>
+            </Marker>
+          ))}
+      </>
+    );
   };
   let currentCoordinates = generateCordinate(coordinates);
 

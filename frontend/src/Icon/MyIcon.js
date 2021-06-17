@@ -1,8 +1,8 @@
 import L from 'leaflet';
-import sunicon from './sun.png';
+import radaricon from './radar.jpg';
 
 const MyIcon = new L.icon({
-  iconUrl: sunicon,
+  iconUrl: radaricon,
   iconSize: [64, 64],
 });
 
