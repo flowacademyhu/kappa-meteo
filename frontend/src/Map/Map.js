@@ -12,33 +12,39 @@ const StyledMapContainer = styled(MapContainer)`
 `;
 
 export default function Map() {
-  // const [latitude, setLatitude] = useState();
-  // const [longitude, setLongitude] = useState();
-  let [coordinates, setCoordinates] = useState();
-  // callback nem lehet async és csináljak DOM function-t
-  useEffect(async () => {
-    try {
-      const response = await axios.get('http://localhost:8081/api/coordinates');
-      setCoordinates(response.data);
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+  const [coordinates, setCoordinates] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8081/api/coordinates')
+      .then((response) => {
+        setCoordinates(response.data);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
-  // useEffect(() => {
-  //   async function fetchMyAPI() {
-  //     const response = await axios.get('http://localhost:8081/api/coordinates');
-  //     // response = await response.json()
-  //     console.log(response.data);
-  //     setCoordinates(response.data);
-  //   }
-  //   if (!coordinates) {
-  //     //  fetchMyAPI();
-  //   }
-  // }, []);
 
-  // const generateCordinate = () => {};
+  const generateCordinate = (coordinates) => {
+    currentCoordinates = coordinates.map((e) => {
+      console.log(e);
+      return (
+        <>
+          <Marker
+            key={e.id}
+            position={[
+              parseInt(e.latitude).toFixed(6),
+              parseInt(e.longitude).toFixed(6),
+            ]}
+            icon={MyIcon}
+          >
+            <MyPopup />
+          </Marker>
+        </>
+      );
+    });
+  };
+  let currentCoordinates = generateCordinate(coordinates);
+
   return (
     <StyledMapContainer
       center={[46.255973, 20.14187]}
@@ -49,16 +55,7 @@ export default function Map() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker
-        // [parseInt(coordinates[1].latitude), parseInt(coordinates[1].longitude)]
-        position={[
-          parseInt(coordinates[1].latitude).toFixed(6),
-          parseInt(coordinates[1].longitude).toFixed(6),
-        ]}
-        icon={MyIcon}
-      >
-        <MyPopup />
-      </Marker>
+      {currentCoordinates}
     </StyledMapContainer>
   );
 }
