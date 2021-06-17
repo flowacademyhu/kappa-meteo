@@ -5,46 +5,46 @@ import { IconContext } from 'react-icons';
 
 export default function Dashboard() {
   return (
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card h-100">
+    <div className="row row-cols-1 row-cols-md-3 g-4">
+      <div className="col">
+        <div className="card h-100">
           <IconContext.Provider value={{ color: '#c54b3c' }}>
             <WiThermometer size={100} />
           </IconContext.Provider>
-          <div class="card-body">
-            <h5 class="card-title">Hőmérséklet</h5>
-            <p class="card-text">0 Celsius</p>
+          <div className="card-body">
+            <h5 className="card-title">Hőmérséklet</h5>
+            <p className="card-text">0 &#8451;</p>
           </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 10 mins ago</small>
+          <div className="card-footer">
+            <small>Utolsó 10 percben mért adatok</small>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card h-100">
+      <div className="col">
+        <div className="card h-100">
           <IconContext.Provider value={{ color: '#c54b3c' }}>
             <WiHumidity size={100} />
           </IconContext.Provider>
-          <div class="card-body">
-            <h5 class="card-title">Páratartalom</h5>
-            <p class="card-text">0 %</p>
+          <div className="card-body">
+            <h5 className="card-title">Páratartalom</h5>
+            <p className="card-text">0 %</p>
           </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 10 mins ago</small>
+          <div className="card-footer">
+            <small>Utolsó 10 percben mért adatok</small>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card h-100">
+      <div className="col">
+        <div className="card h-100">
           <IconContext.Provider value={{ color: '#c54b3c' }}>
             <VscDashboard size={100} />
           </IconContext.Provider>
-          <div class="card-body">
-            <h5 class="card-title">Szélerősség</h5>
-            <p class="card-text">0 km/h</p>
+          <div className="card-body">
+            <h5 className="card-title">Szélerősség</h5>
+            <p className="card-text">0 km/h</p>
           </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 10 mins ago</small>
+          <div className="card-footer">
+            <small>Utolsó 10 percben mért adatok</small>
           </div>
         </div>
       </div>

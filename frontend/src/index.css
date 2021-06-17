@@ -5,9 +5,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h5.card-title {
+  color: #c54b3c;
+}
+
+p.card-text {
+  color: #c54b3c;
+}
+
+small {
+  color: #c54b3c !important;
 }
