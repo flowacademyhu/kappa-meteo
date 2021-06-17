@@ -15,14 +15,16 @@ const data = [
 ];
 
 export default () => (
+  <div className="container">
   <div className="row row-cols-1 row-cols-md-1 g-5 m-2">
     <Paper>
       <Chart data={data}>
         <ArgumentAxis />
         <ValueAxis />
 
-        <LineSeries valueField="value" argumentField="argument" />
+        <LineSeries color="#c54b3c" valueField="value" argumentField="argument" />
       </Chart>
     </Paper>
+  </div>
   </div>
 );

@@ -27,7 +27,7 @@ export default function Dashboard() {
       <div className="row row-cols-1 row-cols-md-3 g-4 m-2">
         <div className="col">
           <div className="zoom">
-            <div className="card h-100">
+            <div className="card">
               <IconContext.Provider value={{ color: '#c54b3c' }}>
                 <WiThermometer size={100} />
               </IconContext.Provider>
@@ -43,7 +43,7 @@ export default function Dashboard() {
         </div>
         <div className="col">
           <div className="zoom">
-            <div className="card h-100">
+            <div className="card">
               <IconContext.Provider value={{ color: '#c54b3c' }}>
                 <WiHumidity size={100} />
               </IconContext.Provider>
@@ -59,7 +59,7 @@ export default function Dashboard() {
         </div>
         <div className="col">
           <div className="zoom">
-            <div className="card h-100">
+            <div className="card">
               <IconContext.Provider value={{ color: '#c54b3c' }}>
                 <VscDashboard size={100} />
               </IconContext.Provider>
