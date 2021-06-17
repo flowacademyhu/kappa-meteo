@@ -12,10 +12,10 @@ const StyledMapContainer = styled(MapContainer)`
 `;
 
 export default function Map() {
- // const [latitude, setLatitude] = useState();
- // const [longitude, setLongitude] = useState();
-  const [coordinates, setCoordinates] = useState([]);
-
+  // const [latitude, setLatitude] = useState();
+  // const [longitude, setLongitude] = useState();
+  let [coordinates, setCoordinates] = useState();
+  // callback nem lehet async és csináljak DOM function-t
   useEffect(async () => {
     try {
       const response = await axios.get('http://localhost:8081/api/coordinates');
@@ -26,6 +26,19 @@ export default function Map() {
     }
   }, []);
 
+  // useEffect(() => {
+  //   async function fetchMyAPI() {
+  //     const response = await axios.get('http://localhost:8081/api/coordinates');
+  //     // response = await response.json()
+  //     console.log(response.data);
+  //     setCoordinates(response.data);
+  //   }
+  //   if (!coordinates) {
+  //     //  fetchMyAPI();
+  //   }
+  // }, []);
+
+  // const generateCordinate = () => {};
   return (
     <StyledMapContainer
       center={[46.255973, 20.14187]}
@@ -37,7 +50,11 @@ export default function Map() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker
-        position={[coordinates[1].latitude, coordinates[1].longitude]}
+        // [parseInt(coordinates[1].latitude), parseInt(coordinates[1].longitude)]
+        position={[
+          parseInt(coordinates[1].latitude).toFixed(6),
+          parseInt(coordinates[1].longitude).toFixed(6),
+        ]}
         icon={MyIcon}
       >
         <MyPopup />
