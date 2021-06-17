@@ -13,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -38,10 +36,8 @@ public class InitDataLoader implements CommandLineRunner {
 
     private static final DateFormat DATE_FORMAT_HU = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.forLanguageTag("HU-hu"));
     private static final DateFormat DATE_FORMAT_HU_SPACED = new SimpleDateFormat("yyyy. MM. dd. HH:mm", Locale.forLanguageTag("HU-hu"));
+    private static final String[] FILENAME = {"CSIHA_HQ_10perc", "CSIHA_HQ_orai", "CSIHA_HQ_napi", "public_allomasok"};
 
-    String[] FILENAME = {"CSIHA_HQ_10perc", "CSIHA_HQ_orai", "CSIHA_HQ_napi", "public_allomasok"};
-
-    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public void run(String... args) throws IOException {
         if (tenMinutesRepository.count() == 0) {
@@ -59,25 +55,25 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     private void executeTenMinutesSave() throws IOException {
-        List<TenMinuteData> tenMinutes = tenMinutesRepository.saveAll(populateDataBase(FILENAME[0], DATE_FORMAT_HU)
+        List<TenMinuteData> tenMinutes = tenMinutesRepository.saveAll(populateDataBase(csvData(FILENAME[0]), DATE_FORMAT_HU)
                 .stream().map(MetDataDto::toTenEntity).collect(Collectors.toList()));
         log.info("saved {} tenminutes", tenMinutes.size());
     }
 
     private void executeHourlyDataSave() throws IOException {
-        List<HourlyData> hourlyDataList = hourlyDataRepository.saveAll(populateDataBase(FILENAME[1], DATE_FORMAT_HU_SPACED)
+        List<HourlyData> hourlyDataList = hourlyDataRepository.saveAll(populateDataBase(csvData(FILENAME[1]), DATE_FORMAT_HU_SPACED)
                 .stream().map(MetDataDto::toHourlyEntity).collect(Collectors.toList()));
         log.info("saved {} hourly", hourlyDataList.size());
     }
 
     private void executeDailySave() throws IOException {
-        List<DailyData> daily = dailyDataRepository.saveAll(populateDataBase(FILENAME[2], DATE_FORMAT_HU)
+        List<DailyData> daily = dailyDataRepository.saveAll(populateDataBase(csvData(FILENAME[2]), DATE_FORMAT_HU)
                 .stream().map(MetDataDto::toDailyEntity).collect(Collectors.toList()));
         log.info("saved {} daily", daily.size());
     }
 
     private void executeStationSave() throws IOException {
-        List<Station> stations = stationRepository.saveAll(populateStations(FILENAME[3]));
+        List<Station> stations = stationRepository.saveAll(populateStations(csvData(FILENAME[3])));
         log.info("saved {} station", stations.size());
     }
 
@@ -88,10 +84,14 @@ public class InitDataLoader implements CommandLineRunner {
         return Double.parseDouble(str.replace(",", "."));
     }
 
+    private String csvData(String name) {
+        return "src/main/resources/" + name + ".csv";
+    }
+
     private List<MetDataDto> populateDataBase(String name, DateFormat format) throws IOException {
         String line;
         List<MetDataDto> list = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/" + name + ".csv", StandardCharsets.ISO_8859_1));
+        BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1));
         br.readLine();
         while ((line = br.readLine()) != null) {
             try {
@@ -123,7 +123,7 @@ public class InitDataLoader implements CommandLineRunner {
     private List<Station> populateStations(String name) throws IOException {
         String line;
         List<Station> list = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/" + name + ".csv", StandardCharsets.ISO_8859_1));
+        BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1));
         br.readLine();
         while ((line = br.readLine()) != null) {
             try {
