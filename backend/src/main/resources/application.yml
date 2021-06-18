@@ -1,8 +1,6 @@
 server:
   port: 8081
 spring:
-  config:
-    import: application-Vasi.yml
   datasource:
     url: jdbc:mysql://localhost:3306/meteo
     username: sa
