@@ -1,8 +1,11 @@
 .zoom:hover {
-  transition: transform 0.1s;
-  transform: scale(1.2);
+  transition: transform 1s;
+  transform: scale(1.1);
 }
 .card {
-    border-radius: 20px;
-    box-shadow: 5px 10px 50px #c54b3c;
+  border-radius: 20px;
+  box-shadow: 5px 10px 50px #c54b3c;
+  border-top: 0px;
+  border-right: 0px;
+  border-bottom: 0px;
 }

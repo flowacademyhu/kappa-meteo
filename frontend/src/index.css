@@ -20,3 +20,7 @@ code {
 small {
   color: #c54b3c !important;
 }
+
+.card {
+  background: linear-gradient(to bottom right, #ffffff 10%, #000000 128%);
+}
