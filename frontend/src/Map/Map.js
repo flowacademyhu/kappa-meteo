@@ -16,7 +16,7 @@ export default function Map() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8081/api/coordinates')
+      .get('http://localhost:8082/api/coordinates')
       .then((response) => {
         setCoordinates(response.data);
       })
