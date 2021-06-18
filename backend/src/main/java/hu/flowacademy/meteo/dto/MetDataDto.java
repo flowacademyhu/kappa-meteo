@@ -2,6 +2,7 @@ package hu.flowacademy.meteo.dto;
 
 import hu.flowacademy.meteo.model.DailyData;
 import hu.flowacademy.meteo.model.HourlyData;
+import hu.flowacademy.meteo.model.Station;
 import hu.flowacademy.meteo.model.TenMinuteData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class MetDataDto {
 
+    private Station station;
     private Date date;
     private Double airHumidity;
     private Double airPressure;
@@ -61,7 +63,7 @@ public class MetDataDto {
         entity.setLightUnit(this.lightUnit);
         entity.setSoilMoisture120cm(this.soilMoisture120cm);
         entity.setPrecipitationCounter(this.precipitationCounter);
-
+        entity.setStation(this.station);
         return entity;
     }
 
@@ -88,7 +90,7 @@ public class MetDataDto {
         entity.setLightUnit(this.lightUnit);
         entity.setSoilMoisture120cm(this.soilMoisture120cm);
         entity.setPrecipitationCounter(this.precipitationCounter);
-
+        entity.setStation(this.station);
         return entity;
     }
 
@@ -115,7 +117,7 @@ public class MetDataDto {
         entity.setLightUnit(this.lightUnit);
         entity.setSoilMoisture120cm(this.soilMoisture120cm);
         entity.setPrecipitationCounter(this.precipitationCounter);
-
+        entity.setStation(this.station);
         return entity;
     }
 }

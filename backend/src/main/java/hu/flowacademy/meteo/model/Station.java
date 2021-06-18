@@ -1,5 +1,6 @@
 package hu.flowacademy.meteo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,13 +23,15 @@ public class Station {
     private String name;
     private Double longitude;
     private Double latitude;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "station")
     private List<TenMinuteData> tenMinuteData;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "station")
     private List<HourlyData> hourlyData;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "station")
     private List<DailyData> dailyData;
 }

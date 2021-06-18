@@ -36,44 +36,51 @@ public class InitDataLoader implements CommandLineRunner {
 
     private static final DateFormat DATE_FORMAT_HU = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.forLanguageTag("HU-hu"));
     private static final DateFormat DATE_FORMAT_HU_SPACED = new SimpleDateFormat("yyyy. MM. dd. HH:mm", Locale.forLanguageTag("HU-hu"));
-    private static final String[] FILENAME = {"CSIHA_HQ_10perc", "CSIHA_HQ_orai", "CSIHA_HQ_napi", "public_allomasok"};
+    private static final String[] FILE_NAME = {"CSIHA_HQ_10perc", "CSIHA_HQ_orai", "CSIHA_HQ_napi", "public_allomasok"};
+    private static final String HOME_STATION_NAME = "Szeged";
 
     @Override
-    public void run(String... args) throws IOException {
-        if (tenMinutesRepository.count() == 0) {
-            executeTenMinutesSave();
-        }
-        if (hourlyDataRepository.count() == 0) {
-            executeHourlyDataSave();
-        }
-        if (dailyDataRepository.count() == 0) {
-            executeDailySave();
-        }
+    public void run(String... args) {
         if (stationRepository.count() == 0) {
             executeStationSave();
         }
+        Optional<Station> homeStation = stationRepository.findFirstByName(HOME_STATION_NAME);
+        if (homeStation.isPresent()) {
+            if (tenMinutesRepository.count() == 0) {
+                executeTenMinutesSave(homeStation.orElseGet(null));
+            }
+            if (hourlyDataRepository.count() == 0) {
+                executeHourlyDataSave(homeStation.orElseGet(null));
+            }
+            if (dailyDataRepository.count() == 0) {
+                executeDailySave(homeStation.orElseGet(null));
+            }
+        } else {
+            log.warn("No station '{}' found for file import", HOME_STATION_NAME);
+        }
+
     }
 
-    private void executeTenMinutesSave() throws IOException {
-        List<TenMinuteData> tenMinutes = tenMinutesRepository.saveAll(populateDataBase(csvData(FILENAME[0]), DATE_FORMAT_HU)
+    private void executeTenMinutesSave(Station station) {
+        List<TenMinuteData> tenMinutes = tenMinutesRepository.saveAll(populateDataBase(csvData(FILE_NAME[0]), DATE_FORMAT_HU, station)
                 .stream().map(MetDataDto::toTenEntity).collect(Collectors.toList()));
         log.info("saved {} tenminutes", tenMinutes.size());
     }
 
-    private void executeHourlyDataSave() throws IOException {
-        List<HourlyData> hourlyDataList = hourlyDataRepository.saveAll(populateDataBase(csvData(FILENAME[1]), DATE_FORMAT_HU_SPACED)
+    private void executeHourlyDataSave(Station station) {
+        List<HourlyData> hourlyDataList = hourlyDataRepository.saveAll(populateDataBase(csvData(FILE_NAME[1]), DATE_FORMAT_HU_SPACED, station)
                 .stream().map(MetDataDto::toHourlyEntity).collect(Collectors.toList()));
         log.info("saved {} hourly", hourlyDataList.size());
     }
 
-    private void executeDailySave() throws IOException {
-        List<DailyData> daily = dailyDataRepository.saveAll(populateDataBase(csvData(FILENAME[2]), DATE_FORMAT_HU)
+    private void executeDailySave(Station station) {
+        List<DailyData> daily = dailyDataRepository.saveAll(populateDataBase(csvData(FILE_NAME[2]), DATE_FORMAT_HU, station)
                 .stream().map(MetDataDto::toDailyEntity).collect(Collectors.toList()));
         log.info("saved {} daily", daily.size());
     }
 
-    private void executeStationSave() throws IOException {
-        List<Station> stations = stationRepository.saveAll(populateStations(csvData(FILENAME[3])));
+    private void executeStationSave() {
+        List<Station> stations = stationRepository.saveAll(populateStations(csvData(FILE_NAME[3])));
         log.info("saved {} station", stations.size());
     }
 
@@ -88,7 +95,7 @@ public class InitDataLoader implements CommandLineRunner {
         return "src/main/resources/" + name + ".csv";
     }
 
-    private List<MetDataDto> populateDataBase(String name, DateFormat format) throws IOException {
+    private List<MetDataDto> populateDataBase(String name, DateFormat format, Station station) {
         String line;
         List<MetDataDto> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
@@ -110,11 +117,11 @@ public class InitDataLoader implements CommandLineRunner {
                             .internalBatteryVoltage((Double) doubleFormatter(data[15]))
                             .soilMoisture30cm((Double) doubleFormatter(data[16])).soilMoisture60cm((Double) doubleFormatter(data[17]))
                             .lightUnit((Double) doubleFormatter(data[18])).soilMoisture120cm((Double) doubleFormatter(data[19]))
-                            .precipitationCounter((Double) doubleFormatter(data[20])).build();
+                            .precipitationCounter((Double) doubleFormatter(data[20])).station(station).build();
                     list.add(temp);
                     counter++;
                 } catch (NumberFormatException | ParseException e) {
-                    log.error("Error while reading at the line {}: {}: {}", counter, br.readLine(), e.getMessage(),e);
+                    log.error("Error while reading at the line {}: {}: {}", counter, br.readLine(), e.getMessage(), e);
                 }
             }
         } catch (IOException e) {
@@ -123,7 +130,7 @@ public class InitDataLoader implements CommandLineRunner {
         return list;
     }
 
-    private List<Station> populateStations(String name) throws IOException {
+    private List<Station> populateStations(String name) {
         String line;
         List<Station> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
