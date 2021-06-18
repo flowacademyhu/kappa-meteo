@@ -5,9 +5,10 @@ import { WiHumidity, WiThermometer } from 'react-icons/wi';
 import { VscDashboard } from 'react-icons/vsc';
 import { IconContext } from 'react-icons';
 import './DashBoard.css';
+import MeasureCard from '../MeasureCard/MeasureCard';
 
 export default function Dashboard() {
-  const [weatherData, setWeatherData] = useState([0]);
+  const [weatherData, setWeatherData] = useState([]);
 
   useEffect(async () => {
     try {
@@ -29,15 +30,12 @@ export default function Dashboard() {
                 <IconContext.Provider value={{ color: '#c54b3c' }}>
                   <WiThermometer size={100} />
                 </IconContext.Provider>
-                <div className="card-body">
-                  <h5 className="card-title">Hőmérséklet</h5>
-                  <h3 className="card-text">
-                    {weatherData[0].airTemperature} &#8451;
-                  </h3>
-                </div>
-                <div className="card-footer">
-                  <p>Utolsó mérés: {weatherData[0].date} </p>
-                </div>
+                <MeasureCard
+                  titleText="Hőmérséklet"
+                  text={weatherData[4].airTemperature}
+                  lastData="Utolsó mért adat: "
+                  footerText={weatherData[4].date}
+                ></MeasureCard>
               </div>
             </div>
           </div>
@@ -47,13 +45,12 @@ export default function Dashboard() {
                 <IconContext.Provider value={{ color: '#c54b3c' }}>
                   <WiHumidity size={100} />
                 </IconContext.Provider>
-                <div className="card-body">
-                  <h5 className="card-title">Páratartalom</h5>
-                  <h3 className="card-text">{weatherData[0].airHumidity} %</h3>
-                </div>
-                <div className="card-footer">
-                  <p>Utolsó mérés: {weatherData[0].date}</p>
-                </div>
+                <MeasureCard
+                  titleText="Páratartalom"
+                  text={weatherData[4].airHumidity}
+                  lastData="Utolsó mért adat: "
+                  footerText={weatherData[4].date}
+                ></MeasureCard>
               </div>
             </div>
           </div>
@@ -63,13 +60,12 @@ export default function Dashboard() {
                 <IconContext.Provider value={{ color: '#c54b3c' }}>
                   <VscDashboard size={100} />
                 </IconContext.Provider>
-                <div className="card-body">
-                  <h5 className="card-title">Szélerősség</h5>
-                  <h3 className="card-text">{weatherData[0].windSpeed} km/h</h3>
-                </div>
-                <div className="card-footer">
-                  <p>Utolsó mérés: {weatherData[0].date}</p>
-                </div>
+                <MeasureCard
+                  titleText="Szélsebesség"
+                  text={weatherData[4].windSpeed}
+                  lastData="Utolsó mért adat: "
+                  footerText={weatherData[4].date}
+                ></MeasureCard>
               </div>
             </div>
           </div>
