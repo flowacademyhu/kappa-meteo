@@ -1,6 +1,6 @@
 .zoom:hover {
-  transition: transform 0.2s;
-  transform: scale(1.2);
+  transition: transform 1s;
+  transform: scale(1.1);
 }
 .card {
   border-radius: 35px;
