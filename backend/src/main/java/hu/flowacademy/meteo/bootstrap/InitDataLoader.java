@@ -91,50 +91,57 @@ public class InitDataLoader implements CommandLineRunner {
     private List<MetDataDto> populateDataBase(String name, DateFormat format) throws IOException {
         String line;
         List<MetDataDto> list = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1));
-        br.readLine();
-        while ((line = br.readLine()) != null) {
-            try {
-                String[] data = line.split(";", -1);
-                MetDataDto temp = MetDataDto.builder().date(format.parse(data[0]))
-                        .airHumidity((Double) doubleFormatter(data[1])).airPressure((Double) doubleFormatter(data[2]))
-                        .windSpeed((Double) doubleFormatter(data[3]))
-                        .solarCellChargingVoltage((Double) doubleFormatter(data[4]))
-                        .externalBatteryVoltage((Double) doubleFormatter(data[5]))
-                        .irradiation((Double) doubleFormatter(data[6])).freeze((Double) doubleFormatter(data[7]))
-                        .rain((Double) doubleFormatter(data[8])).windDirection((Double) doubleFormatter(data[9]))
-                        .windGust((Double) doubleFormatter(data[10])).soilMoisture90cm((Double) doubleFormatter(data[11]))
-                        .leafMoisture((Double) doubleFormatter(data[12]))
-                        .soilTemperature0cm((Double) doubleFormatter(data[13])).airTemperature((Double) doubleFormatter(data[14]))
-                        .internalBatteryVoltage((Double) doubleFormatter(data[15]))
-                        .soilMoisture30cm((Double) doubleFormatter(data[16])).soilMoisture60cm((Double) doubleFormatter(data[17]))
-                        .lightUnit((Double) doubleFormatter(data[18])).soilMoisture120cm((Double) doubleFormatter(data[19]))
-                        .precipitationCounter((Double) doubleFormatter(data[20])).build();
-                list.add(temp);
-
-            } catch (NumberFormatException | ParseException e) {
-                log.error("Error while reading at the line: {}", br.readLine());
+        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
+            br.readLine();
+            int counter = 1;
+            while ((line = br.readLine()) != null) {
+                try {
+                    String[] data = line.split(";", -1);
+                    MetDataDto temp = MetDataDto.builder().date(format.parse(data[0]))
+                            .airHumidity((Double) doubleFormatter(data[1])).airPressure((Double) doubleFormatter(data[2]))
+                            .windSpeed((Double) doubleFormatter(data[3]))
+                            .solarCellChargingVoltage((Double) doubleFormatter(data[4]))
+                            .externalBatteryVoltage((Double) doubleFormatter(data[5]))
+                            .irradiation((Double) doubleFormatter(data[6])).freeze((Double) doubleFormatter(data[7]))
+                            .rain((Double) doubleFormatter(data[8])).windDirection((Double) doubleFormatter(data[9]))
+                            .windGust((Double) doubleFormatter(data[10])).soilMoisture90cm((Double) doubleFormatter(data[11]))
+                            .leafMoisture((Double) doubleFormatter(data[12]))
+                            .soilTemperature0cm((Double) doubleFormatter(data[13])).airTemperature((Double) doubleFormatter(data[14]))
+                            .internalBatteryVoltage((Double) doubleFormatter(data[15]))
+                            .soilMoisture30cm((Double) doubleFormatter(data[16])).soilMoisture60cm((Double) doubleFormatter(data[17]))
+                            .lightUnit((Double) doubleFormatter(data[18])).soilMoisture120cm((Double) doubleFormatter(data[19]))
+                            .precipitationCounter((Double) doubleFormatter(data[20])).build();
+                    list.add(temp);
+                    counter++;
+                } catch (NumberFormatException | ParseException e) {
+                    log.error("Error while reading at the line {}: {}: {}", counter, br.readLine(), e.getMessage(),e);
+                }
             }
+        } catch (IOException e) {
+            log.error("Error while opening file {}: {}", name, e.getMessage());
         }
-        br.close();
         return list;
     }
 
     private List<Station> populateStations(String name) throws IOException {
         String line;
         List<Station> list = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1));
-        br.readLine();
-        while ((line = br.readLine()) != null) {
-            try {
-                String[] data = line.split(",", -1);
-                Station temp = Station.builder().name(data[0]).longitude((Double) doubleFormatter(data[1])).latitude((Double) doubleFormatter(data[2])).build();
-                list.add(temp);
-            } catch (NumberFormatException e) {
-                log.error("Error while reading at the line: {}", br.readLine());
+        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
+            br.readLine();
+            int counter = 1;
+            while ((line = br.readLine()) != null) {
+                try {
+                    String[] data = line.split(",", -1);
+                    Station temp = Station.builder().name(data[0]).longitude((Double) doubleFormatter(data[1])).latitude((Double) doubleFormatter(data[2])).build();
+                    list.add(temp);
+                    counter++;
+                } catch (NumberFormatException e) {
+                    log.error("Error while reading at the line {}: {}: {}", counter, br.readLine(), e.getMessage(), e);
+                }
             }
+        } catch (IOException e) {
+            log.error("Error while opening file {}: {}", name, e.getMessage());
         }
-        br.close();
         return list;
     }
 }

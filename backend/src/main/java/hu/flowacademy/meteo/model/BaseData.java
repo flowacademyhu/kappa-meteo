@@ -1,5 +1,6 @@
 package hu.flowacademy.meteo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public abstract class BaseData {
     @JsonIgnore
     private Long id;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
     private Double airHumidity;
     private Double airPressure;
