@@ -4,7 +4,7 @@ const Style = styled.div`
   background-color: #c54b3c;
   text-align: center;
   padding: 20px;
-  position: fixed +'!important';
+  position: fixed + '!important';
   left: 0;
   bottom: 0;
   height: 60px;

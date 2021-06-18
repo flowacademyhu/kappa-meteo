@@ -29,7 +29,7 @@ export default function App() {
           </nav>
         </div>
         <div className="m-4 p-3">
-        <Map />
+          <Map />
         </div>
         <Footer>Made by Buci, Barna, Fixo, Nándi, Vasi &#169;</Footer>
       </Router>
