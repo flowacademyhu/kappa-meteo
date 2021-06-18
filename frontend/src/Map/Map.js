@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
-  height: 100vh;
+  height: 76vh;
 `;
 
 export default function Map() {
