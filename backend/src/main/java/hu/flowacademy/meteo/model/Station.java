@@ -20,6 +20,7 @@ public class Station {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(unique = true)
     private String name;
     private Double longitude;
     private Double latitude;
