@@ -28,7 +28,8 @@
     <root level="info">
         <appender-ref ref="ConsoleColored" />
     </root>
-
+    <logger name="org.hibernate.SQL" level="info" />
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="info" />
     <logger name="hu.flowacademy.meteo" level="debug" additivity="false">
         <appender-ref ref="ConsoleColored" />
     </logger>
