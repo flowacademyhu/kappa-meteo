@@ -1,3 +1,4 @@
+import Map from './Map/Map.js';
 import React from 'react';
 import Menu from './Menu.js';
 
@@ -11,11 +12,13 @@ import Footer from './Footer.js';
 
 export default function App() {
   return (
-    <div data-testid="router">
+    <div data-testid="map-container">
       <Router>
-        <div className="container">
+        <div>
           <nav className="navbar navbar-expand-lg bg-dark justify-content-center">
             <Menu />
+
+            <div data-testid="router" />
             <main>
               <Switch>
                 <Route path="/mapview" />
@@ -24,6 +27,9 @@ export default function App() {
               </Switch>
             </main>
           </nav>
+        </div>
+        <div className="m-4 p-3">
+          <Map />
         </div>
         <Footer>Made by Buci, Barna, Fixo, Nándi, Vasi &#169;</Footer>
       </Router>
