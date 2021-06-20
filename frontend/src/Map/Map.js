@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Markers from './Markers';
 
-
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
   height: 100vh;
@@ -25,7 +24,6 @@ export default function Map() {
       .catch((error) => console.log(error));
   }, []);
 
-
   return (
     <StyledMapContainer
       center={[47.497913, 19.040236]}
@@ -36,7 +34,7 @@ export default function Map() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-     <Markers coordinates={coordinates}/>
+      <Markers coordinates={coordinates} />
     </StyledMapContainer>
   );
 }
