@@ -5,26 +5,22 @@ import { Marker } from 'react-leaflet';
 
 export default function Markers({ coordinates }) {
   return (
-    <>
+    <div>
       {coordinates
         .filter(
           (coordinate) =>
-            !isNaN(parseFloat(coordinate.latitude)) && !isNaN(parseFloat(coordinate.longitude))
+            coordinate.latitude != null && coordinate.longitude != null
         )
         .map((coordinate) => (
           <Marker
             key={coordinate.id}
             name={coordinate.name}
-            position={[parseFloat(coordinate.longitude), parseFloat(coordinate.latitude)]}
+            position={[coordinate.longitude, coordinate.latitude]}
             icon={RadarIcon}
           >
-            <MyPopup
-              name={coordinate.name}
-              latitude={coordinate.latitude}
-              longitude={coordinate.longitude}
-            ></MyPopup>
+            <MyPopup station={coordinate}></MyPopup>
           </Marker>
         ))}
-    </>
+    </div>
   );
 }
