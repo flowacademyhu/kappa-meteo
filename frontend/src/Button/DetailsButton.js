@@ -1,6 +1,6 @@
-export default function DetailsButton({ type, onClick, text }) {
+export default function DetailsButton({ onClick, text }) {
   return (
-    <button className={type} onClick={onClick}>
+    <button className="btn btn-outline-success m-1" onClick={onClick}>
       {text}
     </button>
   );
