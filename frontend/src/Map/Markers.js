@@ -9,13 +9,13 @@ export default function Markers({ coordinates }) {
       {coordinates
         .filter(
           (coordinate) =>
-            !isNaN(parseFloat(coordinate.latitude)) && !isNaN(parseFloat(coordinate.longitude))
+            coordinate.latitude != null && coordinate.longitude != null
         )
         .map((coordinate) => (
           <Marker
             key={coordinate.id}
             name={coordinate.name}
-            position={[parseFloat(coordinate.longitude), parseFloat(coordinate.latitude)]}
+            position={[coordinate.longitude, coordinate.latitude]}
             icon={RadarIcon}
           >
             <MyPopup
