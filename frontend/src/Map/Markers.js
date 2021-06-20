@@ -18,11 +18,7 @@ export default function Markers({ coordinates }) {
             position={[coordinate.longitude, coordinate.latitude]}
             icon={RadarIcon}
           >
-            <MyPopup
-              name={coordinate.name}
-              latitude={coordinate.latitude}
-              longitude={coordinate.longitude}
-            ></MyPopup>
+            <MyPopup station={coordinate}></MyPopup>
           </Marker>
         ))}
     </>
