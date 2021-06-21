@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styled from 'styled-components';
 import UserIcon from '../Icon/UserIcon.js';
-import useGeoLocation from './UseGeoLocation.js';
 import axios from 'axios';
 import Markers from './Markers';
 
@@ -14,18 +13,8 @@ const StyledMapContainer = styled(MapContainer)`
 
 export default function Map() {
   const [coordinates, setCoordinates] = useState([]);
-  const location = useGeoLocation();
-
-  // const showMyLocation = () => {
-  //   if (location.loaded && !location.error) {
-  //     mapRef.current.leafletElement.flyto([
-  //       location.coordinates.lat,
-  //       location.coordinates.lng,
-  //     ]);
-  //   } else {
-  //     alert(location.error);
-  //   }
-  // };
+  let userLatitude = this.props.coords ? this.props.coords.latitude : 39;
+  let userLongitude = this.props.coords ? this.props.coords.longitude : 19;
 
   useEffect(() => {
     axios
@@ -51,12 +40,10 @@ export default function Map() {
         />
         <Markers coordinates={coordinates} />
         <div>
-          {location.coordinates && !location.error && (
-            <Marker
-              icon={UserIcon}
-              position={(location.coordinates.lat, location.coordinates.lng)}
-            ></Marker>
-          )}
+          <Marker
+            icon={UserIcon}
+            position={[userLatitude, userLongitude]}
+          ></Marker>
         </div>
       </StyledMapContainer>
     </div>
