@@ -43,7 +43,7 @@ export default function SwiperCards() {
       <div className="swiper-container">
         <h1>Hisztorikus adatok</h1>
         <Swiper
-          spaceBetween={50}
+          spaceBetween={100}
           effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
