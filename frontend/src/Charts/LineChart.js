@@ -1,28 +1,32 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Line } from 'react-chartjs-2';
 
 export default function LineChart() {
+    const [chartLabel, setChartLabel] = useState('');
+    const [dataLabels, setDataLabels] = useState({});
+    const [chartData, setChartData] = useState({});
+
 
 
     return (
         <div className="container">
             <div className="row">
-                <div className="col-2">
+                <div className="col-2 p-2">
             <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
             </div>
-            <div className="col-2">
+            <div className="col-2 p-2">
             <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
             </div>
-            <div className="col-2">
+            <div className="col-2 p-2">
             <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
             </div>
-            <div className="col-2">
+            <div className="col-2 p-2">
             <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
             </div>
-            <div className="col-2">
+            <div className="col-2 p-2">
             <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
             </div>
-            <div className="col-2">
+            <div className="col-2 p-2">
             <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
             </div>
                 </div>
@@ -33,7 +37,7 @@ export default function LineChart() {
             {
                 label: 'Heti hőmésréklet',
                 data: [],
-                backgroundColor: 'red',
+                backgroundColor: 'white',
                 borderColor: 'green',
                 borderWidth: 2
             },
