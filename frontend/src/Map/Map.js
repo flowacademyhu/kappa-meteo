@@ -11,7 +11,6 @@ const StyledMapContainer = styled(MapContainer)`
 `;
 
 export default function Map() {
-
   const [coordinates, setCoordinates] = useState([]);
 
   useEffect(() => {
