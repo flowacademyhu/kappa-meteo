@@ -6,14 +6,33 @@ export default function LineChart() {
 
     return (
         <div className="container">
-            <div className="Chartbkg">
+            <div className="row">
+                <div className="col-2">
+            <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
+            </div>
+            <div className="col-2">
+            <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
+            </div>
+            <div className="col-2">
+            <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
+            </div>
+            <div className="col-2">
+            <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
+            </div>
+            <div className="col-2">
+            <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
+            </div>
+            <div className="col-2">
+            <button className="btn btn-success" type="button">Levegő Hőmérséklet</button>
+            </div>
+                </div>
     <Line
     data= {{
         labels: ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'],
         datasets: [
             {
                 label: 'Heti hőmésréklet',
-                data: [20, 21, 25, 24, 12, 5, 30],
+                data: [],
                 backgroundColor: 'red',
                 borderColor: 'green',
                 borderWidth: 2
@@ -35,7 +54,6 @@ export default function LineChart() {
         }
     }}
 />
-</div>
 </div>
     );
 }
