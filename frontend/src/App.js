@@ -1,14 +1,10 @@
 import './App.css';
-import Dashboard from './Dashboard/DashBoard';
-import Chart from './Chart';
+import SwiperCards from './Dashboard/SwiperCards';
 
 function App() {
   return (
     <div>
-      <Dashboard />
-      <div>
-        <Chart />
-      </div>
+      <SwiperCards />
     </div>
   );
 }
