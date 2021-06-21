@@ -6,9 +6,7 @@ export default function MyPopup({ station }) {
   return (
     <Popup>
       {station.name} GPS:-{station.latitude},-{station.longitude}
-      <DetailsButton
-        text="Részletek"
-      ></DetailsButton>
+      <DetailsButton text="Részletek"></DetailsButton>
     </Popup>
   );
 }
