@@ -39,12 +39,6 @@ export default function Map() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Markers coordinates={coordinates} />
-        <div>
-          <Marker
-            icon={UserIcon}
-            position={[userLatitude, userLongitude]}
-          ></Marker>
-        </div>
       </StyledMapContainer>
     </div>
   );
