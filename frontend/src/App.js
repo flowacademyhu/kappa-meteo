@@ -1,6 +1,7 @@
 import Map from './Map/Map.js';
 import React from 'react';
 import Menu from './Menu.js';
+import LineChart from './Charts/LineChart.js';
 
 import {
   BrowserRouter as Router,
@@ -30,6 +31,7 @@ export default function App() {
         </div>
         <div className="m-4 p-3">
           <Map />
+        <LineChart/>
         </div>
         <Footer>Made by Buci, Barna, Fixo, Nándi, Vasi &#169;</Footer>
       </Router>
