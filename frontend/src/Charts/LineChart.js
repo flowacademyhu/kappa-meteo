@@ -5,7 +5,8 @@ export default function LineChart() {
 
 
     return (
-        <div>
+        <div className="container">
+            <div className="Chartbkg">
     <Line
     data= {{
         labels: ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'],
@@ -34,6 +35,7 @@ export default function LineChart() {
         }
     }}
 />
+</div>
 </div>
     );
 }
