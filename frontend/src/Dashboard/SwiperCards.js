@@ -30,14 +30,12 @@ SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 export default function SwiperCards() {
   const [weatherData, setWeatherData] = useState([]);
 
-  useEffect(async () => {
-    try {
+  useEffect(() => {
+    async function fetchData() {
       const response = await axios.get('http://localhost:8081/api/test/12');
       setWeatherData(response.data);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
     }
+    fetchData();
   }, []);
 
   return (
