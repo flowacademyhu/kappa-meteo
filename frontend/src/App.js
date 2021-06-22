@@ -34,7 +34,7 @@ export default function App() {
         <div className="m-4 p-3">
           <Map />
           <LineChart2 />
-          <BarChart1/>
+          <BarChart1 />
         </div>
         <Footer>Made by Buci, Barna, Fixo, Nándi, Vasi &#169;</Footer>
       </Router>
