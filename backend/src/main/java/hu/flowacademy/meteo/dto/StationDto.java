@@ -19,7 +19,7 @@ public class StationDto {
 
     public static StationDto toDto(Station station) {
         StationDto stationDto = new StationDto();
-        stationDto.setId(stationDto.getId());
+        stationDto.setId(station.getId());
         stationDto.setName(station.getName());
         stationDto.setLongitude(station.getLongitude());
         stationDto.setLatitude(station.getLatitude());

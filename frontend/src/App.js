@@ -4,6 +4,7 @@ import Map from './Map/Map.js';
 import React from 'react';
 import Menu from './Menu.js';
 
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,22 +23,28 @@ export default function App() {
             <Menu />
 
             <div data-testid="router" />
-            <main>
+            </nav>
               <Switch>
-                <Route path="/mapview" />
-                <Route path="/historicdata" />
-                <Redirect from="/" to="/mapview" />
-              </Switch>
-            </main>
-          </nav>
-        </div>
-        <div className="m-4 p-3">
+                <Route path="/mapview">
+                <div className="m-4 p-3">
           <Map />
           
         </div>
-        <SwiperCards />
+          </Route>
+                <Route path="/historicdata" >
+                <SwiperCards/>
+                </Route>
+                <Redirect from="/" to="/mapview" />
+              </Switch>
+        
+      
+        </div>
+       
+        
         <Footer>Made by Buci, Barna, Fixo, Nándi, Vasi &#169;</Footer>
-      </Router>
-    </div>
+     
+    
+    </Router>
+   </div>
   );
 }

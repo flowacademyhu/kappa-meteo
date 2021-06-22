@@ -16,7 +16,7 @@ public class StationController {
 
     private final StationService stationService;
 
-    @CrossOrigin
+    @CrossOrigin("*")
     @GetMapping("api/coordinates")
     public List<StationDto> findAll() {
         return stationService.findAll().stream().map(StationDto::toDto).collect(Collectors.toList());

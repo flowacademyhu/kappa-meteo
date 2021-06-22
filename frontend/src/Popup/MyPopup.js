@@ -5,7 +5,7 @@ import DetailsButton from '../Button/DetailsButton';
 export default function MyPopup({ station }) {
   return (
     <Popup>
-      {station.name} GPS:-{station.latitude},-{station.longitude}
+      {station.name}
       <DetailsButton text="Részletek"></DetailsButton>
     </Popup>
   );

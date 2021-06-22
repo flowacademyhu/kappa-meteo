@@ -14,7 +14,7 @@ public class TestController {
 
     private final TestService testService;
 
-    @CrossOrigin
+    @CrossOrigin("*")
     @GetMapping("api/test/{id}")
     public MeasurmentDto findLastByStationId(@PathVariable Long id) {
         return MeasurmentDto.toDto(testService.findLastByStationId(id));
