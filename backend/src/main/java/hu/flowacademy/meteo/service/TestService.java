@@ -1,21 +1,19 @@
 package hu.flowacademy.meteo.service;
 
-import hu.flowacademy.meteo.model.DailyData;
-import hu.flowacademy.meteo.repository.DailyDataRepository;
+import hu.flowacademy.meteo.model.Measurment;
+import hu.flowacademy.meteo.repository.MeasurmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class TestService {
 
-    private final DailyDataRepository dailyDataRepository;
+    private final MeasurmentRepository measurmentRepository;
 
-    public List<DailyData> findAll() {
-        return dailyDataRepository.findAll();
+    public Measurment findLastByStationId(Long id) {
+        return measurmentRepository.findFirstByStationIdOrderByDateDesc(id);
     }
 }
