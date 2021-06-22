@@ -34,5 +34,5 @@ build/
 /logs/
 
 src/main/resources/application-Vasi.yml
-
+src/main/resources/application-buci.yml
 
