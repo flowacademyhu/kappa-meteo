@@ -9,10 +9,16 @@ import {
   Redirect,
 } from 'react-router-dom';
 import Footer from './Footer.js';
+import DateRangePicker from './Calendar/DateRangePicker.js';
+import { Calendar } from 'react-date-range';
 
 export default function App() {
   return (
     <div data-testid="map-container">
+      <div className="d-flex justify-content-center p-4">
+        <DateRangePicker></DateRangePicker>
+      </div>
+
       <Router>
         <div>
           <nav className="navbar navbar-expand-lg bg-dark justify-content-center">

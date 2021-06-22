@@ -15,3 +15,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.rdrCalendarWrapper {
+  background: linear-gradient(
+    to bottom right,
+    #ffffff 10%,
+    #000000 200%
+  ) !important;
+  border-radius: 35px;
+  box-shadow: 0px 15px 30px 1px #c54b3c;
+  border-bottom: 0px;
+  border-right: 0px;
+}
+
+.rdrCalendarWrapper:hover {
+  transition: transform 1s;
+  transform: scale(1.1);
+}
+
+.rdrDateDisplayWrapper {
+  background: linear-gradient(
+    to bottom right,
+    #ffffff 10%,
+    #000000 200%
+  ) !important;
+  border-radius: 35px;
+  box-shadow: 0px 15px 30px 1px #c54b3c;
+  border-bottom: 0px;
+  border-right: 0px;
+}
+
+.rdrDayToday .rdrDayNumber span:after {
+  background: #c54b3c !important;
+}
