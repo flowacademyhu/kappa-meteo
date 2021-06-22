@@ -54,7 +54,7 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     private void executeTenMinuteMeasurmentSave(Station station) {
-        List<Measurment> tenminMeasurments = measurmentRepository.saveAll(populateTenMin(csvData(FILE_NAME[0]), DATE_FORMAT_HU, station, Type.TENMIN));
+        List<Measurment> tenminMeasurments = measurmentRepository.saveAll(populateTenMin(csvData(FILE_NAME[0]), DATE_FORMAT_HU, station, Type.TEN_MIN));
         log.info("saved {} ten minute measurments", tenminMeasurments.size());
     }
 

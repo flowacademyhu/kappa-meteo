@@ -27,14 +27,14 @@ public class MeasurmentDto {
     private WindData windData;
 
     public static MeasurmentDto toDto(Measurment measurment) {
-        MeasurmentDto entity = new MeasurmentDto();
-        entity.setDate(measurment.getDate());
-        entity.setType(measurment.getType());
-        entity.setAirData(measurment.getAirData());
-        entity.setMiscData(measurment.getMiscData());
-        entity.setSoilData(measurment.getSoilData());
-        entity.setBatteryData(measurment.getBatteryData());
-        entity.setWindData(measurment.getWindData());
-        return entity;
+        MeasurmentDto measurmentDto = new MeasurmentDto();
+        measurmentDto.setDate(measurment.getDate());
+        measurmentDto.setType(measurment.getType());
+        measurmentDto.setAirData(measurment.getAirData());
+        measurmentDto.setMiscData(measurment.getMiscData());
+        measurmentDto.setSoilData(measurment.getSoilData());
+        measurmentDto.setBatteryData(measurment.getBatteryData());
+        measurmentDto.setWindData(measurment.getWindData());
+        return measurmentDto;
     }
 }
