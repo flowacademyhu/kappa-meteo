@@ -34,7 +34,7 @@ public class InitDataLoader implements CommandLineRunner {
     private static final DateFormat DATE_FORMAT_HU = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.forLanguageTag("HU-hu"));
     private static final DateFormat DATE_FORMAT_HU_SPACED = new SimpleDateFormat("yyyy. MM. dd. HH:mm", Locale.forLanguageTag("HU-hu"));
     private static final String[] FILE_NAME = {"CSIHA_HQ_10perc.csv", "CSIHA_HQ_orai.csv", "CSIHA_HQ_napi.csv", "public_allomasok.csv"};
-    private static final String HOME_STATION_NAME = "Szeged";
+    public static final String HOME_STATION_NAME = "Szeged";
 
     @Override
     public void run(String... args) {

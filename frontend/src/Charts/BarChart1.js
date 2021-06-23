@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -13,7 +13,7 @@ import {
 import axios from 'axios';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 
-const data = [
+/*const data = [
   {
     name: 'Page A',
     uv: 4000,
@@ -64,54 +64,88 @@ const data = [
     amt: 2100,
   },
 ];
-
+*/
 const optionsArray = [{ key: 1, label: 'Levegő hőmérséklet' }];
-
 const optionsArray2 = [
   { key: 1, label: 'Talaj nedvesség 30 cm' },
   { key: 2, label: 'Talaj nedvesség 60 cm' },
   { key: 3, label: 'Talaj nedvesség 90 cm' },
   { key: 4, label: 'Talaj nedvesség 120 cm' },
 ];
-
 const optionsArray3 = [{ key: 1, label: 'Szél lökés' }];
-
 const optionsArray4 = [{ key: 1, label: 'Légnyomás' }];
 const optionsArray5 = [{ key: 1, label: 'Levegő nedvesség' }];
 const optionsArray6 = [{ key: 1, label: 'Külső akkufeszültség' }];
 const optionsArray7 = [{ key: 1, label: 'Csapadék' }];
-
 const optionsArray8 = [{ key: 1, label: 'Szél irány' }];
-
 const optionsArray9 = [{ key: 1, label: 'Belső akkufeszültség' }];
-
 const optionsArray10 = [{ key: 1, label: 'Fagy' }];
 const optionsArray11 = [{ key: 1, label: 'Szél sebesség' }];
 const optionsArray12 = [{ key: 1, label: 'Levegő páratartalom' }];
 const optionsArray13 = [{ key: 1, label: 'Fény egység' }];
-
 const optionsArray14 = [{ key: 1, label: 'Besugárzás' }];
 const optionsArray15 = [{ key: 1, label: 'Napelem töltő feszültség' }];
 const optionsArray16 = [{ key: 1, label: 'Talaj hőmérséklet 0 cm' }];
 const optionsArray17 = [{ key: 1, label: 'Csapadék számláló' }];
 
 export default function BarChart1() {
-  //const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
-  /*useEffect(async () => {
-        try {
-          const response = await axios.get(
-            `https://localhost:8081/api/test/data`
-          );
-          setData(response.data);
-        } catch (err) {
-          console.error('Error during api call:', err);
-        }
-      }, []);
+  /*const handleOnChange = () => {
+    BarChart.data = data
+  }
 */
+  const data2 = 
+{
+ date: "2021-04-20 19:50:00",
+ type: "TEN_MIN",
+ airData: {
+ airHumidity: 83.94,
+ airPressure: 1005.9,
+ airTemperature: 8.5
+ },
+ miscData: {
+ irradiation: 0.0,
+ freeze: 0.0,
+ rain: 0.0,
+ leafMoisture: 0.0,
+ lightUnit: 3895.0,
+ precipitationCounter: null
+ },
+ soilData: {
+ soilMoisture30cm: 16.365498,
+ soilMoisture60cm: 14.699497,
+ soilMoisture90cm: 12.259997,
+ soilMoisture120cm: 0.0,
+ soilTemperature0cm: 8.9
+ },
+ batteryData: {
+ solarCellChargingVoltage: 0.0,
+ externalBatteryVoltage: 12.877,
+ internalBatteryVoltage: 4.206
+ },
+ windData: {
+ windSpeed: 0.0,
+ windDirection: 11.964702,
+ windGust: 0.5
+ }
+}
+
+  useEffect(async () => {
+          /*const response = await axios.get(
+            `http://localhost:8080/api/test/12`,
+          );*/
+          setData(data2);
+          });
+         
+  
+
+      
+
 
   return (
     <>
+    {data.airPressure != null && (
       <div className="container">
         <div className="row">
           <div className="col-2 p-2">
@@ -252,14 +286,15 @@ export default function BarChart1() {
               name="countries"
               buttonClass="btn btn-primary"
               placeholder="Csapadék számláló"
+              //handleOnChange={}
             />
           </div>
         </div>
-
         <div className="container align-items-center justify-content-center p-3">
           <div className="row">
             <div className="col"></div>
             <div className="col">
+              
               <BarChart
                 width={1000}
                 height={500}
@@ -276,15 +311,17 @@ export default function BarChart1() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-                <Bar dataKey="uv" fill="#82ca9d" />
-                <Bar dataKey="dv" fill="#12bc5a" />
+                <Bar dataKey={data.airData.airPressure}fill="#8884d8" />
+                <Bar dataKey={data.airData.airHumidity} fill="#82ca9d" />
+                <Bar dataKey={data.airData.airTemperature} fill="#12bc5a" />
               </BarChart>
             </div>
             <div className="col"></div>
           </div>
         </div>
       </div>
+     )}
     </>
+    
   );
 }
