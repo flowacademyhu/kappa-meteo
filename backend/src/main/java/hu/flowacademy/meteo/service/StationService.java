@@ -15,7 +15,7 @@ public class StationService {
 
     private final StationRepository stationRepository;
 
-    public List<Station> findAll() {
+    public List<Station> listStations() {
         return stationRepository.findAll();
     }
 }

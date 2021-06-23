@@ -33,13 +33,208 @@ export default function HistoricData() {
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get('/api/test/12');
-      setWeatherData(response.data);
+      response.data && setWeatherData(formatData(response.data));
     }
     fetchData();
   }, []);
 
+  const formatData = (data) => {
+    return [
+      {
+        iconType: 'WiThermometer',
+        titleText: 'Levegő hőmérséklet',
+        text: data.airData.airTemperature,
+        unit: <>&#8451;</>,
+        date: data.date,
+      },
+
+      {
+        iconType: 'RiDashboard3Line',
+        titleText: 'Légnyomás',
+        text: data.airData.airPressure,
+        unit: 'kPa',
+        date: data.date,
+      },
+      {
+        iconType: 'WiHumidity',
+        titleText: 'Levegő páratartalom',
+        text: data.airData.airHumidity,
+        unit: '%',
+        date: data.date,
+      },
+
+      {
+        iconType: 'TiWeatherSnow',
+        titleText: 'Fagy',
+        text: data.miscData.freeze,
+        unit: '',
+        date: data.date,
+      },
+
+      {
+        iconType: 'TiWeatherShower',
+        titleText: 'Csapadék',
+        text: data.miscData.rain,
+        unit: 'mm',
+        date: data.date,
+      },
+
+      {
+        iconType: 'GiChaliceDrops',
+        titleText: 'Csapadék számláló',
+        text: data.miscData.precipitationCounter,
+        unit: 'mm',
+        date: data.date,
+      },
+      {
+        iconType: 'RiLeafLine',
+        titleText: 'Levélnedvesség',
+        text: data.miscData.leafMoisture,
+        unit: 'perc',
+        date: data.date,
+      },
+
+      {
+        iconType: 'RiCompassDiscoverFill',
+        titleText: 'Szélirány',
+        text: data.windData.windDirection,
+        unit: '',
+        date: data.date,
+      },
+
+      {
+        iconType: 'IoMdRocket',
+        titleText: 'Széllökés',
+        text: data.windData.windGust,
+        unit: 'km/h',
+        date: data.date,
+      },
+
+      {
+        iconType: 'VscDashboard',
+        titleText: 'Szélsebesség',
+        text: data.windData.windSpeed,
+        unit: 'km/h"',
+        date: data.date,
+      },
+
+      {
+        iconType: 'WiThermometer',
+        titleText: 'Talaj hőmérséklet 0cm',
+        text: data.soilData.soilTemperature0cm,
+        unit: <>&#8451;</>,
+        date: data.date,
+      },
+
+      {
+        iconType: 'GiDrop',
+        titleText: 'Talaj nedvesség 30cm',
+        text: data.soilData.soilMoisture30cm,
+        unit: 'V/V %',
+        date: data.date,
+      },
+      {
+        iconType: 'GiDrop',
+        titleText: 'Talaj nedvesség 60cm',
+        text: data.soilData.soilMoisture60cm,
+        unit: 'V/V %',
+        date: data.date,
+      },
+
+      {
+        iconType: 'GiDrop',
+        titleText: 'Talaj nedvesség 90cm',
+        text: data.soilData.soilMoisture90cm,
+        unit: 'V/V %',
+        date: data.date,
+      },
+
+      {
+        iconType: 'GiDrop',
+        titleText: 'Talaj nedvesség 120cm',
+        text: data.soilData.soilMoisture120cm,
+        unit: 'V/V %',
+        date: data.date,
+      },
+      {
+        iconType: 'HiSun',
+        titleText: 'Besugárzás',
+        text: data.miscData.irradiation,
+        unit: 'W/m2',
+        date: data.date,
+      },
+
+      {
+        iconType: 'HiSun',
+        titleText: 'Fényegység',
+        text: data.miscData.lightUnit,
+        unit: 'cd',
+        date: data.date,
+      },
+
+      {
+        iconType: 'RiBattery2ChargeLine',
+        titleText: 'Napelem töltő feszültség',
+        text: data.batteryData.solarCellChargingVoltage,
+        unit: 'V',
+        date: data.date,
+      },
+
+      {
+        iconType: 'GiCarBattery',
+        titleText: 'Külső akkufeszültség',
+        text: data.batteryData.externalBatteryVoltage,
+        unit: 'V',
+        date: data.date,
+      },
+
+      {
+        iconType: 'GiCarBattery',
+        titleText: 'Belső akkufeszültség',
+        text: data.batteryData.internalBatteryVoltage,
+        unit: 'V',
+        date: data.date,
+      },
+    ];
+  };
+
+  const getIcon = (str) => {
+    switch (str) {
+      case 'WiThermometer':
+        return <WiThermometer size={100} />;
+      case 'RiDashboard3Line':
+        return <RiDashboard3Line size={100} />;
+      case 'WiHumidity':
+        return <WiHumidity size={100} />;
+      case 'TiWeatherSnow':
+        return <TiWeatherSnow size={100} />;
+      case 'TiWeatherShower':
+        return <TiWeatherShower size={100} />;
+      case 'GiChaliceDrops':
+        return <GiChaliceDrops size={100} />;
+      case 'RiLeafLine':
+        return <RiLeafLine size={100} />;
+      case 'RiCompassDiscoverFill':
+        return <RiCompassDiscoverFill size={100} />;
+      case 'IoMdRocket':
+        return <IoMdRocket size={100} />;
+      case 'VscDashboard':
+        return <VscDashboard size={100} />;
+      case 'GiDrop':
+        return <GiDrop size={100} />;
+      case 'HiSun':
+        return <HiSun size={100} />;
+      case 'RiBattery2ChargeLine':
+        return <RiBattery2ChargeLine size={100} />;
+      case 'GiCarBattery':
+        return <GiCarBattery size={100} />;
+      default:
+        return '';
+    }
+  };
+
   return (
-    Object.keys(weatherData).length > 0 && (
+    weatherData.length > 0 && (
       <div className="swiper-container">
         <h1>Hisztorikus adatok</h1>
         <Swiper
@@ -60,326 +255,27 @@ export default function HistoricData() {
           pagination={false}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <WiThermometer size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Levegő hőmérséklet"
-                  text={weatherData.airData.airTemperature}
-                  unit="&#8451;"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <RiDashboard3Line size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Légnyomás"
-                  text={weatherData.airData.airPressure}
-                  unit="kPa"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <WiHumidity size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Levegő páratartalom"
-                  text={weatherData.airData.airHumidity}
-                  unit="%"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <TiWeatherSnow size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Fagy"
-                  text={weatherData.miscData.freeze}
-                  unit=""
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <TiWeatherShower size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Csapadék"
-                  text={weatherData.miscData.rain}
-                  unit="mm"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <GiChaliceDrops size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Csapadék számláló"
-                  text={weatherData.miscData.precipitationCounter}
-                  unit="mm"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <RiLeafLine size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Levélnedvesség"
-                  text={weatherData.miscData.leafMoisture}
-                  unit="perc"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <RiCompassDiscoverFill size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Szélirány"
-                  text={weatherData.windData.windDirection}
-                  unit=""
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <IoMdRocket size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Széllökés"
-                  text={weatherData.windData.windGust}
-                  unit="km/h"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <VscDashboard size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Szélsebesség"
-                  text={weatherData.windData.windSpeed}
-                  unit="km/h"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <WiThermometer size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Talaj hőmérséklet 0cm"
-                  text={weatherData.soilData.soilTemperature0cm}
-                  unit="&#8451;"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <GiDrop size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Talaj nedvesség 30cm"
-                  text={weatherData.soilData.soilMoisture30cm}
-                  unit="V/V %"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <GiDrop size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Talaj nedvesség 60cm"
-                  text={weatherData.soilData.soilMoisture60cm}
-                  unit="V/V %"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <GiDrop size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Talaj nedvesség 90cm"
-                  text={weatherData.soilData.soilMoisture90cm}
-                  unit="V/V %"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <GiDrop size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Talaj nedvesség 120cm"
-                  text={weatherData.soilData.soilMoisture120cm}
-                  unit="V/V %"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <HiSun size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Besugárzás"
-                  text={weatherData.miscData.irradiation}
-                  unit="W/m2"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <HiSun size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Fényegység"
-                  text={weatherData.miscData.lightUnit}
-                  unit="cd"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <RiBattery2ChargeLine size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Napelem töltő feszültség"
-                  text={weatherData.batteryData.solarCellChargingVoltage}
-                  unit="V"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <GiCarBattery size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Külső akkufeszültség"
-                  text={weatherData.batteryData.externalBatteryVoltage}
-                  unit="V"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="zoom">
-              <div className="card">
-                <IconContext.Provider value={{ color: '#c54b3c' }}>
-                  <GiCarBattery size={100} />
-                </IconContext.Provider>
-                <MeasureCard
-                  titleText="Belső akkufeszültség"
-                  text={weatherData.batteryData.internalBatteryVoltage}
-                  unit="V"
-                  lastData="Utolsó mért adat: "
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </div>
-            </div>
-          </SwiperSlide>
+          {weatherData.map((el) => {
+            return (
+              <SwiperSlide>
+                <div className="zoom">
+                  <div className="card">
+                    <IconContext.Provider value={{ color: '#c54b3c' }}>
+                      {getIcon(el.iconType)}
+                    </IconContext.Provider>
+                    <MeasureCard
+                      titleText={el.titleText}
+                      text={el.text}
+                      unit={el.unit}
+                      lastData="Utolsó mért adat: "
+                      footerText={el.date}
+                    ></MeasureCard>
+                  </div>
+                </div>
+              </SwiperSlide>
+            );
+          })}
+          ;
         </Swiper>
       </div>
     )
