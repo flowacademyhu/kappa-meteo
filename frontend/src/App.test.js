@@ -23,7 +23,7 @@ global.navigator.geolocation = mockGeolocation;
 
 const mockGeolocation1 = {
   getCurrentPosition: jest.fn(),
-  watchPosition: jest.fn()
+  watchPosition: jest.fn(),
 };
 
 global.navigator.geolocation = mockGeolocation1;
