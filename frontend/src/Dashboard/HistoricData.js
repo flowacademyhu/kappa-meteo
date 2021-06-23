@@ -27,12 +27,12 @@ import 'swiper/components/navigation/navigation.scss';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
-export default function SwiperCards() {
+export default function HistoricData() {
   const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get('http://localhost:8081/api/test/12');
+      const response = await axios.get('/api/test/12');
       setWeatherData(response.data);
     }
     fetchData();
@@ -76,7 +76,6 @@ export default function SwiperCards() {
               </div>
             </div>
           </SwiperSlide>
-          x
           <SwiperSlide>
             <div className="zoom">
               <div className="card">

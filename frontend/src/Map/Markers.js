@@ -1,5 +1,5 @@
 import React from 'react';
-import MyPopup from '../Popup/MyPopup.js';
+import StationPopup from '../Popup/StationPopup.js';
 import RadarIcon from '../Icon/Radaricon';
 import { Marker } from 'react-leaflet';
 
@@ -18,7 +18,7 @@ export default function Markers({ coordinates }) {
             position={[coordinate.latitude, coordinate.longitude]}
             icon={RadarIcon}
           >
-            <MyPopup station={coordinate}></MyPopup>
+            <StationPopup station={coordinate}></StationPopup>
           </Marker>
         ))}
     </>

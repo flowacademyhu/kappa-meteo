@@ -1,5 +1,5 @@
 import './App.css';
-import SwiperCards from './Dashboard/SwiperCards';
+import HistoricData from './Dashboard/HistoricData';
 import Map from './Map/Map.js';
 import React from 'react';
 import Menu from './Menu.js';
@@ -28,7 +28,7 @@ export default function App() {
               </div>
             </Route>
             <Route path="/historicdata">
-              <SwiperCards />
+              <HistoricData />
             </Route>
             <Redirect from="/" to="/mapview" />
           </Switch>

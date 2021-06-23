@@ -24,7 +24,6 @@ export default function Map() {
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(coordinates);
   return (
     <StyledMapContainer
       center={[47.497913, 19.040236]}
