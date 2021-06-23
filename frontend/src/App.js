@@ -1,9 +1,8 @@
 import Map from './Map/Map.js';
-import useGeoLocation from './Map/UseGeoLocation.js';
-import UserIcon from './Icon/UserIcon.js';
-import { Marker, TileLayer } from 'react-leaflet';
-import { MapContainer } from 'react-leaflet';
+import { Marker, TileLayer, MapContainer } from 'react-leaflet';
 import styled from 'styled-components';
+import { useGeolocation } from 'react-use';
+import UserIcon from './Icon/UserIcon';
 
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
@@ -11,8 +10,8 @@ const StyledMapContainer = styled(MapContainer)`
 `;
 
 function App() {
-  const location = useGeoLocation();
-
+  const myPosition = useGeolocation();
+  console.log(myPosition);
   return (
     <div data-testid="map-container">
       <StyledMapContainer
@@ -25,11 +24,14 @@ function App() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Map></Map>
-        {location.loaded && !location.error && (
-          <Marker
-            icon={UserIcon}
-            position={[location.coordinates.lat, location.coordinates.lng]}
-          ></Marker>
+        {myPosition.latitude !== null && (
+          <>
+            <pre>{JSON.stringify(myPosition, null, 2)}</pre>
+            <Marker
+              icon={UserIcon}
+              position={[myPosition.latitude, myPosition.longitude]}
+            ></Marker>
+          </>
         )}
       </StyledMapContainer>
     </div>
