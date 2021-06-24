@@ -4,7 +4,6 @@ export default function MeasureCard({
   titleText,
   text,
   footerText,
-  lastData,
   unit,
   Icon,
 }) {
@@ -22,7 +21,9 @@ export default function MeasureCard({
         </div>
         <div className="card-footer">
           <p>
-            {lastData} {footerText}
+            Utolsó mért adat:
+            <br />
+            {footerText}
           </p>
         </div>
       </div>

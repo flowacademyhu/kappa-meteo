@@ -167,7 +167,7 @@ const formatData = (data) => {
 };
 
 export default function HistoricData() {
-  const [weatherData, setWeatherData] = useState([]);
+  const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -178,7 +178,7 @@ export default function HistoricData() {
   }, []);
 
   return (
-    Object.keys(weatherData).length > 0 && (
+    weatherData != null && (
       <div className="swiper-container">
         <h1>Hisztorikus adatok</h1>
         <Swiper
@@ -207,7 +207,6 @@ export default function HistoricData() {
                   titleText={data.titleText}
                   text={data.text}
                   unit={data.unit}
-                  lastData="Utolsó mért adat: "
                   footerText={weatherData.date}
                 ></MeasureCard>
               </SwiperSlide>
