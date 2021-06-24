@@ -74,17 +74,24 @@ const optionsArray = [
 
 export default function LineChart2() {
   const [linedata, setLineData] = useState([]);
+  const [date, setDate] = useState("DAILY");
+  const [station, setStation] = useState(12);
+  //http://localhost:8080/test2?id=12&type=DAILY
 
   useEffect(async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/test/12`);
-      setLineData(response.data.airData);
-      console.log(response);
+      const response = await axios.get(`http://localhost:8080/test2?id=`+station+`&type=`+date);
+      const result = response.data
+      const  mappedResult = result.map((item, index) =>{
+        return {...item, number: index}
+      })
+      setLineData(mappedResult)
+     
     } catch (err) {
       console.error('Error during api call:', err);
     }
-  }, []);
-
+  }, [date, station]);
+  console.log(linedata);
   return (
     <>
       <div className="container align-items-center justify-content-center">
@@ -499,59 +506,23 @@ export default function LineChart2() {
           </div>
         </div>
       </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-2">
-            <DropdownMultiselect
-              options={optionsArray}
-              name="countries"
-              buttonClass="btn btn-primary"
-              placeholder="Semmi"
-            />
-          </div>
-          <div className="col-2">
-            <DropdownMultiselect
-              options={optionsArray}
-              name="countries"
-              buttonClass="btn btn-primary"
-              placeholder="B"
-            />
-          </div>
-          <div className="col-2">
-            <DropdownMultiselect
-              options={optionsArray}
-              name="countries"
-              buttonClass="btn btn-primary"
-              placeholder="C"
-            />
-          </div>
-          <div className="col-2">
-            <DropdownMultiselect
-              options={optionsArray}
-              name="countries"
-              buttonClass="btn btn-primary"
-              placeholder="D"
-            />
-          </div>
-          <div className="col-2">
-            <DropdownMultiselect
-              options={optionsArray}
-              name="countries"
-              buttonClass="btn btn-primary"
-              placeholder="E"
-            />
-          </div>
-          <div className="col-2">
-            <DropdownMultiselect
-              options={optionsArray}
-              name="countries"
-              buttonClass="btn btn-primary"
-              placeholder="F"
-            />
-          </div>
-        </div>
+      <div className="container p-3 m-3">
+      <label htmlFor="dateTime">Choose a date:</label>
+<select name="dateTime" id="datetime" onChange={(e)=>setDate(e.target.value)} value="DAILY">
+  <option value="DAILY">Daily</option>
+  <option value="HOURLY">Hourly</option>
+  <option value="TEN_MIN">10 min</option>
+
+</select>
       </div>
-      {linedata.airPressure !== null && linedata.airPressure !== undefined && (
+      <div className="container p-3 m-3">
+      <label htmlFor="stationId">Choose a Station:</label>
+<select name="stations" id="stations" onChange={(e)=>setStation(e.target.value)} value="12">
+  <option value="12">Szeged</option>
+  
+</select>
+      </div>
+      {linedata !== null && linedata !== undefined && (
         <div className="container align-items-center justify-content-center p-3">
           <div className="row">
             <div className="col"></div>
@@ -559,7 +530,7 @@ export default function LineChart2() {
               <LineChart
                 width={1000}
                 height={500}
-                data={linedata.airData}
+                data={linedata}
                 margin={{
                   top: 25,
                   right: 60,
@@ -568,25 +539,25 @@ export default function LineChart2() {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey={linedata} />
+                <XAxis dataKey="number" />
                 <Tooltip />
                 <Legend />
                 <Line
                   type="monotone"
-                  dataKey={linedata.airTemperature}
+                  dataKey="airTemperature"
                   stroke="#8884d8"
                   activeDot={{ r: 8 }}
                   yAxisId={0}
                 />
                 <Line
                   type="monotone"
-                  dataKey={linedata.airPressure}
+                  dataKey="airPressure"
                   stroke="#82ca9d"
                   yAxisId={1}
                 />
                 <Line
                   type="monotone"
-                  dataKey={linedata.airHumidity}
+                  dataKey="airHumidity"
                   stroke="#82ca9d"
                   yAxisId={2}
                 />
