@@ -3,7 +3,7 @@ import HistoricData from './Dashboard/HistoricData';
 import Map from './Map/Map.js';
 import React from 'react';
 import Menu from './Menu.js';
-
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,6 +24,7 @@ export default function App() {
           <Switch>
             <Route path="/mapview">
               <div className="m-4 p-3">
+                <title>Térkép nézet</title>
                 <Map />
               </div>
             </Route>

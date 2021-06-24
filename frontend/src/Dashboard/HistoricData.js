@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MeasureCard from '../MeasureCard/MeasureCard.js';
 import axios from 'axios';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
 

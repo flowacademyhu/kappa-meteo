@@ -15,7 +15,7 @@ export default function Map() {
 
   useEffect(() => {
     axios
-      .get('/api/coordinates', {
+      .get('/api/stations', {
         mode: 'no-cors',
       })
       .then((response) => {
