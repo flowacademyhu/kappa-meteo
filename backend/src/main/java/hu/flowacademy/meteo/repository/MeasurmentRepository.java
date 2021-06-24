@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MeasurmentRepository extends JpaRepository<Measurment, MeasurmentId> {
     Measurment findFirstByStationIdOrderByDateDesc(Long id);
+
+    Measurment find(Long id);
 }

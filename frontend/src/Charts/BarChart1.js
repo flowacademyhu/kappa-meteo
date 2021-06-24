@@ -131,29 +131,30 @@ export default function BarChart1() {
  }
 }
 */
-  useEffect(() => {
+  /*useEffect(() => {
     axios
       .get('http://localhost:8080/api/test/12', {
         mode: 'no-cors',
       })
       .then((response) => {
-        setData(response.data);
+        setData(response.data.airData);
       })
       .catch((error) => console.log(error));
   }, []);
+*/
+  
+
+  useEffect(async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/test/12`);
+      setData(response.data.airData);
+      console.log(response);
+    } catch (err) {
+      console.error('Error during api call:', err);
+    }
+  }, []);
 
   console.log(data);
-
-  // useEffect(async () => {
-  //   try {
-  //     const result = await axios.get(
-  //       `/api/test/12`
-  //     );
-  //     setData(result.data);
-  //   } catch (e) {
-  //     alert("Hibaüzenet");
-  //   }
-  // }, []);
 
   return (
     <>
@@ -310,7 +311,7 @@ export default function BarChart1() {
                 <BarChart
                   width={1000}
                   height={500}
-                  data={data}
+                  data={data.airData}
                   margin={{
                     top: 25,
                     right: 60,
@@ -323,9 +324,9 @@ export default function BarChart1() {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  {/* <Bar dataKey={data.airData.airPressure}fill="#8884d8"/>
-                <Bar dataKey={data.airData.airHumidity} fill="#82ca9d"/>
-                <Bar dataKey={data.airData.airTemperature} fill="#12bc5a"/> */}
+                  <Bar dataKey={data.airPressure}fill="#8884d8"/>
+                <Bar dataKey={data.airHumidity} fill="#82ca9d"/>
+                <Bar dataKey={data.airTemperature} fill="#12bc5a"/>
                 </BarChart>
               </div>
               <div className="col"></div>

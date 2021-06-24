@@ -559,7 +559,7 @@ export default function LineChart2() {
               <LineChart
                 width={1000}
                 height={500}
-                data={linedata}
+                data={linedata.airData}
                 margin={{
                   top: 25,
                   right: 60,
@@ -568,8 +568,7 @@ export default function LineChart2() {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey={linedata.airData} />
-                <YAxis dataKey={linedata.airData} />
+                <XAxis dataKey={linedata} />
                 <Tooltip />
                 <Legend />
                 <Line
@@ -577,16 +576,19 @@ export default function LineChart2() {
                   dataKey={linedata.airTemperature}
                   stroke="#8884d8"
                   activeDot={{ r: 8 }}
+                  yAxisId={0}
                 />
                 <Line
                   type="monotone"
                   dataKey={linedata.airPressure}
                   stroke="#82ca9d"
+                  yAxisId={1}
                 />
                 <Line
                   type="monotone"
                   dataKey={linedata.airHumidity}
                   stroke="#82ca9d"
+                  yAxisId={2}
                 />
               </LineChart>
             </div>

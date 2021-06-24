@@ -1,7 +1,6 @@
 import Map from './Map/Map.js';
 import React from 'react';
 import Menu from './Menu.js';
-import LineChart from './Charts/LineChart.js';
 import LineChart2 from './Charts/LineChart2.js';
 import BarChart1 from './Charts/BarChart1.js';
 
