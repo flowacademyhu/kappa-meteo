@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import styled from 'styled-components';
 import axios from 'axios';
 import Markers from './Markers';
-
-const StyledMapContainer = styled(MapContainer)`
-  width: 100%;
-  height: 76vh;
-`;
+import 'leaflet/dist/leaflet.css';
 
 export default function Map() {
   const [coordinates, setCoordinates] = useState([]);
@@ -25,16 +18,8 @@ export default function Map() {
   }, []);
 
   return (
-    <StyledMapContainer
-      center={[47.497913, 19.040236]}
-      zoom={10}
-      scrollWheelZoom={true}
-    >
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    <div>
       <Markers coordinates={coordinates} />
-    </StyledMapContainer>
+    </div>
   );
 }

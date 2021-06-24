@@ -5,7 +5,7 @@ import { Marker } from 'react-leaflet';
 
 export default function Markers({ coordinates }) {
   return (
-    <>
+    <div>
       {coordinates
         .filter(
           (coordinate) =>
@@ -21,6 +21,6 @@ export default function Markers({ coordinates }) {
             <MyPopup station={coordinate}></MyPopup>
           </Marker>
         ))}
-    </>
+    </div>
   );
 }

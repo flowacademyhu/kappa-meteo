@@ -2,7 +2,7 @@
   "name": "kappa-meteo",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8082",
+  "proxy": "http://localhost:8081",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -15,6 +15,7 @@
     "react-dom": "^17.0.2",
     "react-leaflet": "^3.2.0",
     "react-scripts": "4.0.3",
+    "react-use": "^17.2.4",
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
     "styled": "^1.0.0",
@@ -51,8 +52,8 @@
     "last 1 safari version"
   ],
   "devDependencies": {
-    "prettier": "^2.3.1",
     "@babel/plugin-transform-modules-commonjs": "^7.12.13",
-    "babel-jest": "^26.6.3"
+    "babel-jest": "^26.6.3",
+    "prettier": "^2.3.1"
   }
 }
