@@ -13,7 +13,7 @@ public class TestController {
 
     private final TestService testService;
 
-    @GetMapping("api/test/{id}")
+    @GetMapping("test/{id}")
     public MeasurmentDto findLastByStationId(@PathVariable Long id) {
         return MeasurmentDto.toDto(testService.findLastByStationId(id));
     }

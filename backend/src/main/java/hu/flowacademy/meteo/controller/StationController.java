@@ -15,7 +15,7 @@ public class StationController {
 
     private final StationService stationService;
 
-    @GetMapping("api/coordinates")
+    @GetMapping("coordinates")
     public List<StationDto> listStations() {
         return stationService.listStations().stream().map(StationDto::toDto).collect(Collectors.toList());
     }
