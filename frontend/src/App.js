@@ -11,7 +11,6 @@ const StyledMapContainer = styled(MapContainer)`
 
 function App() {
   const myPosition = useGeolocation();
-  console.log(myPosition);
   return (
     <div data-testid="map-container">
       <StyledMapContainer
@@ -26,7 +25,7 @@ function App() {
         <Map></Map>
         {myPosition.latitude !== null && (
           <>
-            <pre>{JSON.stringify(myPosition, null, 2)}</pre>
+            <pre>{(myPosition, null, 2)}</pre>
             <Marker
               icon={UserIcon}
               position={[myPosition.latitude, myPosition.longitude]}
