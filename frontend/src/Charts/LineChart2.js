@@ -11,7 +11,7 @@ import {
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import axios from 'axios';
 
-const data = [
+/*const data = [
   {
     name: 'Page A',
     uv: 4000,
@@ -62,7 +62,7 @@ const data = [
     amt: 2100,
   },
 ];
-
+*/
 const optionsArray = [
   { key: 1, label: 'Australia' },
   { key: 'ca', label: 'Canada' },
@@ -73,19 +73,20 @@ const optionsArray = [
 ];
 
 export default function LineChart2() {
-  //const [data, setData] = useState([]);
+  const [linedata, setLineData] = useState([]);
 
-  /*useEffect(async () => {
+  useEffect(async () => {
         try {
           const response = await axios.get(
-            `https://localhost:8081/api/test/data`
+            `http://localhost:8080/api/test/12`
           );
-          setData(response.data);
+          setLineData(response.data);
+          console.log(response)
         } catch (err) {
           console.error('Error during api call:', err);
         }
       }, []);
-*/
+
 
   return (
     <>
@@ -553,6 +554,7 @@ export default function LineChart2() {
           </div>
         </div>
       </div>
+      {linedata.airPressure !== null && linedata.airPressure !== undefined && (
       <div className="container align-items-center justify-content-center p-3">
         <div className="row">
           <div className="col"></div>
@@ -560,7 +562,7 @@ export default function LineChart2() {
             <LineChart
               width={1000}
               height={500}
-              data={data}
+              data={linedata}
               margin={{
                 top: 25,
                 right: 60,
@@ -575,17 +577,18 @@ export default function LineChart2() {
               <Legend />
               <Line
                 type="monotone"
-                dataKey="pv"
+                dataKey={linedata.airData.airTemperature}
                 stroke="#8884d8"
                 activeDot={{ r: 8 }}
               />
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-              <Line type="monotone" dataKey="dv" stroke="#82ca9d" />
+              <Line type="monotone" dataKey={linedata.airData.airPressure} stroke="#82ca9d" />
+              <Line type="monotone" dataKey={linedata.airData.airHumidity} stroke="#82ca9d" />
             </LineChart>
           </div>
           <div className="col"></div>
         </div>
       </div>
+    )}
     </>
   );
 }

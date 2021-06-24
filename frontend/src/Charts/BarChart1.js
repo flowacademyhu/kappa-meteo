@@ -95,7 +95,7 @@ export default function BarChart1() {
     BarChart.data = data
   }
 */
-  const data2 = 
+  /*const data2 = 
 {
  date: "2021-04-20 19:50:00",
  type: "TEN_MIN",
@@ -130,22 +130,35 @@ export default function BarChart1() {
  windGust: 0.5
  }
 }
+*/
+useEffect(() => {
+  axios
+ .get('http://localhost:8080/api/test/12', {
+ mode: 'no-cors',
+ })
+ .then((response) => {
+ setData(response.data);
+ })
+ .catch((error) => console.log(error));
+ }, []);
 
-  useEffect(async () => {
-          /*const response = await axios.get(
-            `http://localhost:8080/api/test/12`,
-          );*/
-          setData(data2);
-          });
-         
-  
+ console.log(data);
 
-      
 
+        // useEffect(async () => {
+        //   try {
+        //     const result = await axios.get(
+        //       `/api/test/12`
+        //     );
+        //     setData(result.data);
+        //   } catch (e) {
+        //     alert("Hibaüzenet");
+        //   }
+        // }, []);
 
   return (
     <>
-    {data.airPressure != null && (
+    {data.airPressure !== null && data.airPressure !== undefined && (
       <div className="container">
         <div className="row">
           <div className="col-2 p-2">
@@ -290,11 +303,11 @@ export default function BarChart1() {
             />
           </div>
         </div>
+  
         <div className="container align-items-center justify-content-center p-3">
           <div className="row">
             <div className="col"></div>
             <div className="col">
-              
               <BarChart
                 width={1000}
                 height={500}
@@ -306,14 +319,14 @@ export default function BarChart1() {
                   bottom: 20,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <CartesianGrid strokeDasharray="5 5" />
+                <XAxis dataKey={data.data} />
+                <YAxis/>
                 <Tooltip />
                 <Legend />
-                <Bar dataKey={data.airData.airPressure}fill="#8884d8" />
-                <Bar dataKey={data.airData.airHumidity} fill="#82ca9d" />
-                <Bar dataKey={data.airData.airTemperature} fill="#12bc5a" />
+                <Bar dataKey={data.airData.airPressure}fill="#8884d8"/>
+                <Bar dataKey={data.airData.airHumidity} fill="#82ca9d"/>
+                <Bar dataKey={data.airData.airTemperature} fill="#12bc5a"/>
               </BarChart>
             </div>
             <div className="col"></div>
