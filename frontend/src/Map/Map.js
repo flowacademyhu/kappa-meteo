@@ -3,7 +3,6 @@ import axios from 'axios';
 import Markers from './Markers';
 import 'leaflet/dist/leaflet.css';
 
-
 export default function Map() {
   const [coordinates, setCoordinates] = useState([]);
 
@@ -19,7 +18,6 @@ export default function Map() {
   }, []);
 
   return (
-
     <div>
       <Markers coordinates={coordinates} />
     </div>
