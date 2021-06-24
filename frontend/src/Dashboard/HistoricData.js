@@ -5,7 +5,6 @@ import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
 
-import { IconContext } from 'react-icons';
 import {
   RiCompassDiscoverFill,
   RiDashboard3Line,
@@ -27,214 +26,159 @@ import 'swiper/components/navigation/navigation.scss';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
+const formatData = (data) => {
+  return [
+    {
+      icon: WiThermometer,
+      titleText: 'Levegő hőmérséklet',
+      text: data.airData.airTemperature,
+      unit: <>&#8451;</>,
+    },
+
+    {
+      icon: RiDashboard3Line,
+      titleText: 'Légnyomás',
+      text: data.airData.airPressure,
+      unit: 'kPa',
+    },
+    {
+      icon: WiHumidity,
+      titleText: 'Levegő páratartalom',
+      text: data.airData.airHumidity,
+      unit: '%',
+    },
+
+    {
+      icon: TiWeatherSnow,
+      titleText: 'Fagy',
+      text: data.miscData.freeze,
+      unit: '',
+    },
+
+    {
+      icon: TiWeatherShower,
+      titleText: 'Csapadék',
+      text: data.miscData.rain,
+      unit: 'mm',
+    },
+
+    {
+      icon: GiChaliceDrops,
+      titleText: 'Csapadék számláló',
+      text: data.miscData.precipitationCounter,
+      unit: 'mm',
+    },
+    {
+      icon: RiLeafLine,
+      titleText: 'Levélnedvesség',
+      text: data.miscData.leafMoisture,
+      unit: 'perc',
+    },
+
+    {
+      icon: RiCompassDiscoverFill,
+      titleText: 'Szélirány',
+      text: data.windData.windDirection,
+      unit: '',
+    },
+
+    {
+      icon: IoMdRocket,
+      titleText: 'Széllökés',
+      text: data.windData.windGust,
+      unit: 'km/h',
+    },
+
+    {
+      icon: VscDashboard,
+      titleText: 'Szélsebesség',
+      text: data.windData.windSpeed,
+      unit: 'km/h"',
+    },
+
+    {
+      icon: WiThermometer,
+      titleText: 'Talaj hőmérséklet 0cm',
+      text: data.soilData.soilTemperature0cm,
+      unit: <>&#8451;</>,
+    },
+
+    {
+      icon: GiDrop,
+      titleText: 'Talaj nedvesség 30cm',
+      text: data.soilData.soilMoisture30cm,
+      unit: 'V/V %',
+    },
+    {
+      icon: GiDrop,
+      titleText: 'Talaj nedvesség 60cm',
+      text: data.soilData.soilMoisture60cm,
+      unit: 'V/V %',
+    },
+
+    {
+      icon: GiDrop,
+      titleText: 'Talaj nedvesség 90cm',
+      text: data.soilData.soilMoisture90cm,
+      unit: 'V/V %',
+    },
+
+    {
+      icon: GiDrop,
+      titleText: 'Talaj nedvesség 120cm',
+      text: data.soilData.soilMoisture120cm,
+      unit: 'V/V %',
+    },
+    {
+      icon: HiSun,
+      titleText: 'Besugárzás',
+      text: data.miscData.irradiation,
+      unit: 'W/m2',
+    },
+
+    {
+      icon: HiSun,
+      titleText: 'Fényegység',
+      text: data.miscData.lightUnit,
+      unit: 'cd',
+    },
+
+    {
+      icon: RiBattery2ChargeLine,
+      titleText: 'Napelem töltő feszültség',
+      text: data.batteryData.solarCellChargingVoltage,
+      unit: 'V',
+    },
+
+    {
+      icon: GiCarBattery,
+      titleText: 'Külső akkufeszültség',
+      text: data.batteryData.externalBatteryVoltage,
+      unit: 'V',
+    },
+
+    {
+      icon: GiCarBattery,
+      titleText: 'Belső akkufeszültség',
+      text: data.batteryData.internalBatteryVoltage,
+      unit: 'V',
+    },
+  ];
+};
+
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get('/api/test/12');
-      response.data && setWeatherData(formatData(response.data));
+      response.data && setWeatherData(response.data);
     }
     fetchData();
   }, []);
 
-  const formatData = (data) => {
-    return [
-      {
-        iconType: 'WiThermometer',
-        titleText: 'Levegő hőmérséklet',
-        text: data.airData.airTemperature,
-        unit: <>&#8451;</>,
-        date: data.date,
-      },
-
-      {
-        iconType: 'RiDashboard3Line',
-        titleText: 'Légnyomás',
-        text: data.airData.airPressure,
-        unit: 'kPa',
-        date: data.date,
-      },
-      {
-        iconType: 'WiHumidity',
-        titleText: 'Levegő páratartalom',
-        text: data.airData.airHumidity,
-        unit: '%',
-        date: data.date,
-      },
-
-      {
-        iconType: 'TiWeatherSnow',
-        titleText: 'Fagy',
-        text: data.miscData.freeze,
-        unit: '',
-        date: data.date,
-      },
-
-      {
-        iconType: 'TiWeatherShower',
-        titleText: 'Csapadék',
-        text: data.miscData.rain,
-        unit: 'mm',
-        date: data.date,
-      },
-
-      {
-        iconType: 'GiChaliceDrops',
-        titleText: 'Csapadék számláló',
-        text: data.miscData.precipitationCounter,
-        unit: 'mm',
-        date: data.date,
-      },
-      {
-        iconType: 'RiLeafLine',
-        titleText: 'Levélnedvesség',
-        text: data.miscData.leafMoisture,
-        unit: 'perc',
-        date: data.date,
-      },
-
-      {
-        iconType: 'RiCompassDiscoverFill',
-        titleText: 'Szélirány',
-        text: data.windData.windDirection,
-        unit: '',
-        date: data.date,
-      },
-
-      {
-        iconType: 'IoMdRocket',
-        titleText: 'Széllökés',
-        text: data.windData.windGust,
-        unit: 'km/h',
-        date: data.date,
-      },
-
-      {
-        iconType: 'VscDashboard',
-        titleText: 'Szélsebesség',
-        text: data.windData.windSpeed,
-        unit: 'km/h"',
-        date: data.date,
-      },
-
-      {
-        iconType: 'WiThermometer',
-        titleText: 'Talaj hőmérséklet 0cm',
-        text: data.soilData.soilTemperature0cm,
-        unit: <>&#8451;</>,
-        date: data.date,
-      },
-
-      {
-        iconType: 'GiDrop',
-        titleText: 'Talaj nedvesség 30cm',
-        text: data.soilData.soilMoisture30cm,
-        unit: 'V/V %',
-        date: data.date,
-      },
-      {
-        iconType: 'GiDrop',
-        titleText: 'Talaj nedvesség 60cm',
-        text: data.soilData.soilMoisture60cm,
-        unit: 'V/V %',
-        date: data.date,
-      },
-
-      {
-        iconType: 'GiDrop',
-        titleText: 'Talaj nedvesség 90cm',
-        text: data.soilData.soilMoisture90cm,
-        unit: 'V/V %',
-        date: data.date,
-      },
-
-      {
-        iconType: 'GiDrop',
-        titleText: 'Talaj nedvesség 120cm',
-        text: data.soilData.soilMoisture120cm,
-        unit: 'V/V %',
-        date: data.date,
-      },
-      {
-        iconType: 'HiSun',
-        titleText: 'Besugárzás',
-        text: data.miscData.irradiation,
-        unit: 'W/m2',
-        date: data.date,
-      },
-
-      {
-        iconType: 'HiSun',
-        titleText: 'Fényegység',
-        text: data.miscData.lightUnit,
-        unit: 'cd',
-        date: data.date,
-      },
-
-      {
-        iconType: 'RiBattery2ChargeLine',
-        titleText: 'Napelem töltő feszültség',
-        text: data.batteryData.solarCellChargingVoltage,
-        unit: 'V',
-        date: data.date,
-      },
-
-      {
-        iconType: 'GiCarBattery',
-        titleText: 'Külső akkufeszültség',
-        text: data.batteryData.externalBatteryVoltage,
-        unit: 'V',
-        date: data.date,
-      },
-
-      {
-        iconType: 'GiCarBattery',
-        titleText: 'Belső akkufeszültség',
-        text: data.batteryData.internalBatteryVoltage,
-        unit: 'V',
-        date: data.date,
-      },
-    ];
-  };
-
-  const getIcon = (str) => {
-    switch (str) {
-      case 'WiThermometer':
-        return <WiThermometer size={100} />;
-      case 'RiDashboard3Line':
-        return <RiDashboard3Line size={100} />;
-      case 'WiHumidity':
-        return <WiHumidity size={100} />;
-      case 'TiWeatherSnow':
-        return <TiWeatherSnow size={100} />;
-      case 'TiWeatherShower':
-        return <TiWeatherShower size={100} />;
-      case 'GiChaliceDrops':
-        return <GiChaliceDrops size={100} />;
-      case 'RiLeafLine':
-        return <RiLeafLine size={100} />;
-      case 'RiCompassDiscoverFill':
-        return <RiCompassDiscoverFill size={100} />;
-      case 'IoMdRocket':
-        return <IoMdRocket size={100} />;
-      case 'VscDashboard':
-        return <VscDashboard size={100} />;
-      case 'GiDrop':
-        return <GiDrop size={100} />;
-      case 'HiSun':
-        return <HiSun size={100} />;
-      case 'RiBattery2ChargeLine':
-        return <RiBattery2ChargeLine size={100} />;
-      case 'GiCarBattery':
-        return <GiCarBattery size={100} />;
-      default:
-        return '';
-    }
-  };
-
   return (
-    weatherData.length > 0 && (
+    Object.keys(weatherData).length > 0 && (
       <div className="swiper-container">
         <h1>Hisztorikus adatok</h1>
         <Swiper
@@ -255,23 +199,17 @@ export default function HistoricData() {
           pagination={false}
           className="mySwiper"
         >
-          {weatherData.map((el) => {
+          {formatData(weatherData).map((data) => {
             return (
               <SwiperSlide>
-                <div className="zoom">
-                  <div className="card">
-                    <IconContext.Provider value={{ color: '#c54b3c' }}>
-                      {getIcon(el.iconType)}
-                    </IconContext.Provider>
-                    <MeasureCard
-                      titleText={el.titleText}
-                      text={el.text}
-                      unit={el.unit}
-                      lastData="Utolsó mért adat: "
-                      footerText={el.date}
-                    ></MeasureCard>
-                  </div>
-                </div>
+                <MeasureCard
+                  Icon={data.icon}
+                  titleText={data.titleText}
+                  text={data.text}
+                  unit={data.unit}
+                  lastData="Utolsó mért adat: "
+                  footerText={weatherData.date}
+                ></MeasureCard>
               </SwiperSlide>
             );
           })}
