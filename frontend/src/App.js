@@ -38,7 +38,6 @@ export default function App() {
           </nav>
         </div>
         <div className="m-4 p-3">
-          <Map />
           <StyledMapContainer
             center={[47.497913, 19.040236]}
             zoom={10}
