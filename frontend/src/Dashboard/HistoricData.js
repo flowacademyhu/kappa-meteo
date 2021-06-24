@@ -178,7 +178,7 @@ export default function HistoricData() {
   }, []);
 
   return (
-    weatherData != null && (
+    weatherData !== null && (
       <div className="swiper-container">
         <h1>Hisztorikus adatok</h1>
         <Swiper
