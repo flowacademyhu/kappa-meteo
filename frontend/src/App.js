@@ -1,18 +1,46 @@
+import React from 'react';
+import Menu from './Menu.js';
 import Map from './Map/Map.js';
 import { Marker, TileLayer, MapContainer } from 'react-leaflet';
 import styled from 'styled-components';
 import { useGeolocation } from 'react-use';
 import UserIcon from './Icon/UserIcon';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
+import Footer from './Footer.js';
+
+
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
   height: 80vh;
 `;
 
-function App() {
-  const myPosition = useGeolocation();
+export default function App() {
+   const myPosition = useGeolocation();
   return (
     <div data-testid="map-container">
+      <Router>
+        <div>
+          <nav className="navbar navbar-expand-lg bg-dark justify-content-center">
+            <Menu />
+
+            <div data-testid="router" />
+            <main>
+              <Switch>
+                <Route path="/mapview" />
+                <Route path="/historicdata" />
+                <Redirect from="/" to="/mapview" />
+              </Switch>
+            </main>
+          </nav>
+        </div>
+        <div className="m-4 p-3">
+          <Map />
       <StyledMapContainer
         center={[47.497913, 19.040236]}
         zoom={10}
@@ -33,8 +61,9 @@ function App() {
           </>
         )}
       </StyledMapContainer>
+        </div>
+        <Footer>Made by Buci, Barna, Fixo, Nándi, Vasi &#169;</Footer>
+      </Router>
     </div>
   );
 }
-
-export default App;
