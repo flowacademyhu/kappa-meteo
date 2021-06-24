@@ -80,7 +80,7 @@ export default function LineChart2() {
           const response = await axios.get(
             `http://localhost:8080/api/test/12`
           );
-          setLineData(response.data);
+          setLineData(response.data.airData);
           console.log(response)
         } catch (err) {
           console.error('Error during api call:', err);
@@ -571,18 +571,18 @@ export default function LineChart2() {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              <XAxis dataKey={linedata.airData} />
+              <YAxis dataKey={linedata.airData}/>
               <Tooltip />
               <Legend />
               <Line
                 type="monotone"
-                dataKey={linedata.airData.airTemperature}
+                dataKey={linedata.airTemperature}
                 stroke="#8884d8"
                 activeDot={{ r: 8 }}
               />
-              <Line type="monotone" dataKey={linedata.airData.airPressure} stroke="#82ca9d" />
-              <Line type="monotone" dataKey={linedata.airData.airHumidity} stroke="#82ca9d" />
+              <Line type="monotone" dataKey={linedata.airPressure} stroke="#82ca9d" />
+              <Line type="monotone" dataKey={linedata.airHumidity} stroke="#82ca9d" />
             </LineChart>
           </div>
           <div className="col"></div>

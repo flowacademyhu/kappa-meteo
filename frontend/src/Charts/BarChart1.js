@@ -320,13 +320,13 @@ useEffect(() => {
                 }}
               >
                 <CartesianGrid strokeDasharray="5 5" />
-                <XAxis dataKey={data.data} />
+                <XAxis dataKey={data} />
                 <YAxis/>
                 <Tooltip />
                 <Legend />
-                <Bar dataKey={data.airData.airPressure}fill="#8884d8"/>
+                {/* <Bar dataKey={data.airData.airPressure}fill="#8884d8"/>
                 <Bar dataKey={data.airData.airHumidity} fill="#82ca9d"/>
-                <Bar dataKey={data.airData.airTemperature} fill="#12bc5a"/>
+                <Bar dataKey={data.airData.airTemperature} fill="#12bc5a"/> */}
               </BarChart>
             </div>
             <div className="col"></div>
