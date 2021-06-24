@@ -90,61 +90,11 @@ const optionsArray17 = [{ key: 1, label: 'Csapadék számláló' }];
 
 export default function BarChart1() {
   const [data, setData] = useState([]);
+  const [date, setDate] = useState("");
+  const [station, setStation] = useState(12);
 
-  /*const handleOnChange = () => {
-    BarChart.data = data
-  }
-*/
-  /*const data2 = 
-{
- date: "2021-04-20 19:50:00",
- type: "TEN_MIN",
- airData: {
- airHumidity: 83.94,
- airPressure: 1005.9,
- airTemperature: 8.5
- },
- miscData: {
- irradiation: 0.0,
- freeze: 0.0,
- rain: 0.0,
- leafMoisture: 0.0,
- lightUnit: 3895.0,
- precipitationCounter: null
- },
- soilData: {
- soilMoisture30cm: 16.365498,
- soilMoisture60cm: 14.699497,
- soilMoisture90cm: 12.259997,
- soilMoisture120cm: 0.0,
- soilTemperature0cm: 8.9
- },
- batteryData: {
- solarCellChargingVoltage: 0.0,
- externalBatteryVoltage: 12.877,
- internalBatteryVoltage: 4.206
- },
- windData: {
- windSpeed: 0.0,
- windDirection: 11.964702,
- windGust: 0.5
- }
-}
-*/
-  /*useEffect(() => {
-    axios
-      .get('http://localhost:8080/api/test/12', {
-        mode: 'no-cors',
-      })
-      .then((response) => {
-        setData(response.data.airData);
-      })
-      .catch((error) => console.log(error));
-  }, []);
-*/
-  
 
-  useEffect(async () => {
+  /*useEffect(async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/test/12`);
       setData(response.data.airData);
@@ -153,12 +103,27 @@ export default function BarChart1() {
       console.error('Error during api call:', err);
     }
   }, []);
+  console.log(data);
+  */
 
+  useEffect(async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/test2?id=`+station+`&type=`+date);
+      const result = response.data
+      const  mappedResult = result.map((item, index) =>{
+        return {...item, number: index}
+      })
+      setData(mappedResult)
+     
+    } catch (err) {
+      console.error('Error during api call:', err);
+    }
+  }, [date, station]);
   console.log(data);
 
   return (
     <>
-      {data.airPressure !== null && data.airPressure !== undefined && (
+      
         <div className="container">
           <div className="row">
             <div className="col-2 p-2">
@@ -303,7 +268,23 @@ export default function BarChart1() {
               />
             </div>
           </div>
+          <div className="container p-3 m-3">
+      <label htmlFor="dateTime">Choose a date:</label>
+<select name="dateTime" id="datetime" onChange={(e)=>setDate(e.target.value)}>
+  <option value="DAILY">Daily</option>
+  <option value="HOURLY">Hourly</option>
+  <option value="TEN_MIN">10 min</option>
 
+</select>
+      </div>
+      <div className="container p-3 m-3">
+      <label htmlFor="stationId">Choose a Station:</label>
+<select name="stations" id="stations" onChange={(e)=>setStation(e.target.value)}>
+  <option value="12">Szeged</option>
+  
+</select>
+</div>
+          {data !== null && data !== undefined && (
           <div className="container align-items-center justify-content-center p-3">
             <div className="row">
               <div className="col"></div>
@@ -311,7 +292,7 @@ export default function BarChart1() {
                 <BarChart
                   width={1000}
                   height={500}
-                  data={data.airData}
+                  data={data}
                   margin={{
                     top: 25,
                     right: 60,
@@ -320,20 +301,20 @@ export default function BarChart1() {
                   }}
                 >
                   <CartesianGrid strokeDasharray="5 5" />
-                  <XAxis dataKey={data} />
+                  <XAxis dataKey="number" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey={data.airPressure}fill="#8884d8"/>
-                <Bar dataKey={data.airHumidity} fill="#82ca9d"/>
-                <Bar dataKey={data.airTemperature} fill="#12bc5a"/>
+                  <Bar dataKey="airPressure"fill="#8884d8"/>
+                <Bar dataKey="airHumidity" fill="#82ca9d"/>
+                <Bar dataKey="airTemperature" fill="#12bc5a"/>
                 </BarChart>
               </div>
               <div className="col"></div>
             </div>
           </div>
+          )}
         </div>
-      )}
     </>
   );
 }

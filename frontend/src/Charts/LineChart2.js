@@ -11,70 +11,9 @@ import {
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import axios from 'axios';
 
-/*const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    dv: 500,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    dv: 500,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    dv: 500,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    dv: 500,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    dv: 500,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    dv: 500,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    dv: 500,
-    amt: 2100,
-  },
-];
-*/
-const optionsArray = [
-  { key: 1, label: 'Australia' },
-  { key: 'ca', label: 'Canada' },
-  { key: 'us', label: 'USA' },
-  { key: 'pl', label: 'Poland' },
-  { key: 'es', label: 'Spain' },
-  { key: 'fr', label: 'France' },
-];
-
 export default function LineChart2() {
   const [linedata, setLineData] = useState([]);
-  const [date, setDate] = useState("DAILY");
+  const [date, setDate] = useState("");
   const [station, setStation] = useState(12);
   //http://localhost:8080/test2?id=12&type=DAILY
 
@@ -92,423 +31,182 @@ export default function LineChart2() {
     }
   }, [date, station]);
   console.log(linedata);
+
+
+  const optionsArray = [{ key: 1, label: 'Levegő hőmérséklet' }];
+const optionsArray2 = [
+  { key: 1, label: 'Talaj nedvesség 30 cm' },
+  { key: 2, label: 'Talaj nedvesség 60 cm' },
+  { key: 3, label: 'Talaj nedvesség 90 cm' },
+  { key: 4, label: 'Talaj nedvesség 120 cm' },
+];
+const optionsArray3 = [{ key: 1, label: 'Szél lökés' }];
+const optionsArray4 = [{ key: 1, label: 'Légnyomás' }];
+const optionsArray5 = [{ key: 1, label: 'Levegő nedvesség' }];
+const optionsArray6 = [{ key: 1, label: 'Külső akkufeszültség' }];
+const optionsArray7 = [{ key: 1, label: 'Csapadék' }];
+const optionsArray8 = [{ key: 1, label: 'Szél irány' }];
+const optionsArray9 = [{ key: 1, label: 'Belső akkufeszültség' }];
+const optionsArray10 = [{ key: 1, label: 'Fagy' }];
+const optionsArray11 = [{ key: 1, label: 'Szél sebesség' }];
+const optionsArray12 = [{ key: 1, label: 'Levegő páratartalom' }];
+const optionsArray13 = [{ key: 1, label: 'Fény egység' }];
+const optionsArray14 = [{ key: 1, label: 'Besugárzás' }];
+const optionsArray15 = [{ key: 1, label: 'Napelem töltő feszültség' }];
+const optionsArray16 = [{ key: 1, label: 'Talaj hőmérséklet 0 cm' }];
+const optionsArray17 = [{ key: 1, label: 'Csapadék számláló' }];
+
+
   return (
     <>
-      <div className="container align-items-center justify-content-center">
-        <div className="row align-items-center justify-content-center">
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Levegő hőmérséklet
-              </button>
-              <ul className="dropdown-menu checkbox-menu allow-focus">
-                <li>
-                  <label>
-                    <input type="checkbox"></input>
-                    <a> Levegő hőmérséklet</a>
-                  </label>
-                </li>
-              </ul>
+    <div className="container">
+          <div className="row">
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Levegő hőmérséklet"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray2}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Talaj nedvesség"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray3}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Szél lökés"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray4}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Légnyomás"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray5}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Levegő nedvesség"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray6}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Külső akkufeszültség"
+              />
             </div>
           </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Talaj nedvesség
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Talaj nedvesség 30cm
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Talaj nedvesség 60cm
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Talaj nedvesség 90cm
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Talaj nedvesség 120cm
-                  </a>
-                </li>
-              </ul>
+          <div className="row">
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray7}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Csapadék"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray8}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Szél irány"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray9}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Belső akkufeszültség"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray10}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Fagy"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray11}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Szél sebesség"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray12}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Levegő páratartalom"
+              />
             </div>
           </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Szél lökés
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Szél lökés
-                  </a>
-                </li>
-              </ul>
+          <div className="row">
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray13}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Fény egység"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray14}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Besugárzás"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray15}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Napelem töltő feszültség"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray16}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Talaj hőmérséklet 0 cm"
+              />
+            </div>
+            <div className="col-2 p-2">
+              <DropdownMultiselect
+                options={optionsArray17}
+                name="countries"
+                buttonClass="btn btn-primary"
+                placeholder="Csapadék számláló"
+                //handleOnChange={}
+              />
             </div>
           </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Légnyomás
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Légnyomás
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Levegő nedvesség
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Levegő nedvesség
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Külső akkufeszültség
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Külső akkufeszültség
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Csapadék
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Csapadék
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Szél irány
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Szél irány
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Belső akkufeszültség
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Belső akkufeszültség
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Fagy
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Fagy
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Szél sebesség
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Szél sebesség
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Levegő páratartalom
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Levegő páratartalom
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Fény egység
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Fény egység
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Besugárzás
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Besugárzás
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-2 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Napelem töltő feszültség
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Napelem töltő feszültség
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-3 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Talaj hőmérséklet 0 cm
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Talaj hőmérséklet 0 cm
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-3 p-2">
-            <div className="dropdown">
-              <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Csapadék számláló
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Csapadék számláló
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="container p-3 m-3">
       <label htmlFor="dateTime">Choose a date:</label>
-<select name="dateTime" id="datetime" onChange={(e)=>setDate(e.target.value)} value="DAILY">
+<select name="dateTime" id="datetime" onChange={(e)=>setDate(e.target.value)}>
   <option value="DAILY">Daily</option>
   <option value="HOURLY">Hourly</option>
   <option value="TEN_MIN">10 min</option>
@@ -517,7 +215,7 @@ export default function LineChart2() {
       </div>
       <div className="container p-3 m-3">
       <label htmlFor="stationId">Choose a Station:</label>
-<select name="stations" id="stations" onChange={(e)=>setStation(e.target.value)} value="12">
+<select name="stations" id="stations" onChange={(e)=>setStation(e.target.value)}>
   <option value="12">Szeged</option>
   
 </select>
