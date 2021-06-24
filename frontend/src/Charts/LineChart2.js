@@ -76,17 +76,14 @@ export default function LineChart2() {
   const [linedata, setLineData] = useState([]);
 
   useEffect(async () => {
-        try {
-          const response = await axios.get(
-            `http://localhost:8080/api/test/12`
-          );
-          setLineData(response.data.airData);
-          console.log(response)
-        } catch (err) {
-          console.error('Error during api call:', err);
-        }
-      }, []);
-
+    try {
+      const response = await axios.get(`http://localhost:8080/api/test/12`);
+      setLineData(response.data.airData);
+      console.log(response);
+    } catch (err) {
+      console.error('Error during api call:', err);
+    }
+  }, []);
 
   return (
     <>
@@ -555,40 +552,48 @@ export default function LineChart2() {
         </div>
       </div>
       {linedata.airPressure !== null && linedata.airPressure !== undefined && (
-      <div className="container align-items-center justify-content-center p-3">
-        <div className="row">
-          <div className="col"></div>
-          <div className="col">
-            <LineChart
-              width={1000}
-              height={500}
-              data={linedata}
-              margin={{
-                top: 25,
-                right: 60,
-                left: 40,
-                bottom: 20,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey={linedata.airData} />
-              <YAxis dataKey={linedata.airData}/>
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey={linedata.airTemperature}
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line type="monotone" dataKey={linedata.airPressure} stroke="#82ca9d" />
-              <Line type="monotone" dataKey={linedata.airHumidity} stroke="#82ca9d" />
-            </LineChart>
+        <div className="container align-items-center justify-content-center p-3">
+          <div className="row">
+            <div className="col"></div>
+            <div className="col">
+              <LineChart
+                width={1000}
+                height={500}
+                data={linedata}
+                margin={{
+                  top: 25,
+                  right: 60,
+                  left: 40,
+                  bottom: 20,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey={linedata.airData} />
+                <YAxis dataKey={linedata.airData} />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey={linedata.airTemperature}
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey={linedata.airPressure}
+                  stroke="#82ca9d"
+                />
+                <Line
+                  type="monotone"
+                  dataKey={linedata.airHumidity}
+                  stroke="#82ca9d"
+                />
+              </LineChart>
+            </div>
+            <div className="col"></div>
           </div>
-          <div className="col"></div>
         </div>
-      </div>
-    )}
+      )}
     </>
   );
 }
