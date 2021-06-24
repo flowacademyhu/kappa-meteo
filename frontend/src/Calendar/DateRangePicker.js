@@ -4,7 +4,6 @@ import axios from 'axios';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
-
 export default function DateRangePicker() {
   const [state, setState, weatherData, setWeatherData] = useState([
     {
@@ -16,7 +15,7 @@ export default function DateRangePicker() {
 
   useEffect(() => {
     try {
-      const response = axios.get(`http://localhost:8080/api/ten`);
+      const response = axios.get(`http://localhost:8082/api/ten`);
       setWeatherData(response.data);
     } catch (error) {
       console.log(error);
