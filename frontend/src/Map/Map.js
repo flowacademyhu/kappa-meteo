@@ -13,7 +13,7 @@ export default function Map() {
 
   const StyledMapContainer = styled(MapContainer)`
     width: 100%;
-    height: 80vh;
+    height: 78vh;
   `;
 
   useEffect(() => {

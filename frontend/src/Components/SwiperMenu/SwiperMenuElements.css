@@ -1,0 +1,22 @@
+.card {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px -15px 30px 3px #c54b3c;
+  border-radius: 50px;
+}
+
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 120px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+  /*-webkit-box-reflect: below -50px
+    linear-gradient(transparent, transparent, #0009);*/
+  
+}

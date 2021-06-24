@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import MeasureCard from '../MeasureCard/MeasureCard.js';
+import styled from 'styled-components';
+import MeasureCard from './MeasureCard.js';
 import axios from 'axios';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
 
 import {
   RiCompassDiscoverFill,
@@ -16,14 +15,6 @@ import { HiSun } from 'react-icons/hi';
 import { TiWeatherShower, TiWeatherSnow } from 'react-icons/ti';
 import { VscDashboard } from 'react-icons/vsc';
 import { GiDrop, GiChaliceDrops, GiCarBattery } from 'react-icons/gi';
-
-import 'swiper/swiper.scss';
-import './SwiperDesign.css';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/effect-coverflow/effect-coverflow.scss';
-import 'swiper/components/navigation/navigation.scss';
-
-SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
 const formatData = (data) => {
   return [
@@ -165,6 +156,11 @@ const formatData = (data) => {
   ];
 };
 
+const TitleText = styled.h1`
+  color: #fff;
+  text-align: center;
+`;
+
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
 
@@ -178,29 +174,12 @@ export default function HistoricData() {
 
   return (
     weatherData !== null && (
-      <div className="swiper-container">
-        <h1>Hisztorikus adatok</h1>
-        <Swiper
-          spaceBetween={100}
-          effect={'coverflow'}
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={'auto'}
-          loop={true}
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 400,
-            modifier: 1,
-            slideShadows: false,
-          }}
-          navigation={true}
-          pagination={false}
-          className="mySwiper"
-        >
-          {formatData(weatherData).map((data) => {
-            return (
-              <SwiperSlide>
+      <div className="container">
+        <TitleText>Hisztorikus adatok</TitleText>
+        {formatData(weatherData).map((data) => {
+          return (
+            <div className="row row-cols-1 row-cols-md-4 g-4 m-2">
+              <div className="col">
                 <MeasureCard
                   Icon={data.icon}
                   titleText={data.titleText}
@@ -208,11 +187,11 @@ export default function HistoricData() {
                   unit={data.unit}
                   footerText={weatherData.date}
                 ></MeasureCard>
-              </SwiperSlide>
-            );
-          })}
-          ;
-        </Swiper>
+              </div>
+            </div>
+          );
+        })}
+        ;
       </div>
     )
   );
