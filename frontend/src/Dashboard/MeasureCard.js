@@ -13,6 +13,13 @@ const CardFooterText = styled.p`
   color: #fff;
   text-align: center;
 `;
+const StyleZoom = styled.div`
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
 
 export default function MeasureCard({
   titleText,
@@ -22,7 +29,7 @@ export default function MeasureCard({
   Icon,
 }) {
   return (
-    <div className="zoom">
+    <StyleZoom>
       <div className="card">
         <IconContext.Provider value={{ color: '#c54b3c' }}>
           {<Icon size={100} />}
@@ -41,6 +48,6 @@ export default function MeasureCard({
           </CardFooterText>
         </div>
       </div>
-    </div>
+    </StyleZoom>
   );
 }

@@ -4,7 +4,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Home from './Pages/Home.js';
 import HeroSection from './Components/HeroSection/Hero';
 import MapView from './Pages/MapView';
-import HistoricData from './Dashboard/HistoricData';
+import Dashboard from './Pages/Dashboard'
 import Footer from './Components/Footer/Footer.js';
 
 import {
@@ -36,9 +36,9 @@ export default function App() {
             <Helmet>
               <title>Hisztorikus adatok</title>
             </Helmet>
-            <HistoricData />
+            <Dashboard />
           </Route>
-          <Redirect from="/" to="/mapview" />
+          <Redirect from="/" to="/home" />
         </Switch>
       </Router>
       <Footer />

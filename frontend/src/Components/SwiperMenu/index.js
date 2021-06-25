@@ -1,5 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import CardElement from './CardElement';
 
@@ -13,6 +15,13 @@ import 'swiper/components/effect-coverflow/effect-coverflow.scss';
 import 'swiper/components/navigation/navigation.scss';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
+
+
+export const NavLinks = styled(Link)`
+  color: #fff !important;
+  text-decoration: none;
+  cursor: pointer;
+  `;
 
 export default function SwiperMenu() {
   return (
@@ -36,21 +45,25 @@ export default function SwiperMenu() {
         className="mySwiper"
       >
         <SwiperSlide>
-          <CardElement
-            src={Image}
-            Icon={GiRadarDish}
-            text="Állomások"
-          ></CardElement>
+          <NavLinks to="/mapview">
+            <CardElement 
+            Icon={GiRadarDish} 
+            text="Állomások"></CardElement>
+          </NavLinks>
+        </SwiperSlide>
+        <SwiperSlide>
+          <NavLinks to="/historicdata">
+            <CardElement
+              Icon={RiDashboard2Line}
+              text="Hisztorikus adatok"
+            ></CardElement>
+          </NavLinks>
         </SwiperSlide>
         <SwiperSlide>
           <CardElement
-            to="/historicdata"
-            Icon={RiDashboard2Line}
-            text="Hisztorikus adatok"
+            Icon={GiInfo}
+            text="Információ"
           ></CardElement>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardElement Icon={GiInfo} text="Információ"></CardElement>
         </SwiperSlide>
       </Swiper>
     </div>

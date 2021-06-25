@@ -1,6 +1,6 @@
-import React from "react";
-import { FaMapMarkedAlt, FaChartLine } from "react-icons/fa";
-import { GiInfo } from "react-icons/gi";
+import React from 'react';
+import { FaMapMarkedAlt, FaChartLine } from 'react-icons/fa';
+import { GiInfo } from 'react-icons/gi';
 
 import {
   SidebarContainer,
@@ -9,7 +9,7 @@ import {
   SidebarWrapper,
   SidebarMenu,
   SidebarLink,
-} from "./SidebarElements";
+} from './SidebarElements';
 
 const Sidebar = ({ isOpen, toggle }) => {
   return (
@@ -19,16 +19,16 @@ const Sidebar = ({ isOpen, toggle }) => {
       </Icon>
       <SidebarWrapper>
         <SidebarMenu>
-          <SidebarLink onClick={toggle} to='mapview'>
+          <SidebarLink onClick={toggle} to="mapview">
             <FaMapMarkedAlt />
             Téképnézet
           </SidebarLink>
-          <SidebarLink onClick={toggle} to='historicdata'>
+          <SidebarLink onClick={toggle} to="historicdata">
             <FaChartLine />
             Hisztorikus Adatok
           </SidebarLink>
-          <SidebarLink onClick={toggle} to='info'>
-            <GiInfo/>
+          <SidebarLink onClick={toggle} to="info">
+            <GiInfo />
             Információ
           </SidebarLink>
         </SidebarMenu>

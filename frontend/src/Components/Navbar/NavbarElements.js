@@ -1,11 +1,10 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Nav = styled.nav`
   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
   height: 80px;
-  
+
   display: flex;
   justify-content: center;
   font-size: 1.5rem;
@@ -39,7 +38,7 @@ export const NavLogo = styled(Link)`
 `;
 
 export const NavIcon = styled.div`
-color: green;
+  color: green;
 `;
 
 export const MobileIcon = styled.div`

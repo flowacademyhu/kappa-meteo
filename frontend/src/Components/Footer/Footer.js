@@ -27,7 +27,7 @@ function Footer({ children }) {
       <Style>
         <FooterText>MeteOApp</FooterText>
         <FooterDescript>
-          Több mint 200 moduláris állomás adatai egy helyen...
+          Több mint 150 moduláris állomás adatai egy helyen...
         </FooterDescript>
       </Style>
     </div>

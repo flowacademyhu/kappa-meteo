@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import radaricon from './radar.jpg';
+import radaricon from './metstation.png';
 
 const RadarIcon = new L.icon({
   iconUrl: radaricon,
