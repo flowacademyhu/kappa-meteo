@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import axios from 'axios';
-import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
+import ChartButton from './ChartButton';
 
 /*const data = [
   {
@@ -90,9 +90,8 @@ const optionsArray17 = [{ key: 1, label: 'Csapadék számláló' }];
 
 export default function BarChart1() {
   const [data, setData] = useState([]);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState('');
   const [station, setStation] = useState(12);
-
 
   /*useEffect(async () => {
     try {
@@ -108,13 +107,14 @@ export default function BarChart1() {
 
   useEffect(async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/test2?id=`+station+`&type=`+date);
-      const result = response.data
-      const  mappedResult = result.map((item, index) =>{
-        return {...item, number: index}
-      })
-      setData(mappedResult)
-     
+      const response = await axios.get(
+        `http://localhost:8080/test2?id=` + station + `&type=` + date
+      );
+      const result = response.data;
+      const mappedResult = result.map((item, index) => {
+        return { ...item, number: index };
+      });
+      setData(mappedResult);
     } catch (err) {
       console.error('Error during api call:', err);
     }
@@ -123,168 +123,101 @@ export default function BarChart1() {
 
   return (
     <>
-      
-        <div className="container">
-          <div className="row">
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Levegő hőmérséklet"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray2}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Talaj nedvesség"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray3}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Szél lökés"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray4}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Légnyomás"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray5}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Levegő nedvesség"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray6}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Külső akkufeszültség"
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray7}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Csapadék"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray8}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Szél irány"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray9}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Belső akkufeszültség"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray10}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Fagy"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray11}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Szél sebesség"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray12}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Levegő páratartalom"
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray13}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Fény egység"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray14}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Besugárzás"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray15}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Napelem töltő feszültség"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray16}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Talaj hőmérséklet 0 cm"
-              />
-            </div>
-            <div className="col-2 p-2">
-              <DropdownMultiselect
-                options={optionsArray17}
-                name="countries"
-                buttonClass="btn btn-primary"
-                placeholder="Csapadék számláló"
-                //handleOnChange={}
-              />
-            </div>
-          </div>
-          <div className="container p-3 m-3">
-      <label htmlFor="dateTime">Choose a date:</label>
-<select name="dateTime" id="datetime" onChange={(e)=>setDate(e.target.value)}>
-  <option value="DAILY">Daily</option>
-  <option value="HOURLY">Hourly</option>
-  <option value="TEN_MIN">10 min</option>
+      <div className="container">
+        <div className="row">
+          <ChartButton
+            placeholder="Levegő hőmérséklet"
+            options={optionsArray}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Talaj nedvesség"
+            options={optionsArray2}
+          ></ChartButton>
 
-</select>
-      </div>
-      <div className="container p-3 m-3">
-      <label htmlFor="stationId">Choose a Station:</label>
-<select name="stations" id="stations" onChange={(e)=>setStation(e.target.value)}>
-  <option value="12">Szeged</option>
-  
-</select>
-</div>
-          {data !== null && data !== undefined && (
+          <ChartButton
+            placeholder="Szél lökés"
+            options={optionsArray3}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Légnyomás"
+            options={optionsArray4}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Levegő nedvesség"
+            options={optionsArray5}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Külső akkufeszültség"
+            options={optionsArray6}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Csapadék"
+            options={optionsArray7}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Szél irány"
+            options={optionsArray8}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Belső akkufeszültség"
+            options={optionsArray9}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Fagy"
+            options={optionsArray10}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Szél sebesség"
+            options={optionsArray11}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Levegő páratartalom"
+            options={optionsArray12}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Fény egység"
+            options={optionsArray13}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Besugárzás"
+            options={optionsArray14}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Napelem töltő feszültség"
+            options={optionsArray15}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Talaj hőmérséklet 0 cm"
+            options={optionsArray16}
+          ></ChartButton>
+          <ChartButton
+            placeholder="Csapadék számláló"
+            options={optionsArray17}
+          ></ChartButton>
+        </div>
+        <div className="container p-3 m-3">
+          <label htmlFor="dateTime">Choose a date:</label>
+          <select
+            name="dateTime"
+            id="datetime"
+            onChange={(e) => setDate(e.target.value)}
+          >
+            <option value="DAILY">Daily</option>
+            <option value="HOURLY">Hourly</option>
+            <option value="TEN_MIN">10 min</option>
+          </select>
+        </div>
+        <div className="container p-3 m-3">
+          <label htmlFor="stationId">Choose a Station:</label>
+          <select
+            name="stations"
+            id="stations"
+            onChange={(e) => setStation(e.target.value)}
+          >
+            <option value="12">Szeged</option>
+          </select>
+        </div>
+        {data !== null && data !== undefined && (
           <div className="container align-items-center justify-content-center p-3">
             <div className="row">
               <div className="col"></div>
@@ -305,16 +238,16 @@ export default function BarChart1() {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="airPressure"fill="#8884d8"/>
-                <Bar dataKey="airHumidity" fill="#82ca9d"/>
-                <Bar dataKey="airTemperature" fill="#12bc5a"/>
+                  <Bar dataKey="airPressure" fill="#8884d8" />
+                  <Bar dataKey="airHumidity" fill="#82ca9d" />
+                  <Bar dataKey="airTemperature" fill="#12bc5a" />
                 </BarChart>
               </div>
               <div className="col"></div>
             </div>
           </div>
-          )}
-        </div>
+        )}
+      </div>
     </>
   );
 }
