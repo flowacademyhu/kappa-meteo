@@ -10,7 +10,7 @@
       {
         "source": "/api/**",
         "run": {
-          "serviceId": "flow-academy-meteo",
+          "serviceId": "meteo-backend",
           "region": "europe-west1"
         }
       },
