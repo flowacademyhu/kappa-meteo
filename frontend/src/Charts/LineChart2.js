@@ -9,12 +9,19 @@ import {
   Legend,
 } from 'recharts';
 import axios from 'axios';
+import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import ChartButton from './ChartButton';
 
 export default function LineChart2() {
   const [linedata, setLineData] = useState([]);
   const [date, setDate] = useState('');
   const [station, setStation] = useState(12);
+
+  const [isSwitched, setIsSwitched] = useState(false);
+  const setSwitcher = () => {
+    setIsSwitched(!isSwitched);
+  };
+
   //http://localhost:8080/test2?id=12&type=DAILY
 
   useEffect(async () => {
@@ -33,106 +40,51 @@ export default function LineChart2() {
   }, [date, station]);
   console.log(linedata);
 
-  const optionsArray = [{ key: 1, label: 'Levegő hőmérséklet' }];
   const optionsArray2 = [
     { key: 1, label: 'Talaj nedvesség 30 cm' },
     { key: 2, label: 'Talaj nedvesség 60 cm' },
     { key: 3, label: 'Talaj nedvesség 90 cm' },
     { key: 4, label: 'Talaj nedvesség 120 cm' },
   ];
-  const optionsArray3 = [{ key: 1, label: 'Szél lökés' }];
-  const optionsArray4 = [{ key: 1, label: 'Légnyomás' }];
-  const optionsArray5 = [{ key: 1, label: 'Levegő nedvesség' }];
-  const optionsArray6 = [{ key: 1, label: 'Külső akkufeszültség' }];
-  const optionsArray7 = [{ key: 1, label: 'Csapadék' }];
-  const optionsArray8 = [{ key: 1, label: 'Szél irány' }];
-  const optionsArray9 = [{ key: 1, label: 'Belső akkufeszültség' }];
-  const optionsArray10 = [{ key: 1, label: 'Fagy' }];
-  const optionsArray11 = [{ key: 1, label: 'Szél sebesség' }];
-  const optionsArray12 = [{ key: 1, label: 'Levegő páratartalom' }];
-  const optionsArray13 = [{ key: 1, label: 'Fény egység' }];
-  const optionsArray14 = [{ key: 1, label: 'Besugárzás' }];
-  const optionsArray15 = [{ key: 1, label: 'Napelem töltő feszültség' }];
-  const optionsArray16 = [{ key: 1, label: 'Talaj hőmérséklet 0 cm' }];
-  const optionsArray17 = [{ key: 1, label: 'Csapadék számláló' }];
+
+  const optionArray = [
+    { id: 1, label: 'Levegő hőmérséklet' },
+    { id: 2, label: 'Szél lökés' },
+    { id: 3, label: 'Légnyomás' },
+    { id: 4, label: 'Levegő nedvesség' },
+    { id: 5, label: 'Külső akkufeszültség' },
+    { id: 6, label: 'Csapadék' },
+    { id: 7, label: 'Szél irány' },
+    { id: 8, label: 'Belső akkufeszültség' },
+    { id: 9, label: 'Fagy' },
+    { id: 10, label: 'Szél sebesség' },
+    { id: 11, label: 'Levegő páratartalom' },
+    { id: 12, label: 'Fény egység' },
+    { id: 13, label: 'Besugárzás' },
+    { id: 14, label: 'Napelem töltő feszültség' },
+    { id: 15, label: 'Talaj hőmérséklet 0 cm' },
+    { id: 16, label: 'Csapadék számláló' },
+  ];
 
   return (
     <>
       <div className="container">
         <div className="row">
-          <ChartButton
-            placeholder="Levegő hőmérséklet"
-            options={optionsArray}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Talaj nedvesség"
-            options={optionsArray2}
-          ></ChartButton>
+          {optionArray.map((e) => {
+            return <ChartButton label={e.label} key={e.id}></ChartButton>;
+          })}
+        </div>
+      </div>
 
-          <ChartButton
-            placeholder="Szél lökés"
-            options={optionsArray3}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Légnyomás"
-            options={optionsArray4}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Levegő nedvesség"
-            options={optionsArray5}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Külső akkufeszültség"
-            options={optionsArray6}
-          ></ChartButton>
-        </div>
+      <div className="container">
         <div className="row">
-          <ChartButton
-            placeholder="Csapadék"
-            options={optionsArray7}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Szél irány"
-            options={optionsArray8}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Belső akkufeszültség"
-            options={optionsArray9}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Fagy"
-            options={optionsArray10}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Szél sebesség"
-            options={optionsArray11}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Levegő páratartalom"
-            options={optionsArray12}
-          ></ChartButton>
-        </div>
-        <div className="row">
-          <ChartButton
-            placeholder="Fény egység"
-            options={optionsArray13}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Besugárzás"
-            options={optionsArray14}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Napelem töltő feszültség"
-            options={optionsArray15}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Talaj hőmérséklet 0 cm"
-            options={optionsArray16}
-          ></ChartButton>
-          <ChartButton
-            placeholder="Csapadék számláló"
-            options={optionsArray17}
-          ></ChartButton>
+          <div className="col-2 p-2">
+            <DropdownMultiselect
+              options={optionsArray2}
+              buttonClass="btn btn-primary"
+              placeholder="Talajnedvesség"
+            ></DropdownMultiselect>
+          </div>
         </div>
       </div>
       <div className="container p-3 m-3">
@@ -183,6 +135,7 @@ export default function LineChart2() {
                   name="Hőmérséklet"
                   stroke="#8884d8"
                   activeDot={{ r: 8 }}
+                  dot={false}
                   yAxisId={0}
                 />
                 <Line
@@ -191,6 +144,7 @@ export default function LineChart2() {
                   name="Légnyomás"
                   stroke="#82ca9d"
                   yAxisId={1}
+                  dot={false}
                 />
                 <Line
                   type="monotone"
@@ -198,6 +152,7 @@ export default function LineChart2() {
                   name="Páratartalom"
                   stroke="#000000"
                   yAxisId={2}
+                  dot={false}
                 />
               </LineChart>
             </div>
