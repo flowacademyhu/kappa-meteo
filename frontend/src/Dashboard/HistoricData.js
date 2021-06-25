@@ -68,7 +68,7 @@ const formatData = (data) => {
     {
       icon: RiCompassDiscoverFill,
       titleText: 'Szélirány',
-      text: data.windData.windDirection,
+      text: windDirection(data.windData.windDirection),
       unit: '',
     },
 
@@ -156,14 +156,35 @@ const formatData = (data) => {
   ];
 };
 
+const windDirection = (wind) => {
+  if (wind < 22.5 || wind > 337.5) {
+    return 'É';
+  } else if (wind < 67.5) {
+    return 'ÉK';
+  } else if (wind < 112.5) {
+    return 'K';
+  } else if (wind < 157.5) {
+    return 'DK';
+  } else if (wind < 202.5) {
+    return 'D';
+  } else if (wind < 247.5) {
+    return 'DNY';
+  } else if (wind < 292.5) {
+    return 'NY';
+  } else if (wind < 337.5) {
+    return 'ÉNY';
+  }
+};
+
 const TitleText = styled.h1`
   color: #fff;
   text-align: center;
+  padding-bottom: 50px;
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 `;
 
 export default function HistoricData() {
@@ -184,7 +205,7 @@ export default function HistoricData() {
         <Grid>
           {formatData(weatherData).map((data) => {
             return (
-              <div className="p-5 m-2">
+              <div className="p-2 m-2" key={data.titleText}>
                 <div className="col">
                   <MeasureCard
                     Icon={data.icon}
