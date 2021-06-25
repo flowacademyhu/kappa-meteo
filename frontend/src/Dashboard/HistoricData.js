@@ -161,6 +161,11 @@ const TitleText = styled.h1`
   text-align: center;
 `;
 
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+`;
+
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
 
@@ -174,25 +179,27 @@ export default function HistoricData() {
 
   return (
     weatherData !== null && (
-      <div className="container">
+      <>
         <TitleText>Hisztorikus adatok</TitleText>
-        {formatData(weatherData).map((data) => {
-          return (
-            <div className="row row-cols-1 row-cols-md-4 g-4 m-2">
-              <div className="col">
-                <MeasureCard
-                  Icon={data.icon}
-                  titleText={data.titleText}
-                  text={data.text}
-                  unit={data.unit}
-                  footerText={weatherData.date}
-                ></MeasureCard>
+        <Grid>
+          {formatData(weatherData).map((data) => {
+            return (
+              <div className="p-5 m-2">
+                <div className="col">
+                  <MeasureCard
+                    Icon={data.icon}
+                    titleText={data.titleText}
+                    text={data.text}
+                    unit={data.unit}
+                    footerText={weatherData.date}
+                  ></MeasureCard>
+                </div>
               </div>
-            </div>
-          );
-        })}
-        ;
-      </div>
+            );
+          })}
+          ;
+        </Grid>
+      </>
     )
   );
 }
