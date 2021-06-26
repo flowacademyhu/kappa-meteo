@@ -34,6 +34,10 @@ build/
 /logs/
 
 src/main/resources/application-Vasi.yml
+<<<<<<< HEAD
 src/main/resources/application-nandor.yml
 
+=======
+src/main/resources/application-buci.yml
+>>>>>>> origin/main
 

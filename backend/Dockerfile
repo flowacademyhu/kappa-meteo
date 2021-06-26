@@ -9,6 +9,8 @@ FROM openjdk:11-slim
 WORKDIR /app
 RUN ln -sf /usr/share/zoneinfo/Europe/Budapest /etc/localtime && \
     echo Europe/Budapest | tee /etc/timezone
+
+COPY src/main/resources /app
 COPY --from=builder /build/target/*.jar /app/meteo-backend.jar
 
 ENTRYPOINT ["java", "-jar", "meteo-backend.jar"]

@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import styled from 'styled-components';
 import axios from 'axios';
 import Markers from './Markers';
-
-const StyledMapContainer = styled(MapContainer)`
-  width: 100%;
-  height: 76vh;
-`;
+import 'leaflet/dist/leaflet.css';
+import { Marker, TileLayer, MapContainer } from 'react-leaflet';
+import styled from 'styled-components';
+import { useGeolocation } from 'react-use';
+import UserIcon from '../Icon/UserIcon';
 
 export default function Map() {
+  const myPosition = useGeolocation();
   const [coordinates, setCoordinates] = useState([]);
+
+  const StyledMapContainer = styled(MapContainer)`
+    width: 100%;
+    height: 80vh;
+  `;
 
   useEffect(() => {
     axios
-      .get('/api/coordinates', {
+      .get('/api/stations', {
         mode: 'no-cors',
       })
       .then((response) => {
@@ -35,6 +38,15 @@ export default function Map() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Markers coordinates={coordinates} />
+      {myPosition.latitude !== null && (
+        <>
+          <pre>{(myPosition, null, 2)}</pre>
+          <Marker
+            icon={UserIcon}
+            position={[myPosition.latitude, myPosition.longitude]}
+          ></Marker>
+        </>
+      )}
     </StyledMapContainer>
   );
 }
