@@ -16,7 +16,7 @@ import java.util.Date;
 @Builder
 public class MeasurmentDto {
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+2")
     private Date date;
     private Type type;
 

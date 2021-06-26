@@ -31,10 +31,10 @@ public class InitDataLoader implements CommandLineRunner {
     private final StationRepository stationRepository;
     private final MeasurmentRepository measurmentRepository;
 
-    private static final DateFormat DATE_FORMAT_HU = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.forLanguageTag("HU-hu"));
-    private static final DateFormat DATE_FORMAT_HU_SPACED = new SimpleDateFormat("yyyy. MM. dd. HH:mm", Locale.forLanguageTag("HU-hu"));
+    private static final DateFormat DATE_FORMAT_HU = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+    private static final DateFormat DATE_FORMAT_HU_SPACED = new SimpleDateFormat("yyyy. MM. dd. HH:mm");
     private static final String[] FILE_NAME = {"CSIHA_HQ_10perc.csv", "CSIHA_HQ_orai.csv", "CSIHA_HQ_napi.csv", "public_allomasok.csv"};
-    public static final String HOME_STATION_NAME = "Szeged";
+    private static final String HOME_STATION_NAME = "Szeged";
 
     @Override
     public void run(String... args) {
@@ -90,7 +90,7 @@ public class InitDataLoader implements CommandLineRunner {
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
             br.readLine();
             int counter = 1;
-            while ((line = br.readLine()) != null && counter < 100) {
+            while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";", -1);
                     Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
@@ -132,7 +132,7 @@ public class InitDataLoader implements CommandLineRunner {
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
             br.readLine();
             int counter = 1;
-            while ((line = br.readLine()) != null && counter < 100) {
+            while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";", -1);
                     Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
@@ -174,7 +174,7 @@ public class InitDataLoader implements CommandLineRunner {
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
             br.readLine();
             int counter = 1;
-            while ((line = br.readLine()) != null && counter < 100) {
+            while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";", -1);
                     Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
