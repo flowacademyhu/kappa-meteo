@@ -1,6 +1,7 @@
 server:
   servlet:
     context-path: /api
+  port: 8081
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/meteo

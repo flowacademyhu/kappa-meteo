@@ -13,13 +13,9 @@ import java.util.List;
 
 @Repository
 public interface MeasurmentRepository extends JpaRepository<Measurment, MeasurmentId> {
+
     Measurment findFirstByStationIdOrderByDateDesc(Long id);
 
-    List<Measurment> findAllByType(Type type);
-
-    List<Measurment> findAllByTypeAndStationId(Type type, Long id);
-
-
     @Query(value = "SELECT m from Measurment m WHERE m.type = :type AND m.date BETWEEN :startDate AND :endDate")
-    public List<Measurment> getAllBetweenDates(@Param("startDate")Date startDate, @Param("endDate")Date endDate, @Param("type") Type type);
+    public List<Measurment> getAllBetweenDates(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("type") Type type);
 }
