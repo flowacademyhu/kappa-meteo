@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -37,7 +38,6 @@ public class InitDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        log.info("Starting init data loader");
         if (stationRepository.count() == 0) {
             executeStationSave();
         }
@@ -81,7 +81,7 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     private String csvData(String name) {
-        return "/app/" + name;
+        return "src/main/resources/" + name;
     }
 
     private List<Measurment> populateTenMin(String name, DateFormat format, Station station, Type type) {

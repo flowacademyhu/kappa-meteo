@@ -23,7 +23,7 @@ public class MeasurmentController {
 
     @GetMapping("latest/{id}")
     public MeasurmentDto getLastByStationId(@PathVariable Long id) {
-        return MeasurmentDto.toDto(measurmentService.getLastByStationId(id));
+        return measurmentService.getLastByStationId(id);
     }
 
     @GetMapping("period")
@@ -31,6 +31,6 @@ public class MeasurmentController {
             (@RequestParam("start") @DateTimeFormat(pattern = "yyyy.MM.dd. HH:mm") Date startDate,
              @RequestParam("end") @DateTimeFormat(pattern = "yyyy.MM.dd. HH:mm") Date endDate,
              @RequestParam("type") Type type, @RequestParam("id") Long id) throws ParseException {
-        return measurmentService.getAllBetweenDates(startDate, endDate, type, id).stream().map(MeasurmentDto::toDto).collect(Collectors.toList());
+        return measurmentService.getAllBetweenDates(startDate, endDate, type, id);
     }
 }

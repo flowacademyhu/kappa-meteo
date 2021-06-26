@@ -1,5 +1,6 @@
 package hu.flowacademy.meteo.service;
 
+import hu.flowacademy.meteo.dto.*;
 import hu.flowacademy.meteo.model.Measurment;
 import hu.flowacademy.meteo.model.enumPackage.Type;
 import hu.flowacademy.meteo.repository.MeasurmentRepository;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -17,11 +19,27 @@ public class MeasurmentService {
 
     private final MeasurmentRepository measurmentRepository;
 
-    public Measurment getLastByStationId(Long id) {
-        return measurmentRepository.findFirstByStationIdOrderByDateDesc(id);
+    public MeasurmentDto getLastByStationId(Long id) {
+        return toDto(measurmentRepository.findFirstByStationIdOrderByDateDesc(id));
     }
 
-    public List<Measurment> getAllBetweenDates(Date startDate, Date endDate, Type type, Long id) {
-        return measurmentRepository.getAllBetweenDates(startDate, endDate, type, id);
+    public List<MeasurmentDto> getAllBetweenDates(Date startDate, Date endDate, Type type, Long id) {
+        return toDto(measurmentRepository.getAllBetweenDates(startDate, endDate, type, id));
+    }
+
+    public MeasurmentDto toDto(Measurment measurment) {
+        MeasurmentDto measurmentDto = new MeasurmentDto();
+        measurmentDto.setDate(measurment.getDate());
+        measurmentDto.setType(measurment.getType());
+        measurmentDto.setAirDataDto(AirDataDto.toDto(measurment.getAirData()));
+        measurmentDto.setMiscDataDto(MiscDataDto.toDto(measurment.getMiscData()));
+        measurmentDto.setSoilDataDto(SoilDataDto.toDto(measurment.getSoilData()));
+        measurmentDto.setBatteryDataDto(BatteryDataDto.toDto(measurment.getBatteryData()));
+        measurmentDto.setWindDataDto(WindDataDto.toDto(measurment.getWindData()));
+        return measurmentDto;
+    }
+
+    public List<MeasurmentDto> toDto(List<Measurment> measurmentList) {
+        return measurmentList.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

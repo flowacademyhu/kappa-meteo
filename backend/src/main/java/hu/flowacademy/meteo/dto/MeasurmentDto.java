@@ -25,16 +25,4 @@ public class MeasurmentDto {
     private SoilDataDto soilDataDto;
     private BatteryDataDto batteryDataDto;
     private WindDataDto windDataDto;
-
-    public static MeasurmentDto toDto(Measurment measurment) {
-        MeasurmentDto measurmentDto = new MeasurmentDto();
-        measurmentDto.setDate(measurment.getDate());
-        measurmentDto.setType(measurment.getType());
-        measurmentDto.setAirDataDto(AirDataDto.toDto(measurment.getAirData()));
-        measurmentDto.setMiscDataDto(MiscDataDto.toDto(measurment.getMiscData()));
-        measurmentDto.setSoilDataDto(SoilDataDto.toDto(measurment.getSoilData()));
-        measurmentDto.setBatteryDataDto(BatteryDataDto.toDto(measurment.getBatteryData()));
-        measurmentDto.setWindDataDto(WindDataDto.toDto(measurment.getWindData()));
-        return measurmentDto;
-    }
 }
