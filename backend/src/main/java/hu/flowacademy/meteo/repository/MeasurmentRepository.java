@@ -16,6 +16,6 @@ public interface MeasurmentRepository extends JpaRepository<Measurment, Measurme
 
     Measurment findFirstByStationIdOrderByDateDesc(Long id);
 
-    @Query(value = "SELECT m from Measurment m WHERE m.type = :type AND m.date BETWEEN :startDate AND :endDate")
-    public List<Measurment> getAllBetweenDates(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("type") Type type);
+    @Query(value = "SELECT m from Measurment m WHERE m.id.station = :id AND m.type = :type AND m.date BETWEEN :startDate AND :endDate")
+    public List<Measurment> getAllBetweenDates(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("type") Type type, @Param("id") Long id);
 }

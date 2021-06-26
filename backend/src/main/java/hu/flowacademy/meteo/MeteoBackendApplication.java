@@ -9,5 +9,4 @@ public class MeteoBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(MeteoBackendApplication.class, args);
     }
-
 }
