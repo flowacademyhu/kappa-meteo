@@ -20,21 +20,21 @@ public class MeasurmentDto {
     private Date date;
     private Type type;
 
-    private AirData airData;
-    private MiscData miscData;
-    private SoilData soilData;
-    private BatteryData batteryData;
-    private WindData windData;
+    private AirDataDto airDataDto;
+    private MiscDataDto miscDataDto;
+    private SoilDataDto soilDataDto;
+    private BatteryDataDto batteryDataDto;
+    private WindDataDto windDataDto;
 
     public static MeasurmentDto toDto(Measurment measurment) {
         MeasurmentDto measurmentDto = new MeasurmentDto();
         measurmentDto.setDate(measurment.getDate());
         measurmentDto.setType(measurment.getType());
-        measurmentDto.setAirData(measurment.getAirData());
-        measurmentDto.setMiscData(measurment.getMiscData());
-        measurmentDto.setSoilData(measurment.getSoilData());
-        measurmentDto.setBatteryData(measurment.getBatteryData());
-        measurmentDto.setWindData(measurment.getWindData());
+        measurmentDto.setAirDataDto(AirDataDto.toDto(measurment.getAirData()));
+        measurmentDto.setMiscDataDto(MiscDataDto.toDto(measurment.getMiscData()));
+        measurmentDto.setSoilDataDto(SoilDataDto.toDto(measurment.getSoilData()));
+        measurmentDto.setBatteryDataDto(BatteryDataDto.toDto(measurment.getBatteryData()));
+        measurmentDto.setWindDataDto(WindDataDto.toDto(measurment.getWindData()));
         return measurmentDto;
     }
 }
