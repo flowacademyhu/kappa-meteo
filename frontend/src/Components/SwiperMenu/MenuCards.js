@@ -52,12 +52,14 @@ export default function SwiperMenu() {
           <NavLinks to="/historicdata">
             <CardElement
               Icon={RiDashboard2Line}
-              text="Hisztorikus adatok"
+              text="Dashboard"
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
         <SwiperSlide>
-          <CardElement Icon={GiInfo} text="Információ"></CardElement>
+        <NavLinks to="/diagrams">
+          <CardElement Icon={GiInfo} text="Diagramok"></CardElement>
+          </NavLinks>
         </SwiperSlide>
       </Swiper>
     </div>

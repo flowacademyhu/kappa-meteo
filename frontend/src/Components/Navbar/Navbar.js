@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaBars, FaMapMarkedAlt, FaChartLine } from 'react-icons/fa';
 import { WiDayLightning } from 'react-icons/wi';
+import { VscDashboard } from 'react-icons/vsc';
 
 import {
   Nav,
@@ -36,8 +37,14 @@ const Navbar = ({ toggle }) => {
             </NavItem>
             <NavItem>
               <NavLinks to="/historicdata">
+                <VscDashboard size={30} />
+                Dashboard
+              </NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks to="/diagrams">
                 <FaChartLine size={30} />
-                Hisztorikus Adatok
+                Diagramok
               </NavLinks>
             </NavItem>
           </NavMenu>

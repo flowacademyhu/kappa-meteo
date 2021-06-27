@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaMapMarkedAlt, FaChartLine } from 'react-icons/fa';
-import { GiInfo } from 'react-icons/gi';
+import { VscDashboard } from 'react-icons/vsc';
+
 
 import {
   SidebarContainer,
@@ -24,12 +25,12 @@ const Sidebar = ({ isOpen, toggle }) => {
             Téképnézet
           </SidebarLink>
           <SidebarLink onClick={toggle} to="historicdata">
-            <FaChartLine />
-            Hisztorikus Adatok
+            <VscDashboard />
+            Dashboard
           </SidebarLink>
-          <SidebarLink onClick={toggle} to="info">
-            <GiInfo />
-            Információ
+          <SidebarLink onClick={toggle} to="diagrams">
+            <FaChartLine />
+            Diagramok
           </SidebarLink>
         </SidebarMenu>
       </SidebarWrapper>

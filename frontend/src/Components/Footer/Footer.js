@@ -4,26 +4,25 @@ const Style = styled.div`
   text-color: #fff;
   background-color: rgba(0, 0, 0, 0.4);
   text-align: center;
-  padding: 20px;
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 100px;
+  height: 80px;
   width: 100%;
 `;
 
 export const FooterText = styled.div`
   color: #fff;
-  font-size: 35px;
+  font-size: 25px;
 `;
 export const FooterDescript = styled.div`
   color: #fff;
-  font-size: 20px;
+  font-size: 15px;
 `;
 
 function Footer({ children }) {
   return (
-    <div>
+    <div className="p-4">
       <Style>
         <FooterText>MeteOApp</FooterText>
         <FooterDescript>

@@ -5,6 +5,7 @@ import Home from './Pages/Home.js';
 import HeroSection from './Components/HeroSection/Hero';
 import MapView from './Pages/MapView';
 import Dashboard from './Pages/Dashboard'
+import Diagrams from './Pages/Diagrams.js';
 import Footer from './Components/Footer/Footer.js';
 
 import {
@@ -34,9 +35,15 @@ export default function App() {
           </Route>
           <Route path="/historicdata">
             <Helmet>
-              <title>Hisztorikus adatok</title>
+              <title>Dashboard</title>
             </Helmet>
             <Dashboard />
+          </Route>
+          <Route path="/diagrams">
+            <Helmet>
+              <title>Diagramok</title>
+            </Helmet>
+            <Diagrams />
           </Route>
           <Redirect from="/" to="/home" />
         </Switch>
