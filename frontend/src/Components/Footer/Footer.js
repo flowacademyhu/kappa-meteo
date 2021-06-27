@@ -11,16 +11,16 @@ const Style = styled.div`
   width: 100%;
 `;
 
-export const FooterText = styled.div`
+const FooterText = styled.div`
   color: #fff;
   font-size: 25px;
 `;
-export const FooterDescript = styled.div`
+const FooterDescript = styled.div`
   color: #fff;
   font-size: 15px;
 `;
 
-function Footer({ children }) {
+export default function Footer() {
   return (
     <div className="p-4">
       <Style>
@@ -32,5 +32,3 @@ function Footer({ children }) {
     </div>
   );
 }
-
-export default Footer;

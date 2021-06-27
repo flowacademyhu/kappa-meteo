@@ -1,12 +1,10 @@
 import React from 'react';
 import HistoricData from '../Dashboard/HistoricData';
 
-const Dashboard = () => {
+export default function Dashboard() {
   return (
     <>
       <HistoricData />
     </>
   );
-};
-
-export default Dashboard;
+}

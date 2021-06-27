@@ -1,6 +1,6 @@
 import { IconContext } from 'react-icons';
 
-export default function CardElement({ text, Icon }) {
+export default function CardElement({ text, Icon, descript }) {
   return (
     <>
       <div className="card">
@@ -9,8 +9,9 @@ export default function CardElement({ text, Icon }) {
             {<Icon size={200} />}
           </IconContext.Provider>
         )}
+        <h3>{text}</h3>
         <div className="card-footer">
-          <h3>{text}</h3>
+          <p class="title">{descript}</p>
         </div>
       </div>
     </>

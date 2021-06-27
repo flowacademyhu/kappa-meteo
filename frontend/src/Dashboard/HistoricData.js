@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import MeasureCard from './MeasureCard.js';
 import axios from 'axios';
+import {
+  TitleText,
+  GroupText,
+  CardBorder,
+  MiscGrid,
+  WindGrid,
+  SoilGrid,
+  BatteryGrid,
+} from './StyledElements.js';
 
 import {
   RiCompassDiscoverFill,
@@ -111,34 +119,34 @@ const soilData = (data) => {
     {
       icon: WiThermometer,
       titleText: 'Talaj hőmérséklet 0cm',
-      text: data.soilData.soilTemperature0cm,
+      text: data.soilData.soilTemperature0cm.toFixed(2),
       unit: <>&#8451;</>,
     },
 
     {
       icon: GiDrop,
       titleText: 'Talaj nedvesség 30cm',
-      text: data.soilData.soilMoisture30cm,
+      text: data.soilData.soilMoisture30cm.toFixed(2),
       unit: 'V/V %',
     },
     {
       icon: GiDrop,
       titleText: 'Talaj nedvesség 60cm',
-      text: data.soilData.soilMoisture60cm,
+      text: data.soilData.soilMoisture60cm.toFixed(2),
       unit: 'V/V %',
     },
 
     {
       icon: GiDrop,
       titleText: 'Talaj nedvesség 90cm',
-      text: data.soilData.soilMoisture90cm,
+      text: data.soilData.soilMoisture90cm.toFixed(2),
       unit: 'V/V %',
     },
 
     {
       icon: GiDrop,
       titleText: 'Talaj nedvesség 120cm',
-      text: data.soilData.soilMoisture120cm,
+      text: data.soilData.soilMoisture120cm.toFixed(2),
       unit: 'V/V %',
     },
   ];
@@ -148,21 +156,21 @@ const batteryData = (data) => {
     {
       icon: RiBattery2ChargeLine,
       titleText: 'Napelem töltő feszültség',
-      text: data.batteryData.solarCellChargingVoltage,
+      text: data.batteryData.solarCellChargingVoltage.toFixed(2),
       unit: 'V',
     },
 
     {
       icon: GiCarBattery,
       titleText: 'Külső akkufeszültség',
-      text: data.batteryData.externalBatteryVoltage,
+      text: data.batteryData.externalBatteryVoltage.toFixed(2),
       unit: 'V',
     },
 
     {
       icon: GiCarBattery,
       titleText: 'Belső akkufeszültség',
-      text: data.batteryData.internalBatteryVoltage,
+      text: data.batteryData.internalBatteryVoltage.toFixed(2),
       unit: 'V',
     },
   ];
@@ -170,55 +178,23 @@ const batteryData = (data) => {
 
 const windDirection = (wind) => {
   if (wind < 22.5 || wind > 337.5) {
-    return 'É';
+    return 'Északi';
   } else if (wind < 67.5) {
-    return 'ÉK';
+    return 'Észak-Keleti';
   } else if (wind < 112.5) {
-    return 'K';
+    return 'Keleti';
   } else if (wind < 157.5) {
-    return 'DK';
+    return 'Dél-Keleti';
   } else if (wind < 202.5) {
-    return 'D';
+    return 'Déli';
   } else if (wind < 247.5) {
-    return 'DNY';
+    return 'Dél-Nyugati';
   } else if (wind < 292.5) {
-    return 'NY';
+    return 'Nyugati';
   } else if (wind < 337.5) {
-    return 'ÉNY';
+    return 'Észak-Nyugati';
   }
 };
-
-const TitleText = styled.h1`
-  color: #fff;
-  text-align: center;
-  padding-bottom: 50px;
-`;
-const GroupText = styled.h4`
-  color: #fff;
-  padding-bottom: 50px;
-`;
-const CardBorder = styled.div`
-  border: 1px solid #c54b3c;
-  margin: 15px;
-  border-radius: 10px;
-  background-color: rgba(116, 116, 116, 0.5);
-`;
-const MiscGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-`;
-const WindGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-`;
-const SoilGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-`;
-const AcuGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-`;
 
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
@@ -320,7 +296,7 @@ export default function HistoricData() {
           </CardBorder>
           <CardBorder>
             <GroupText>Akkumulátor adatok:</GroupText>
-            <AcuGrid>
+            <BatteryGrid>
               {batteryData(weatherData).map((data) => {
                 return (
                   <div className="p-2 m-2" key={data.titleText}>
@@ -337,7 +313,7 @@ export default function HistoricData() {
                 );
               })}
               ;
-            </AcuGrid>
+            </BatteryGrid>
           </CardBorder>
         </div>
       </>

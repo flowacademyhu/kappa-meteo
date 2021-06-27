@@ -5,8 +5,9 @@ import styled from 'styled-components';
 
 import CardElement from './CardElement';
 
-import { GiRadarDish, GiInfo } from 'react-icons/gi';
+import { GiRadarDish } from 'react-icons/gi';
 import { RiDashboard2Line } from 'react-icons/ri';
+import { FaChartLine } from 'react-icons/fa';
 
 import 'swiper/swiper.scss';
 import './SwiperMenuElements.css';
@@ -45,7 +46,11 @@ export default function SwiperMenu() {
       >
         <SwiperSlide>
           <NavLinks to="/mapview">
-            <CardElement Icon={GiRadarDish} text="Állomások"></CardElement>
+            <CardElement
+              Icon={GiRadarDish}
+              text="Állomások"
+              descript="Országos térkép, és állomások megjelenitése"
+            ></CardElement>
           </NavLinks>
         </SwiperSlide>
         <SwiperSlide>
@@ -53,12 +58,17 @@ export default function SwiperMenu() {
             <CardElement
               Icon={RiDashboard2Line}
               text="Dashboard"
+              descript="Mérőállomások mért adatainak rendezett megtekintése"
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
         <SwiperSlide>
-        <NavLinks to="/diagrams">
-          <CardElement Icon={GiInfo} text="Diagramok"></CardElement>
+          <NavLinks to="/diagrams">
+            <CardElement
+              Icon={FaChartLine}
+              text="Diagramok"
+              descript="Mért adatok diagramos megjelenitése, kimutatása"
+            ></CardElement>
           </NavLinks>
         </SwiperSlide>
       </Swiper>

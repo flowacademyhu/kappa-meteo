@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-export const Textcolor = styled.h1`
+const Textcolor = styled.h1`
     color: #fff;
+    text-align: center;
 `;
 
 export default function Diagrams() {

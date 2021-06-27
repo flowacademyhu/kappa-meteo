@@ -2,7 +2,6 @@ import React from 'react';
 import { FaMapMarkedAlt, FaChartLine } from 'react-icons/fa';
 import { VscDashboard } from 'react-icons/vsc';
 
-
 import {
   SidebarContainer,
   Icon,
@@ -12,7 +11,7 @@ import {
   SidebarLink,
 } from './SidebarElements';
 
-const Sidebar = ({ isOpen, toggle }) => {
+export default function Sidebar({ isOpen, toggle }) {
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>
@@ -22,7 +21,7 @@ const Sidebar = ({ isOpen, toggle }) => {
         <SidebarMenu>
           <SidebarLink onClick={toggle} to="mapview">
             <FaMapMarkedAlt />
-            Téképnézet
+            Térképnézet
           </SidebarLink>
           <SidebarLink onClick={toggle} to="historicdata">
             <VscDashboard />
@@ -36,6 +35,4 @@ const Sidebar = ({ isOpen, toggle }) => {
       </SidebarWrapper>
     </SidebarContainer>
   );
-};
-
-export default Sidebar;
+}

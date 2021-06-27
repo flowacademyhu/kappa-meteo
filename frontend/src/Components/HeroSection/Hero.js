@@ -4,7 +4,7 @@ import { HeroContainer, HeroBg, MenuWrapper, MyVideo } from './HeroElements';
 
 import SwiperMenu from '../SwiperMenu/MenuCards';
 
-const HeroSection = () => {
+export default function HeroSection() {
   return (
     <>
       <HeroContainer>
@@ -19,6 +19,4 @@ const HeroSection = () => {
       </HeroContainer>
     </>
   );
-};
-
-export default HeroSection;
+}
