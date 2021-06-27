@@ -41,7 +41,7 @@ export default function SwiperMenu() {
             <CardElement
               Icon={GiRadarDish}
               text="Állomások"
-              descript="Országos térkép, és állomások megjelenitése"
+              descript="Országos térkép, valamint a moduláris mérőállomások megjelenitése."
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
@@ -50,7 +50,7 @@ export default function SwiperMenu() {
             <CardElement
               Icon={RiDashboard2Line}
               text="Dashboard"
-              descript="Mérőállomások mért adatainak rendezett megtekintése"
+              descript="Mérőállomások mért adatainak rendezett megtekintése Dashbordon."
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
@@ -59,7 +59,7 @@ export default function SwiperMenu() {
             <CardElement
               Icon={FaChartLine}
               text="Diagramok"
-              descript="Mért adatok diagramos megjelenitése, kimutatása"
+              descript="Mért adatok diagramos megjelenitése, kimutatása és összehasonlitása."
             ></CardElement>
           </NavLinks>
         </SwiperSlide>

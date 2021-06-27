@@ -7,7 +7,6 @@ export const CardStyle = styled.div`
   box-shadow: 0px -15px 30px 3px #c54b3c;
   border-radius: 50px;
 `;
-
 export const CardTitleText = styled.h5`
   color: #fff;
   text-align: center;
@@ -34,10 +33,12 @@ export const TitleText = styled.h1`
   color: #fff;
   text-align: center;
   padding-bottom: 50px;
+  text-shadow: 2px 2px black;
 `;
 export const GroupText = styled.h4`
   color: #fff;
   padding-bottom: 50px;
+  text-shadow: 2px 2px black;
 `;
 export const CardBorder = styled.div`
   border: 1px solid #c54b3c;

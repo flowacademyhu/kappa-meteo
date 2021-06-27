@@ -7,7 +7,6 @@ import {
   StyleZoom,
 } from './StyledElements';
 
-
 export default function MeasureCard({
   titleText,
   text,
@@ -18,10 +17,10 @@ export default function MeasureCard({
   return (
     <StyleZoom>
       <CardStyle>
-        <IconContext.Provider value={{ color: '#c54b3c' }}>
-          {<Icon size={100} />}
-        </IconContext.Provider>
-        <div className="card-body">
+        <div className="card-body text-center">
+          <IconContext.Provider value={{ color: '#c54b3c' }}>
+            {<Icon size={100} />}
+          </IconContext.Provider>
           <CardTitleText className="card-title">{titleText}</CardTitleText>
           <CardData className="card-text">
             {text} {unit}

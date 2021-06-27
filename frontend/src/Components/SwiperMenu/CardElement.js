@@ -1,5 +1,5 @@
 import { IconContext } from 'react-icons';
-import { CardFooterText, TitleText } from './StyledElements';
+import { CardFooterText, TitleText, RearTitleText } from './StyledElements';
 
 export default function CardElement({ text, Icon, descript }) {
   return (
@@ -17,8 +17,8 @@ export default function CardElement({ text, Icon, descript }) {
             </div>
           </div>
           <div className="flip-card-back">
-            <TitleText>Információ:</TitleText>
-            <CardFooterText className="title">{descript}</CardFooterText>
+            <RearTitleText>Információ:</RearTitleText>
+            <CardFooterText className="card-footer">{descript}</CardFooterText>
           </div>
         </div>
       </div>
