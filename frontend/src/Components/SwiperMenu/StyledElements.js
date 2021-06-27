@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const CardFooterText = styled.h5`
-background-color: black;
+  background-color: black;
   color: white;
   text-align: center;
   padding: 30px;

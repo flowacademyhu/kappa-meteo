@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
-import { NavLinks } from './StyledElements'
+import { NavLinks } from './StyledElements';
 import CardElement from './CardElement';
 
 import { GiRadarDish } from 'react-icons/gi';
