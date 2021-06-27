@@ -1,13 +1,10 @@
 import HistoricData from './Dashboard/HistoricData';
 import React from 'react';
 import Menu from './Menu.js';
-<<<<<<< HEAD
 import LineChart2 from './Charts/LineChart2.js';
 import BarChart1 from './Charts/BarChart1.js';
-=======
 import Map from './Map/Map.js';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
->>>>>>> origin/main
 
 import {
   BrowserRouter as Router,
@@ -27,25 +24,6 @@ export default function App() {
               <Menu />
             </nav>
             <div data-testid="router" />
-<<<<<<< HEAD
-            <main>
-              <Switch>
-                <Route path="/mapview" />
-                <Route path="/historicdata" />
-                <Redirect from="/" to="/mapview" />
-              </Switch>
-            </main>
-          </nav>
-        </div>
-        <div className="m-4 p-3">
-          <Map />
-          <LineChart2 />
-          <BarChart1/>
-        </div>
-        <Footer>Made by Buci, Barna, Fixo, Nándi, Vasi &#169;</Footer>
-      </Router>
-    </div>
-=======
             <Switch>
               <Route path="/mapview">
                 <Helmet>
@@ -61,6 +39,11 @@ export default function App() {
                 </Helmet>
                 <HistoricData />
               </Route>
+              <Route path="/chart">
+                <Map />
+                <LineChart2 />
+                <BarChart1 />
+              </Route>
               <Redirect from="/" to="/mapview" />
             </Switch>
           </div>
@@ -68,6 +51,5 @@ export default function App() {
         </Router>
       </div>
     </HelmetProvider>
->>>>>>> origin/main
   );
 }

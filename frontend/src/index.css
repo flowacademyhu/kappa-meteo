@@ -5,19 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-<<<<<<< HEAD
   /*background-color: black;
   background-image: url('metalbackground.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   */
-=======
   background-color: black;
   background-image: url('metalbackground2.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
->>>>>>> origin/main
 }
 
 code {
