@@ -2,7 +2,7 @@ import React from 'react';
 import Video from '../../videos/video1.mp4';
 import { HeroContainer, HeroBg, MenuWrapper, MyVideo } from './HeroElements';
 
-import SwiperMenu from '../SwiperMenu/MenuCards';
+import SwiperMenu from '../SwiperMenu/Menu';
 
 export default function HeroSection() {
   return (

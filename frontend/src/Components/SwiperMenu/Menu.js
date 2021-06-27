@@ -1,8 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
+import { NavLinks } from './StyledElements'
 import CardElement from './CardElement';
 
 import { GiRadarDish } from 'react-icons/gi';
@@ -10,18 +8,12 @@ import { RiDashboard2Line } from 'react-icons/ri';
 import { FaChartLine } from 'react-icons/fa';
 
 import 'swiper/swiper.scss';
-import './SwiperMenuElements.css';
+import './Style.css';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/effect-coverflow/effect-coverflow.scss';
 import 'swiper/components/navigation/navigation.scss';
 
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
-
-const NavLinks = styled(Link)`
-  color: #fff !important;
-  text-decoration: none;
-  cursor: pointer;
-`;
 
 export default function SwiperMenu() {
   return (

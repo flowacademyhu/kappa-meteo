@@ -1,5 +1,35 @@
 import styled from 'styled-components';
 
+//CARDS
+
+export const CardStyle = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px -15px 30px 3px #c54b3c;
+  border-radius: 50px;
+`;
+
+export const CardTitleText = styled.h5`
+  color: #fff;
+  text-align: center;
+`;
+export const CardData = styled.h3`
+  color: #fff;
+  text-align: center;
+`;
+export const CardFooterText = styled.p`
+  color: #fff;
+  text-align: center;
+`;
+export const StyleZoom = styled.div`
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+//DASHBOARD IMAGE
+
 export const TitleText = styled.h1`
   color: #fff;
   text-align: center;

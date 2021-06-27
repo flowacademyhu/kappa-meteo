@@ -1,25 +1,12 @@
 import { IconContext } from 'react-icons';
-import styled from 'styled-components';
+import {
+  CardStyle,
+  CardTitleText,
+  CardData,
+  CardFooterText,
+  StyleZoom,
+} from './StyledElements';
 
-const CardTitleText = styled.h5`
-  color: #fff;
-  text-align: center;
-`;
-const CardData = styled.h3`
-  color: #fff;
-  text-align: center;
-`;
-const CardFooterText = styled.p`
-  color: #fff;
-  text-align: center;
-`;
-const StyleZoom = styled.div`
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
 
 export default function MeasureCard({
   titleText,
@@ -30,7 +17,7 @@ export default function MeasureCard({
 }) {
   return (
     <StyleZoom>
-      <div className="card">
+      <CardStyle>
         <IconContext.Provider value={{ color: '#c54b3c' }}>
           {<Icon size={100} />}
         </IconContext.Provider>
@@ -47,7 +34,7 @@ export default function MeasureCard({
             {footerText}
           </CardFooterText>
         </div>
-      </div>
+      </CardStyle>
     </StyleZoom>
   );
 }
