@@ -10,7 +10,7 @@ export default function MarkersAbove({ coordinates }) {
             coordinate.latitude != null && coordinate.longitude != null
         )
         .map((coordinate) => (
-          <Markersmapping key={coordinate.id} coordinate={coordinate}/>
+          <Markersmapping key={coordinate.id} coordinate={coordinate} />
         ))}
     </div>
   );
