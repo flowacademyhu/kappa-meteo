@@ -4,7 +4,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Home from './Pages/Home.js';
 import HeroSection from './Components/HeroSection/Hero';
 import MapView from './Pages/MapView';
-import Dashboard from './Pages/Dashboard'
+import Dashboard from './Pages/Dashboard';
 import Diagrams from './Pages/Diagrams.js';
 import Footer from './Components/Footer/Footer.js';
 
@@ -17,38 +17,40 @@ import {
 
 export default function App() {
   return (
-    <HelmetProvider>
-      <Router>
-        <Helmet>
-          <title>MeteOApp - Főoldal</title>
-        </Helmet>
-        <Home />
-        <Switch>
-          <Route exact path="/">
-            <HeroSection />
-          </Route>
-          <Route path="/mapview">
-            <Helmet>
-              <title>Térkép nézet</title>
-            </Helmet>
-            <MapView />
-          </Route>
-          <Route path="/historicdata">
-            <Helmet>
-              <title>Dashboard</title>
-            </Helmet>
-            <Dashboard />
-          </Route>
-          <Route path="/diagrams">
-            <Helmet>
-              <title>Diagramok</title>
-            </Helmet>
-            <Diagrams />
-          </Route>
-          <Redirect from="/" to="/home" />
-        </Switch>
-      </Router>
-      <Footer />
-    </HelmetProvider>
+    <div data-testid="map-container">
+      <HelmetProvider>
+        <Router>
+          <Helmet>
+            <title>MeteOApp - Főoldal</title>
+          </Helmet>
+          <Home />
+          <Switch>
+            <Route exact path="/">
+              <HeroSection />
+            </Route>
+            <Route path="/mapview">
+              <Helmet>
+                <title>Térkép nézet</title>
+              </Helmet>
+              <MapView />
+            </Route>
+            <Route path="/historicdata">
+              <Helmet>
+                <title>Dashboard</title>
+              </Helmet>
+              <Dashboard />
+            </Route>
+            <Route path="/diagrams">
+              <Helmet>
+                <title>Diagramok</title>
+              </Helmet>
+              <Diagrams />
+            </Route>
+            <Redirect from="/" to="/home" />
+          </Switch>
+        </Router>
+        <Footer />
+      </HelmetProvider>
+    </div>
   );
 }

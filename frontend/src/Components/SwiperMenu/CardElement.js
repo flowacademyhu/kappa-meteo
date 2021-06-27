@@ -9,7 +9,7 @@ export default function CardElement({ text, Icon, descript }) {
             {<Icon size={200} />}
           </IconContext.Provider>
         )}
-        <h3>{text}</h3>
+        <h2>{text}</h2>
         <div className="card-footer">
           <p class="title">{descript}</p>
         </div>
