@@ -14,8 +14,6 @@ const BatteryChart = ({ dateState, dateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
-  const start = '2021.04.09. 13:45';
-  const end = '2021.04.13. 19:17';
   const [isSolarCellChargingVoltage, setSolarCellChargingVoltage] =
     useState(true);
   const [isExternalBatteryVoltage, setExternalBatteryVoltage] = useState(false);
@@ -54,7 +52,10 @@ const BatteryChart = ({ dateState, dateFormat }) => {
             }
             checked={isSolarCellChargingVoltage}
           />
-          <label htmlFor="AirTemperature"> solarCellChargingVoltage </label>
+          <label htmlFor="solarCellChargingVoltage">
+            {' '}
+            solarCellChargingVoltage{' '}
+          </label>
           <input
             type="checkbox"
             name="externalBatteryVoltage"
@@ -64,7 +65,7 @@ const BatteryChart = ({ dateState, dateFormat }) => {
             }
             checked={isExternalBatteryVoltage}
           />
-          <label htmlFor="AirPressure">externalBatteryVoltage</label>
+          <label htmlFor="externalBatteryVoltage">externalBatteryVoltage</label>
           <input
             type="checkbox"
             name="internalBatteryVoltage"
@@ -74,7 +75,10 @@ const BatteryChart = ({ dateState, dateFormat }) => {
             }
             checked={isInternalBatteryVoltage}
           />
-          <label htmlFor="AirHumidity"> internalBatteryVoltage</label>
+          <label htmlFor="internalBatteryVoltage">
+            {' '}
+            internalBatteryVoltage
+          </label>
         </form>
 
         <div className="container p-3 m-3">

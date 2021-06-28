@@ -10,21 +10,20 @@ import {
 } from 'recharts';
 import axios from 'axios';
 
-const MiscChart = ({ dateState, dateFormat }) => {
+const SoilChart = ({ dateState, dateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
-  const [isIrradiation, setIrradiation] = useState(true);
-  const [isFreeze, setFreeze] = useState(false);
-  const [isRain, setRain] = useState(false);
-  const [isLeafMoisture, setLeafMoisture] = useState(false);
-  const [isLightUnit, setLightUnit] = useState(false);
-  const [isPrecipitationCounter, setPrecipitationCounter] = useState(false);
+  const [isSoilMoisture30cm, setSoilMoisture30cm] = useState(true);
+  const [isSoilMoisture60cm, setSoilMoisture60cm] = useState(false);
+  const [isSoilMoisture90cm, setSoilMoisture90cm] = useState(false);
+  const [isSoilMoisture120cm, setSoilMoisture120cm] = useState(false);
+  const [isSoilTemperature0cm, setSoilTemperature0cm] = useState(false);
 
   useEffect(async () => {
     try {
       const response = await axios.get(
-        `/api/misc?start=${dateFormat(dateState[0].startDate)}&end=${dateFormat(
+        `/api/soil?start=${dateFormat(dateState[0].startDate)}&end=${dateFormat(
           dateState[0].endDate
         )}&type=${dataType}&id=${station}`
       );
@@ -36,7 +35,7 @@ const MiscChart = ({ dateState, dateFormat }) => {
     } catch (err) {
       console.error('Error during api call:', err);
     }
-  }, [dataType, station]);
+  }, [dataType, station, dateState]);
 
   return (
     linedata !== null &&
@@ -45,52 +44,44 @@ const MiscChart = ({ dateState, dateFormat }) => {
         <form>
           <input
             type="checkbox"
-            name="irradiation"
-            value="irradiation"
-            onChange={() => setIrradiation(!isIrradiation)}
-            checked={isIrradiation}
+            name="soilMoisture30cm"
+            value="soilMoisture30cm"
+            onChange={() => setSoilMoisture30cm(!isSoilMoisture30cm)}
+            checked={isSoilMoisture30cm}
           />
-          <label htmlFor="irradiation"> irradiation </label>
+          <label htmlFor="soilMoisture30cm"> soilMoisture30cm </label>
           <input
             type="checkbox"
-            name="freeze"
-            value="freeze"
-            onChange={() => setFreeze(!isFreeze)}
-            checked={isFreeze}
+            name="SoilMoisture60cm"
+            value="SoilMoisture60cm"
+            onChange={() => setSoilMoisture60cm(!isSoilMoisture60cm)}
+            checked={isSoilMoisture60cm}
           />
-          <label htmlFor="freeze"> freeze </label>
+          <label htmlFor="soilMoisture60cm"> soilMoisture90cm </label>
           <input
             type="checkbox"
-            name="rain"
-            value="rain"
-            onChange={() => setRain(!isRain)}
-            checked={isRain}
+            name="soilMoisture90cm"
+            value="soilMoisture90cm"
+            onChange={() => setSoilMoisture90cm(!isSoilMoisture90cm)}
+            checked={isSoilMoisture90cm}
           />
-          <label htmlFor="rain"> rain</label>
+          <label htmlFor="soilMoisture90cm"> soilMoisture90cm</label>
           <input
             type="checkbox"
-            name="leafMoisture"
-            value="leafMoisture"
-            onChange={() => setLeafMoisture(!isLeafMoisture)}
-            checked={isLeafMoisture}
+            name="soilMoisture120cm"
+            value="soilMoisture120cm"
+            onChange={() => setSoilMoisture120cm(!isSoilMoisture120cm)}
+            checked={isSoilMoisture120cm}
           />
-          <label htmlFor="leafMoisture"> leafMoisture </label>
+          <label htmlFor="soilMoisture120cm"> soilMoisture120cm</label>
           <input
             type="checkbox"
-            name="lightUnit"
-            value="lightUnit"
-            onChange={() => setLightUnit(!isLightUnit)}
-            checked={isLightUnit}
+            name="soilTemperature0cm"
+            value="soilTemperature0cm"
+            onChange={() => setSoilTemperature0cm(!isSoilTemperature0cm)}
+            checked={isSoilTemperature0cm}
           />
-          <label htmlFor="lightUnit"> lightUnit </label>
-          <input
-            type="checkbox"
-            name="precipitationCounter"
-            value="precipitationCounter"
-            onChange={() => setPrecipitationCounter(!isPrecipitationCounter)}
-            checked={isPrecipitationCounter}
-          />
-          <label htmlFor="precipitationCounter"> precipitationCounter </label>
+          <label htmlFor="soilTemperature0cm"> soilTemperature0cm</label>
         </form>
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
@@ -129,11 +120,11 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <XAxis />
           <Tooltip />
           <Legend />
-          {isIrradiation && (
+          {isSoilMoisture30cm && (
             <Area
               type="monotone"
-              dataKey="irradiation"
-              name="Besugárzás"
+              dataKey="soilMoisture30cm"
+              name="Talaj nedvesség 30cm"
               stroke="#8884d8"
               activeDot={{ r: 8 }}
               dot={false}
@@ -141,57 +132,46 @@ const MiscChart = ({ dateState, dateFormat }) => {
               fill="#111"
             />
           )}
-          {isFreeze && (
+          {isSoilMoisture60cm && (
             <Area
               type="monotone"
-              dataKey="freeze"
-              name="Fagy"
+              dataKey="soilMoisture60cm"
+              name="Talaj nedvesség 60cm"
               stroke="#82ca9d"
               yAxisId={1}
               dot={false}
               fill="#111"
             />
           )}
-          {isRain && (
+          {isSoilMoisture90cm && (
             <Area
               type="monotone"
-              dataKey="rain"
-              name="Csapadék"
+              dataKey="soilMoisture90cm"
+              name="Talaj nedvesség 90cm"
               stroke="#000000"
               yAxisId={2}
               dot={false}
               fill="#8884d8"
             />
           )}
-          {isLeafMoisture && (
+          {isSoilMoisture120cm && (
             <Area
               type="monotone"
-              dataKey="leafMoisture"
-              name="Levél nedvesség"
+              dataKey="soilMoisture120cm"
+              name="Talaj nedvesség 120cm"
               stroke="#000000"
               yAxisId={3}
               dot={false}
               fill="#8884d8"
             />
           )}
-          {isLightUnit && (
+          {isSoilTemperature0cm && (
             <Area
               type="monotone"
-              dataKey="lightUnit"
-              name="Fény egység"
+              dataKey="soilTemperature0cm"
+              name="Talaj hőmérséklet 0cm"
               stroke="#000000"
               yAxisId={4}
-              dot={false}
-              fill="#8884d8"
-            />
-          )}
-          {isPrecipitationCounter && (
-            <Area
-              type="monotone"
-              dataKey="precipitationCounter"
-              name="Csapadék számláló"
-              stroke="#000000"
-              yAxisId={5}
               dot={false}
               fill="#8884d8"
             />
@@ -202,4 +182,4 @@ const MiscChart = ({ dateState, dateFormat }) => {
   );
 };
 
-export default MiscChart;
+export default SoilChart;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BatteryChart from './BatteryChart';
 import AirChart from './AirChart';
 import MiscChart from './MiscChart';
+import SoilChart from './SoilChart';
 import moment from 'moment';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
@@ -11,6 +12,7 @@ export default function ChartsMain() {
   const [air, setAir] = useState(false);
   const [battery, setBattery] = useState(false);
   const [misc, setMisc] = useState(false);
+  const [soil, setSoil] = useState(false);
   const [dateState, setDateState] = useState([
     {
       startDate: new Date(),
@@ -19,22 +21,31 @@ export default function ChartsMain() {
     },
   ]);
 
-  const turnAir = () => {
-    setMisc(false);
+  const turnOffAll = () => {
+    setAir(false);
     setBattery(false);
+    setMisc(false);
+    setSoil(false);
+  };
+
+  const turnAir = () => {
+    turnOffAll();
     setAir(true);
   };
 
   const turnBattery = () => {
-    setAir(false);
-    setMisc(false);
+    turnOffAll();
     setBattery(true);
   };
 
   const turnMisc = () => {
-    setAir(false);
-    setBattery(false);
+    turnOffAll();
     setMisc(true);
+  };
+
+  const turnSoil = () => {
+    turnOffAll();
+    setSoil(true);
   };
 
   const dateFormat = (date) => {
@@ -55,7 +66,9 @@ export default function ChartsMain() {
             <button onClick={turnBattery} className="btn btn-primary">
               Battery data
             </button>
-            <button className="btn btn-primary">Soil data</button>
+            <button onClick={turnSoil} className="btn btn-primary">
+              Soil data
+            </button>
 
             <button className="btn btn-primary">Wind data</button>
           </div>
@@ -76,6 +89,7 @@ export default function ChartsMain() {
         )}
         {air && <AirChart dateState={dateState} dateFormat={dateFormat} />}
         {misc && <MiscChart dateState={dateState} dateFormat={dateFormat} />}
+        {soil && <SoilChart dateState={dateState} dateFormat={dateFormat} />}
       </div>
     </>
   );
