@@ -1,11 +1,9 @@
 import HistoricData from './Dashboard/HistoricData';
 import React from 'react';
 import Menu from './Menu.js';
-import LineChart2 from './Charts/LineChart.js';
-import BarChart1 from './Charts/BarChart1.js';
 import Map from './Map/Map.js';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-
+import ChartsMain from './Charts/ChartsMain';
 import {
   BrowserRouter as Router,
   Switch,
@@ -40,8 +38,7 @@ export default function App() {
                 <HistoricData />
               </Route>
               <Route path="/chart">
-                <LineChart2 />
-                <BarChart1 />
+                <ChartsMain />
               </Route>
               <Redirect from="/" to="/mapview" />
             </Switch>
