@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import { useGeolocation } from 'react-use';
 import UserIcon from '../Icon/UserIcon';
 import Zoom from './Zoom';
+import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
+import { Control } from 'leaflet';
 
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
@@ -36,6 +38,12 @@ export default function Map() {
       zoom={zoomLevel}
       scrollWheelZoom={true}
     >
+      <ReactLeafletGoogleLayer
+        continuousWorld={false}
+        noWrap={false}
+        apiKey="YOUR_API_KEY"
+        type={'hybrid'}
+      />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -46,6 +54,16 @@ export default function Map() {
       ) : (
         <MarkersBelow coordinates={coordinates} />
       )}
+      {/* <Control>
+      <label for="mapview">Maptype:</label>
+
+<select name="mapview" id="mapview">
+  <option value="roadmap">Volvo</option>
+  <option value="satellite">Saab</option>
+  <option value="mercedes">Mercedes</option>
+  <option value="audi">Audi</option>
+</select>
+      </Control> */}
 
       {myPosition.latitude !== null && (
         <>
