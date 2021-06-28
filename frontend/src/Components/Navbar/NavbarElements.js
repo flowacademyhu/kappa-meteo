@@ -47,7 +47,6 @@ export const NavLinkIcon = styled.div`
   font-size: 35px;
 `;
 
-
 export const MobileIcon = styled.div`
   display: none;
 

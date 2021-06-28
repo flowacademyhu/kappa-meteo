@@ -22,19 +22,19 @@ export default function Sidebar({ isOpen, toggle }) {
         <SidebarMenu>
           <SidebarLink onClick={toggle} to="mapview">
             <NavLinkIcon>
-            <FaMapMarkedAlt />
+              <FaMapMarkedAlt />
             </NavLinkIcon>
             Térképnézet
           </SidebarLink>
           <SidebarLink onClick={toggle} to="historicdata">
             <NavLinkIcon>
-            <VscDashboard />
+              <VscDashboard />
             </NavLinkIcon>
             Dashboard
           </SidebarLink>
           <SidebarLink onClick={toggle} to="diagrams">
-          <NavLinkIcon>
-            <FaChartLine />
+            <NavLinkIcon>
+              <FaChartLine />
             </NavLinkIcon>
             Diagramok
           </SidebarLink>

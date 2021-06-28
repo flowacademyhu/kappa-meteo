@@ -32,8 +32,8 @@ const Navbar = ({ toggle }) => {
           <NavMenu>
             <NavItem>
               <NavLinks to="/mapview">
-              <NavLinkIcon>
-                <FaMapMarkedAlt />
+                <NavLinkIcon>
+                  <FaMapMarkedAlt />
                 </NavLinkIcon>
                 Térképnézet
               </NavLinks>
@@ -41,15 +41,15 @@ const Navbar = ({ toggle }) => {
             <NavItem>
               <NavLinks to="/historicdata">
                 <NavLinkIcon>
-                <VscDashboard />
+                  <VscDashboard />
                 </NavLinkIcon>
                 Dashboard
               </NavLinks>
             </NavItem>
             <NavItem>
               <NavLinks to="/diagrams">
-              <NavLinkIcon>
-                <FaChartLine  />
+                <NavLinkIcon>
+                  <FaChartLine />
                 </NavLinkIcon>
                 Diagramok
               </NavLinks>
