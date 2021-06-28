@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import axios from 'axios';
 
-const BatteryChart = () => {
+const BatteryChart = ({ dateState, dateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
@@ -24,7 +24,11 @@ const BatteryChart = () => {
   useEffect(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/battery?start=${start}&end=${end}&type=${dataType}&id=${station}`
+        `/api/battery?start=${dateFormat(
+          dateState[0].startDate
+        )}&end=${dateFormat(
+          dateState[0].endDate
+        )}&type=${dataType}&id=${station}`
       );
       const result = response.data;
       const mappedResult = result.map((item, index) => {

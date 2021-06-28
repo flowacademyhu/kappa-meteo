@@ -23,8 +23,8 @@ public class BatteryDataController {
 
     @GetMapping("battery")
     public List<BatteryDataDto> getAllBetweenDates
-            (@RequestParam("start") @DateTimeFormat(pattern = "yyyy.MM.dd. HH:mm") Date startDate,
-             @RequestParam("end") @DateTimeFormat(pattern = "yyyy.MM.dd. HH:mm") Date endDate,
+            (@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+             @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
              @RequestParam("type") Type type, @RequestParam("id") Long id) throws ParseException {
         return measurmentService.getAllBetweenDates(startDate, endDate, type, id).stream()
                 .map(MeasurmentDto::getBatteryDataDto).collect(Collectors.toList());

@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import axios from 'axios';
 
-const MiscChart = () => {
+const MiscChart = ({ dateState, dateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
@@ -22,13 +22,13 @@ const MiscChart = () => {
   const [isLeafMoisture, setLeafMoisture] = useState(false);
   const [isLightUnit, setLightUnit] = useState(false);
   const [isPrecipitationCounter, setPrecipitationCounter] = useState(false);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
 
   useEffect(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/misc?start=${start}&end=${end}&type=${dataType}&id=${station}`
+        `/api/misc?start=${dateFormat(dateState[0].startDate)}&end=${dateFormat(
+          dateState[0].endDate
+        )}&type=${dataType}&id=${station}`
       );
       const result = response.data;
       const mappedResult = result.map((item, index) => {

@@ -9,33 +9,20 @@ import {
   Legend,
 } from 'recharts';
 import axios from 'axios';
-import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
-import moment from 'moment';
 
-const AirChart = () => {
+const AirChart = ({ dateState, dateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
   const [isAirHumidity, setAirHumidity] = useState(false);
   const [isAirPressure, setAirPressure] = useState(false);
   const [isAirTemperature, setAirTemperature] = useState(true);
-  const [dateState, setDateState] = useState([
-    {
-      startDate: new Date(),
-      endDate: null,
-      key: 'selection',
-    },
-  ]);
 
   useEffect(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/air?start=${moment(
-          dateState[0].startDate
-        ).format('YYYY-MM-DD')}&end=${moment(dateState[0].endDate).format(
-          'YYYY-MM-DD'
+        `/api/air?start=${dateFormat(dateState[0].startDate)}&end=${dateFormat(
+          dateState[0].endDate
         )}&type=${dataType}&id=${station}`
       );
       const result = response.data;
@@ -78,15 +65,6 @@ const AirChart = () => {
           />
           <label htmlFor="AirHumidity"> AirHumidity</label>
         </form>
-        <DateRange
-          editableDateInputs={true}
-          rangeColors={['#c54b3c']}
-          onChange={(item) => setDateState([item.selection])}
-          moveRangeOnFirstSelection={false}
-          ranges={dateState}
-          minDate={new Date('2021-01-01')}
-          maxDate={new Date('2021-04-30')}
-        />
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
           <select

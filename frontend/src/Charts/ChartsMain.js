@@ -2,11 +2,22 @@ import React, { useState } from 'react';
 import BatteryChart from './BatteryChart';
 import AirChart from './AirChart';
 import MiscChart from './MiscChart';
+import moment from 'moment';
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 
 export default function ChartsMain() {
   const [air, setAir] = useState(false);
   const [battery, setBattery] = useState(false);
   const [misc, setMisc] = useState(false);
+  const [dateState, setDateState] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: 'selection',
+    },
+  ]);
 
   const turnAir = () => {
     setMisc(false);
@@ -24,6 +35,10 @@ export default function ChartsMain() {
     setAir(false);
     setBattery(false);
     setMisc(true);
+  };
+
+  const dateFormat = (date) => {
+    return moment(date).format('YYYY-MM-DD');
   };
 
   return (
@@ -46,10 +61,21 @@ export default function ChartsMain() {
           </div>
         </div>
       </div>
+      <DateRange
+        editableDateInputs={true}
+        rangeColors={['#c54b3c']}
+        onChange={(item) => setDateState([item.selection])}
+        moveRangeOnFirstSelection={false}
+        ranges={dateState}
+        minDate={new Date('2021-01-01')}
+        maxDate={new Date('2021-04-30')}
+      />
       <div className="container align-items-center justify-content-center p-3">
-        {battery && <BatteryChart />}
-        {air && <AirChart />}
-        {misc && <MiscChart />}
+        {battery && (
+          <BatteryChart dateState={dateState} dateFormat={dateFormat} />
+        )}
+        {air && <AirChart dateState={dateState} dateFormat={dateFormat} />}
+        {misc && <MiscChart dateState={dateState} dateFormat={dateFormat} />}
       </div>
     </>
   );
