@@ -18,20 +18,15 @@ export default function LineChart2() {
   const [linedata, setLineData] = useState([]);
   const [date, setDate] = useState('HOURLY');
   const [station, setStation] = useState(12);
-
   const start = '2021.04.01. 13:45';
   const end = '2021.04.13. 19:17';
-  const [isSwitched, setIsSwitched] = useState(false);
-  const setSwitcher = () => {
-    setIsSwitched(!isSwitched);
-  };
-
-  //http://localhost:8080/test2?id=12&type=DAILY
+  const [isAirHumidity, setAirHumidity] = useState(false);
+  const [isAirPressure, setAirPressure] = useState(false);
+  const [isAirTemperature, setAirTemperature] = useState(false);
 
   useEffect(async () => {
     try {
       const response = await axios.get(
-        // `http://localhost:8080/test2?id=` + station + `&type=` + date
         `http://localhost:8081/api/air?start=${start}&end=${end}&type=${date}&id=${station}`
       );
       const result = response.data;
@@ -43,7 +38,6 @@ export default function LineChart2() {
       console.error('Error during api call:', err);
     }
   }, [date, station]);
-  console.log(linedata);
 
   const optionsArray2 = [
     { key: 1, label: 'Talaj nedvesség 30 cm' },
@@ -130,6 +124,33 @@ export default function LineChart2() {
           </div>
         </div>
       </div>
+      <form>
+        <input
+          type="checkbox"
+          name="AirTemperature"
+          value="airTemperature"
+          onChange={() => setAirTemperature(!isAirTemperature)}
+          checked={isAirTemperature}
+        />
+        <label htmlFor="AirTemperature"> AirTemperature </label>
+        <input
+          type="checkbox"
+          name="AirPressure"
+          value="AirPressure"
+          onChange={() => setAirPressure(!isAirPressure)}
+          checked={isAirPressure}
+        />
+        <label htmlFor="AirPressure"> AirPressure </label>
+        <input
+          type="checkbox"
+          name="AirHumidity"
+          value="AirHumidity"
+          onChange={() => setAirHumidity(!isAirHumidity)}
+          checked={isAirHumidity}
+        />
+        <label htmlFor="AirHumidity"> AirHumidity</label>
+      </form>
+
       <div className="container p-3 m-3">
         <label htmlFor="dateTime">Choose a date:</label>
         <select
@@ -172,34 +193,40 @@ export default function LineChart2() {
                 <XAxis dataKey="number" />
                 <Tooltip />
                 <Legend />
-                <Area
-                  type="monotone"
-                  dataKey="airTemperature"
-                  name="Hőmérséklet"
-                  stroke="#8884d8"
-                  activeDot={{ r: 8 }}
-                  dot={false}
-                  yAxisId={0}
-                  fill="#111"
-                />
-                <Area
-                  type="monotone"
-                  dataKey="airPressure"
-                  name="Légnyomás"
-                  stroke="#82ca9d"
-                  yAxisId={1}
-                  dot={false}
-                  fill="#111"
-                />
-                <Area
-                  type="monotone"
-                  dataKey="airHumidity"
-                  name="Páratartalom"
-                  stroke="#000000"
-                  yAxisId={2}
-                  dot={false}
-                  fill="#8884d8"
-                />
+                {isAirTemperature && (
+                  <Area
+                    type="monotone"
+                    dataKey="airTemperature"
+                    name="Hőmérséklet"
+                    stroke="#8884d8"
+                    activeDot={{ r: 8 }}
+                    dot={false}
+                    yAxisId={0}
+                    fill="#111"
+                  />
+                )}
+                {isAirPressure && (
+                  <Area
+                    type="monotone"
+                    dataKey="airPressure"
+                    name="Légnyomás"
+                    stroke="#82ca9d"
+                    yAxisId={1}
+                    dot={false}
+                    fill="#111"
+                  />
+                )}
+                {isAirHumidity && (
+                  <Area
+                    type="monotone"
+                    dataKey="airHumidity"
+                    name="Páratartalom"
+                    stroke="#000000"
+                    yAxisId={2}
+                    dot={false}
+                    fill="#8884d8"
+                  />
+                )}
               </AreaChart>
             </div>
             <div className="col"></div>
