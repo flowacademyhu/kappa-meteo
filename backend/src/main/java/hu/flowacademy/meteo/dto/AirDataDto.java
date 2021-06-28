@@ -18,7 +18,7 @@ public class AirDataDto {
 
     public static AirDataDto toDto(AirData airData) {
         AirDataDto airDataDto = new AirDataDto();
-        airDataDto.setAirTemperature(airData.getAirTemperature());
+        airDataDto.setAirHumidity(airData.getAirHumidity());
         airDataDto.setAirPressure(airData.getAirPressure());
         airDataDto.setAirTemperature(airData.getAirTemperature());
         return airDataDto;

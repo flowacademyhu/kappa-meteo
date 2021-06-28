@@ -1,7 +1,7 @@
 import HistoricData from './Dashboard/HistoricData';
 import React from 'react';
 import Menu from './Menu.js';
-import LineChart2 from './Charts/LineChart2.js';
+import LineChart2 from './Charts/LineChart.js';
 import BarChart1 from './Charts/BarChart1.js';
 import Map from './Map/Map.js';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -40,7 +40,6 @@ export default function App() {
                 <HistoricData />
               </Route>
               <Route path="/chart">
-                <Map />
                 <LineChart2 />
                 <BarChart1 />
               </Route>

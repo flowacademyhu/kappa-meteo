@@ -11,12 +11,15 @@ import {
 import axios from 'axios';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import ChartButton from './ChartButton';
+import endOfDay from 'date-fns/endOfDay/index';
 
 export default function LineChart2() {
   const [linedata, setLineData] = useState([]);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState('HOURLY');
   const [station, setStation] = useState(12);
 
+  const start = '2021.04.10. 13:45';
+  const end = '2021.04.13. 19:17';
   const [isSwitched, setIsSwitched] = useState(false);
   const setSwitcher = () => {
     setIsSwitched(!isSwitched);
@@ -27,7 +30,8 @@ export default function LineChart2() {
   useEffect(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/test2?id=` + station + `&type=` + date
+        // `http://localhost:8080/test2?id=` + station + `&type=` + date
+        `http://localhost:8081/api/air?start=${start}&end=${end}&type=${date}&id=${station}`
       );
       const result = response.data;
       const mappedResult = result.map((item, index) => {
