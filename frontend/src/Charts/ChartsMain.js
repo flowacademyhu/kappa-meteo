@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import BatteryChart from './BatteryChart';
 import AirChart from './AirChart';
+import MiscChart from './MiscChart';
 
 export default function ChartsMain() {
-  const [area, setArea] = useState(false);
-  const [pie, setPie] = useState(false);
+  const [air, setAir] = useState(false);
+  const [battery, setBattery] = useState(false);
+  const [misc, setMisc] = useState(false);
 
   const turnAir = () => {
-    setPie(false);
-    setArea(true);
+    setMisc(false);
+    setBattery(false);
+    setAir(true);
   };
 
-  const turnPie = () => {
-    setArea(false);
-    setPie(true);
+  const turnBattery = () => {
+    setAir(false);
+    setMisc(false);
+    setBattery(true);
+  };
+
+  const turnMisc = () => {
+    setAir(false);
+    setBattery(false);
+    setMisc(true);
   };
 
   return (
@@ -24,8 +34,10 @@ export default function ChartsMain() {
             <button onClick={turnAir} className="btn btn-primary">
               Air data
             </button>
-            <button className="btn btn-primary">Misc data</button>
-            <button onClick={turnPie} className="btn btn-primary">
+            <button onClick={turnMisc} className="btn btn-primary">
+              Misc data
+            </button>
+            <button onClick={turnBattery} className="btn btn-primary">
               Battery data
             </button>
             <button className="btn btn-primary">Soil data</button>
@@ -35,8 +47,9 @@ export default function ChartsMain() {
         </div>
       </div>
       <div className="container align-items-center justify-content-center p-3">
-        {pie && <BatteryChart prop={pie} />}
-        {area && <AirChart prop={area} />}
+        {battery && <BatteryChart />}
+        {air && <AirChart />}
+        {misc && <MiscChart />}
       </div>
     </>
   );

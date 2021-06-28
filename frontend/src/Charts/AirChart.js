@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 import DatePicker from './DatePicker';
 
-const AirChart = (prop) => {
+const AirChart = () => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
@@ -42,34 +42,33 @@ const AirChart = (prop) => {
     linedata !== null &&
     linedata !== undefined && (
       <>
-        {prop && (
-          <form>
-            <input
-              type="checkbox"
-              name="AirTemperature"
-              value="airTemperature"
-              onChange={() => setAirTemperature(!isAirTemperature)}
-              checked={isAirTemperature}
-            />
-            <label htmlFor="AirTemperature"> AirTemperature </label>
-            <input
-              type="checkbox"
-              name="AirPressure"
-              value="AirPressure"
-              onChange={() => setAirPressure(!isAirPressure)}
-              checked={isAirPressure}
-            />
-            <label htmlFor="AirPressure"> AirPressure </label>
-            <input
-              type="checkbox"
-              name="AirHumidity"
-              value="AirHumidity"
-              onChange={() => setAirHumidity(!isAirHumidity)}
-              checked={isAirHumidity}
-            />
-            <label htmlFor="AirHumidity"> AirHumidity</label>
-          </form>
-        )}
+        <form>
+          <input
+            type="checkbox"
+            name="AirTemperature"
+            value="airTemperature"
+            onChange={() => setAirTemperature(!isAirTemperature)}
+            checked={isAirTemperature}
+          />
+          <label htmlFor="AirTemperature"> AirTemperature </label>
+          <input
+            type="checkbox"
+            name="AirPressure"
+            value="AirPressure"
+            onChange={() => setAirPressure(!isAirPressure)}
+            checked={isAirPressure}
+          />
+          <label htmlFor="AirPressure"> AirPressure </label>
+          <input
+            type="checkbox"
+            name="AirHumidity"
+            value="AirHumidity"
+            onChange={() => setAirHumidity(!isAirHumidity)}
+            checked={isAirHumidity}
+          />
+          <label htmlFor="AirHumidity"> AirHumidity</label>
+        </form>
+
         <DatePicker
           startDate={startDate}
           endDate={endDate}

@@ -10,9 +10,9 @@ import {
 } from 'recharts';
 import axios from 'axios';
 
-const BatteryChart = (prop) => {
+const BatteryChart = () => {
   const [linedata, setLineData] = useState([]);
-  const [dataType, setDataType] = useState('HOURLY');
+  const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
   const start = '2021.04.09. 13:45';
   const end = '2021.04.13. 19:17';
@@ -40,40 +40,39 @@ const BatteryChart = (prop) => {
     linedata !== null &&
     linedata !== undefined && (
       <>
-        {prop && (
-          <form>
-            <input
-              type="checkbox"
-              name="solarCellChargingVoltage"
-              value="solarCellChargingVoltage"
-              onChange={() =>
-                setSolarCellChargingVoltage(!isSolarCellChargingVoltage)
-              }
-              checked={isSolarCellChargingVoltage}
-            />
-            <label htmlFor="AirTemperature"> solarCellChargingVoltage </label>
-            <input
-              type="checkbox"
-              name="externalBatteryVoltage"
-              value="externalBatteryVoltage"
-              onChange={() =>
-                setExternalBatteryVoltage(!isExternalBatteryVoltage)
-              }
-              checked={isExternalBatteryVoltage}
-            />
-            <label htmlFor="AirPressure">externalBatteryVoltage</label>
-            <input
-              type="checkbox"
-              name="internalBatteryVoltage"
-              value="internalBatteryVoltage"
-              onChange={() =>
-                setInternalBatteryVoltage(!isInternalBatteryVoltage)
-              }
-              checked={isInternalBatteryVoltage}
-            />
-            <label htmlFor="AirHumidity"> internalBatteryVoltage</label>
-          </form>
-        )}
+        <form>
+          <input
+            type="checkbox"
+            name="solarCellChargingVoltage"
+            value="solarCellChargingVoltage"
+            onChange={() =>
+              setSolarCellChargingVoltage(!isSolarCellChargingVoltage)
+            }
+            checked={isSolarCellChargingVoltage}
+          />
+          <label htmlFor="AirTemperature"> solarCellChargingVoltage </label>
+          <input
+            type="checkbox"
+            name="externalBatteryVoltage"
+            value="externalBatteryVoltage"
+            onChange={() =>
+              setExternalBatteryVoltage(!isExternalBatteryVoltage)
+            }
+            checked={isExternalBatteryVoltage}
+          />
+          <label htmlFor="AirPressure">externalBatteryVoltage</label>
+          <input
+            type="checkbox"
+            name="internalBatteryVoltage"
+            value="internalBatteryVoltage"
+            onChange={() =>
+              setInternalBatteryVoltage(!isInternalBatteryVoltage)
+            }
+            checked={isInternalBatteryVoltage}
+          />
+          <label htmlFor="AirHumidity"> internalBatteryVoltage</label>
+        </form>
+
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
           <select
@@ -118,7 +117,7 @@ const BatteryChart = (prop) => {
               dataKey="solarCellChargingVoltage"
               name="solarCellChargingVoltage"
               stroke="#000000"
-              yAxisId={2}
+              yAxisId={0}
               dot={false}
               fill="#8884d8"
             ></Area>
@@ -129,7 +128,7 @@ const BatteryChart = (prop) => {
               dataKey="externalBatteryVoltage"
               name="externalBatteryVoltage"
               stroke="#000000"
-              yAxisId={2}
+              yAxisId={1}
               dot={false}
               fill="#8884d8"
             ></Area>

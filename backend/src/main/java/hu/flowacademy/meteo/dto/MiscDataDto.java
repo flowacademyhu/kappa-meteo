@@ -26,6 +26,7 @@ public class MiscDataDto {
         miscDataDto.setRain(miscData.getRain());
         miscDataDto.setLightUnit(miscData.getLightUnit());
         miscDataDto.setPrecipitationCounter(miscData.getPrecipitationCounter());
+        miscDataDto.setLeafMoisture(miscData.getLeafMoisture());
         return miscDataDto;
     }
 }
