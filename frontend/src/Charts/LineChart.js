@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
+  AreaChart,
   LineChart,
-  Line,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -18,7 +19,7 @@ export default function LineChart2() {
   const [date, setDate] = useState('HOURLY');
   const [station, setStation] = useState(12);
 
-  const start = '2021.04.10. 13:45';
+  const start = '2021.04.01. 13:45';
   const end = '2021.04.13. 19:17';
   const [isSwitched, setIsSwitched] = useState(false);
   const setSwitcher = () => {
@@ -51,6 +52,12 @@ export default function LineChart2() {
     { key: 4, label: 'Talaj nedvesség 120 cm' },
   ];
 
+  const airOptions = [
+    { key: 1, label: 'Páratartalom' },
+    { key: 2, label: 'Légnyomás' },
+    { key: 3, label: 'Hőmérséklet' },
+  ];
+
   const optionArray = [
     { id: 1, label: 'Levegő hőmérséklet' },
     { id: 2, label: 'Szél lökés' },
@@ -72,16 +79,48 @@ export default function LineChart2() {
 
   return (
     <>
-      <div className="container">
+      {/* <div className="container">
         <div className="row">
           {optionArray.map((e) => {
             return <ChartButton label={e.label} key={e.id}></ChartButton>;
           })}
         </div>
-      </div>
+      </div> */}
 
       <div className="container">
         <div className="row">
+          <div className="col-2 p-2">
+            <DropdownMultiselect
+              options={airOptions}
+              buttonClass="btn btn-primary"
+              placeholder="Levegő adatok"
+            ></DropdownMultiselect>
+          </div>
+
+          <div className="col-2 p-2">
+            <DropdownMultiselect
+              options={optionsArray2}
+              buttonClass="btn btn-primary"
+              placeholder="Talajnedvesség"
+            ></DropdownMultiselect>
+          </div>
+
+          <div className="col-2 p-2">
+            <DropdownMultiselect
+              options={optionsArray2}
+              buttonClass="btn btn-primary"
+              placeholder="Talajnedvesség"
+            ></DropdownMultiselect>
+          </div>
+
+          <div className="col-2 p-2">
+            <DropdownMultiselect
+              options={optionsArray2}
+              buttonClass="btn btn-primary"
+              placeholder="Talajnedvesség"
+            ></DropdownMultiselect>
+          </div>
+
           <div className="col-2 p-2">
             <DropdownMultiselect
               options={optionsArray2}
@@ -118,7 +157,7 @@ export default function LineChart2() {
           <div className="row">
             <div className="col"></div>
             <div className="col">
-              <LineChart
+              <AreaChart
                 width={1000}
                 height={500}
                 data={linedata}
@@ -133,7 +172,7 @@ export default function LineChart2() {
                 <XAxis dataKey="number" />
                 <Tooltip />
                 <Legend />
-                <Line
+                <Area
                   type="monotone"
                   dataKey="airTemperature"
                   name="Hőmérséklet"
@@ -141,24 +180,27 @@ export default function LineChart2() {
                   activeDot={{ r: 8 }}
                   dot={false}
                   yAxisId={0}
+                  fill="#111"
                 />
-                <Line
+                <Area
                   type="monotone"
                   dataKey="airPressure"
                   name="Légnyomás"
                   stroke="#82ca9d"
                   yAxisId={1}
                   dot={false}
+                  fill="#111"
                 />
-                <Line
+                <Area
                   type="monotone"
                   dataKey="airHumidity"
                   name="Páratartalom"
                   stroke="#000000"
                   yAxisId={2}
                   dot={false}
+                  fill="#8884d8"
                 />
-              </LineChart>
+              </AreaChart>
             </div>
             <div className="col"></div>
           </div>
