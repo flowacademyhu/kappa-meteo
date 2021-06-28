@@ -24,8 +24,8 @@ public class AirDataController {
 
     @GetMapping("air")
     public List<AirDataDto> getAllBetweenDates
-            (@RequestParam("start") @DateTimeFormat(pattern = "yyyy.MM.dd. HH:mm") Date startDate,
-             @RequestParam("end") @DateTimeFormat(pattern = "yyyy.MM.dd. HH:mm") Date endDate,
+            (@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+             @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
              @RequestParam("type") Type type, @RequestParam("id") Long id) throws ParseException {
         return measurmentService.getAllBetweenDates(startDate, endDate, type, id).stream()
                 .map(MeasurmentDto::getAirDataDto).collect(Collectors.toList());

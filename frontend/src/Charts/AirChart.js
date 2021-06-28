@@ -9,24 +9,34 @@ import {
   Legend,
 } from 'recharts';
 import axios from 'axios';
-import DatePicker from './DatePicker';
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import moment from 'moment';
 
 const AirChart = () => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
-  const start = '2021.04.01. 13:45';
-  const end = '2021.04.13. 19:17';
   const [isAirHumidity, setAirHumidity] = useState(false);
   const [isAirPressure, setAirPressure] = useState(false);
   const [isAirTemperature, setAirTemperature] = useState(true);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [dateState, setDateState] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: 'selection',
+    },
+  ]);
 
   useEffect(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/air?start=${start}&end=${end}&type=${dataType}&id=${station}`
+        `http://localhost:8081/api/air?start=${moment(
+          dateState[0].startDate
+        ).format('YYYY-MM-DD')}&end=${moment(dateState[0].endDate).format(
+          'YYYY-MM-DD'
+        )}&type=${dataType}&id=${station}`
       );
       const result = response.data;
       const mappedResult = result.map((item, index) => {
@@ -36,7 +46,7 @@ const AirChart = () => {
     } catch (err) {
       console.error('Error during api call:', err);
     }
-  }, [dataType, station]);
+  }, [dataType, station, dateState]);
 
   return (
     linedata !== null &&
@@ -68,12 +78,14 @@ const AirChart = () => {
           />
           <label htmlFor="AirHumidity"> AirHumidity</label>
         </form>
-
-        <DatePicker
-          startDate={startDate}
-          endDate={endDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
+        <DateRange
+          editableDateInputs={true}
+          rangeColors={['#c54b3c']}
+          onChange={(item) => setDateState([item.selection])}
+          moveRangeOnFirstSelection={false}
+          ranges={dateState}
+          minDate={new Date('2021-01-01')}
+          maxDate={new Date('2021-04-30')}
         />
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
