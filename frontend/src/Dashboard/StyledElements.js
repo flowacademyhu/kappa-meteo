@@ -37,12 +37,13 @@ export const TitleText = styled.h1`
 `;
 export const GroupText = styled.h4`
   color: #fff;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
+  padding-left: 10px;
   text-shadow: 2px 2px black;
 `;
 export const CardBorder = styled.div`
   border: 1px solid #c54b3c;
-  margin: 15px;
+  margin: 10px;
   border-radius: 10px;
   background-color: rgba(116, 116, 116, 0.5);
 `;

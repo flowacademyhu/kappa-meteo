@@ -5,6 +5,7 @@ import { VscDashboard } from 'react-icons/vsc';
 import {
   SidebarContainer,
   Icon,
+  NavLinkIcon,
   CloseIcon,
   SidebarWrapper,
   SidebarMenu,
@@ -20,15 +21,21 @@ export default function Sidebar({ isOpen, toggle }) {
       <SidebarWrapper>
         <SidebarMenu>
           <SidebarLink onClick={toggle} to="mapview">
+            <NavLinkIcon>
             <FaMapMarkedAlt />
+            </NavLinkIcon>
             Térképnézet
           </SidebarLink>
           <SidebarLink onClick={toggle} to="historicdata">
+            <NavLinkIcon>
             <VscDashboard />
+            </NavLinkIcon>
             Dashboard
           </SidebarLink>
           <SidebarLink onClick={toggle} to="diagrams">
+          <NavLinkIcon>
             <FaChartLine />
+            </NavLinkIcon>
             Diagramok
           </SidebarLink>
         </SidebarMenu>

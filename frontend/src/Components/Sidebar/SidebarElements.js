@@ -31,6 +31,12 @@ export const Icon = styled.div`
   outline: none;
 `;
 
+export const NavLinkIcon = styled.div`
+  color: green;
+  margin: 10px;
+  font-size: 35px;
+`;
+
 export const SidebarWrapper = styled.div`
   color: #fff;
 `;

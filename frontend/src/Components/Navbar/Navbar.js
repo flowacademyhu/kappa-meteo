@@ -8,6 +8,7 @@ import {
   NavbarContainer,
   NavLogo,
   NavIcon,
+  NavLinkIcon,
   MobileIcon,
   NavMenu,
   NavItem,
@@ -21,7 +22,7 @@ const Navbar = ({ toggle }) => {
         <NavbarContainer>
           <NavLogo to="/">
             <NavIcon>
-              <WiDayLightning size={80} />
+              <WiDayLightning />
             </NavIcon>
             MeteOApp
           </NavLogo>
@@ -31,19 +32,25 @@ const Navbar = ({ toggle }) => {
           <NavMenu>
             <NavItem>
               <NavLinks to="/mapview">
-                <FaMapMarkedAlt size={30} />
+              <NavLinkIcon>
+                <FaMapMarkedAlt />
+                </NavLinkIcon>
                 Térképnézet
               </NavLinks>
             </NavItem>
             <NavItem>
               <NavLinks to="/historicdata">
-                <VscDashboard size={30} />
+                <NavLinkIcon>
+                <VscDashboard />
+                </NavLinkIcon>
                 Dashboard
               </NavLinks>
             </NavItem>
             <NavItem>
               <NavLinks to="/diagrams">
-                <FaChartLine size={30} />
+              <NavLinkIcon>
+                <FaChartLine  />
+                </NavLinkIcon>
                 Diagramok
               </NavLinks>
             </NavItem>

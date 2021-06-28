@@ -29,7 +29,7 @@ const miscData = (data) => {
     {
       icon: TiWeatherSnow,
       titleText: 'Fagy',
-      text: data.miscData.freeze,
+      text: isFreeze(data.miscData.freeze),
       unit: '',
     },
 
@@ -193,6 +193,14 @@ const windDirection = (wind) => {
     return 'Nyugati';
   } else if (wind < 337.5) {
     return 'Észak-Nyugati';
+  }
+};
+
+const isFreeze = (freeze) => {
+  if (freeze > 0) {
+    return 'Nem volt fagy';
+  } else if (freeze <= 0) {
+    return 'Fagyott';
   }
 };
 
