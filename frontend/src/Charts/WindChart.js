@@ -10,21 +10,18 @@ import {
 } from 'recharts';
 import axios from 'axios';
 
-const BatteryChart = ({ dateState, dateFormat }) => {
+const WindChart = ({ dateState, dateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
-  const [isSolarCellChargingVoltage, setSolarCellChargingVoltage] =
-    useState(true);
-  const [isExternalBatteryVoltage, setExternalBatteryVoltage] = useState(false);
-  const [isInternalBatteryVoltage, setInternalBatteryVoltage] = useState(false);
+  const [isWindSpeed, setWindSpeed] = useState(false);
+  const [isWindDirection, setWindDirection] = useState(false);
+  const [isWindGust, setWindGust] = useState(true);
 
   useEffect(async () => {
     try {
       const response = await axios.get(
-        `/api/battery?start=${dateFormat(
-          dateState[0].startDate
-        )}&end=${dateFormat(
+        `/api/wind?start=${dateFormat(dateState[0].startDate)}&end=${dateFormat(
           dateState[0].endDate
         )}&type=${dataType}&id=${station}`
       );
@@ -45,42 +42,29 @@ const BatteryChart = ({ dateState, dateFormat }) => {
         <form>
           <input
             type="checkbox"
-            name="solarCellChargingVoltage"
-            value="solarCellChargingVoltage"
-            onChange={() =>
-              setSolarCellChargingVoltage(!isSolarCellChargingVoltage)
-            }
-            checked={isSolarCellChargingVoltage}
+            name="windSpeed"
+            value="windSpeed"
+            onChange={() => setWindSpeed(!isWindSpeed)}
+            checked={isWindSpeed}
           />
-          <label htmlFor="solarCellChargingVoltage">
-            {' '}
-            solarCellChargingVoltage{' '}
-          </label>
+          <label htmlFor="windSpeed"> windSpeed </label>
           <input
             type="checkbox"
-            name="externalBatteryVoltage"
-            value="externalBatteryVoltage"
-            onChange={() =>
-              setExternalBatteryVoltage(!isExternalBatteryVoltage)
-            }
-            checked={isExternalBatteryVoltage}
+            name="windDirection"
+            value="windDirection"
+            onChange={() => setWindDirection(!isWindDirection)}
+            checked={isWindDirection}
           />
-          <label htmlFor="externalBatteryVoltage">externalBatteryVoltage</label>
+          <label htmlFor="windDirection"> windDirection </label>
           <input
             type="checkbox"
-            name="internalBatteryVoltage"
-            value="internalBatteryVoltage"
-            onChange={() =>
-              setInternalBatteryVoltage(!isInternalBatteryVoltage)
-            }
-            checked={isInternalBatteryVoltage}
+            name="windGust"
+            value="windGust"
+            onChange={() => setWindGust(!isWindGust)}
+            checked={isWindGust}
           />
-          <label htmlFor="internalBatteryVoltage">
-            {' '}
-            internalBatteryVoltage
-          </label>
+          <label htmlFor="windGust"> windGust</label>
         </form>
-
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
           <select
@@ -103,7 +87,6 @@ const BatteryChart = ({ dateState, dateFormat }) => {
             <option value="TEN_MIN">10 min</option>
           </select>
         </div>
-
         <AreaChart
           width={1000}
           height={500}
@@ -119,39 +102,39 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           <XAxis />
           <Tooltip />
           <Legend />
-          {isSolarCellChargingVoltage && (
+          {isWindSpeed && (
             <Area
               type="monotone"
-              dataKey="solarCellChargingVoltage"
-              name="solarCellChargingVoltage"
-              stroke="#000000"
-              yAxisId={0}
+              dataKey="windSpeed"
+              name="Szél sebesség"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
               dot={false}
-              fill="#8884d8"
-            ></Area>
+              yAxisId={0}
+              fill="#111"
+            />
           )}
-          {isExternalBatteryVoltage && (
+          {isWindDirection && (
             <Area
               type="monotone"
-              dataKey="externalBatteryVoltage"
-              name="externalBatteryVoltage"
-              stroke="#000000"
+              dataKey="windDirection"
+              name="Szél irány"
+              stroke="#82ca9d"
               yAxisId={1}
               dot={false}
-              fill="#8884d8"
-            ></Area>
+              fill="#111"
+            />
           )}
-
-          {isInternalBatteryVoltage && (
+          {isWindGust && (
             <Area
               type="monotone"
-              dataKey="internalBatteryVoltage"
-              name="internalBatteryVoltage"
+              dataKey="windGust"
+              name="Szél lökés"
               stroke="#000000"
               yAxisId={2}
               dot={false}
               fill="#8884d8"
-            ></Area>
+            />
           )}
         </AreaChart>
       </>
@@ -159,4 +142,4 @@ const BatteryChart = ({ dateState, dateFormat }) => {
   );
 };
 
-export default BatteryChart;
+export default WindChart;

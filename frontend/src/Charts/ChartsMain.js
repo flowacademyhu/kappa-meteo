@@ -3,6 +3,7 @@ import BatteryChart from './BatteryChart';
 import AirChart from './AirChart';
 import MiscChart from './MiscChart';
 import SoilChart from './SoilChart';
+import WindChart from './WindChart';
 import moment from 'moment';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
@@ -13,6 +14,7 @@ export default function ChartsMain() {
   const [battery, setBattery] = useState(false);
   const [misc, setMisc] = useState(false);
   const [soil, setSoil] = useState(false);
+  const [wind, setWind] = useState(false);
   const [dateState, setDateState] = useState([
     {
       startDate: new Date(),
@@ -26,6 +28,7 @@ export default function ChartsMain() {
     setBattery(false);
     setMisc(false);
     setSoil(false);
+    setWind(false);
   };
 
   const turnAir = () => {
@@ -46,6 +49,11 @@ export default function ChartsMain() {
   const turnSoil = () => {
     turnOffAll();
     setSoil(true);
+  };
+
+  const turnWind = () => {
+    turnOffAll();
+    setWind(true);
   };
 
   const dateFormat = (date) => {
@@ -69,8 +77,9 @@ export default function ChartsMain() {
             <button onClick={turnSoil} className="btn btn-primary">
               Soil data
             </button>
-
-            <button className="btn btn-primary">Wind data</button>
+            <button onClick={turnWind} className="btn btn-primary">
+              Wind data
+            </button>
           </div>
         </div>
       </div>
@@ -90,6 +99,7 @@ export default function ChartsMain() {
         {air && <AirChart dateState={dateState} dateFormat={dateFormat} />}
         {misc && <MiscChart dateState={dateState} dateFormat={dateFormat} />}
         {soil && <SoilChart dateState={dateState} dateFormat={dateFormat} />}
+        {wind && <WindChart dateState={dateState} dateFormat={dateFormat} />}
       </div>
     </>
   );

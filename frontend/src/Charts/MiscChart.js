@@ -36,7 +36,7 @@ const MiscChart = ({ dateState, dateFormat }) => {
     } catch (err) {
       console.error('Error during api call:', err);
     }
-  }, [dataType, station]);
+  }, [dataType, station, dateState]);
 
   return (
     linedata !== null &&
