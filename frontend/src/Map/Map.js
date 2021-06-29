@@ -13,7 +13,7 @@ export default function Map() {
 
   const StyledMapContainer = styled(MapContainer)`
     width: 100%;
-    height: 80vh;
+    height: 78vh;
   `;
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Map() {
   return (
     <StyledMapContainer
       center={[47.497913, 19.040236]}
-      zoom={10}
+      zoom={8}
       scrollWheelZoom={true}
     >
       <TileLayer

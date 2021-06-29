@@ -1,5 +1,5 @@
 import React from 'react';
-import StationPopup from '../Popup/StationPopup.js';
+import StationPopup from './StationPopup.js';
 import RadarIcon from '../Icon/Radaricon';
 import { Marker } from 'react-leaflet';
 

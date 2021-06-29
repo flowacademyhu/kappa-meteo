@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import MeasureCard from '../MeasureCard/MeasureCard.js';
+import MeasureCard from './MeasureCard.js';
 import axios from 'axios';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
+import {
+  TitleText,
+  GroupText,
+  CardBorder,
+  MiscGrid,
+  WindGrid,
+  SoilGrid,
+  BatteryGrid,
+} from './StyledElements.js';
 
 import {
   RiCompassDiscoverFill,
@@ -17,15 +24,50 @@ import { TiWeatherShower, TiWeatherSnow } from 'react-icons/ti';
 import { VscDashboard } from 'react-icons/vsc';
 import { GiDrop, GiChaliceDrops, GiCarBattery } from 'react-icons/gi';
 
-import 'swiper/swiper.scss';
-import './SwiperDesign.css';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/effect-coverflow/effect-coverflow.scss';
-import 'swiper/components/navigation/navigation.scss';
+const miscData = (data) => {
+  return [
+    {
+      icon: TiWeatherSnow,
+      titleText: 'Fagy',
+      text: isFreeze(data.miscData.freeze),
+      unit: '',
+    },
 
-SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
+    {
+      icon: TiWeatherShower,
+      titleText: 'Csapadék',
+      text: data.miscData.rain,
+      unit: 'mm',
+    },
+    {
+      icon: HiSun,
+      titleText: 'Besugárzás',
+      text: data.miscData.irradiation,
+      unit: 'W/m2',
+    },
 
-const formatData = (data) => {
+    {
+      icon: HiSun,
+      titleText: 'Fényegység',
+      text: data.miscData.lightUnit,
+      unit: 'cd',
+    },
+
+    {
+      icon: GiChaliceDrops,
+      titleText: 'Csapadék számláló',
+      text: data.miscData.precipitationCounter,
+      unit: 'mm',
+    },
+    {
+      icon: RiLeafLine,
+      titleText: 'Levélnedvesség',
+      text: data.miscData.leafMoisture,
+      unit: 'perc',
+    },
+  ];
+};
+const airData = (data) => {
   return [
     {
       icon: WiThermometer,
@@ -46,38 +88,14 @@ const formatData = (data) => {
       text: data.airData.airHumidity,
       unit: '%',
     },
-
-    {
-      icon: TiWeatherSnow,
-      titleText: 'Fagy',
-      text: data.miscData.freeze,
-      unit: '',
-    },
-
-    {
-      icon: TiWeatherShower,
-      titleText: 'Csapadék',
-      text: data.miscData.rain,
-      unit: 'mm',
-    },
-
-    {
-      icon: GiChaliceDrops,
-      titleText: 'Csapadék számláló',
-      text: data.miscData.precipitationCounter,
-      unit: 'mm',
-    },
-    {
-      icon: RiLeafLine,
-      titleText: 'Levélnedvesség',
-      text: data.miscData.leafMoisture,
-      unit: 'perc',
-    },
-
+  ];
+};
+const windData = (data) => {
+  return [
     {
       icon: RiCompassDiscoverFill,
       titleText: 'Szélirány',
-      text: data.windData.windDirection,
+      text: windDirection(data.windData.windDirection),
       unit: '',
     },
 
@@ -92,77 +110,106 @@ const formatData = (data) => {
       icon: VscDashboard,
       titleText: 'Szélsebesség',
       text: data.windData.windSpeed,
-      unit: 'km/h"',
+      unit: 'km/h',
     },
-
+  ];
+};
+const soilData = (data) => {
+  return [
     {
       icon: WiThermometer,
       titleText: 'Talaj hőmérséklet 0cm',
-      text: data.soilData.soilTemperature0cm,
+      text: data.soilData.soilTemperature0cm.toFixed(2),
       unit: <>&#8451;</>,
     },
 
     {
       icon: GiDrop,
       titleText: 'Talaj nedvesség 30cm',
-      text: data.soilData.soilMoisture30cm,
+      text: data.soilData.soilMoisture30cm.toFixed(2),
       unit: 'V/V %',
     },
     {
       icon: GiDrop,
       titleText: 'Talaj nedvesség 60cm',
-      text: data.soilData.soilMoisture60cm,
+      text: data.soilData.soilMoisture60cm.toFixed(2),
       unit: 'V/V %',
     },
 
     {
       icon: GiDrop,
       titleText: 'Talaj nedvesség 90cm',
-      text: data.soilData.soilMoisture90cm,
+      text: data.soilData.soilMoisture90cm.toFixed(2),
       unit: 'V/V %',
     },
 
     {
       icon: GiDrop,
       titleText: 'Talaj nedvesség 120cm',
-      text: data.soilData.soilMoisture120cm,
+      text: data.soilData.soilMoisture120cm.toFixed(2),
       unit: 'V/V %',
     },
-    {
-      icon: HiSun,
-      titleText: 'Besugárzás',
-      text: data.miscData.irradiation,
-      unit: 'W/m2',
-    },
-
-    {
-      icon: HiSun,
-      titleText: 'Fényegység',
-      text: data.miscData.lightUnit,
-      unit: 'cd',
-    },
-
+  ];
+};
+const batteryData = (data) => {
+  return [
     {
       icon: RiBattery2ChargeLine,
       titleText: 'Napelem töltő feszültség',
-      text: data.batteryData.solarCellChargingVoltage,
+      text: data.batteryData.solarCellChargingVoltage.toFixed(2),
       unit: 'V',
     },
 
     {
       icon: GiCarBattery,
       titleText: 'Külső akkufeszültség',
-      text: data.batteryData.externalBatteryVoltage,
+      text: data.batteryData.externalBatteryVoltage.toFixed(2),
       unit: 'V',
     },
 
     {
       icon: GiCarBattery,
       titleText: 'Belső akkufeszültség',
-      text: data.batteryData.internalBatteryVoltage,
+      text: data.batteryData.internalBatteryVoltage.toFixed(2),
       unit: 'V',
     },
   ];
+};
+
+const windDirection = (wind) => {
+  if (wind !== null && wind !== undefined) {
+    if (wind < 22.5 || wind > 337.5) {
+      return 'Északi';
+    } else if (wind < 67.5) {
+      return 'Észak-Keleti';
+    } else if (wind < 112.5) {
+      return 'Keleti';
+    } else if (wind < 157.5) {
+      return 'Dél-Keleti';
+    } else if (wind < 202.5) {
+      return 'Déli';
+    } else if (wind < 247.5) {
+      return 'Dél-Nyugati';
+    } else if (wind < 292.5) {
+      return 'Nyugati';
+    } else {
+      return 'Észak-Nyugati';
+    }
+  } else {
+    return 'Hiányos adat!';
+  }
+};
+
+const isFreeze = (freeze) => {
+  if (freeze !== null && freeze !== undefined) {
+    if (freeze > 0) {
+      return 'Nem volt fagy';
+    } else {
+      return 'Fagyott';
+    }
+  } else {
+    return 'Hiányos adat!';
+  }
 };
 
 export default function HistoricData() {
@@ -178,42 +225,114 @@ export default function HistoricData() {
 
   return (
     weatherData !== null && (
-      <div className="swiper-container">
-        <h1>Hisztorikus adatok</h1>
-        <Swiper
-          spaceBetween={100}
-          effect={'coverflow'}
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={'auto'}
-          loop={true}
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 400,
-            modifier: 1,
-            slideShadows: false,
-          }}
-          navigation={true}
-          pagination={false}
-          className="mySwiper"
-        >
-          {formatData(weatherData).map((data) => {
-            return (
-              <SwiperSlide>
-                <MeasureCard
-                  Icon={data.icon}
-                  titleText={data.titleText}
-                  text={data.text}
-                  unit={data.unit}
-                  footerText={weatherData.date}
-                ></MeasureCard>
-              </SwiperSlide>
-            );
-          })}
-          ;
-        </Swiper>
-      </div>
+      <>
+        <TitleText>Dashboard</TitleText>
+        <div className="container">
+          <div className="row">
+            <CardBorder className="col">
+              <GroupText>Vegyes adatok:</GroupText>
+              <MiscGrid>
+                {miscData(weatherData).map((data) => {
+                  return (
+                    <div className="p-2 m-2" key={data.titleText}>
+                      <div className="col">
+                        <MeasureCard
+                          Icon={data.icon}
+                          titleText={data.titleText}
+                          text={data.text}
+                          unit={data.unit}
+                          footerText={weatherData.date}
+                        ></MeasureCard>
+                      </div>
+                    </div>
+                  );
+                })}
+                ;
+              </MiscGrid>
+            </CardBorder>
+            <CardBorder className="col">
+              <GroupText>Levegő adatok:</GroupText>
+              {airData(weatherData).map((data) => {
+                return (
+                  <div className="p-2 m-2" key={data.titleText}>
+                    <MeasureCard
+                      Icon={data.icon}
+                      titleText={data.titleText}
+                      text={data.text}
+                      unit={data.unit}
+                      footerText={weatherData.date}
+                    ></MeasureCard>
+                  </div>
+                );
+              })}
+              ;
+            </CardBorder>
+          </div>
+          <CardBorder>
+            <GroupText>Szél adatok:</GroupText>
+            <WindGrid>
+              {windData(weatherData).map((data) => {
+                return (
+                  <div className="p-2 m-2" key={data.titleText}>
+                    <div className="col">
+                      <MeasureCard
+                        Icon={data.icon}
+                        titleText={data.titleText}
+                        text={data.text}
+                        unit={data.unit}
+                        footerText={weatherData.date}
+                      ></MeasureCard>
+                    </div>
+                  </div>
+                );
+              })}
+              ;
+            </WindGrid>
+          </CardBorder>
+          <CardBorder>
+            <GroupText>Talajnedvesség adatok:</GroupText>
+            <SoilGrid>
+              {soilData(weatherData).map((data) => {
+                return (
+                  <div className="p-2 m-2" key={data.titleText}>
+                    <div className="col">
+                      <MeasureCard
+                        Icon={data.icon}
+                        titleText={data.titleText}
+                        text={data.text}
+                        unit={data.unit}
+                        footerText={weatherData.date}
+                      ></MeasureCard>
+                    </div>
+                  </div>
+                );
+              })}
+              ;
+            </SoilGrid>
+          </CardBorder>
+          <CardBorder>
+            <GroupText>Akkumulátor adatok:</GroupText>
+            <BatteryGrid>
+              {batteryData(weatherData).map((data) => {
+                return (
+                  <div className="p-2 m-2" key={data.titleText}>
+                    <div className="col">
+                      <MeasureCard
+                        Icon={data.icon}
+                        titleText={data.titleText}
+                        text={data.text}
+                        unit={data.unit}
+                        footerText={weatherData.date}
+                      ></MeasureCard>
+                    </div>
+                  </div>
+                );
+              })}
+              ;
+            </BatteryGrid>
+          </CardBorder>
+        </div>
+      </>
     )
   );
 }
