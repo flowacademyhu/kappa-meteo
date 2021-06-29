@@ -36,6 +36,7 @@ public class MeasurmentService {
         measurmentDto.setSoilDataDto(SoilDataDto.toDto(measurment.getSoilData()));
         measurmentDto.setBatteryDataDto(BatteryDataDto.toDto(measurment.getBatteryData()));
         measurmentDto.setWindDataDto(WindDataDto.toDto(measurment.getWindData()));
+        measurmentDto.getAirDataDto().setDate(measurmentDto.getDate());
         return measurmentDto;
     }
 
