@@ -21,24 +21,27 @@ const MiscChart = ({ dateState, dateFormat }) => {
   const [isLightUnit, setLightUnit] = useState(false);
   const [isPrecipitationCounter, setPrecipitationCounter] = useState(false);
 
-  useEffect(async () => {
-    try {
-      const data = {
-        startDate: dateFormat(dateState[0].startDate),
-        endDate: dateFormat(dateState[0].endDate),
-        type: dataType,
-        id: station,
-      };
-      const response = await axios.post(`/api/misc`, data);
-      const result = response.data;
-      const mappedResult = result.map((item, index) => {
-        return { ...item, number: index };
-      });
-      setLineData(mappedResult);
-    } catch (err) {
-      console.error('Error during api call:', err);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = {
+          startDate: dateFormat(dateState[0].startDate),
+          endDate: dateFormat(dateState[0].endDate),
+          type: dataType,
+          id: station,
+        };
+        const response = await axios.post(`/api/misc`, data);
+        const result = response.data;
+        const mappedResult = result.map((item, index) => {
+          return { ...item, number: index };
+        });
+        setLineData(mappedResult);
+      } catch (err) {
+        console.error('Error during api call:', err);
+      }
     }
-  }, [dataType, station, dateState]);
+    fetchData();
+  }, [dataType, station, dateState, dateFormat]);
 
   return (
     linedata !== null &&

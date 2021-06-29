@@ -18,24 +18,27 @@ const WindChart = ({ dateState, dateFormat }) => {
   const [isWindDirection, setWindDirection] = useState(false);
   const [isWindGust, setWindGust] = useState(true);
 
-  useEffect(async () => {
-    try {
-      const data = {
-        startDate: dateFormat(dateState[0].startDate),
-        endDate: dateFormat(dateState[0].endDate),
-        type: dataType,
-        id: station,
-      };
-      const response = await axios.post(`/api/wind`, data);
-      const result = response.data;
-      const mappedResult = result.map((item, index) => {
-        return { ...item, number: index };
-      });
-      setLineData(mappedResult);
-    } catch (err) {
-      console.error('Error during api call:', err);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = {
+          startDate: dateFormat(dateState[0].startDate),
+          endDate: dateFormat(dateState[0].endDate),
+          type: dataType,
+          id: station,
+        };
+        const response = await axios.post(`/api/wind`, data);
+        const result = response.data;
+        const mappedResult = result.map((item, index) => {
+          return { ...item, number: index };
+        });
+        setLineData(mappedResult);
+      } catch (err) {
+        console.error('Error during api call:', err);
+      }
     }
-  }, [dataType, station, dateState]);
+    fetchData();
+  }, [dataType, station, dateState, dateFormat]);
 
   return (
     linedata !== null &&
