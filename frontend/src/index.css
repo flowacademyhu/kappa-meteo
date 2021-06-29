@@ -1,26 +1,8 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background-color: black;
-  background-image: url('metalbackground2.jpg');
+  background-image: url('./images/metalbackground2.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-small {
-  color: #c54b3c !important;
-}
-
-.card {
-  background: linear-gradient(to bottom right, #ffffff 10%, #000000 128%);
+  font-family: 'Play', sans-serif;
 }
