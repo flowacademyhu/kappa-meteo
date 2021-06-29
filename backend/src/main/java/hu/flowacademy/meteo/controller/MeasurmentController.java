@@ -17,7 +17,9 @@ public class MeasurmentController {
 
     @GetMapping("latest/{id}")
     public MeasurmentDto getLastByStationId(@PathVariable Long id) {
+        log.debug("Geting id of station: {}", id);
         return measurmentService.getLastByStationId(id);
-
     }
 }
+
+

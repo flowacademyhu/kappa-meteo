@@ -81,7 +81,7 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     private String csvData(String name) {
-        return "/app/" + name;
+        return "src/main/resources/" + name;
     }
 
     private List<Measurment> populateTenMin(String name, DateFormat format, Station station, Type type) {
