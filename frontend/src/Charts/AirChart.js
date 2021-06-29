@@ -109,7 +109,7 @@ const AirChart = ({ dateState, dateFormat }) => {
               label={{
                 value: 'Hőmérséklet C',
                 angle: -90,
-                dx: -13,
+                dx: -15,
                 position: 'outsideLeft',
                 stroke: '#8884d8',
               }}
@@ -124,7 +124,7 @@ const AirChart = ({ dateState, dateFormat }) => {
               label={{
                 value: 'Légnyomás kPa',
                 angle: -90,
-                dx: -13,
+                dx: -15,
                 position: 'outsideLeft',
                 stroke: '#82ca9d',
               }}
@@ -139,7 +139,7 @@ const AirChart = ({ dateState, dateFormat }) => {
               label={{
                 value: 'Páratartalom %',
                 angle: -90,
-                dx: -13,
+                dx: -15,
                 position: 'outsideLeft',
                 stroke: '#000000',
               }}

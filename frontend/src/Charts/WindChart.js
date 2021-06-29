@@ -99,7 +99,52 @@ const WindChart = ({ dateState, dateFormat }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis />
+          <XAxis dataKey="date" />
+          {isWindSpeed && (
+            <YAxis
+              className="mx-5"
+              yAxisId="0"
+              orientation="left"
+              dataKey="windSpeed"
+              label={{
+                value: 'Szélsebesség km/h',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#8884d8',
+              }}
+            />
+          )}
+          {isWindDirection && (
+            <YAxis
+              className="mx-5"
+              yAxisId="1"
+              orientation="left"
+              dataKey="windDirection"
+              label={{
+                value: 'Szélirány',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#82ca9d',
+              }}
+            />
+          )}
+          {isWindGust && (
+            <YAxis
+              className="mx-5"
+              yAxisId="2"
+              orientation="left"
+              dataKey="windGust"
+              label={{
+                value: 'Széllökés km/h',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
           <Tooltip />
           <Legend />
           {isWindSpeed && (

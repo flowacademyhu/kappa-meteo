@@ -117,7 +117,82 @@ const SoilChart = ({ dateState, dateFormat }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis />
+          <XAxis dataKey="date" />
+          {isSoilMoisture30cm && (
+            <YAxis
+              className="mx-5"
+              yAxisId="0"
+              orientation="left"
+              dataKey="soilMoisture30cm"
+              label={{
+                value: 'Talaj nedvesség 30cm C',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#8884d8',
+              }}
+            />
+          )}
+          {isSoilMoisture60cm && (
+            <YAxis
+              className="mx-5"
+              yAxisId="1"
+              orientation="left"
+              dataKey="soilMoisture60cm"
+              label={{
+                value: 'Talaj nedvesség 60cm C',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#82ca9d',
+              }}
+            />
+          )}
+          {isSoilMoisture90cm && (
+            <YAxis
+              className="mx-5"
+              yAxisId="2"
+              orientation="left"
+              dataKey="soilMoisture90cm"
+              label={{
+                value: 'Talaj nedvesség 90cm C',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
+          {isSoilMoisture120cm && (
+            <YAxis
+              className="mx-5"
+              yAxisId="3"
+              orientation="left"
+              dataKey="soilMoisture120cm"
+              label={{
+                value: 'Talaj nedvesség 120cm',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
+          {isSoilTemperature0cm && (
+            <YAxis
+              className="mx-5"
+              yAxisId="4"
+              orientation="left"
+              dataKey="soilTemperature0cm"
+              label={{
+                value: 'Talaj hőmérséklet 0cm C',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
           <Tooltip />
           <Legend />
           {isSoilMoisture30cm && (

@@ -116,7 +116,52 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis />
+          <XAxis dataKey="date" />
+          {isSolarCellChargingVoltage && (
+            <YAxis
+              className="mx-5"
+              yAxisId="0"
+              orientation="left"
+              dataKey="solarCellChargingVoltage"
+              label={{
+                value: 'Napelem töltő feszültség V',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
+          {isExternalBatteryVoltage && (
+            <YAxis
+              className="mx-5"
+              yAxisId="1"
+              orientation="left"
+              dataKey="externalBatteryVoltage"
+              label={{
+                value: 'Külső akku feszültség V',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
+          {isInternalBatteryVoltage && (
+            <YAxis
+              className="mx-5"
+              yAxisId="2"
+              orientation="left"
+              dataKey="internalBatteryVoltage"
+              label={{
+                value: 'Belső akku feszültség V',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
           <Tooltip />
           <Legend />
           {isSolarCellChargingVoltage && (

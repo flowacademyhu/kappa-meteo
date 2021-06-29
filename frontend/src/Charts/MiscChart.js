@@ -126,7 +126,97 @@ const MiscChart = ({ dateState, dateFormat }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis />
+          <XAxis dataKey="date" />
+          {isIrradiation && (
+            <YAxis
+              className="mx-5"
+              yAxisId="0"
+              orientation="left"
+              dataKey="irradiation"
+              label={{
+                value: 'Besugárzás W/m2',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#8884d8',
+              }}
+            />
+          )}
+          {isFreeze && (
+            <YAxis
+              className="mx-5"
+              yAxisId="1"
+              orientation="left"
+              dataKey="freeze"
+              label={{
+                value: 'Fagy',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#82ca9d',
+              }}
+            />
+          )}
+          {isRain && (
+            <YAxis
+              className="mx-5"
+              yAxisId="2"
+              orientation="left"
+              dataKey="rain"
+              label={{
+                value: 'Csapadék mm',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
+          {isLeafMoisture && (
+            <YAxis
+              className="mx-5"
+              yAxisId="3"
+              orientation="left"
+              dataKey="leafMoisture"
+              label={{
+                value: 'Levélnedvesség Perc',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
+          {isLightUnit && (
+            <YAxis
+              className="mx-5"
+              yAxisId="4"
+              orientation="left"
+              dataKey="lightUnit"
+              label={{
+                value: 'Fény egység cd',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
+          {isPrecipitationCounter && (
+            <YAxis
+              className="mx-5"
+              yAxisId="5"
+              orientation="left"
+              dataKey="precipitationCounter"
+              label={{
+                value: 'Csapadék számláló mm',
+                angle: -90,
+                dx: -15,
+                position: 'outsideLeft',
+                stroke: '#000000',
+              }}
+            />
+          )}
           <Tooltip />
           <Legend />
           {isIrradiation && (
