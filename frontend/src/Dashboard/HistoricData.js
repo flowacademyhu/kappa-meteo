@@ -177,30 +177,38 @@ const batteryData = (data) => {
 };
 
 const windDirection = (wind) => {
-  if ((wind !== null && wind !== undefined && wind < 22.5) || wind > 337.5) {
-    return 'Északi';
-  } else if (wind < 67.5) {
-    return 'Észak-Keleti';
-  } else if (wind < 112.5) {
-    return 'Keleti';
-  } else if (wind < 157.5) {
-    return 'Dél-Keleti';
-  } else if (wind < 202.5) {
-    return 'Déli';
-  } else if (wind < 247.5) {
-    return 'Dél-Nyugati';
-  } else if (wind < 292.5) {
-    return 'Nyugati';
+  if (wind !== null && wind !== undefined) {
+    if (wind < 22.5 || wind > 337.5) {
+      return 'Északi';
+    } else if (wind < 67.5) {
+      return 'Észak-Keleti';
+    } else if (wind < 112.5) {
+      return 'Keleti';
+    } else if (wind < 157.5) {
+      return 'Dél-Keleti';
+    } else if (wind < 202.5) {
+      return 'Déli';
+    } else if (wind < 247.5) {
+      return 'Dél-Nyugati';
+    } else if (wind < 292.5) {
+      return 'Nyugati';
+    } else {
+      return 'Észak-Nyugati';
+    }
   } else {
-    return 'Észak-Nyugati';
+    return 'Hiányos adat!';
   }
 };
 
 const isFreeze = (freeze) => {
-  if (freeze > 0 && freeze !== null && freeze !== undefined) {
-    return 'Nem volt fagy';
+  if (freeze !== null && freeze !== undefined) {
+    if (freeze > 0) {
+      return 'Nem volt fagy';
+    } else {
+      return 'Fagyott';
+    }
   } else {
-    return 'Fagyott';
+    return 'Hiányos adat!';
   }
 };
 
