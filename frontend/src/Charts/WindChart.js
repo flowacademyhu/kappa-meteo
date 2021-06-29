@@ -20,11 +20,13 @@ const WindChart = ({ dateState, dateFormat }) => {
 
   useEffect(async () => {
     try {
-      const response = await axios.get(
-        `/api/wind?start=${dateFormat(dateState[0].startDate)}&end=${dateFormat(
-          dateState[0].endDate
-        )}&type=${dataType}&id=${station}`
-      );
+      const data = {
+        startDate: dateFormat(dateState[0].startDate),
+        endDate: dateFormat(dateState[0].endDate),
+        type: dataType,
+        id: station,
+      };
+      const response = await axios.post(`/api/wind`, data);
       const result = response.data;
       const mappedResult = result.map((item, index) => {
         return { ...item, number: index };
