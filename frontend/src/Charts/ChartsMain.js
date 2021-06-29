@@ -92,7 +92,7 @@ export default function ChartsMain() {
         minDate={new Date('2021-01-01')}
         maxDate={new Date('2021-04-30')}
       />
-      <div className="container align-items-center justify-content-center p-3">
+      <div className="container align-items-center justify-content-center p-3 mb-5">
         {battery && (
           <BatteryChart dateState={dateState} dateFormat={dateFormat} />
         )}

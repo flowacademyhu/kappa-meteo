@@ -100,6 +100,42 @@ const AirChart = ({ dateState, dateFormat }) => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis />
+          {isAirTemperature && (
+            <YAxis
+              yAxisId="0"
+              orientation="left"
+              dataKey="airTemperature"
+              label={{
+                value: 'Hőmérséklet C',
+                angle: -90,
+                position: 'outsideLeft',
+              }}
+            />
+          )}
+          {isAirPressure && (
+            <YAxis
+              yAxisId="1"
+              orientation="left"
+              dataKey="airPressure"
+              label={{
+                value: 'Légnyomás kPa',
+                angle: -90,
+                position: 'outsideLeft',
+              }}
+            />
+          )}
+          {isAirHumidity && (
+            <YAxis
+              yAxisId="2"
+              orientation="left"
+              dataKey="airHumidity"
+              label={{
+                value: 'Páratartalom %',
+                angle: -90,
+                position: 'outsideLeft',
+              }}
+            />
+          )}
           <Tooltip />
           <Legend />
           {isAirTemperature && (
