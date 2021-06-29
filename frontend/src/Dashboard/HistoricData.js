@@ -177,7 +177,7 @@ const batteryData = (data) => {
 };
 
 const windDirection = (wind) => {
-  if (wind < 22.5 || wind > 337.5) {
+  if ((wind !== null && wind !== undefined && wind < 22.5) || wind > 337.5) {
     return 'Északi';
   } else if (wind < 67.5) {
     return 'Észak-Keleti';
@@ -191,15 +191,15 @@ const windDirection = (wind) => {
     return 'Dél-Nyugati';
   } else if (wind < 292.5) {
     return 'Nyugati';
-  } else if (wind < 337.5) {
+  } else {
     return 'Észak-Nyugati';
   }
 };
 
 const isFreeze = (freeze) => {
-  if (freeze > 0) {
+  if (freeze > 0 && freeze !== null && freeze !== undefined) {
     return 'Nem volt fagy';
-  } else if (freeze <= 0) {
+  } else {
     return 'Fagyott';
   }
 };

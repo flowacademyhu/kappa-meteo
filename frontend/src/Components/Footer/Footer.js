@@ -7,7 +7,7 @@ const Style = styled.div`
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 65px;
+  height: auto;
   width: 100%;
 `;
 

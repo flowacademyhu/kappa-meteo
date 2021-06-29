@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export const CardStyle = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0px -15px 30px 3px #c54b3c;
-  border-radius: 50px;
+  border-radius: 20px;
 `;
 export const CardTitleText = styled.h5`
   color: #fff;
@@ -37,7 +37,7 @@ export const TitleText = styled.h1`
 `;
 export const GroupText = styled.h4`
   color: #fff;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   padding-left: 10px;
   text-shadow: 2px 2px black;
 `;

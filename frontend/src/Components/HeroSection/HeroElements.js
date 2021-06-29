@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HeroContainer = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -35,5 +35,4 @@ export const MyVideo = styled.video`
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: -1;
 `;
