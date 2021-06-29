@@ -11,7 +11,6 @@ export const CardFooterText = styled.h5`
 export const TitleText = styled.h1`
   color: #fff;
   text-align: center;
-  
 `;
 
 export const RearTitleText = styled.h1`
