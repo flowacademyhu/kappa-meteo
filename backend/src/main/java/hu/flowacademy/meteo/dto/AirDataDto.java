@@ -1,6 +1,5 @@
 package hu.flowacademy.meteo.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import hu.flowacademy.meteo.model.AirData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +14,6 @@ import java.util.Date;
 @Builder
 public class AirDataDto {
 
-    @JsonFormat(pattern = "MM-dd", timezone = "GMT+2")
     private Date date;
     private Double airHumidity;
     private Double airPressure;

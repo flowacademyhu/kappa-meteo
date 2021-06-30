@@ -22,6 +22,8 @@ import { HiSun } from 'react-icons/hi';
 import { TiWeatherShower, TiWeatherSnow } from 'react-icons/ti';
 import { VscDashboard } from 'react-icons/vsc';
 import { GiDrop, GiChaliceDrops, GiCarBattery } from 'react-icons/gi';
+import moment from 'moment';
+import { utc } from 'moment';
 
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
@@ -37,6 +39,10 @@ export default function HistoricData() {
     }
     fetchData();
   }, []);
+
+  const dateFormat = (date) => {
+    return moment(date).format('YYYY-MM-DD HH:mm');
+  };
 
   const miscData = (misc) => {
     return [
@@ -87,7 +93,7 @@ export default function HistoricData() {
       {
         icon: WiThermometer,
         titleText: 'Levegő hőmérséklet',
-        text: air.airDataDto.airTemperature,
+        text: Math.round(air.airDataDto.airTemperature),
         unit: <>&#8451;</>,
       },
 
@@ -248,7 +254,7 @@ export default function HistoricData() {
                           titleText={data.titleText}
                           text={data.text}
                           unit={data.unit}
-                          footerText={weatherData.date}
+                          footerText={dateFormat(weatherData.date)}
                         ></MeasureCard>
                       </div>
                     </div>
@@ -267,7 +273,7 @@ export default function HistoricData() {
                       titleText={data.titleText}
                       text={data.text}
                       unit={data.unit}
-                      footerText={weatherData.date}
+                      footerText={dateFormat(weatherData.date)}
                     ></MeasureCard>
                   </div>
                 );
@@ -287,7 +293,7 @@ export default function HistoricData() {
                         titleText={data.titleText}
                         text={data.text}
                         unit={data.unit}
-                        footerText={weatherData.date}
+                        footerText={dateFormat(weatherData.date)}
                       ></MeasureCard>
                     </div>
                   </div>
@@ -308,7 +314,7 @@ export default function HistoricData() {
                         titleText={data.titleText}
                         text={data.text}
                         unit={data.unit}
-                        footerText={weatherData.date}
+                        footerText={dateFormat(weatherData.date)}
                       ></MeasureCard>
                     </div>
                   </div>
@@ -329,7 +335,7 @@ export default function HistoricData() {
                         titleText={data.titleText}
                         text={data.text}
                         unit={data.unit}
-                        footerText={weatherData.date}
+                        footerText={dateFormat(weatherData.date)}
                       ></MeasureCard>
                     </div>
                   </div>

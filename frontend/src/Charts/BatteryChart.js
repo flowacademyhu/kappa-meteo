@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import axios from 'axios';
 
-const BatteryChart = ({ dateState, dateFormat }) => {
+const BatteryChart = ({ dateState, dateFormat, xAxisDateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
@@ -52,8 +52,7 @@ const BatteryChart = ({ dateState, dateFormat }) => {
             checked={isSolarCellChargingVoltage}
           />
           <label htmlFor="solarCellChargingVoltage">
-            {' '}
-            solarCellChargingVoltage{' '}
+            solarCellChargingVoltage
           </label>
           <input
             type="checkbox"
@@ -111,7 +110,7 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
+          <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
           {isSolarCellChargingVoltage && (
             <YAxis
               className="mx-5"

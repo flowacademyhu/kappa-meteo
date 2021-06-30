@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import axios from 'axios';
 
-const AirChart = ({ dateState, dateFormat }) => {
+const AirChart = ({ dateState, dateFormat, xAxisDateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
@@ -99,7 +99,7 @@ const AirChart = ({ dateState, dateFormat }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
+          <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
           {isAirTemperature && (
             <YAxis
               className="mx-5"

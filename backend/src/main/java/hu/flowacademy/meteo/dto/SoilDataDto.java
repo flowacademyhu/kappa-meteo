@@ -1,6 +1,5 @@
 package hu.flowacademy.meteo.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import hu.flowacademy.meteo.model.SoilData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +14,6 @@ import java.util.Date;
 @Builder
 public class SoilDataDto {
 
-    @JsonFormat(pattern = "MM-dd", timezone = "GMT+2")
     private Date date;
     private Double soilMoisture30cm;
     private Double soilMoisture60cm;

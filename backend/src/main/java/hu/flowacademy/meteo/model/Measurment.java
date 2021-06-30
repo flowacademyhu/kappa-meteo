@@ -1,6 +1,5 @@
 package hu.flowacademy.meteo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hu.flowacademy.meteo.model.enumPackage.Type;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,6 @@ import java.util.Date;
 @IdClass(MeasurmentId.class)
 public class Measurment {
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Id
     private Date date;
 

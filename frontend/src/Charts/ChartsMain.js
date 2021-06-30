@@ -39,6 +39,10 @@ export default function ChartsMain() {
     return moment(date).format('YYYY-MM-DD');
   };
 
+  const xAxisDateFormat = (date) => {
+    return moment(date).format('MM-DD');
+  };
+
   return (
     <>
       <div className="container">
@@ -88,19 +92,39 @@ export default function ChartsMain() {
       />
       <div className="container align-items-center justify-content-center p-3 mb-5">
         {visibility.battery && (
-          <BatteryChart dateState={dateState} dateFormat={dateFormat} />
+          <BatteryChart
+            dateState={dateState}
+            dateFormat={dateFormat}
+            xAxisDateFormat={xAxisDateFormat}
+          />
         )}
         {visibility.air && (
-          <AirChart dateState={dateState} dateFormat={dateFormat} />
+          <AirChart
+            dateState={dateState}
+            dateFormat={dateFormat}
+            xAxisDateFormat={xAxisDateFormat}
+          />
         )}
         {visibility.misc && (
-          <MiscChart dateState={dateState} dateFormat={dateFormat} />
+          <MiscChart
+            dateState={dateState}
+            dateFormat={dateFormat}
+            xAxisDateFormat={xAxisDateFormat}
+          />
         )}
         {visibility.soil && (
-          <SoilChart dateState={dateState} dateFormat={dateFormat} />
+          <SoilChart
+            dateState={dateState}
+            dateFormat={dateFormat}
+            xAxisDateFormat={xAxisDateFormat}
+          />
         )}
         {visibility.wind && (
-          <WindChart dateState={dateState} dateFormat={dateFormat} />
+          <WindChart
+            dateState={dateState}
+            dateFormat={dateFormat}
+            xAxisDateFormat={xAxisDateFormat}
+          />
         )}
       </div>
     </>

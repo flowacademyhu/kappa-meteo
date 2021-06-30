@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import axios from 'axios';
 
-const WindChart = ({ dateState, dateFormat }) => {
+const WindChart = ({ dateState, dateFormat, xAxisDateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
@@ -99,7 +99,7 @@ const WindChart = ({ dateState, dateFormat }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
+          <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
           {isWindSpeed && (
             <YAxis
               className="mx-5"
