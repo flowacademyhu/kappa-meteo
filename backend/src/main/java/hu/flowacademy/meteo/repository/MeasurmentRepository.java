@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface MeasurmentRepository extends JpaRepository<Measurment, MeasurmentId> {
 
-    Measurment findFirstByStationIdOrderByDateDesc(Long id);
+    Measurment findFirstByStationIdOrderByDateDesc(Long stationId);
 
     @Query(value = "SELECT m from Measurment m WHERE m.id.station = :stationId AND m.type = :type AND m.date BETWEEN :startDate AND :endDate")
     public List<Measurment> historicalFilterParams(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("type") Type type, @Param("stationId") Long stationId);

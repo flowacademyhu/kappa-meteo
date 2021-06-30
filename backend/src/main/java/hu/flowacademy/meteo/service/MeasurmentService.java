@@ -19,8 +19,8 @@ public class MeasurmentService {
 
     private final MeasurmentRepository measurmentRepository;
 
-    public MeasurmentDto getLastByStationId(Long id) {
-        return toDto(measurmentRepository.findFirstByStationIdOrderByDateDesc(id));
+    public MeasurmentDto getLastByStationId(Long stationId) {
+        return toDto(measurmentRepository.findFirstByStationIdOrderByDateDesc(stationId));
     }
 
     public List<MeasurmentDto> historicalFilterParams(Date startDate, Date endDate, Type type, Long stationId) {
