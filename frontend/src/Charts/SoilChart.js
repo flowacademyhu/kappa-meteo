@@ -30,8 +30,7 @@ const SoilChart = ({ dateState, dateFormat }) => {
           id: station,
         };
         const response = await axios.post(`/api/soil`, data);
-        const result = response.data;
-        const mappedResult = result.map((item, index) => {
+        const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };
         });
         setLineData(mappedResult);

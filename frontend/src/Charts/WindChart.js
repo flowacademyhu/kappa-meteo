@@ -28,8 +28,7 @@ const WindChart = ({ dateState, dateFormat }) => {
           id: station,
         };
         const response = await axios.post(`/api/wind`, data);
-        const result = response.data;
-        const mappedResult = result.map((item, index) => {
+        const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };
         });
         setLineData(mappedResult);

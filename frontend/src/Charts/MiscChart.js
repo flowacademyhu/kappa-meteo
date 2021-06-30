@@ -31,8 +31,7 @@ const MiscChart = ({ dateState, dateFormat }) => {
           id: station,
         };
         const response = await axios.post(`/api/misc`, data);
-        const result = response.data;
-        const mappedResult = result.map((item, index) => {
+        const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };
         });
         setLineData(mappedResult);
