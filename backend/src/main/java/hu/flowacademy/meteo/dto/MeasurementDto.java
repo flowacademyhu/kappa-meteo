@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MeasurmentDto {
+public class MeasurementDto {
 
     private Date date;
     private Type type;

@@ -9,7 +9,7 @@ import java.util.Date;
 
 @EqualsAndHashCode
 @NoArgsConstructor
-public class MeasurmentId implements Serializable {
+public class MeasurementId implements Serializable {
 
     private Long station;
     private Date date;

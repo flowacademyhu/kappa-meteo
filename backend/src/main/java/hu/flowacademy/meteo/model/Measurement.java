@@ -15,8 +15,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @Entity
-@IdClass(MeasurmentId.class)
-public class Measurment {
+@IdClass(MeasurementId.class)
+public class Measurement {
 
     @Id
     private Date date;

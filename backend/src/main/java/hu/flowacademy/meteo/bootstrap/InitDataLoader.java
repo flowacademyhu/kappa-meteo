@@ -28,7 +28,7 @@ public class InitDataLoader implements CommandLineRunner {
     private final SoilDataRepository soilDataRepository;
     private final WindDataRepository windDataRepository;
     private final StationRepository stationRepository;
-    private final MeasurmentRepository measurmentRepository;
+    private final MeasurementRepository measurementRepository;
 
     private static final DateFormat DATE_FORMAT_HU = new SimpleDateFormat("yyyy.MM.dd HH:mm");
     private static final DateFormat DATE_FORMAT_HU_SPACED = new SimpleDateFormat("yyyy. MM. dd. HH:mm");
@@ -43,7 +43,7 @@ public class InitDataLoader implements CommandLineRunner {
         }
         Optional<Station> homeStation = stationRepository.findFirstByName(HOME_STATION_NAME);
         if (homeStation.isPresent()) {
-            if (measurmentRepository.count() == 0) {
+            if (measurementRepository.count() == 0) {
                 executeTenMinuteMeasurmentSave(homeStation.orElseGet(null));
                 executeHourlyMeasurmentSave(homeStation.orElseGet(null));
                 executeDailyMeasurmentSave(homeStation.orElseGet(null));
@@ -54,18 +54,18 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     private void executeTenMinuteMeasurmentSave(Station station) {
-        List<Measurment> tenminMeasurments = measurmentRepository.saveAll(populateTenMin(csvData(FILE_NAME[0]), DATE_FORMAT_HU, station, Type.TEN_MIN));
-        log.info("saved {} ten minute measurments", tenminMeasurments.size());
+        List<Measurement> tenminMeasurements = measurementRepository.saveAll(populateTenMin(csvData(FILE_NAME[0]), DATE_FORMAT_HU, station, Type.TEN_MIN));
+        log.info("saved {} ten minute measurments", tenminMeasurements.size());
     }
 
     private void executeHourlyMeasurmentSave(Station station) {
-        List<Measurment> hourlyMeasurments = measurmentRepository.saveAll(populateHourly(csvData(FILE_NAME[1]), DATE_FORMAT_HU_SPACED, station, Type.HOURLY));
-        log.info("saved {} hourly measurments", hourlyMeasurments.size());
+        List<Measurement> hourlyMeasurements = measurementRepository.saveAll(populateHourly(csvData(FILE_NAME[1]), DATE_FORMAT_HU_SPACED, station, Type.HOURLY));
+        log.info("saved {} hourly measurments", hourlyMeasurements.size());
     }
 
     private void executeDailyMeasurmentSave(Station station) {
-        List<Measurment> dailyMeasurments = measurmentRepository.saveAll(populateDaily(csvData(FILE_NAME[2]), DATE_FORMAT_HU, station, Type.DAILY));
-        log.info("saved {} daily measurments", dailyMeasurments.size());
+        List<Measurement> dailyMeasurements = measurementRepository.saveAll(populateDaily(csvData(FILE_NAME[2]), DATE_FORMAT_HU, station, Type.DAILY));
+        log.info("saved {} daily measurments", dailyMeasurements.size());
     }
 
     private void executeStationSave() {
@@ -84,16 +84,16 @@ public class InitDataLoader implements CommandLineRunner {
         return "src/main/resources/" + name;
     }
 
-    private List<Measurment> populateTenMin(String name, DateFormat format, Station station, Type type) {
+    private List<Measurement> populateTenMin(String name, DateFormat format, Station station, Type type) {
         String line;
-        List<Measurment> list = new ArrayList<>();
+        List<Measurement> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
             br.readLine();
             int counter = 1;
             while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";", -1);
-                    Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
+                    Measurement temp = Measurement.builder().date(format.parse(data[0])).type(type).station(station)
                             .airData(airDataRepository.save(AirData.builder().airHumidity((Double) doubleFormatter(data[1]))
                                     .airPressure((Double) doubleFormatter(data[2]))
                                     .airTemperature((Double) doubleFormatter(data[14])).build()))
@@ -126,16 +126,16 @@ public class InitDataLoader implements CommandLineRunner {
         return list;
     }
 
-    private List<Measurment> populateHourly(String name, DateFormat format, Station station, Type type) {
+    private List<Measurement> populateHourly(String name, DateFormat format, Station station, Type type) {
         String line;
-        List<Measurment> list = new ArrayList<>();
+        List<Measurement> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
             br.readLine();
             int counter = 1;
             while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";", -1);
-                    Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
+                    Measurement temp = Measurement.builder().date(format.parse(data[0])).type(type).station(station)
                             .airData(airDataRepository.save(AirData.builder().airHumidity((Double) doubleFormatter(data[1]))
                                     .airPressure((Double) doubleFormatter(data[3]))
                                     .airTemperature((Double) doubleFormatter(data[4])).build()))
@@ -168,16 +168,16 @@ public class InitDataLoader implements CommandLineRunner {
         return list;
     }
 
-    private List<Measurment> populateDaily(String name, DateFormat format, Station station, Type type) {
+    private List<Measurement> populateDaily(String name, DateFormat format, Station station, Type type) {
         String line;
-        List<Measurment> list = new ArrayList<>();
+        List<Measurement> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
             br.readLine();
             int counter = 1;
             while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";", -1);
-                    Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
+                    Measurement temp = Measurement.builder().date(format.parse(data[0])).type(type).station(station)
                             .airData(airDataRepository.save(AirData.builder().airHumidity((Double) doubleFormatter(data[13]))
                                     .airPressure((Double) doubleFormatter(data[3]))
                                     .airTemperature((Double) doubleFormatter(data[1])).build()))
