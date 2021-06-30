@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BetweenDatesDto {
+public class FilterParamsDto {
 
     Long id;
     Type type;

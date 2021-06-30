@@ -1,7 +1,7 @@
 package hu.flowacademy.meteo.controller;
 
 import hu.flowacademy.meteo.dto.BatteryDataDto;
-import hu.flowacademy.meteo.dto.BetweenDatesDto;
+import hu.flowacademy.meteo.dto.FilterParamsDto;
 import hu.flowacademy.meteo.dto.MeasurmentDto;
 import hu.flowacademy.meteo.service.MeasurmentService;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ public class BatteryDataController {
 
     @PostMapping("battery")
     public List<BatteryDataDto> historicalFilterParams
-            (@RequestBody BetweenDatesDto betweenDatesDto) {
-        return measurmentService.historicalFilterParams(betweenDatesDto.getStartDate(),
-                betweenDatesDto.getEndDate(), betweenDatesDto.getType(), betweenDatesDto.getId()).stream()
+            (@RequestBody FilterParamsDto filterParamsDto) {
+        return measurmentService.historicalFilterParams(filterParamsDto.getStartDate(),
+                filterParamsDto.getEndDate(), filterParamsDto.getType(), filterParamsDto.getId()).stream()
                 .map(MeasurmentDto::getBatteryDataDto).collect(Collectors.toList());
     }
 }

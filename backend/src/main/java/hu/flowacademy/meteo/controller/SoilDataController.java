@@ -1,6 +1,6 @@
 package hu.flowacademy.meteo.controller;
 
-import hu.flowacademy.meteo.dto.BetweenDatesDto;
+import hu.flowacademy.meteo.dto.FilterParamsDto;
 import hu.flowacademy.meteo.dto.MeasurmentDto;
 import hu.flowacademy.meteo.dto.SoilDataDto;
 import hu.flowacademy.meteo.service.MeasurmentService;
@@ -20,9 +20,9 @@ public class SoilDataController {
 
     @PostMapping("soil")
     public List<SoilDataDto> historicalFilterParams
-            (@RequestBody BetweenDatesDto betweenDatesDto) {
-        return measurmentService.historicalFilterParams(betweenDatesDto.getStartDate(),
-                betweenDatesDto.getEndDate(), betweenDatesDto.getType(), betweenDatesDto.getId()).stream()
+            (@RequestBody FilterParamsDto filterParamsDto) {
+        return measurmentService.historicalFilterParams(filterParamsDto.getStartDate(),
+                filterParamsDto.getEndDate(), filterParamsDto.getType(), filterParamsDto.getId()).stream()
                 .map(MeasurmentDto::getSoilDataDto).collect(Collectors.toList());
     }
 }

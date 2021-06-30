@@ -1,6 +1,6 @@
 package hu.flowacademy.meteo.controller;
 
-import hu.flowacademy.meteo.dto.BetweenDatesDto;
+import hu.flowacademy.meteo.dto.FilterParamsDto;
 import hu.flowacademy.meteo.dto.MeasurmentDto;
 import hu.flowacademy.meteo.dto.MiscDataDto;
 import hu.flowacademy.meteo.service.MeasurmentService;
@@ -20,9 +20,9 @@ public class MiscDataController {
 
     @PostMapping("misc")
     public List<MiscDataDto> historicalFilterParams
-            (@RequestBody BetweenDatesDto betweenDatesDto) {
-        return measurmentService.historicalFilterParams(betweenDatesDto.getStartDate(),
-                betweenDatesDto.getEndDate(), betweenDatesDto.getType(), betweenDatesDto.getId()).stream()
+            (@RequestBody FilterParamsDto filterParamsDto) {
+        return measurmentService.historicalFilterParams(filterParamsDto.getStartDate(),
+                filterParamsDto.getEndDate(), filterParamsDto.getType(), filterParamsDto.getId()).stream()
                 .map(MeasurmentDto::getMiscDataDto).collect(Collectors.toList());
     }
 }
