@@ -74,10 +74,7 @@ const BatteryChart = ({ dateState, dateFormat }) => {
             }
             checked={isInternalBatteryVoltage}
           />
-          <label htmlFor="internalBatteryVoltage">
-            {' '}
-            internalBatteryVoltage
-          </label>
+          <label htmlFor="internalBatteryVoltage">internalBatteryVoltage</label>
         </form>
 
         <div className="container p-3 m-3">
