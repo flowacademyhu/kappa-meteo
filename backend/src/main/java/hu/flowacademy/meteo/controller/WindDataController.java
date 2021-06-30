@@ -19,9 +19,9 @@ public class WindDataController {
     private final MeasurmentService measurmentService;
 
     @PostMapping("wind")
-    public List<WindDataDto> getAllBetweenDates
+    public List<WindDataDto> historicalFilterParams
             (@RequestBody BetweenDatesDto betweenDatesDto) {
-        return measurmentService.getAllBetweenDates(betweenDatesDto.getStartDate(),
+        return measurmentService.historicalFilterParams(betweenDatesDto.getStartDate(),
                 betweenDatesDto.getEndDate(), betweenDatesDto.getType(), betweenDatesDto.getId()).stream()
                 .map(MeasurmentDto::getWindDataDto).collect(Collectors.toList());
     }

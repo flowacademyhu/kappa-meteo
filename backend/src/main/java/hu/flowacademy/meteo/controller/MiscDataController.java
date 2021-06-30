@@ -19,9 +19,9 @@ public class MiscDataController {
     private final MeasurmentService measurmentService;
 
     @PostMapping("misc")
-    public List<MiscDataDto> getAllBetweenDates
+    public List<MiscDataDto> historicalFilterParams
             (@RequestBody BetweenDatesDto betweenDatesDto) {
-        return measurmentService.getAllBetweenDates(betweenDatesDto.getStartDate(),
+        return measurmentService.historicalFilterParams(betweenDatesDto.getStartDate(),
                 betweenDatesDto.getEndDate(), betweenDatesDto.getType(), betweenDatesDto.getId()).stream()
                 .map(MeasurmentDto::getMiscDataDto).collect(Collectors.toList());
     }

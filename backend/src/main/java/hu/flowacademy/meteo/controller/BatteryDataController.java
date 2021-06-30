@@ -19,9 +19,9 @@ public class BatteryDataController {
     private final MeasurmentService measurmentService;
 
     @PostMapping("battery")
-    public List<BatteryDataDto> getAllBetweenDates
+    public List<BatteryDataDto> historicalFilterParams
             (@RequestBody BetweenDatesDto betweenDatesDto) {
-        return measurmentService.getAllBetweenDates(betweenDatesDto.getStartDate(),
+        return measurmentService.historicalFilterParams(betweenDatesDto.getStartDate(),
                 betweenDatesDto.getEndDate(), betweenDatesDto.getType(), betweenDatesDto.getId()).stream()
                 .map(MeasurmentDto::getBatteryDataDto).collect(Collectors.toList());
     }

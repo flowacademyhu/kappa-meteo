@@ -19,9 +19,9 @@ public class SoilDataController {
     private final MeasurmentService measurmentService;
 
     @PostMapping("soil")
-    public List<SoilDataDto> getAllBetweenDates
+    public List<SoilDataDto> historicalFilterParams
             (@RequestBody BetweenDatesDto betweenDatesDto) {
-        return measurmentService.getAllBetweenDates(betweenDatesDto.getStartDate(),
+        return measurmentService.historicalFilterParams(betweenDatesDto.getStartDate(),
                 betweenDatesDto.getEndDate(), betweenDatesDto.getType(), betweenDatesDto.getId()).stream()
                 .map(MeasurmentDto::getSoilDataDto).collect(Collectors.toList());
     }

@@ -17,9 +17,9 @@ public class AirDataController {
     private final MeasurmentService measurmentService;
 
     @PostMapping("air")
-    public List<AirDataDto> getAllBetweenDates
+    public List<AirDataDto> historicalFilterParams
             (@RequestBody BetweenDatesDto betweenDatesDto) {
-        return measurmentService.getAllBetweenDates(betweenDatesDto.getStartDate(),
+        return measurmentService.historicalFilterParams(betweenDatesDto.getStartDate(),
                 betweenDatesDto.getEndDate(), betweenDatesDto.getType(), betweenDatesDto.getId()).stream()
                 .map(MeasurmentDto::getAirDataDto).collect(Collectors.toList());
     }
