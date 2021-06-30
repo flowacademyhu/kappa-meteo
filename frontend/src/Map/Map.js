@@ -7,14 +7,14 @@ import styled from 'styled-components';
 import { useGeolocation } from 'react-use';
 import UserIcon from '../Icon/UserIcon';
 
+const StyledMapContainer = styled(MapContainer)`
+  width: 100%;
+  height: 78vh;
+`;
+
 export default function Map() {
   const myPosition = useGeolocation();
   const [coordinates, setCoordinates] = useState([]);
-
-  const StyledMapContainer = styled(MapContainer)`
-    width: 100%;
-    height: 78vh;
-  `;
 
   useEffect(() => {
     axios

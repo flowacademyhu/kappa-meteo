@@ -23,7 +23,6 @@ import { TiWeatherShower, TiWeatherSnow } from 'react-icons/ti';
 import { VscDashboard } from 'react-icons/vsc';
 import { GiDrop, GiChaliceDrops, GiCarBattery } from 'react-icons/gi';
 import moment from 'moment';
-import { utc } from 'moment';
 
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
