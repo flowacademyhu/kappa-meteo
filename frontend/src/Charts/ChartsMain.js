@@ -20,7 +20,7 @@ export default function ChartsMain() {
 
   const [dateState, setDateState] = useState([
     {
-      startDate: new Date('2021-04-26'),
+      startDate: new Date('2021-04-24'),
       endDate: new Date('2021-04-30'),
       key: 'selection',
     },
