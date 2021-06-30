@@ -20,7 +20,7 @@ public class StationController {
     @GetMapping("stations")
     public List<StationDto> listStations() {
         List<StationDto> stationDTOList = stationService.listStations().stream().map(StationDto::toDto).collect(Collectors.toList());
-        log.debug("Get {} (all) stationDTO.", stationDTOList.size());
+        log.info("Get {} (all) stationDTO.", stationDTOList.size());
         return stationDTOList;
     }
 }
