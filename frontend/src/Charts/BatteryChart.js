@@ -22,13 +22,13 @@ const BatteryChart = ({ dateState, dateFormat }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = {
-          startDate: dateFormat(dateState[0].startDate),
-          endDate: dateFormat(dateState[0].endDate),
-          type: dataType,
-          id: station,
-        };
-        const response = await axios.post(`/api/battery`, data);
+        const response = await axios.get(
+          `/api/battery?start=${dateFormat(
+            dateState[0].startDate
+          )}&end=${dateFormat(
+            dateState[0].endDate
+          )}&type=${dataType}&id=${station}`
+        );
         const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };
         });
