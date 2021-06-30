@@ -23,11 +23,9 @@ const BatteryChart = ({ dateState, dateFormat }) => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `/api/battery?start=${dateFormat(
+          `/api/stations/${station}/battery?start=${dateFormat(
             dateState[0].startDate
-          )}&end=${dateFormat(
-            dateState[0].endDate
-          )}&type=${dataType}&id=${station}`
+          )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
         );
         const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };

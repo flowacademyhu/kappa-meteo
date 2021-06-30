@@ -22,11 +22,9 @@ const WindChart = ({ dateState, dateFormat }) => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `/api/wind?start=${dateFormat(
+          `/api/stations/${station}/wind?start=${dateFormat(
             dateState[0].startDate
-          )}&end=${dateFormat(
-            dateState[0].endDate
-          )}&type=${dataType}&id=${station}`
+          )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
         );
         const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };

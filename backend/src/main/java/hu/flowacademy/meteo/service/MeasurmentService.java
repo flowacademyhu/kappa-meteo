@@ -23,8 +23,8 @@ public class MeasurmentService {
         return toDto(measurmentRepository.findFirstByStationIdOrderByDateDesc(id));
     }
 
-    public List<MeasurmentDto> historicalFilterParams(Date startDate, Date endDate, Type type, Long id) {
-        return toDto(measurmentRepository.historicalFilterParams(startDate, endDate, type, id));
+    public List<MeasurmentDto> historicalFilterParams(Date startDate, Date endDate, Type type, Long stationId) {
+        return toDto(measurmentRepository.historicalFilterParams(startDate, endDate, type, stationId));
     }
 
     public MeasurmentDto toDto(Measurment measurment) {

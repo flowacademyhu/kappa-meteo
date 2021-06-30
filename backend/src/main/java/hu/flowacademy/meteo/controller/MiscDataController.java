@@ -19,10 +19,10 @@ public class MiscDataController {
 
     private final MeasurmentService measurmentService;
 
-    @GetMapping("misc")
+    @GetMapping("stations/{stationId}/misc")
     public List<MiscDataDto> historicalFilterParams(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
             , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-                                                   @RequestParam("type") Type type, @RequestParam("id") Long id) throws ParseException {
-        return measurmentService.historicalFilterParams(startDate, endDate, type, id).stream().map(MeasurmentDto::getMiscDataDto).collect(Collectors.toList());
+                                                   @RequestParam("type") Type type, @PathVariable Long stationId) throws ParseException {
+        return measurmentService.historicalFilterParams(startDate, endDate, type, stationId).stream().map(MeasurmentDto::getMiscDataDto).collect(Collectors.toList());
     }
 }

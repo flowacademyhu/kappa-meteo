@@ -19,11 +19,11 @@ public class AirDataController {
 
     private final MeasurmentService measurmentService;
 
-    @GetMapping("air")
+    @GetMapping("stations/{stationId}/air")
     public List<AirDataDto> historicalFilterParams(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
             , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-                                                   @RequestParam("type") Type type, @RequestParam("id") Long id) throws ParseException {
-        return measurmentService.historicalFilterParams(startDate, endDate, type, id).stream().map(MeasurmentDto::getAirDataDto).collect(Collectors.toList());
+                                                   @RequestParam("type") Type type, @PathVariable Long stationId) throws ParseException {
+        return measurmentService.historicalFilterParams(startDate, endDate, type, stationId).stream().map(MeasurmentDto::getAirDataDto).collect(Collectors.toList());
     }
 }
 
