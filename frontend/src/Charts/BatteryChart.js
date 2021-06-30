@@ -98,9 +98,9 @@ const BatteryChart = ({ dateState, dateFormat }) => {
             id="datetime"
             onChange={(e) => setDataType(e.target.value)}
           >
-            <option value="DAILY">Daily</option>
-            <option value="HOURLY">Hourly</option>
-            <option value="TEN_MIN">10 min</option>
+            <option value="DAILY">Napi</option>
+            <option value="HOURLY">Órai</option>
+            <option value="TEN_MIN">10 perces</option>
           </select>
         </div>
 
