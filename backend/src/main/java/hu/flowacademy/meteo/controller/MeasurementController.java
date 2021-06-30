@@ -5,7 +5,7 @@ import hu.flowacademy.meteo.service.MeasurementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -15,8 +15,8 @@ public class MeasurementController {
 
     private final MeasurementService measurementService;
 
-    @GetMapping("latest/{id}")
-    public MeasurementDto getLastByStationId(@PathVariable Long stationId) {
+    @GetMapping("latest")
+    public MeasurementDto getLastByStationId(@RequestParam("stationId") Long stationId) {
         log.debug("Geting id of station: {}", stationId);
         return measurementService.getLastByStationId(stationId);
     }

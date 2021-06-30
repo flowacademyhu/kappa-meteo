@@ -31,7 +31,7 @@ export default function HistoricData() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('/api/latest/12');
+        const response = await axios.get(`/api/latest?stationId=${12}`);
         response.data && setWeatherData(response.data);
       } catch (err) {
         console.log(err);
