@@ -85,6 +85,7 @@ const SoilChart = ({ dateState, dateFormat }) => {
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
           <select
+            value={station}
             name="stations"
             id="stations"
             onChange={(e) => setStation(e.target.value)}
