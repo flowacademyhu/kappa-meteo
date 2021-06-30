@@ -17,5 +17,5 @@ public interface MeasurementRepository extends JpaRepository<Measurement, Measur
     Measurement findFirstByStationIdOrderByDateDesc(Long stationId);
 
     @Query(value = "SELECT m from Measurement m WHERE m.id.station = :stationId AND m.type = :type AND m.date BETWEEN :startDate AND :endDate")
-    public List<Measurement> historicalFilterParams(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("type") Type type, @Param("stationId") Long stationId);
+    public List<Measurement> findAllMeasurementsBy(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("type") Type type, @Param("stationId") Long stationId);
 }

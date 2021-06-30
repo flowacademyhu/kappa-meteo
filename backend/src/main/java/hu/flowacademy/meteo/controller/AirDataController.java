@@ -20,10 +20,10 @@ public class AirDataController {
     private final MeasurementService measurementService;
 
     @GetMapping("stations/{stationId}/air")
-    public List<AirDataDto> historicalFilterParams(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
+    public List<AirDataDto> findAllMeasurementsBy(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
             , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
                                                    @RequestParam("type") Type type, @PathVariable Long stationId) throws ParseException {
-        return measurementService.historicalFilterParams(startDate, endDate, type, stationId).stream().map(MeasurementDto::getAirDataDto).collect(Collectors.toList());
+        return measurementService.findAllMeasurementsBy(startDate, endDate, type, stationId).stream().map(MeasurementDto::getAirDataDto).collect(Collectors.toList());
     }
 }
 

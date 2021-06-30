@@ -20,9 +20,9 @@ public class SoilDataController {
     private final MeasurementService measurementService;
 
     @GetMapping("stations/{stationId}/soil")
-    public List<SoilDataDto> historicalFilterParams(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
+    public List<SoilDataDto> findAllMeasurementsBy(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
             , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
                                                    @RequestParam("type") Type type, @PathVariable Long stationId) throws ParseException {
-        return measurementService.historicalFilterParams(startDate, endDate, type, stationId).stream().map(MeasurementDto::getSoilDataDto).collect(Collectors.toList());
+        return measurementService.findAllMeasurementsBy(startDate, endDate, type, stationId).stream().map(MeasurementDto::getSoilDataDto).collect(Collectors.toList());
     }
 }
