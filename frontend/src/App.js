@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-
 import Home from './Pages/Home.js';
 import HeroSection from './Components/HeroSection/Hero';
 import MapView from './Pages/MapView';
