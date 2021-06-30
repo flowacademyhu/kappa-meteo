@@ -50,7 +50,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="irradiation"
-            value="irradiation"
             onChange={() => setIrradiation(!isIrradiation)}
             checked={isIrradiation}
           />
@@ -58,7 +57,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="freeze"
-            value="freeze"
             onChange={() => setFreeze(!isFreeze)}
             checked={isFreeze}
           />
@@ -66,7 +64,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="rain"
-            value="rain"
             onChange={() => setRain(!isRain)}
             checked={isRain}
           />
@@ -74,7 +71,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="leafMoisture"
-            value="leafMoisture"
             onChange={() => setLeafMoisture(!isLeafMoisture)}
             checked={isLeafMoisture}
           />
@@ -82,7 +78,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="lightUnit"
-            value="lightUnit"
             onChange={() => setLightUnit(!isLightUnit)}
             checked={isLightUnit}
           />
@@ -90,7 +85,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="precipitationCounter"
-            value="precipitationCounter"
             onChange={() => setPrecipitationCounter(!isPrecipitationCounter)}
             checked={isPrecipitationCounter}
           />

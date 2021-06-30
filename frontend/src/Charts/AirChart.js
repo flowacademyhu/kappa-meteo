@@ -47,7 +47,6 @@ const AirChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="AirTemperature"
-            value="airTemperature"
             onChange={() => setAirTemperature(!isAirTemperature)}
             checked={isAirTemperature}
           />
@@ -55,7 +54,6 @@ const AirChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="AirPressure"
-            value="AirPressure"
             onChange={() => setAirPressure(!isAirPressure)}
             checked={isAirPressure}
           />
@@ -63,7 +61,6 @@ const AirChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="AirHumidity"
-            value="AirHumidity"
             onChange={() => setAirHumidity(!isAirHumidity)}
             checked={isAirHumidity}
           />

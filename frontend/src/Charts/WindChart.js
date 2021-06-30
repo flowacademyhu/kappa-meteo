@@ -47,7 +47,6 @@ const WindChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="windSpeed"
-            value="windSpeed"
             onChange={() => setWindSpeed(!isWindSpeed)}
             checked={isWindSpeed}
           />
@@ -55,7 +54,6 @@ const WindChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="windDirection"
-            value="windDirection"
             onChange={() => setWindDirection(!isWindDirection)}
             checked={isWindDirection}
           />
@@ -63,7 +61,6 @@ const WindChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="windGust"
-            value="windGust"
             onChange={() => setWindGust(!isWindGust)}
             checked={isWindGust}
           />

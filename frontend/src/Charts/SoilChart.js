@@ -49,7 +49,6 @@ const SoilChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="soilMoisture30cm"
-            value="soilMoisture30cm"
             onChange={() => setSoilMoisture30cm(!isSoilMoisture30cm)}
             checked={isSoilMoisture30cm}
           />
@@ -57,7 +56,6 @@ const SoilChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="SoilMoisture60cm"
-            value="SoilMoisture60cm"
             onChange={() => setSoilMoisture60cm(!isSoilMoisture60cm)}
             checked={isSoilMoisture60cm}
           />
@@ -65,7 +63,6 @@ const SoilChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="soilMoisture90cm"
-            value="soilMoisture90cm"
             onChange={() => setSoilMoisture90cm(!isSoilMoisture90cm)}
             checked={isSoilMoisture90cm}
           />
@@ -73,7 +70,6 @@ const SoilChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="soilMoisture120cm"
-            value="soilMoisture120cm"
             onChange={() => setSoilMoisture120cm(!isSoilMoisture120cm)}
             checked={isSoilMoisture120cm}
           />
@@ -81,7 +77,6 @@ const SoilChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="soilTemperature0cm"
-            value="soilTemperature0cm"
             onChange={() => setSoilTemperature0cm(!isSoilTemperature0cm)}
             checked={isSoilTemperature0cm}
           />

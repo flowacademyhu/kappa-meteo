@@ -48,7 +48,6 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="solarCellChargingVoltage"
-            value="solarCellChargingVoltage"
             onChange={() =>
               setSolarCellChargingVoltage(!isSolarCellChargingVoltage)
             }
@@ -61,7 +60,6 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="externalBatteryVoltage"
-            value="externalBatteryVoltage"
             onChange={() =>
               setExternalBatteryVoltage(!isExternalBatteryVoltage)
             }
@@ -71,7 +69,6 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="internalBatteryVoltage"
-            value="internalBatteryVoltage"
             onChange={() =>
               setInternalBatteryVoltage(!isInternalBatteryVoltage)
             }
