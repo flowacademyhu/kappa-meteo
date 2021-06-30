@@ -1,4 +1,4 @@
-import StationPopup from '../Popup/StationPopup.js';
+import StationPopup from './StationPopup.js';
 import { Marker } from 'react-leaflet';
 import RadarIcon from '../Icon/Radaricon';
 

@@ -104,7 +104,7 @@ export default function Map() {
           )}
         </StyledMapContainer>
       )}
-      <div className="justify-content-center d-flex">
+      <div className="justify-content-center d-flex m-2">
         <button
           className="btn btn-primary mr-auto ml-auto"
           onClick={() => flyToPosition(myPosition, map)}
