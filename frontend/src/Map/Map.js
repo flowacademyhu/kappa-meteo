@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import MarkersAbove from './MarkersAbove';
 import MarkersBelow from './MarkersBelow';
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker } from 'react-leaflet';
 import styled from 'styled-components';
 import { useGeolocation } from 'react-use';
 import UserIcon from '../Icon/UserIcon';
 import Zoom from './Zoom';
-import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
-import { Control } from 'leaflet';
+import MapTypeButton from './MapTypeButton';
 
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
@@ -20,6 +19,8 @@ export default function Map() {
   const myPosition = useGeolocation();
   const [coordinates, setCoordinates] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(8);
+  const [map, setMap] = useState(null);
+  const mapRef = useRef();
 
   useEffect(() => {
     axios
@@ -32,48 +33,85 @@ export default function Map() {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    if (myPosition.latitude !== null && map !== null) {
+      map.flyTo([myPosition.latitude, myPosition.longitude], 10, {
+        duration: 1.5,
+      });
+    }
+  }, [map, myPosition]);
+
+  const flyToPosition = (myPosition, map) => {
+    if (myPosition.latitude !== null && map !== null) {
+      map.flyTo([myPosition.latitude, myPosition.longitude], 10, {
+        duration: 1.5,
+      });
+    }
+  };
+
   return (
-    <StyledMapContainer
-      center={[47.126471, 19.558264]}
-      zoom={zoomLevel}
-      scrollWheelZoom={true}
-    >
-      <ReactLeafletGoogleLayer
-        continuousWorld={false}
-        noWrap={false}
-        apiKey="YOUR_API_KEY"
-        type={'hybrid'}
-      />
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
-      {zoomLevel >= 10 ? (
-        <MarkersAbove coordinates={coordinates} />
+    <>
+      {!map ? (
+        <StyledMapContainer
+          center={[47.126471, 19.558264]}
+          zoom={zoomLevel}
+          scrollWheelZoom={true}
+          whenCreated={setMap}
+        >
+          <MapTypeButton />
+
+          <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
+          {zoomLevel >= 10 ? (
+            <MarkersAbove coordinates={coordinates} />
+          ) : (
+            <MarkersBelow coordinates={coordinates} />
+          )}
+
+          {myPosition.latitude !== null && (
+            <>
+              <pre>{(myPosition, null, 2)}</pre>
+              <Marker
+                icon={UserIcon}
+                position={[myPosition.latitude, myPosition.longitude]}
+              ></Marker>
+            </>
+          )}
+        </StyledMapContainer>
       ) : (
-        <MarkersBelow coordinates={coordinates} />
-      )}
-      {/* <Control>
-      <label for="mapview">Maptype:</label>
+        <StyledMapContainer
+          center={[myPosition.latitude, myPosition.longitude]}
+          zoom={zoomLevel}
+          scrollWheelZoom={true}
+          whenCreated={setMap}
+        >
+          <MapTypeButton myPosition={myPosition} mapRef={mapRef} />
 
-<select name="mapview" id="mapview">
-  <option value="roadmap">Volvo</option>
-  <option value="satellite">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
-</select>
-      </Control> */}
+          <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
+          {zoomLevel >= 10 ? (
+            <MarkersAbove coordinates={coordinates} />
+          ) : (
+            <MarkersBelow coordinates={coordinates} />
+          )}
 
-      {myPosition.latitude !== null && (
-        <>
-          <pre>{(myPosition, null, 2)}</pre>
-          <Marker
-            icon={UserIcon}
-            position={[myPosition.latitude, myPosition.longitude]}
-          ></Marker>
-        </>
+          {myPosition.latitude !== null && (
+            <>
+              <pre>{(myPosition, null, 2)}</pre>
+              <Marker
+                icon={UserIcon}
+                position={[myPosition.latitude, myPosition.longitude]}
+              ></Marker>
+            </>
+          )}
+        </StyledMapContainer>
       )}
-    </StyledMapContainer>
+      <div className="justify-content-center d-flex">
+        <button
+          className="btn btn-primary mr-auto ml-auto"
+          onClick={() => flyToPosition(myPosition, map)}
+        >
+          MyPostition
+        </button>
+      </div>
+    </>
   );
 }
