@@ -28,9 +28,7 @@ const AirChart = ({ dateState, dateFormat }) => {
           id: station,
         };
         const response = await axios.post('/api/air', data);
-        console.log(response.data);
-        const result = response.data;
-        const mappedResult = result.map((item, index) => {
+        const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };
         });
         setLineData(mappedResult);
@@ -49,7 +47,6 @@ const AirChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="AirTemperature"
-            value="airTemperature"
             onChange={() => setAirTemperature(!isAirTemperature)}
             checked={isAirTemperature}
           />
@@ -57,7 +54,6 @@ const AirChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="AirPressure"
-            value="AirPressure"
             onChange={() => setAirPressure(!isAirPressure)}
             checked={isAirPressure}
           />
@@ -65,7 +61,6 @@ const AirChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="AirHumidity"
-            value="AirHumidity"
             onChange={() => setAirHumidity(!isAirHumidity)}
             checked={isAirHumidity}
           />
@@ -74,6 +69,7 @@ const AirChart = ({ dateState, dateFormat }) => {
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
           <select
+            value={station}
             name="stations"
             id="stations"
             onChange={(e) => setStation(e.target.value)}
@@ -88,9 +84,9 @@ const AirChart = ({ dateState, dateFormat }) => {
             id="datetime"
             onChange={(e) => setDataType(e.target.value)}
           >
-            <option value="DAILY">Daily</option>
-            <option value="HOURLY">Hourly</option>
-            <option value="TEN_MIN">10 min</option>
+            <option value="DAILY">Napi</option>
+            <option value="HOURLY">Órai</option>
+            <option value="TEN_MIN">10 perces</option>
           </select>
         </div>
         <AreaChart

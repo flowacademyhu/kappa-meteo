@@ -28,8 +28,7 @@ const WindChart = ({ dateState, dateFormat }) => {
           id: station,
         };
         const response = await axios.post(`/api/wind`, data);
-        const result = response.data;
-        const mappedResult = result.map((item, index) => {
+        const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };
         });
         setLineData(mappedResult);
@@ -48,7 +47,6 @@ const WindChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="windSpeed"
-            value="windSpeed"
             onChange={() => setWindSpeed(!isWindSpeed)}
             checked={isWindSpeed}
           />
@@ -56,7 +54,6 @@ const WindChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="windDirection"
-            value="windDirection"
             onChange={() => setWindDirection(!isWindDirection)}
             checked={isWindDirection}
           />
@@ -64,7 +61,6 @@ const WindChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="windGust"
-            value="windGust"
             onChange={() => setWindGust(!isWindGust)}
             checked={isWindGust}
           />
@@ -73,6 +69,7 @@ const WindChart = ({ dateState, dateFormat }) => {
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
           <select
+            value={station}
             name="stations"
             id="stations"
             onChange={(e) => setStation(e.target.value)}
@@ -87,9 +84,9 @@ const WindChart = ({ dateState, dateFormat }) => {
             id="datetime"
             onChange={(e) => setDataType(e.target.value)}
           >
-            <option value="DAILY">Daily</option>
-            <option value="HOURLY">Hourly</option>
-            <option value="TEN_MIN">10 min</option>
+            <option value="DAILY">Napi</option>
+            <option value="HOURLY">Órai</option>
+            <option value="TEN_MIN">10 perces</option>
           </select>
         </div>
         <AreaChart

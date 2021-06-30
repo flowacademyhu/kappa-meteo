@@ -31,8 +31,7 @@ const MiscChart = ({ dateState, dateFormat }) => {
           id: station,
         };
         const response = await axios.post(`/api/misc`, data);
-        const result = response.data;
-        const mappedResult = result.map((item, index) => {
+        const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };
         });
         setLineData(mappedResult);
@@ -51,7 +50,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="irradiation"
-            value="irradiation"
             onChange={() => setIrradiation(!isIrradiation)}
             checked={isIrradiation}
           />
@@ -59,7 +57,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="freeze"
-            value="freeze"
             onChange={() => setFreeze(!isFreeze)}
             checked={isFreeze}
           />
@@ -67,7 +64,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="rain"
-            value="rain"
             onChange={() => setRain(!isRain)}
             checked={isRain}
           />
@@ -75,7 +71,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="leafMoisture"
-            value="leafMoisture"
             onChange={() => setLeafMoisture(!isLeafMoisture)}
             checked={isLeafMoisture}
           />
@@ -83,7 +78,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="lightUnit"
-            value="lightUnit"
             onChange={() => setLightUnit(!isLightUnit)}
             checked={isLightUnit}
           />
@@ -91,7 +85,6 @@ const MiscChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="precipitationCounter"
-            value="precipitationCounter"
             onChange={() => setPrecipitationCounter(!isPrecipitationCounter)}
             checked={isPrecipitationCounter}
           />
@@ -100,6 +93,7 @@ const MiscChart = ({ dateState, dateFormat }) => {
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
           <select
+            value={station}
             name="stations"
             id="stations"
             onChange={(e) => setStation(e.target.value)}
@@ -114,9 +108,9 @@ const MiscChart = ({ dateState, dateFormat }) => {
             id="datetime"
             onChange={(e) => setDataType(e.target.value)}
           >
-            <option value="DAILY">Daily</option>
-            <option value="HOURLY">Hourly</option>
-            <option value="TEN_MIN">10 min</option>
+            <option value="DAILY">Napi</option>
+            <option value="HOURLY">Órai</option>
+            <option value="TEN_MIN">10 perces</option>
           </select>
         </div>
         <AreaChart

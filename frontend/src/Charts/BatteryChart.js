@@ -29,8 +29,7 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           id: station,
         };
         const response = await axios.post(`/api/battery`, data);
-        const result = response.data;
-        const mappedResult = result.map((item, index) => {
+        const mappedResult = response.data.map((item, index) => {
           return { ...item, number: index };
         });
         setLineData(mappedResult);
@@ -49,7 +48,6 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="solarCellChargingVoltage"
-            value="solarCellChargingVoltage"
             onChange={() =>
               setSolarCellChargingVoltage(!isSolarCellChargingVoltage)
             }
@@ -62,7 +60,6 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="externalBatteryVoltage"
-            value="externalBatteryVoltage"
             onChange={() =>
               setExternalBatteryVoltage(!isExternalBatteryVoltage)
             }
@@ -72,21 +69,18 @@ const BatteryChart = ({ dateState, dateFormat }) => {
           <input
             type="checkbox"
             name="internalBatteryVoltage"
-            value="internalBatteryVoltage"
             onChange={() =>
               setInternalBatteryVoltage(!isInternalBatteryVoltage)
             }
             checked={isInternalBatteryVoltage}
           />
-          <label htmlFor="internalBatteryVoltage">
-            {' '}
-            internalBatteryVoltage
-          </label>
+          <label htmlFor="internalBatteryVoltage">internalBatteryVoltage</label>
         </form>
 
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
           <select
+            value={station}
             name="stations"
             id="stations"
             onChange={(e) => setStation(e.target.value)}
@@ -101,9 +95,9 @@ const BatteryChart = ({ dateState, dateFormat }) => {
             id="datetime"
             onChange={(e) => setDataType(e.target.value)}
           >
-            <option value="DAILY">Daily</option>
-            <option value="HOURLY">Hourly</option>
-            <option value="TEN_MIN">10 min</option>
+            <option value="DAILY">Napi</option>
+            <option value="HOURLY">Órai</option>
+            <option value="TEN_MIN">10 perces</option>
           </select>
         </div>
 

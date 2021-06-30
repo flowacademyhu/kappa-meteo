@@ -10,11 +10,14 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
 export default function ChartsMain() {
-  const [air, setAir] = useState(false);
-  const [battery, setBattery] = useState(false);
-  const [misc, setMisc] = useState(false);
-  const [soil, setSoil] = useState(false);
-  const [wind, setWind] = useState(false);
+  const [visibility, setVisibility] = useState({
+    air: false,
+    battery: false,
+    misc: false,
+    soil: false,
+    wind: false,
+  });
+
   const [dateState, setDateState] = useState([
     {
       startDate: new Date(),
@@ -23,37 +26,13 @@ export default function ChartsMain() {
     },
   ]);
 
-  const turnOffAll = () => {
-    setAir(false);
-    setBattery(false);
-    setMisc(false);
-    setSoil(false);
-    setWind(false);
-  };
-
-  const turnAir = () => {
-    turnOffAll();
-    setAir(true);
-  };
-
-  const turnBattery = () => {
-    turnOffAll();
-    setBattery(true);
-  };
-
-  const turnMisc = () => {
-    turnOffAll();
-    setMisc(true);
-  };
-
-  const turnSoil = () => {
-    turnOffAll();
-    setSoil(true);
-  };
-
-  const turnWind = () => {
-    turnOffAll();
-    setWind(true);
+  const turnVisibilty = (type) => {
+    const newVisibility = Object.assign({}, visibility);
+    Object.keys(newVisibility).forEach((key) => {
+      newVisibility[key] = false;
+    });
+    newVisibility[type] = true;
+    setVisibility(newVisibility);
   };
 
   const dateFormat = (date) => {
@@ -65,19 +44,34 @@ export default function ChartsMain() {
       <div className="container">
         <div className="row">
           <div className="col-2 p-2">
-            <button onClick={turnAir} className="btn btn-primary">
+            <button
+              onClick={() => turnVisibilty('air')}
+              className="btn btn-primary"
+            >
               Air data
             </button>
-            <button onClick={turnMisc} className="btn btn-primary">
+            <button
+              onClick={() => turnVisibilty('misc')}
+              className="btn btn-primary"
+            >
               Misc data
             </button>
-            <button onClick={turnBattery} className="btn btn-primary">
+            <button
+              onClick={() => turnVisibilty('battery')}
+              className="btn btn-primary"
+            >
               Battery data
             </button>
-            <button onClick={turnSoil} className="btn btn-primary">
+            <button
+              onClick={() => turnVisibilty('soil')}
+              className="btn btn-primary"
+            >
               Soil data
             </button>
-            <button onClick={turnWind} className="btn btn-primary">
+            <button
+              onClick={() => turnVisibilty('wind')}
+              className="btn btn-primary"
+            >
               Wind data
             </button>
           </div>
@@ -93,13 +87,21 @@ export default function ChartsMain() {
         maxDate={new Date('2021-04-30')}
       />
       <div className="container align-items-center justify-content-center p-3 mb-5">
-        {battery && (
+        {visibility.battery && (
           <BatteryChart dateState={dateState} dateFormat={dateFormat} />
         )}
-        {air && <AirChart dateState={dateState} dateFormat={dateFormat} />}
-        {misc && <MiscChart dateState={dateState} dateFormat={dateFormat} />}
-        {soil && <SoilChart dateState={dateState} dateFormat={dateFormat} />}
-        {wind && <WindChart dateState={dateState} dateFormat={dateFormat} />}
+        {visibility.air && (
+          <AirChart dateState={dateState} dateFormat={dateFormat} />
+        )}
+        {visibility.misc && (
+          <MiscChart dateState={dateState} dateFormat={dateFormat} />
+        )}
+        {visibility.soil && (
+          <SoilChart dateState={dateState} dateFormat={dateFormat} />
+        )}
+        {visibility.wind && (
+          <WindChart dateState={dateState} dateFormat={dateFormat} />
+        )}
       </div>
     </>
   );
