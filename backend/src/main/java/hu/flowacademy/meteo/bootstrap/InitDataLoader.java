@@ -27,7 +27,7 @@ public class InitDataLoader implements CommandLineRunner {
     private static final String DATE_FORMAT_HU = "yyyy.MM.dd HH:mm";
     private static final String DATE_FORMAT_HU_SPACED = "yyyy. MM. dd. HH:mm";
     private static final String DATE_FORMAT_HU_DASH = "yyyy-MM-dd HH:mm";
-    private static final String[] FILE_NAME = {"D_KONDOROS_10perc.csv", "CSIHA_HQ_orai.csv", "CSIHA_HQ_napi.csv", "public_allomasok.csv"};
+    private static final String[] FILE_NAME = {"CSIHA_HQ_10perc.csv", "CSIHA_HQ_orai.csv", "CSIHA_HQ_napi.csv", "public_allomasok.csv"};
     private static final String HOME_STATION_NAME = "Szeged";
 
     @Override
@@ -49,7 +49,7 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     private void executeTenMinuteMeasurmentSave(Station station) {
-        List<Measurement> tenminMeasurements = measurementRepository.saveAll(populateDataBase(csvData(FILE_NAME[0]), DATE_FORMAT_HU_DASH, station, Type.TEN_MIN));
+        List<Measurement> tenminMeasurements = measurementRepository.saveAll(populateDataBase(csvData(FILE_NAME[0]), DATE_FORMAT_HU, station, Type.TEN_MIN));
         log.info("saved {} ten minute measurments", tenminMeasurements.size());
     }
 
