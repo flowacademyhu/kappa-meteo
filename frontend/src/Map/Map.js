@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import MarkersAbove from './MarkersAbove';
-import MarkersBelow from './MarkersBelow';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker } from 'react-leaflet';
 import styled from 'styled-components';
@@ -9,15 +7,30 @@ import { useGeolocation } from 'react-use';
 import UserIcon from '../Icon/UserIcon';
 import Zoom from './Zoom';
 import MapTypeButton from './MapTypeButton';
+import Markers from './Markers';
 
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
   height: 80vh;
 `;
+const mainStation = [
+  'Szeged',
+  'ÉK_EBES',
+  'OVF_Lajosmizse',
+  'ÉD_POMÁZ',
+  'ÉD_Gyõrszemere',
+  'OVF_Vasszécseny',
+  'DD_BALATONSZABADI',
+  'OVF_Szederkény',
+  'KÖ_MEZÕKÖVESD',
+  'D_GYULA',
+  'OVF_Demecser',
+  'OVF_Nagykanizsa',
+];
 
 export default function Map() {
   const myPosition = useGeolocation();
-  const [coordinates, setCoordinates] = useState([]);
+  const [stations, setStations] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(8);
   const [map, setMap] = useState(null);
   const [myFirstPosition, setMyFirstPosition] = useState(null);
@@ -40,7 +53,7 @@ export default function Map() {
         mode: 'no-cors',
       })
       .then((response) => {
-        setCoordinates(response.data);
+        setStations(response.data);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -64,6 +77,10 @@ export default function Map() {
     flyToPosition(myFirstPosition);
   }, [flyToPosition, myFirstPosition]);
 
+  const filteredStations = (stations) => {
+    return stations.filter((station) => mainStation.includes(station.name));
+  };
+  console.log(zoomLevel);
   return (
     <>
       <StyledMapContainer
@@ -78,11 +95,12 @@ export default function Map() {
       >
         <MapTypeButton myPosition={myPosition} />
         <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
-        {zoomLevel >= 10 ? (
-          <MarkersAbove coordinates={coordinates} />
+        {zoomLevel < 10 ? (
+          <Markers stations={filteredStations(stations)} />
         ) : (
-          <MarkersBelow coordinates={coordinates} />
+          <Markers stations={stations} />
         )}
+
         {myPosition.latitude !== null && (
           <>
             <pre>{(myPosition, null, 2)}</pre>
