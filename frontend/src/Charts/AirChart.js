@@ -9,14 +9,38 @@ import {
   Legend,
 } from 'recharts';
 import axios from 'axios';
+import MyCheckbox from '../Components/Input/MyCheckbox';
+
+const measurements = ['airTemperature', 'airPressure', 'airHumidity'];
+
+const axisLabel = [
+  { dataKey: 'airTemperature', value: 'Hőmérséklet C', stroke: '#8884d8' },
+  { dataKey: 'airPressure', value: 'Légnyomás kPa', stroke: '#82ca9d' },
+  { dataKey: 'airHumidity', value: 'Páratartalom %', stroke: '#000000' },
+];
+
+const labels = [
+  { dataKey: 'airTemperature', name: 'Hőmérséklet', stroke: '#8884d8' },
+  { dataKey: 'airPressure', name: 'Légnyomás', stroke: '#82ca9d' },
+  { dataKey: 'airHumidity', name: 'Páratartalom', stroke: '#000000' },
+];
 
 const AirChart = ({ dateState, dateFormat, xAxisDateFormat }) => {
   const [linedata, setLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
-  const [isAirHumidity, setAirHumidity] = useState(false);
-  const [isAirPressure, setAirPressure] = useState(false);
-  const [isAirTemperature, setAirTemperature] = useState(true);
+  const [measurementGroup, setMeasurementGroup] = useState([]);
+
+  const changeMeasurement = (data) => {
+    if (measurementGroup !== null && measurementGroup !== undefined) {
+      if (measurementGroup.includes(data)) {
+        let newMeasurementGroup = measurementGroup.filter((e) => e !== data);
+        setMeasurementGroup(newMeasurementGroup);
+      } else {
+        setMeasurementGroup([...measurementGroup, data]);
+      }
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -42,27 +66,13 @@ const AirChart = ({ dateState, dateFormat, xAxisDateFormat }) => {
     linedata !== undefined && (
       <>
         <form>
-          <input
-            type="checkbox"
-            name="AirTemperature"
-            onChange={() => setAirTemperature(!isAirTemperature)}
-            checked={isAirTemperature}
-          />
-          <label htmlFor="AirTemperature"> AirTemperature </label>
-          <input
-            type="checkbox"
-            name="AirPressure"
-            onChange={() => setAirPressure(!isAirPressure)}
-            checked={isAirPressure}
-          />
-          <label htmlFor="AirPressure"> AirPressure </label>
-          <input
-            type="checkbox"
-            name="AirHumidity"
-            onChange={() => setAirHumidity(!isAirHumidity)}
-            checked={isAirHumidity}
-          />
-          <label htmlFor="AirHumidity"> AirHumidity</label>
+          {measurements.map((measurement) => (
+            <MyCheckbox
+              name={measurement}
+              label={measurement}
+              changeMeasurement={changeMeasurement}
+            />
+          ))}
         </form>
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
@@ -100,87 +110,46 @@ const AirChart = ({ dateState, dateFormat, xAxisDateFormat }) => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
-          {isAirTemperature && (
-            <YAxis
-              className="mx-5"
-              yAxisId="0"
-              orientation="left"
-              dataKey="airTemperature"
-              label={{
-                value: 'Hőmérséklet C',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#8884d8',
-              }}
-            />
-          )}
-          {isAirPressure && (
-            <YAxis
-              className="mx-5"
-              yAxisId="1"
-              orientation="left"
-              dataKey="airPressure"
-              label={{
-                value: 'Légnyomás kPa',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#82ca9d',
-              }}
-            />
-          )}
-          {isAirHumidity && (
-            <YAxis
-              className="mx-5"
-              yAxisId="2"
-              orientation="left"
-              dataKey="airHumidity"
-              label={{
-                value: 'Páratartalom %',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#000000',
-              }}
-            />
-          )}
+
+          {axisLabel.map((axis, index) => {
+            if (measurementGroup.includes(axis.dataKey)) {
+              return (
+                <YAxis
+                  className="mx-5"
+                  yAxisId={index}
+                  orientation="left"
+                  dataKey={axis.dataKey}
+                  label={{
+                    value: axis.value,
+                    angle: -90,
+                    dx: -15,
+                    position: 'outsideLeft',
+                    stroke: axis.stroke,
+                  }}
+                />
+              );
+            }
+            return null;
+          })}
           <Tooltip />
           <Legend />
-          {isAirTemperature && (
-            <Area
-              type="monotone"
-              dataKey="airTemperature"
-              name="Hőmérséklet"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-              dot={false}
-              yAxisId={0}
-              fill="#111"
-            />
-          )}
-          {isAirPressure && (
-            <Area
-              type="monotone"
-              dataKey="airPressure"
-              name="Légnyomás"
-              stroke="#82ca9d"
-              yAxisId={1}
-              dot={false}
-              fill="#111"
-            />
-          )}
-          {isAirHumidity && (
-            <Area
-              type="monotone"
-              dataKey="airHumidity"
-              name="Páratartalom"
-              stroke="#000000"
-              yAxisId={2}
-              dot={false}
-              fill="#8884d8"
-            />
-          )}
+          {labels.map((label, index) => {
+            if (measurementGroup.includes(label.dataKey)) {
+              return (
+                <Area
+                  type="monotone"
+                  dataKey={label.dataKey}
+                  name={label.name}
+                  stroke={label.stroke}
+                  activeDot={{ r: 8 }}
+                  dot={false}
+                  yAxisId={index}
+                  fill="#111"
+                />
+              );
+            }
+            return null;
+          })}
         </AreaChart>
       </>
     )

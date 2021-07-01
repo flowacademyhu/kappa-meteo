@@ -81,7 +81,7 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     private String csvData(String name) {
-        return "src/main/resources/" + name;
+        return "/app/" + name;
     }
 
     private List<Measurement> populateDataBase(String name, DateFormat format, Station station, Type type) {
