@@ -21,11 +21,6 @@ import java.util.*;
 @RequiredArgsConstructor
 public class InitDataLoader implements CommandLineRunner {
 
-    private final AirDataRepository airDataRepository;
-    private final BatteryDataRepository batteryDataRepository;
-    private final MiscDataRepository miscDataRepository;
-    private final SoilDataRepository soilDataRepository;
-    private final WindDataRepository windDataRepository;
     private final StationRepository stationRepository;
     private final MeasurementRepository measurementRepository;
 
@@ -74,7 +69,7 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     public Object doubleFormatter(String str) {
-        if (str.equals("")) {
+        if (str.equals("") || str.equals("-9999,00000")) {
             return null;
         }
         return Double.parseDouble(str.replace(",", "."));

@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 
 const AirChart = ({ dateState, dateFormat, xAxisDateFormat }) => {
-  const [linedata, setLineData] = useState([]);
+  const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
   const [isAirHumidity, setAirHumidity] = useState(false);
