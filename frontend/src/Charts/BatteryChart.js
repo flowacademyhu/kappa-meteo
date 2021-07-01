@@ -29,8 +29,13 @@ const labels = [
   { dataKey: 'internalBatteryVoltage', name: 'internalBatteryVoltage' },
 ];
 
-const BatteryChart = ({ dateState, dateFormat, xAxisDateFormat }) => {
-  const [linedata, setLineData] = useState([]);
+const BatteryChart = ({
+  dateState,
+  dateFormat,
+  xAxisDateFormat,
+  chartDateFormat,
+}) => {
+  const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
   const [measurementGroup, setMeasurementGroup] = useState([]);
@@ -54,16 +59,20 @@ const BatteryChart = ({ dateState, dateFormat, xAxisDateFormat }) => {
             dateState[0].startDate
           )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
         );
-        const mappedResult = response.data.map((item, index) => {
-          return { ...item, number: index };
-        });
+        const mappedResult = response.data
+          .map((item, index) => {
+            return { ...item, number: index };
+          })
+          .map((el) => {
+            return { ...el, date: chartDateFormat(el.date) };
+          });
         setLineData(mappedResult);
       } catch (err) {
         console.error('Error during api call:', err);
       }
     }
     fetchData();
-  }, [dataType, station, dateState, dateFormat]);
+  }, [dataType, station, dateState, dateFormat, chartDateFormat]);
 
   return (
     linedata !== null &&

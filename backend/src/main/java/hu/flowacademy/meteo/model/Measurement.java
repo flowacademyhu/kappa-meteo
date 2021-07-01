@@ -30,18 +30,18 @@ public class Measurement {
     @Id
     private Station station;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private AirData airData;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private MiscData miscData;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private SoilData soilData;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private BatteryData batteryData;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private WindData windData;
 }

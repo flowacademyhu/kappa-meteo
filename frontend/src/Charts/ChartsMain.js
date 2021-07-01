@@ -43,6 +43,10 @@ export default function ChartsMain() {
     return moment(date).format('MM-DD');
   };
 
+  const chartDateFormat = (date) => {
+    return moment(date).format('MM-DD HH:mm');
+  };
+
   return (
     <>
       <div className="container">
@@ -96,6 +100,7 @@ export default function ChartsMain() {
             dateState={dateState}
             dateFormat={dateFormat}
             xAxisDateFormat={xAxisDateFormat}
+            chartDateFormat={chartDateFormat}
           />
         )}
         {visibility.air && (
@@ -103,6 +108,7 @@ export default function ChartsMain() {
             dateState={dateState}
             dateFormat={dateFormat}
             xAxisDateFormat={xAxisDateFormat}
+            chartDateFormat={chartDateFormat}
           />
         )}
         {visibility.misc && (
@@ -110,6 +116,7 @@ export default function ChartsMain() {
             dateState={dateState}
             dateFormat={dateFormat}
             xAxisDateFormat={xAxisDateFormat}
+            chartDateFormat={chartDateFormat}
           />
         )}
         {visibility.soil && (
@@ -117,6 +124,7 @@ export default function ChartsMain() {
             dateState={dateState}
             dateFormat={dateFormat}
             xAxisDateFormat={xAxisDateFormat}
+            chartDateFormat={chartDateFormat}
           />
         )}
         {visibility.wind && (
@@ -124,6 +132,7 @@ export default function ChartsMain() {
             dateState={dateState}
             dateFormat={dateFormat}
             xAxisDateFormat={xAxisDateFormat}
+            chartDateFormat={chartDateFormat}
           />
         )}
       </div>
