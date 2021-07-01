@@ -9,6 +9,21 @@ import {
   Legend,
 } from 'recharts';
 import axios from 'axios';
+import MyCheckbox from '../Components/Input/MyCheckbox';
+
+const measurements = ['windSpeed', 'windDirection', 'windGust'];
+
+const axisLabel = [
+  { dataKey: 'windSpeed', value: 'Szélsebesség km/h', stroke: '#8884d8' },
+  { dataKey: 'windDirection', value: 'Szélirány', stroke: '#82ca9d' },
+  { dataKey: 'windGust', value: 'Széllökés km/h', stroke: '#000000' },
+];
+
+const labels = [
+  { dataKey: 'windSpeed', name: 'Szél sebesség', stroke: '#8884d8' },
+  { dataKey: 'windDirection', name: 'Szél irány', stroke: '#82ca9d' },
+  { dataKey: 'windGust', name: 'Szél lökés', stroke: '#000000' },
+];
 
 const WindChart = ({
   dateState,
@@ -19,9 +34,18 @@ const WindChart = ({
   const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
-  const [isWindSpeed, setWindSpeed] = useState(false);
-  const [isWindDirection, setWindDirection] = useState(false);
-  const [isWindGust, setWindGust] = useState(true);
+  const [measurementGroup, setMeasurementGroup] = useState([]);
+
+  const changeMeasurement = (data) => {
+    if (measurementGroup !== null && measurementGroup !== undefined) {
+      if (measurementGroup.includes(data)) {
+        let newMeasurementGroup = measurementGroup.filter((e) => e !== data);
+        setMeasurementGroup(newMeasurementGroup);
+      } else {
+        setMeasurementGroup([...measurementGroup, data]);
+      }
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -51,27 +75,13 @@ const WindChart = ({
     linedata !== undefined && (
       <>
         <form>
-          <input
-            type="checkbox"
-            name="windSpeed"
-            onChange={() => setWindSpeed(!isWindSpeed)}
-            checked={isWindSpeed}
-          />
-          <label htmlFor="windSpeed"> windSpeed </label>
-          <input
-            type="checkbox"
-            name="windDirection"
-            onChange={() => setWindDirection(!isWindDirection)}
-            checked={isWindDirection}
-          />
-          <label htmlFor="windDirection"> windDirection </label>
-          <input
-            type="checkbox"
-            name="windGust"
-            onChange={() => setWindGust(!isWindGust)}
-            checked={isWindGust}
-          />
-          <label htmlFor="windGust"> windGust</label>
+          {measurements.map((measurement) => (
+            <MyCheckbox
+              name={measurement}
+              label={measurement}
+              changeMeasurement={changeMeasurement}
+            />
+          ))}
         </form>
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
@@ -109,87 +119,45 @@ const WindChart = ({
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
-          {isWindSpeed && (
-            <YAxis
-              className="mx-5"
-              yAxisId="0"
-              orientation="left"
-              dataKey="windSpeed"
-              label={{
-                value: 'Szélsebesség km/h',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#8884d8',
-              }}
-            />
-          )}
-          {isWindDirection && (
-            <YAxis
-              className="mx-5"
-              yAxisId="1"
-              orientation="left"
-              dataKey="windDirection"
-              label={{
-                value: 'Szélirány',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#82ca9d',
-              }}
-            />
-          )}
-          {isWindGust && (
-            <YAxis
-              className="mx-5"
-              yAxisId="2"
-              orientation="left"
-              dataKey="windGust"
-              label={{
-                value: 'Széllökés km/h',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#000000',
-              }}
-            />
-          )}
+          {axisLabel.map((axis, index) => {
+            if (measurementGroup.includes(axis.dataKey)) {
+              return (
+                <YAxis
+                  className="mx-5"
+                  yAxisId={index}
+                  orientation="left"
+                  dataKey="windSpeed"
+                  label={{
+                    value: 'Szélsebesség km/h',
+                    angle: -90,
+                    dx: -15,
+                    position: 'outsideLeft',
+                    stroke: '#8884d8',
+                  }}
+                />
+              );
+            }
+            return null;
+          })}
           <Tooltip />
           <Legend />
-          {isWindSpeed && (
-            <Area
-              type="monotone"
-              dataKey="windSpeed"
-              name="Szél sebesség"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-              dot={false}
-              yAxisId={0}
-              fill="#111"
-            />
-          )}
-          {isWindDirection && (
-            <Area
-              type="monotone"
-              dataKey="windDirection"
-              name="Szél irány"
-              stroke="#82ca9d"
-              yAxisId={1}
-              dot={false}
-              fill="#111"
-            />
-          )}
-          {isWindGust && (
-            <Area
-              type="monotone"
-              dataKey="windGust"
-              name="Szél lökés"
-              stroke="#000000"
-              yAxisId={2}
-              dot={false}
-              fill="#8884d8"
-            />
-          )}
+          {labels.map((label, index) => {
+            if (measurementGroup.includes(label.dataKey)) {
+              return (
+                <Area
+                  type="monotone"
+                  dataKey="windSpeed"
+                  name="Szél sebesség"
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                  dot={false}
+                  yAxisId={0}
+                  fill="#111"
+                />
+              );
+            }
+            return null;
+          })}
         </AreaChart>
       </>
     )

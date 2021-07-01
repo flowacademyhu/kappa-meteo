@@ -9,6 +9,62 @@ import {
   Legend,
 } from 'recharts';
 import axios from 'axios';
+import MyCheckbox from '../Components/Input/MyCheckbox';
+
+const measurements = [
+  'irradiation',
+  'freeze',
+  'rain',
+  'leafMoisture',
+  'lightUnit',
+  'precipitationCounter',
+];
+
+const axisLabel = [
+  { dataKey: 'irradiation', value: 'Besugárzás W/m2', stroke: '#8884d8' },
+  { dataKey: 'freeze', value: 'Fagy', stroke: '#82ca9d' },
+  { dataKey: 'rain', value: 'Csapadék mm', stroke: '#000000' },
+  { dataKey: 'leafMoisture', value: 'Levélnedvesség Perc', stroke: '#000000' },
+  { dataKey: 'lightUnit', value: 'Fény egység cd', stroke: '#000000' },
+  {
+    dataKey: 'precipitationCounter',
+    value: 'Csapadék számláló mm',
+    stroke: '#000000',
+  },
+];
+
+const labels = [
+  {
+    dataKey: 'irradiation',
+    name: 'Besugárzás',
+    stroke: '#8884d8',
+  },
+  {
+    dataKey: 'freeze',
+    name: 'Fagy',
+    stroke: '#82ca9d',
+  },
+  {
+    dataKey: 'rain',
+    name: 'Csapadék',
+    stroke: '#000000',
+  },
+  {
+    dataKey: 'leafMoisture',
+    name: 'Levél nedvesség',
+    stroke: '#000000',
+  },
+  {
+    dataKey: 'lightUnit',
+    name: 'Fény egység',
+    stroke: '#000000',
+  },
+  {
+    dataKey: 'precipitationCounter',
+    name: 'Csapadék számláló',
+    stroke: '#000000',
+  },
+];
 
 const MiscChart = ({
   dateState,
@@ -19,12 +75,18 @@ const MiscChart = ({
   const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
-  const [isIrradiation, setIrradiation] = useState(true);
-  const [isFreeze, setFreeze] = useState(false);
-  const [isRain, setRain] = useState(false);
-  const [isLeafMoisture, setLeafMoisture] = useState(false);
-  const [isLightUnit, setLightUnit] = useState(false);
-  const [isPrecipitationCounter, setPrecipitationCounter] = useState(false);
+  const [measurementGroup, setMeasurementGroup] = useState([]);
+
+  const changeMeasurement = (data) => {
+    if (measurementGroup !== null && measurementGroup !== undefined) {
+      if (measurementGroup.includes(data)) {
+        let newMeasurementGroup = measurementGroup.filter((e) => e !== data);
+        setMeasurementGroup(newMeasurementGroup);
+      } else {
+        setMeasurementGroup([...measurementGroup, data]);
+      }
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -54,48 +116,13 @@ const MiscChart = ({
     linedata !== undefined && (
       <>
         <form>
-          <input
-            type="checkbox"
-            name="irradiation"
-            onChange={() => setIrradiation(!isIrradiation)}
-            checked={isIrradiation}
-          />
-          <label htmlFor="irradiation"> irradiation </label>
-          <input
-            type="checkbox"
-            name="freeze"
-            onChange={() => setFreeze(!isFreeze)}
-            checked={isFreeze}
-          />
-          <label htmlFor="freeze"> freeze </label>
-          <input
-            type="checkbox"
-            name="rain"
-            onChange={() => setRain(!isRain)}
-            checked={isRain}
-          />
-          <label htmlFor="rain"> rain</label>
-          <input
-            type="checkbox"
-            name="leafMoisture"
-            onChange={() => setLeafMoisture(!isLeafMoisture)}
-            checked={isLeafMoisture}
-          />
-          <label htmlFor="leafMoisture"> leafMoisture </label>
-          <input
-            type="checkbox"
-            name="lightUnit"
-            onChange={() => setLightUnit(!isLightUnit)}
-            checked={isLightUnit}
-          />
-          <label htmlFor="lightUnit"> lightUnit </label>
-          <input
-            type="checkbox"
-            name="precipitationCounter"
-            onChange={() => setPrecipitationCounter(!isPrecipitationCounter)}
-            checked={isPrecipitationCounter}
-          />
-          <label htmlFor="precipitationCounter"> precipitationCounter </label>
+          {measurements.map((measurement) => (
+            <MyCheckbox
+              name={measurement}
+              label={measurement}
+              changeMeasurement={changeMeasurement}
+            />
+          ))}
         </form>
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
@@ -133,165 +160,45 @@ const MiscChart = ({
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
-          {isIrradiation && (
-            <YAxis
-              className="mx-5"
-              yAxisId="0"
-              orientation="left"
-              dataKey="irradiation"
-              label={{
-                value: 'Besugárzás W/m2',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#8884d8',
-              }}
-            />
-          )}
-          {isFreeze && (
-            <YAxis
-              className="mx-5"
-              yAxisId="1"
-              orientation="left"
-              dataKey="freeze"
-              label={{
-                value: 'Fagy',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#82ca9d',
-              }}
-            />
-          )}
-          {isRain && (
-            <YAxis
-              className="mx-5"
-              yAxisId="2"
-              orientation="left"
-              dataKey="rain"
-              label={{
-                value: 'Csapadék mm',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#000000',
-              }}
-            />
-          )}
-          {isLeafMoisture && (
-            <YAxis
-              className="mx-5"
-              yAxisId="3"
-              orientation="left"
-              dataKey="leafMoisture"
-              label={{
-                value: 'Levélnedvesség Perc',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#000000',
-              }}
-            />
-          )}
-          {isLightUnit && (
-            <YAxis
-              className="mx-5"
-              yAxisId="4"
-              orientation="left"
-              dataKey="lightUnit"
-              label={{
-                value: 'Fény egység cd',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#000000',
-              }}
-            />
-          )}
-          {isPrecipitationCounter && (
-            <YAxis
-              className="mx-5"
-              yAxisId="5"
-              orientation="left"
-              dataKey="precipitationCounter"
-              label={{
-                value: 'Csapadék számláló mm',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#000000',
-              }}
-            />
-          )}
+          {axisLabel.map((axis, index) => {
+            if (measurementGroup.includes(axis.dataKey)) {
+              return (
+                <YAxis
+                  className="mx-5"
+                  yAxisId={index}
+                  orientation="left"
+                  dataKey={axis.dataKey}
+                  label={{
+                    value: axis.value,
+                    angle: -90,
+                    dx: -15,
+                    position: 'outsideLeft',
+                    stroke: axis.stroke,
+                  }}
+                />
+              );
+            }
+            return null;
+          })}
           <Tooltip />
           <Legend />
-          {isIrradiation && (
-            <Area
-              type="monotone"
-              dataKey="irradiation"
-              name="Besugárzás"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-              dot={false}
-              yAxisId={0}
-              fill="#111"
-            />
-          )}
-          {isFreeze && (
-            <Area
-              type="monotone"
-              dataKey="freeze"
-              name="Fagy"
-              stroke="#82ca9d"
-              yAxisId={1}
-              dot={false}
-              fill="#111"
-            />
-          )}
-          {isRain && (
-            <Area
-              type="monotone"
-              dataKey="rain"
-              name="Csapadék"
-              stroke="#000000"
-              yAxisId={2}
-              dot={false}
-              fill="#8884d8"
-            />
-          )}
-          {isLeafMoisture && (
-            <Area
-              type="monotone"
-              dataKey="leafMoisture"
-              name="Levél nedvesség"
-              stroke="#000000"
-              yAxisId={3}
-              dot={false}
-              fill="#8884d8"
-            />
-          )}
-          {isLightUnit && (
-            <Area
-              type="monotone"
-              dataKey="lightUnit"
-              name="Fény egység"
-              stroke="#000000"
-              yAxisId={4}
-              dot={false}
-              fill="#8884d8"
-            />
-          )}
-          {isPrecipitationCounter && (
-            <Area
-              type="monotone"
-              dataKey="precipitationCounter"
-              name="Csapadék számláló"
-              stroke="#000000"
-              yAxisId={5}
-              dot={false}
-              fill="#8884d8"
-            />
-          )}
+          {labels.map((label, index) => {
+            if (measurementGroup.includes(label.dataKey)) {
+              return (
+                <Area
+                  type="monotone"
+                  dataKey={label.dataKey}
+                  name={label.name}
+                  stroke={label.stroke}
+                  activeDot={{ r: 8 }}
+                  dot={false}
+                  yAxisId={index}
+                  fill="#111"
+                />
+              );
+            }
+            return null;
+          })}
         </AreaChart>
       </>
     )

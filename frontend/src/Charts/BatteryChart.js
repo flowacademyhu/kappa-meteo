@@ -9,6 +9,25 @@ import {
   Legend,
 } from 'recharts';
 import axios from 'axios';
+import MyCheckbox from '../Components/Input/MyCheckbox';
+
+const measurements = [
+  'solarCellChargingVoltage',
+  'externalBatteryVoltage',
+  'internalBatteryVoltage',
+];
+
+const axisLabel = [
+  { dataKey: 'solarCellChargingVoltage', value: 'Napelem töltő feszültség V' },
+  { dataKey: 'externalBatteryVoltage', value: 'Külső akku feszültség V' },
+  { dataKey: 'internalBatteryVoltage', value: 'Belső akku feszültség V' },
+];
+
+const labels = [
+  { dataKey: 'solarCellChargingVoltage', name: 'solarCellChargingVoltage' },
+  { dataKey: 'externalBatteryVoltage', name: 'externalBatteryVoltage' },
+  { dataKey: 'internalBatteryVoltage', name: 'internalBatteryVoltage' },
+];
 
 const BatteryChart = ({
   dateState,
@@ -19,10 +38,18 @@ const BatteryChart = ({
   const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
-  const [isSolarCellChargingVoltage, setSolarCellChargingVoltage] =
-    useState(true);
-  const [isExternalBatteryVoltage, setExternalBatteryVoltage] = useState(false);
-  const [isInternalBatteryVoltage, setInternalBatteryVoltage] = useState(false);
+  const [measurementGroup, setMeasurementGroup] = useState([]);
+
+  const changeMeasurement = (data) => {
+    if (measurementGroup !== null && measurementGroup !== undefined) {
+      if (measurementGroup.includes(data)) {
+        let newMeasurementGroup = measurementGroup.filter((e) => e !== data);
+        setMeasurementGroup(newMeasurementGroup);
+      } else {
+        setMeasurementGroup([...measurementGroup, data]);
+      }
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -52,37 +79,14 @@ const BatteryChart = ({
     linedata !== undefined && (
       <>
         <form>
-          <input
-            type="checkbox"
-            name="solarCellChargingVoltage"
-            onChange={() =>
-              setSolarCellChargingVoltage(!isSolarCellChargingVoltage)
-            }
-            checked={isSolarCellChargingVoltage}
-          />
-          <label htmlFor="solarCellChargingVoltage">
-            solarCellChargingVoltage
-          </label>
-          <input
-            type="checkbox"
-            name="externalBatteryVoltage"
-            onChange={() =>
-              setExternalBatteryVoltage(!isExternalBatteryVoltage)
-            }
-            checked={isExternalBatteryVoltage}
-          />
-          <label htmlFor="externalBatteryVoltage">externalBatteryVoltage</label>
-          <input
-            type="checkbox"
-            name="internalBatteryVoltage"
-            onChange={() =>
-              setInternalBatteryVoltage(!isInternalBatteryVoltage)
-            }
-            checked={isInternalBatteryVoltage}
-          />
-          <label htmlFor="internalBatteryVoltage">internalBatteryVoltage</label>
+          {measurements.map((measurement) => (
+            <MyCheckbox
+              name={measurement}
+              label={measurement}
+              changeMeasurement={changeMeasurement}
+            />
+          ))}
         </form>
-
         <div className="container p-3 m-3">
           <label htmlFor="stationId">Choose a Station:</label>
           <select
@@ -120,87 +124,44 @@ const BatteryChart = ({
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
-          {isSolarCellChargingVoltage && (
-            <YAxis
-              className="mx-5"
-              yAxisId="0"
-              orientation="left"
-              dataKey="solarCellChargingVoltage"
-              label={{
-                value: 'Napelem töltő feszültség V',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#000000',
-              }}
-            />
-          )}
-          {isExternalBatteryVoltage && (
-            <YAxis
-              className="mx-5"
-              yAxisId="1"
-              orientation="left"
-              dataKey="externalBatteryVoltage"
-              label={{
-                value: 'Külső akku feszültség V',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#000000',
-              }}
-            />
-          )}
-          {isInternalBatteryVoltage && (
-            <YAxis
-              className="mx-5"
-              yAxisId="2"
-              orientation="left"
-              dataKey="internalBatteryVoltage"
-              label={{
-                value: 'Belső akku feszültség V',
-                angle: -90,
-                dx: -15,
-                position: 'outsideLeft',
-                stroke: '#000000',
-              }}
-            />
-          )}
+          {axisLabel.map((axis, index) => {
+            if (measurementGroup.includes(axis.dataKey)) {
+              return (
+                <YAxis
+                  className="mx-5"
+                  yAxisId={index}
+                  orientation="left"
+                  dataKey={axis.dataKey}
+                  label={{
+                    value: axis.value,
+                    angle: -90,
+                    dx: -15,
+                    position: 'outsideLeft',
+                    stroke: '#000000',
+                  }}
+                />
+              );
+            }
+            return null;
+          })}
           <Tooltip />
           <Legend />
-          {isSolarCellChargingVoltage && (
-            <Area
-              type="monotone"
-              dataKey="solarCellChargingVoltage"
-              name="solarCellChargingVoltage"
-              stroke="#000000"
-              yAxisId={0}
-              dot={false}
-              fill="#8884d8"
-            ></Area>
-          )}
-          {isExternalBatteryVoltage && (
-            <Area
-              type="monotone"
-              dataKey="externalBatteryVoltage"
-              name="externalBatteryVoltage"
-              stroke="#000000"
-              yAxisId={1}
-              dot={false}
-              fill="#8884d8"
-            ></Area>
-          )}
-
-          {isInternalBatteryVoltage && (
-            <Area
-              type="monotone"
-              dataKey="internalBatteryVoltage"
-              name="internalBatteryVoltage"
-              stroke="#000000"
-              yAxisId={2}
-              dot={false}
-              fill="#8884d8"
-            ></Area>
-          )}
+          {labels.map((label, index) => {
+            if (measurementGroup.includes(label.dataKey)) {
+              return (
+                <Area
+                  type="monotone"
+                  dataKey="solarCellChargingVoltage"
+                  name="solarCellChargingVoltage"
+                  stroke="#000000"
+                  yAxisId={index}
+                  dot={false}
+                  fill="#8884d8"
+                />
+              );
+            }
+            return null;
+          })}
         </AreaChart>
       </>
     )
