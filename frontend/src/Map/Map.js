@@ -80,7 +80,7 @@ export default function Map() {
   const filteredStations = (stations) => {
     return stations.filter((station) => mainStation.includes(station.name));
   };
-  
+
   return (
     <>
       <StyledMapContainer
