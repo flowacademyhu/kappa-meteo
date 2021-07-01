@@ -78,7 +78,11 @@ export default function Map() {
   }, [flyToPosition, myFirstPosition]);
 
   const filteredStations = (stations) => {
-    return stations.filter((station) => mainStation.includes(station.name));
+    if (zoomLevel < 10) {
+      return stations.filter((station) => mainStation.includes(station.name));
+    } else {
+      return stations;
+    }
   };
 
   return (
@@ -95,15 +99,11 @@ export default function Map() {
       >
         <MapTypeButton myPosition={myPosition} />
         <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
-        {zoomLevel < 10 ? (
-          <Markers stations={filteredStations(stations)} />
-        ) : (
-          <Markers stations={stations} />
-        )}
+
+        <Markers stations={filteredStations(stations)} />
 
         {myPosition.latitude !== null && (
           <>
-            <pre>{(myPosition, null, 2)}</pre>
             <Marker
               icon={UserIcon}
               position={[myPosition.latitude, myPosition.longitude]}
@@ -112,16 +112,16 @@ export default function Map() {
         )}
       </StyledMapContainer>
       )
-      {myPosition.latitude !== null ? (
+      {myPosition.latitude !== null && (
         <div className="justify-content-center d-flex m-2">
           <button
             className="btn btn-primary mr-auto ml-auto"
             onClick={() => flyToMyPosition(myFirstPosition)}
           >
-            MyPostition
+            MyPosition
           </button>
         </div>
-      ) : null}
+      )}
     </>
   );
 }
