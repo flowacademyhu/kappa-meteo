@@ -52,15 +52,17 @@ export default function Map() {
         myFirstPosition?.longitude !== null &&
         map !== null
       ) {
-        flyToMyPosition(myFirstPosition);
+        map.flyTo([myFirstPosition.latitude, myFirstPosition.longitude], 10, {
+          duration: 1.5,
+        });
       }
     },
-    [map, myFirstPosition]
+    [map]
   );
 
   useEffect(() => {
     flyToPosition(myFirstPosition);
-  }, [flyToPosition]);
+  }, [flyToPosition, myFirstPosition]);
 
   return (
     <>
