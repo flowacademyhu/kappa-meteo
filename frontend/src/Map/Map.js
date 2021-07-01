@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import MarkersAbove from './MarkersAbove';
 import MarkersBelow from './MarkersBelow';
@@ -20,6 +20,19 @@ export default function Map() {
   const [coordinates, setCoordinates] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(8);
   const [map, setMap] = useState(null);
+  const [myFirstPosition, setMyFirstPosition] = useState(null);
+
+  const flyToMyPosition = (pos) => {
+    map.flyTo([pos.latitude, pos.longitude], 10, {
+      duration: 1.5,
+    });
+  };
+
+  useEffect(() => {
+    if (myPosition !== null) {
+      setMyFirstPosition(myPosition);
+    }
+  }, [myPosition]);
 
   useEffect(() => {
     axios
@@ -32,17 +45,22 @@ export default function Map() {
       .catch((error) => console.log(error));
   }, []);
 
-  useEffect(() => {
-    flyToPosition(myPosition, map);
-  }, [map, myPosition]);
+  const flyToPosition = useCallback(
+    (myFirstPosition) => {
+      if (
+        myFirstPosition?.latitude !== null &&
+        myFirstPosition?.longitude !== null &&
+        map !== null
+      ) {
+        flyToMyPosition(myFirstPosition);
+      }
+    },
+    [map, myFirstPosition]
+  );
 
-  const flyToPosition = (myPosition, map) => {
-    if (myPosition.latitude !== null && map !== null) {
-      map.flyTo([myPosition.latitude, myPosition.longitude], 10, {
-        duration: 1.5,
-      });
-    }
-  };
+  useEffect(() => {
+    flyToPosition(myFirstPosition);
+  }, [flyToPosition]);
 
   return (
     <>
@@ -78,7 +96,7 @@ export default function Map() {
         <div className="justify-content-center d-flex m-2">
           <button
             className="btn btn-primary mr-auto ml-auto"
-            onClick={() => flyToPosition(myPosition, map)}
+            onClick={() => flyToMyPosition(myFirstPosition)}
           >
             MyPostition
           </button>

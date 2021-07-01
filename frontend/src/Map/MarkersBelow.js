@@ -22,7 +22,9 @@ export default function MarkersBelow({ coordinates }) {
       {coordinates
         .filter(
           (coordinate) =>
-            coordinate.lat !== null && mainStation.includes(coordinate.name)
+            coordinate.latitude !== null &&
+            coordinate.longitude !== null &&
+            mainStation.includes(coordinate.name)
         )
         .map((coordinate) => (
           <Markersmapping key={coordinate.id} coordinate={coordinate} />
