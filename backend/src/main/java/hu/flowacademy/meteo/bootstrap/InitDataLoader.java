@@ -80,7 +80,7 @@ public class InitDataLoader implements CommandLineRunner {
     }
 
     private String csvData(String name) {
-        return "/app/" + name;
+        return "src/main/resources/" + name;
     }
 
     private List<Measurement> populateDataBase(String name, String format, Station station, Type type) {
@@ -137,7 +137,7 @@ public class InitDataLoader implements CommandLineRunner {
     private List<Station> populateStations(String name) {
         String line;
         List<Station> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.UTF_8))) {
             br.readLine();
             int counter = 1;
             while ((line = br.readLine()) != null) {
