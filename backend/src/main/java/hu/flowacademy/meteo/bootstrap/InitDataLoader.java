@@ -102,31 +102,31 @@ public class InitDataLoader implements CommandLineRunner {
                 try {
                     String[] data = line.split(";\\s*", -1);
                     Measurement temp = Measurement.builder().date(new SimpleDateFormat(format).parse(data[dataMap.get("DATE")])).type(type).station(station)
-                            .airData(airDataRepository.save(AirData.builder()
+                            .airData(AirData.builder()
                                     .airHumidity((Double) doubleFormatter(dataGetter(data, dataMap, "Levegő-páratartalom")))
                                     .airPressure((Double) doubleFormatter(dataGetter(data, dataMap, "Légnyomás")))
-                                    .airTemperature((Double) doubleFormatter(dataGetter(data, dataMap, "Levegő-hőmérséklet"))).build()))
-                            .miscData(miscDataRepository.save(MiscData.builder()
+                                    .airTemperature((Double) doubleFormatter(dataGetter(data, dataMap, "Levegő-hőmérséklet"))).build())
+                            .miscData(MiscData.builder()
                                     .irradiation((Double) doubleFormatter(dataGetter(data, dataMap, "Besugárzás")))
                                     .freeze((Double) doubleFormatter(dataGetter(data, dataMap, "Fagy")))
                                     .rain((Double) doubleFormatter(dataGetter(data, dataMap, "Csapadék")))
                                     .leafMoisture((Double) doubleFormatter(dataGetter(data, dataMap, "Levélnedvesség")))
                                     .lightUnit((Double) doubleFormatter(dataGetter(data, dataMap, "Fény egység")))
-                                    .precipitationCounter((Double) doubleFormatter(dataGetter(data, dataMap, "Csapadék Számláló"))).build()))
-                            .soilData(soilDataRepository.save(SoilData.builder()
+                                    .precipitationCounter((Double) doubleFormatter(dataGetter(data, dataMap, "Csapadék Számláló"))).build())
+                            .soilData(SoilData.builder()
                                     .soilTemperature0cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajhőmérséklet 0 cm")))
                                     .soilMoisture30cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 30 cm")))
                                     .soilMoisture60cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 60 cm")))
                                     .soilMoisture90cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 90 cm")))
-                                    .soilMoisture120cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 120 cm"))).build()))
-                            .batteryData(batteryDataRepository.save(BatteryData.builder()
+                                    .soilMoisture120cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 120 cm"))).build())
+                            .batteryData(BatteryData.builder()
                                     .solarCellChargingVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Napelem töltőfeszültség")))
                                     .externalBatteryVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Külső akkufeszültség")))
-                                    .internalBatteryVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Belső akkufeszültség"))).build()))
-                            .windData(windDataRepository.save(WindData.builder()
+                                    .internalBatteryVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Belső akkufeszültség"))).build())
+                            .windData(WindData.builder()
                                     .windGust((Double) doubleFormatter(dataGetter(data, dataMap, "Széllökés")))
                                     .windDirection((Double) doubleFormatter(dataGetter(data, dataMap, "Szélirány")))
-                                    .windSpeed((Double) doubleFormatter(dataGetter(data, dataMap, "Szélsebesség"))).build())).build();
+                                    .windSpeed((Double) doubleFormatter(dataGetter(data, dataMap, "Szélsebesség"))).build()).build();
                     list.add(temp);
                     counter++;
                 } catch (NumberFormatException | ParseException e) {
