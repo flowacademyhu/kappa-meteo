@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MarkersAbove from './MarkersAbove';
 import MarkersBelow from './MarkersBelow';
@@ -20,7 +20,6 @@ export default function Map() {
   const [coordinates, setCoordinates] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(8);
   const [map, setMap] = useState(null);
-  const mapRef = useRef();
 
   useEffect(() => {
     axios
@@ -34,11 +33,7 @@ export default function Map() {
   }, []);
 
   useEffect(() => {
-    if (myPosition.latitude !== null && map !== null) {
-      map.flyTo([myPosition.latitude, myPosition.longitude], 10, {
-        duration: 1.5,
-      });
-    }
+    flyToPosition(myPosition, map);
   }, [map, myPosition]);
 
   const flyToPosition = (myPosition, map) => {
@@ -51,67 +46,44 @@ export default function Map() {
 
   return (
     <>
-      {!map ? (
-        <StyledMapContainer
-          center={[47.126471, 19.558264]}
-          zoom={zoomLevel}
-          scrollWheelZoom={true}
-          whenCreated={setMap}
-        >
-          <MapTypeButton />
-
-          <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
-          {zoomLevel >= 10 ? (
-            <MarkersAbove coordinates={coordinates} />
-          ) : (
-            <MarkersBelow coordinates={coordinates} />
-          )}
-
-          {myPosition.latitude !== null && (
-            <>
-              <pre>{(myPosition, null, 2)}</pre>
-              <Marker
-                icon={UserIcon}
-                position={[myPosition.latitude, myPosition.longitude]}
-              ></Marker>
-            </>
-          )}
-        </StyledMapContainer>
-      ) : (
-        <StyledMapContainer
-          center={[myPosition.latitude, myPosition.longitude]}
-          zoom={zoomLevel}
-          scrollWheelZoom={true}
-          whenCreated={setMap}
-        >
-          <MapTypeButton myPosition={myPosition} mapRef={mapRef} />
-
-          <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
-          {zoomLevel >= 10 ? (
-            <MarkersAbove coordinates={coordinates} />
-          ) : (
-            <MarkersBelow coordinates={coordinates} />
-          )}
-
-          {myPosition.latitude !== null && (
-            <>
-              <pre>{(myPosition, null, 2)}</pre>
-              <Marker
-                icon={UserIcon}
-                position={[myPosition.latitude, myPosition.longitude]}
-              ></Marker>
-            </>
-          )}
-        </StyledMapContainer>
-      )}
-      <div className="justify-content-center d-flex m-2">
-        <button
-          className="btn btn-primary mr-auto ml-auto"
-          onClick={() => flyToPosition(myPosition, map)}
-        >
-          MyPostition
-        </button>
-      </div>
+      <StyledMapContainer
+        center={
+          myPosition.latitude === null
+            ? [47.126471, 19.558264]
+            : [myPosition.latitude, myPosition.longitude]
+        }
+        zoom={zoomLevel}
+        scrollWheelZoom={true}
+        whenCreated={setMap}
+      >
+        <MapTypeButton myPosition={myPosition} />
+        <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
+        {zoomLevel >= 10 ? (
+          <MarkersAbove coordinates={coordinates} />
+        ) : (
+          <MarkersBelow coordinates={coordinates} />
+        )}
+        {myPosition.latitude !== null && (
+          <>
+            <pre>{(myPosition, null, 2)}</pre>
+            <Marker
+              icon={UserIcon}
+              position={[myPosition.latitude, myPosition.longitude]}
+            ></Marker>
+          </>
+        )}
+      </StyledMapContainer>
+      )
+      {myPosition.latitude !== null ? (
+        <div className="justify-content-center d-flex m-2">
+          <button
+            className="btn btn-primary mr-auto ml-auto"
+            onClick={() => flyToPosition(myPosition, map)}
+          >
+            MyPostition
+          </button>
+        </div>
+      ) : null}
     </>
   );
 }
