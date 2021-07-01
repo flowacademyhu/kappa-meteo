@@ -10,11 +10,23 @@ import UserIcon from '../Icon/UserIcon';
 export default function Map() {
   const myPosition = useGeolocation();
   const [coordinates, setCoordinates] = useState([]);
+  // const [weather, setWeather] = useState(null);
 
   const StyledMapContainer = styled(MapContainer)`
     width: 100%;
     height: 78vh;
   `;
+
+  // useEffect(() => {
+  //   axios
+  //     .get('', {
+  //       mode: 'no-cors',
+  //     })
+  //     .then((response) => {
+  //       setWeather(response.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, []);
 
   useEffect(() => {
     axios
