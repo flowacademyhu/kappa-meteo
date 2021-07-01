@@ -12,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -30,9 +29,9 @@ public class InitDataLoader implements CommandLineRunner {
     private final StationRepository stationRepository;
     private final MeasurementRepository measurementRepository;
 
-    private static final DateFormat DATE_FORMAT_HU = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-    private static final DateFormat DATE_FORMAT_HU_SPACED = new SimpleDateFormat("yyyy. MM. dd. HH:mm");
-    private static final DateFormat DATE_FORMAT_HU_DASH = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static final String DATE_FORMAT_HU = "yyyy.MM.dd HH:mm";
+    private static final String DATE_FORMAT_HU_SPACED = "yyyy. MM. dd. HH:mm";
+    private static final String DATE_FORMAT_HU_DASH = "yyyy-MM-dd HH:mm";
     private static final String[] FILE_NAME = {"D_KONDOROS_10perc.csv", "CSIHA_HQ_orai.csv", "CSIHA_HQ_napi.csv", "public_allomasok.csv"};
     private static final String HOME_STATION_NAME = "Szeged";
 
@@ -81,11 +80,15 @@ public class InitDataLoader implements CommandLineRunner {
         return Double.parseDouble(str.replace(",", "."));
     }
 
+    public String dataGetter(String[] data, Map<String, Integer> dataMap, String dataType) {
+        return dataMap.containsKey(dataType) ? data[dataMap.get(dataType)] : "";
+    }
+
     private String csvData(String name) {
         return "src/main/resources/" + name;
     }
 
-    private List<Measurement> populateDataBase(String name, DateFormat format, Station station, Type type) {
+    private List<Measurement> populateDataBase(String name, String format, Station station, Type type) {
         String line;
         List<Measurement> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.UTF_8))) {
@@ -98,32 +101,32 @@ public class InitDataLoader implements CommandLineRunner {
             while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";\\s*", -1);
-                    Measurement temp = Measurement.builder().date(format.parse(data[dataMap.get("DATE")])).type(type).station(station)
+                    Measurement temp = Measurement.builder().date(new SimpleDateFormat(format).parse(data[dataMap.get("DATE")])).type(type).station(station)
                             .airData(airDataRepository.save(AirData.builder()
-                                    .airHumidity((Double) doubleFormatter(dataMap.containsKey("Levegő-páratartalom") ? data[dataMap.get("Levegő-páratartalom")] : ""))
-                                    .airPressure((Double) doubleFormatter(dataMap.containsKey("Légnyomás") ? data[dataMap.get("Légnyomás")] : ""))
-                                    .airTemperature((Double) doubleFormatter(dataMap.containsKey("Levegő-hőmérséklet") ? data[dataMap.get("Levegő-hőmérséklet")] : "")).build()))
+                                    .airHumidity((Double) doubleFormatter(dataGetter(data, dataMap, "Levegő-páratartalom")))
+                                    .airPressure((Double) doubleFormatter(dataGetter(data, dataMap, "Légnyomás")))
+                                    .airTemperature((Double) doubleFormatter(dataGetter(data, dataMap, "Levegő-hőmérséklet"))).build()))
                             .miscData(miscDataRepository.save(MiscData.builder()
-                                    .irradiation((Double) doubleFormatter(dataMap.containsKey("Besugárzás") ? data[dataMap.get("Besugárzás")] : ""))
-                                    .freeze((Double) doubleFormatter(dataMap.containsKey("Fagy") ? data[dataMap.get("Fagy")] : ""))
-                                    .rain((Double) doubleFormatter(dataMap.containsKey("Csapadék") ? data[dataMap.get("Csapadék")] : ""))
-                                    .leafMoisture((Double) doubleFormatter(dataMap.containsKey("Levélnedvesség") ? data[dataMap.get("Levélnedvesség")] : ""))
-                                    .lightUnit((Double) doubleFormatter(dataMap.containsKey("Fény egység") ? data[dataMap.get("Fény egység")] : ""))
-                                    .precipitationCounter((Double) doubleFormatter(dataMap.containsKey("Csapadék Számláló") ? data[dataMap.get("Csapadék Számláló")] : "")).build()))
+                                    .irradiation((Double) doubleFormatter(dataGetter(data, dataMap, "Besugárzás")))
+                                    .freeze((Double) doubleFormatter(dataGetter(data, dataMap, "Fagy")))
+                                    .rain((Double) doubleFormatter(dataGetter(data, dataMap, "Csapadék")))
+                                    .leafMoisture((Double) doubleFormatter(dataGetter(data, dataMap, "Levélnedvesség")))
+                                    .lightUnit((Double) doubleFormatter(dataGetter(data, dataMap, "Fény egység")))
+                                    .precipitationCounter((Double) doubleFormatter(dataGetter(data, dataMap, "Csapadék Számláló"))).build()))
                             .soilData(soilDataRepository.save(SoilData.builder()
-                                    .soilTemperature0cm((Double) doubleFormatter(dataMap.containsKey("Talajhőmérséklet 0 cm") ? data[dataMap.get("Talajhőmérséklet 0 cm")] : ""))
-                                    .soilMoisture30cm((Double) doubleFormatter(dataMap.containsKey("Talajnedvesség 30 cm") ? data[dataMap.get("Talajnedvesség 30 cm")] : ""))
-                                    .soilMoisture60cm((Double) doubleFormatter(dataMap.containsKey("Talajnedvesség 60 cm") ? data[dataMap.get("Talajnedvesség 60 cm")] : ""))
-                                    .soilMoisture90cm((Double) doubleFormatter(dataMap.containsKey("Talajnedvesség 90 cm") ? data[dataMap.get("Talajnedvesség 90 cm")] : ""))
-                                    .soilMoisture120cm((Double) doubleFormatter(dataMap.containsKey("Talajnedvesség 120 cm") ? data[dataMap.get("Talajnedvesség 120 cm")] : "")).build()))
+                                    .soilTemperature0cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajhőmérséklet 0 cm")))
+                                    .soilMoisture30cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 30 cm")))
+                                    .soilMoisture60cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 60 cm")))
+                                    .soilMoisture90cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 90 cm")))
+                                    .soilMoisture120cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 120 cm"))).build()))
                             .batteryData(batteryDataRepository.save(BatteryData.builder()
-                                    .solarCellChargingVoltage((Double) doubleFormatter(dataMap.containsKey("Napelem töltőfeszültség") ? data[dataMap.get("Napelem töltőfeszültség")] : ""))
-                                    .externalBatteryVoltage((Double) doubleFormatter(dataMap.containsKey("Külső akkufeszültség") ? data[dataMap.get("Külső akkufeszültség")] : ""))
-                                    .internalBatteryVoltage((Double) doubleFormatter(dataMap.containsKey("Belső akkufeszültség") ? data[dataMap.get("Belső akkufeszültség")] : "")).build()))
+                                    .solarCellChargingVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Napelem töltőfeszültség")))
+                                    .externalBatteryVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Külső akkufeszültség")))
+                                    .internalBatteryVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Belső akkufeszültség"))).build()))
                             .windData(windDataRepository.save(WindData.builder()
-                                    .windGust((Double) doubleFormatter(dataMap.containsKey("Széllökés") ? data[dataMap.get("Széllökés")] : ""))
-                                    .windDirection((Double) doubleFormatter(dataMap.containsKey("Szélirány") ? data[dataMap.get("Szélirány")] : ""))
-                                    .windSpeed((Double) doubleFormatter(dataMap.containsKey("Szélsebesség") ? data[dataMap.get("Szélsebesség")] : "")).build())).build();
+                                    .windGust((Double) doubleFormatter(dataGetter(data, dataMap, "Széllökés")))
+                                    .windDirection((Double) doubleFormatter(dataGetter(data, dataMap, "Szélirány")))
+                                    .windSpeed((Double) doubleFormatter(dataGetter(data, dataMap, "Szélsebesség"))).build())).build();
                     list.add(temp);
                     counter++;
                 } catch (NumberFormatException | ParseException e) {
