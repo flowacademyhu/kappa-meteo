@@ -1,6 +1,8 @@
 FROM maven:3.6.3-openjdk-11-slim AS builder
 
 WORKDIR /build
+COPY pom.xml .
+RUN mvn -B verify clean --fail-never
 COPY . .
 RUN mvn -B clean package -DskipTests
 
