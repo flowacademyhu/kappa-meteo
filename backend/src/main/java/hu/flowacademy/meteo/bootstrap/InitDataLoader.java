@@ -90,30 +90,30 @@ public class InitDataLoader implements CommandLineRunner {
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
             br.readLine();
             int counter = 1;
-            while ((line = br.readLine()) != null && counter < 100) {
+            while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";", -1);
                     Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
-                            .airData(airDataRepository.save(AirData.builder().airHumidity((Double) doubleFormatter(data[1]))
+                            .airData(AirData.builder().airHumidity((Double) doubleFormatter(data[1]))
                                     .airPressure((Double) doubleFormatter(data[2]))
-                                    .airTemperature((Double) doubleFormatter(data[14])).build()))
-                            .miscData(miscDataRepository.save(MiscData.builder()
+                                    .airTemperature((Double) doubleFormatter(data[14])).build())
+                            .miscData(MiscData.builder()
                                     .irradiation((Double) doubleFormatter(data[6]))
                                     .freeze((Double) doubleFormatter(data[7])).rain((Double) doubleFormatter(data[8]))
                                     .leafMoisture((Double) doubleFormatter(data[12]))
                                     .lightUnit((Double) doubleFormatter(data[18]))
-                                    .precipitationCounter((Double) doubleFormatter(data[20])).build()))
-                            .soilData(soilDataRepository.save(SoilData.builder().soilTemperature0cm((Double) doubleFormatter(data[13]))
+                                    .precipitationCounter((Double) doubleFormatter(data[20])).build())
+                            .soilData(SoilData.builder().soilTemperature0cm((Double) doubleFormatter(data[13]))
                                     .soilMoisture30cm((Double) doubleFormatter(data[16]))
                                     .soilMoisture60cm((Double) doubleFormatter(data[17]))
                                     .soilMoisture90cm((Double) doubleFormatter(data[11]))
-                                    .soilMoisture120cm((Double) doubleFormatter(data[19])).build()))
-                            .batteryData(batteryDataRepository.save(BatteryData.builder()
+                                    .soilMoisture120cm((Double) doubleFormatter(data[19])).build())
+                            .batteryData(BatteryData.builder()
                                     .solarCellChargingVoltage((Double) doubleFormatter(data[4]))
                                     .externalBatteryVoltage((Double) doubleFormatter(data[5]))
-                                    .internalBatteryVoltage((Double) doubleFormatter(data[15])).build()))
-                            .windData(windDataRepository.save(WindData.builder().windGust((Double) doubleFormatter(data[10]))
-                                    .windDirection((Double) doubleFormatter(data[9])).windSpeed((Double) doubleFormatter(data[3])).build())).build();
+                                    .internalBatteryVoltage((Double) doubleFormatter(data[15])).build())
+                            .windData(WindData.builder().windGust((Double) doubleFormatter(data[10]))
+                                    .windDirection((Double) doubleFormatter(data[9])).windSpeed((Double) doubleFormatter(data[3])).build()).build();
                     list.add(temp);
                     counter++;
                 } catch (NumberFormatException | ParseException e) {
@@ -132,30 +132,32 @@ public class InitDataLoader implements CommandLineRunner {
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
             br.readLine();
             int counter = 1;
-            while ((line = br.readLine()) != null && counter < 100) {
+            while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";", -1);
-                    Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
-                            .airData(airDataRepository.save(AirData.builder().airHumidity((Double) doubleFormatter(data[1]))
+                    AirData airData = AirData.builder().airHumidity((Double) doubleFormatter(data[1]))
                                     .airPressure((Double) doubleFormatter(data[3]))
-                                    .airTemperature((Double) doubleFormatter(data[4])).build()))
-                            .miscData(miscDataRepository.save(MiscData.builder()
+                                    .airTemperature((Double) doubleFormatter(data[4])).build();
+
+                    Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
+                            .airData(airData)
+                            .miscData(MiscData.builder()
                                     .irradiation((Double) doubleFormatter(data[13]))
                                     .freeze((Double) doubleFormatter(data[18])).rain((Double) doubleFormatter(data[7]))
                                     .leafMoisture((Double) doubleFormatter(data[12]))
                                     .lightUnit((Double) doubleFormatter(data[16]))
-                                    .precipitationCounter((Double) doubleFormatter(data[11])).build()))
-                            .soilData(soilDataRepository.save(SoilData.builder().soilTemperature0cm((Double) doubleFormatter(data[8]))
+                                    .precipitationCounter((Double) doubleFormatter(data[11])).build())
+                            .soilData(SoilData.builder().soilTemperature0cm((Double) doubleFormatter(data[8]))
                                     .soilMoisture30cm((Double) doubleFormatter(data[20]))
                                     .soilMoisture60cm((Double) doubleFormatter(data[2]))
                                     .soilMoisture90cm((Double) doubleFormatter(data[15]))
-                                    .soilMoisture120cm((Double) doubleFormatter(data[17])).build()))
-                            .batteryData(batteryDataRepository.save(BatteryData.builder()
+                                    .soilMoisture120cm((Double) doubleFormatter(data[17])).build())
+                            .batteryData(BatteryData.builder()
                                     .solarCellChargingVoltage((Double) doubleFormatter(data[5]))
                                     .externalBatteryVoltage((Double) doubleFormatter(data[6]))
-                                    .internalBatteryVoltage((Double) doubleFormatter(data[10])).build()))
-                            .windData(windDataRepository.save(WindData.builder().windGust((Double) doubleFormatter(data[14]))
-                                    .windDirection((Double) doubleFormatter(data[9])).windSpeed((Double) doubleFormatter(data[19])).build())).build();
+                                    .internalBatteryVoltage((Double) doubleFormatter(data[10])).build())
+                            .windData(WindData.builder().windGust((Double) doubleFormatter(data[14]))
+                                    .windDirection((Double) doubleFormatter(data[9])).windSpeed((Double) doubleFormatter(data[19])).build()).build();
                     list.add(temp);
                     counter++;
                 } catch (NumberFormatException | ParseException e) {
@@ -174,7 +176,7 @@ public class InitDataLoader implements CommandLineRunner {
         try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
             br.readLine();
             int counter = 1;
-            while ((line = br.readLine()) != null && counter < 100) {
+            while ((line = br.readLine()) != null) {
                 try {
                     String[] data = line.split(";", -1);
                     Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
