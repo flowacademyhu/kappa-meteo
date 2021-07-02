@@ -103,7 +103,7 @@ const AirChart = ({ linedata, xAxisDateFormat }) => {
                   activeDot={{ r: 8 }}
                   dot={false}
                   yAxisId={index}
-                  fill="#111"
+                  fill="#462"
                 />
               );
             }
