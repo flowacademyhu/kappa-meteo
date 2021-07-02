@@ -4,7 +4,8 @@ import Home from './Pages/Home.js';
 import HeroSection from './Components/HeroSection/Hero';
 import MapView from './Pages/MapView';
 import Dashboard from './Pages/Dashboard';
-import ChartsMain from './Charts/ChartsMain';
+// import ChartsMain from './Charts/ChartsMain';
+import Chart from './Charts/Chart.js';
 import Footer from './Components/Footer/Footer.js';
 
 import {
@@ -43,7 +44,7 @@ export default function App() {
               <Helmet>
                 <title>Diagramok</title>
               </Helmet>
-              <ChartsMain />
+              <Chart />
             </Route>
             <Redirect from="/" to="/home" />
           </Switch>

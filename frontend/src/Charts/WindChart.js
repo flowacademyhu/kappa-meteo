@@ -126,13 +126,13 @@ const WindChart = ({
                   className="mx-5"
                   yAxisId={index}
                   orientation="left"
-                  dataKey="windSpeed"
+                  dataKey={axis.dataKey}
                   label={{
-                    value: 'Szélsebesség km/h',
+                    value: axis.value,
                     angle: -90,
                     dx: -15,
                     position: 'outsideLeft',
-                    stroke: '#8884d8',
+                    stroke: axis.stroke,
                   }}
                 />
               );
@@ -146,12 +146,12 @@ const WindChart = ({
               return (
                 <Area
                   type="monotone"
-                  dataKey="windSpeed"
-                  name="Szél sebesség"
-                  stroke="#8884d8"
+                  dataKey={label.dataKey}
+                  name={label.name}
+                  stroke={label.stroke}
                   activeDot={{ r: 8 }}
                   dot={false}
-                  yAxisId={0}
+                  yAxisId={index}
                   fill="#111"
                 />
               );

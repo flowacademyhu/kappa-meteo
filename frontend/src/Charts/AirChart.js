@@ -69,7 +69,7 @@ const AirChart = ({
     }
     fetchData();
   }, [dataType, station, dateState, dateFormat, chartDateFormat]);
-
+  console.log(measurementGroup);
   return (
     linedata !== null &&
     linedata !== undefined && (
