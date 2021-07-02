@@ -27,10 +27,10 @@ public class InitDataLoader implements CommandLineRunner {
     private static final String DATE_FORMAT_HU = "yyyy.MM.dd HH:mm";
     private static final String DATE_FORMAT_HU_SPACED = "yyyy. MM. dd. HH:mm";
     private static final String DATE_FORMAT_HU_DASH = "yyyy-MM-dd HH:mm";
-    private static final String[] FILE_NAME_TEN = {"CSIHA_HQ_10perc.csv", "D_Baja_10perc.csv", "D_CSANÁDPALOTA_10perc.csv"};
-    private static final String[] FILE_NAME_HOURLY = {"CSIHA_HQ_orai.csv", "D_Baja_orai.csv", "D_CSANÁDPALOTA_orai.csv"};
-    private static final String[] FILE_NAME_DAILY = {"CSIHA_HQ_napi.csv", "D_Baja_napi.csv", "D_CSANÁDPALOTA_napi.csv"};
-    private static final String[] STATION_NAME = {"Szeged", "D_Baja", "D_CSANÁDPALOTA", "D_CSONGRÁD", "D_DUSNOK"};
+    private static final String[] FILE_NAME_TEN = {"CSIHA_HQ_10perc.csv", "D_Baja_10perc.csv"};
+    private static final String[] FILE_NAME_HOURLY = {"CSIHA_HQ_orai.csv", "D_Baja_orai.csv"};
+    private static final String[] FILE_NAME_DAILY = {"CSIHA_HQ_napi.csv", "D_Baja_napi.csv"};
+    private static final String[] STATION_NAME = {"Szeged", "D_Baja"};
 
     @Override
     public void run(String... args) {
@@ -38,14 +38,16 @@ public class InitDataLoader implements CommandLineRunner {
         if (stationRepository.count() == 0) {
             executeStationSave();
         }
-        for (int i = 0; i < 3; i++) {
-            Optional<Station> homeStation = stationRepository.findFirstByName(STATION_NAME[i]);
-            if (homeStation.isPresent()) {
-                executeTenMinuteMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU : DATE_FORMAT_HU_DASH), FILE_NAME_TEN[i]);
-                executeHourlyMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU_SPACED : DATE_FORMAT_HU_DASH), FILE_NAME_HOURLY[i]);
-                executeDailyMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU : DATE_FORMAT_HU_DASH), FILE_NAME_DAILY[i]);
-            } else {
-                log.warn("No station '{}' found for file import", STATION_NAME[i]);
+        if (measurementRepository.count() == 0) {
+            for (int i = 0; i < 2; i++) {
+                Optional<Station> homeStation = stationRepository.findFirstByName(STATION_NAME[i]);
+                if (homeStation.isPresent()) {
+                    executeTenMinuteMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU : DATE_FORMAT_HU_DASH), FILE_NAME_TEN[i]);
+                    executeHourlyMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU_SPACED : DATE_FORMAT_HU_DASH), FILE_NAME_HOURLY[i]);
+                    executeDailyMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU : DATE_FORMAT_HU_DASH), FILE_NAME_DAILY[i]);
+                } else {
+                    log.warn("No station '{}' found for file import", STATION_NAME[i]);
+                }
             }
         }
     }
