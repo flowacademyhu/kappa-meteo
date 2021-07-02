@@ -28,11 +28,6 @@ const mainStation = [
   'OVF_Nagykanizsa',
 ];
 
-const StyledMapContainer = styled(MapContainer)`
-  width: 100%;
-  height: 78vh;
-`;
-
 export default function Map() {
   const myPosition = useGeolocation();
   const [stations, setStations] = useState([]);

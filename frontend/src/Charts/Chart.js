@@ -123,19 +123,19 @@ function Chart() {
       </div>
       <div className="container align-items-center justify-content-center p-3 mb-5"></div>
       {typeGroup.type === 'air' && (
-        <AirChart linedata={linedata} dateState={dateState} />
+        <AirChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
       {typeGroup.type === 'battery' && (
-        <BatteryChart linedata={linedata} dateState={dateState} />
+        <BatteryChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
       {typeGroup.type === 'misc' && (
-        <MiscChart linedata={linedata} dateState={dateState} />
+        <MiscChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
       {typeGroup.type === 'soil' && (
-        <SoilChart linedata={linedata} dateState={dateState} />
+        <SoilChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
       {typeGroup.type === 'wind' && (
-        <WindChart linedata={linedata} dateState={dateState} />
+        <WindChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
     </div>
   );
