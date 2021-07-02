@@ -145,7 +145,7 @@ const SoilChart = ({ linedata, xAxisDateFormat }) => {
             if (measurementGroup.includes(label.dataKey)) {
               return (
                 <Area
-                  key={uuidv4()}
+                  key={index}
                   type="monotone"
                   dataKey={label.dataKey}
                   name={label.name}

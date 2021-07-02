@@ -13,7 +13,7 @@ import 'react-date-range/dist/theme/default.css';
 const dataTypes = ['air', 'battery', 'misc', 'soil', 'wind'];
 
 function Chart() {
-  const [typeGroup, setTypeGroup] = useState({ type: 'air' });
+  const [typeGroup, setTypeGroup] = useState('air');
   const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
   const [station, setStation] = useState(12);
@@ -29,7 +29,7 @@ function Chart() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `/api/stations/${station}/${typeGroup.type}?start=${dateFormat(
+          `/api/stations/${station}/${typeGroup}?start=${dateFormat(
             dateState[0].startDate
           )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
         );
@@ -47,16 +47,6 @@ function Chart() {
     }
     fetchData();
   }, [dataType, station, dateState, typeGroup]);
-
-  const changeType = (type) => {
-    if (typeGroup !== null && typeGroup !== undefined) {
-      if (typeGroup === type) {
-        setTypeGroup('');
-      } else {
-        setTypeGroup(type);
-      }
-    }
-  };
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD');
@@ -78,7 +68,7 @@ function Chart() {
             {dataTypes.map((type, index) => (
               <button
                 key={index}
-                onClick={() => changeType({ type })}
+                onClick={() => setTypeGroup(type)}
                 className="btn btn-primary"
               >
                 {type} data
@@ -122,19 +112,19 @@ function Chart() {
         </div>
       </div>
       <div className="container align-items-center justify-content-center p-3 mb-5"></div>
-      {typeGroup.type === 'air' && (
+      {typeGroup === 'air' && (
         <AirChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
-      {typeGroup.type === 'battery' && (
+      {typeGroup === 'battery' && (
         <BatteryChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
-      {typeGroup.type === 'misc' && (
+      {typeGroup === 'misc' && (
         <MiscChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
-      {typeGroup.type === 'soil' && (
+      {typeGroup === 'soil' && (
         <SoilChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
-      {typeGroup.type === 'wind' && (
+      {typeGroup === 'wind' && (
         <WindChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
       )}
     </div>
