@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   AreaChart,
   Area,
@@ -8,8 +8,8 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import axios from 'axios';
 import MyCheckbox from '../Components/Input/MyCheckbox';
+import { v4 as uuidv4 } from 'uuid';
 
 const measurements = [
   'solarCellChargingVoltage',
@@ -29,15 +29,7 @@ const labels = [
   { dataKey: 'internalBatteryVoltage', name: 'internalBatteryVoltage' },
 ];
 
-const BatteryChart = ({
-  dateState,
-  dateFormat,
-  xAxisDateFormat,
-  chartDateFormat,
-}) => {
-  const [linedata, setLineData] = useState(null);
-  const [dataType, setDataType] = useState('DAILY');
-  const [station, setStation] = useState(12);
+const BatteryChart = ({ linedata, xAxisDateFormat }) => {
   const [measurementGroup, setMeasurementGroup] = useState([]);
 
   const changeMeasurement = (data) => {
@@ -51,65 +43,20 @@ const BatteryChart = ({
     }
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          `/api/stations/${station}/battery?start=${dateFormat(
-            dateState[0].startDate
-          )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
-        );
-        const mappedResult = response.data
-          .map((item, index) => {
-            return { ...item, number: index };
-          })
-          .map((el) => {
-            return { ...el, date: chartDateFormat(el.date) };
-          });
-        setLineData(mappedResult);
-      } catch (err) {
-        console.error('Error during api call:', err);
-      }
-    }
-    fetchData();
-  }, [dataType, station, dateState, dateFormat, chartDateFormat]);
-
   return (
     linedata !== null &&
     linedata !== undefined && (
       <>
         <form>
-          {measurements.map((measurement) => (
+          {measurements.map((measurement, index) => (
             <MyCheckbox
+              key={index}
               name={measurement}
               label={measurement}
               changeMeasurement={changeMeasurement}
             />
           ))}
         </form>
-        <div className="container p-3 m-3">
-          <label htmlFor="stationId">Choose a Station:</label>
-          <select
-            value={station}
-            name="stations"
-            id="stations"
-            onChange={(e) => setStation(e.target.value)}
-          >
-            <option value="12">Szeged</option>
-          </select>
-        </div>
-        <div className="container p-3 m-3">
-          <label htmlFor="dateTime">Choose a date:</label>
-          <select
-            name="dateTime"
-            id="datetime"
-            onChange={(e) => setDataType(e.target.value)}
-          >
-            <option value="DAILY">Napi</option>
-            <option value="HOURLY">Órai</option>
-            <option value="TEN_MIN">10 perces</option>
-          </select>
-        </div>
 
         <AreaChart
           width={1000}
@@ -128,6 +75,7 @@ const BatteryChart = ({
             if (measurementGroup.includes(axis.dataKey)) {
               return (
                 <YAxis
+                  key={uuidv4()}
                   className="mx-5"
                   yAxisId={index}
                   orientation="left"
@@ -150,6 +98,7 @@ const BatteryChart = ({
             if (measurementGroup.includes(label.dataKey)) {
               return (
                 <Area
+                  key={uuidv4()}
                   type="monotone"
                   dataKey="solarCellChargingVoltage"
                   name="solarCellChargingVoltage"
