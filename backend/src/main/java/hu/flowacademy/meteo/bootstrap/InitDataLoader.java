@@ -27,8 +27,14 @@ public class InitDataLoader implements CommandLineRunner {
     private static final String DATE_FORMAT_HU = "yyyy.MM.dd HH:mm";
     private static final String DATE_FORMAT_HU_SPACED = "yyyy. MM. dd. HH:mm";
     private static final String DATE_FORMAT_HU_DASH = "yyyy-MM-dd HH:mm";
-    private static final String[] FILE_NAME = {"CSIHA_HQ_10perc.csv", "CSIHA_HQ_orai.csv", "CSIHA_HQ_napi.csv", "public_allomasok.csv"};
-    private static final String HOME_STATION_NAME = "Szeged";
+    private static final String[] FILE_NAME_TEN = {"CSIHA_HQ_10perc.csv", "D_Baja_10perc.csv", "D_CSANÁDPALOTA_10perc.csv"
+            , "D_CSONGRÁD_10perc.csv", "D_DUSNOK_10perc.csv"};
+    private static final String[] FILE_NAME_HOURLY = {"CSIHA_HQ_orai.csv", "D_Baja_orai.csv", "D_CSANÁDPALOTA_orai.csv"
+            , "D_CSONGRÁD_orai.csv", "D_DUSNOK_orai.csv"};
+    private static final String[] FILE_NAME_DAILY = {"CSIHA_HQ_napi.csv", "D_Baja_napi.csv", "D_CSANÁDPALOTA_napi.csv"
+            , "D_CSONGRÁD_napi.csv", "D_DUSNOK_napi.csv"};
+    private static final String[] STATION_NAME = {"Szeged", "D_Baja", "D_CSANÁDPALOTA"
+            , "D_CSONGRÁD", "D_DUSNOK"};
 
     @Override
     public void run(String... args) {
@@ -36,35 +42,35 @@ public class InitDataLoader implements CommandLineRunner {
         if (stationRepository.count() == 0) {
             executeStationSave();
         }
-        Optional<Station> homeStation = stationRepository.findFirstByName(HOME_STATION_NAME);
-        if (homeStation.isPresent()) {
-            if (measurementRepository.count() == 0) {
-                executeTenMinuteMeasurmentSave(homeStation.orElseGet(null));
-                executeHourlyMeasurmentSave(homeStation.orElseGet(null));
-                executeDailyMeasurmentSave(homeStation.orElseGet(null));
+        for (int i = 0; i < 5; i++) {
+            Optional<Station> homeStation = stationRepository.findFirstByName(STATION_NAME[i]);
+            if (homeStation.isPresent()) {
+                executeTenMinuteMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU : DATE_FORMAT_HU_DASH), FILE_NAME_TEN[i]);
+                executeHourlyMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU_SPACED : DATE_FORMAT_HU_DASH), FILE_NAME_HOURLY[i]);
+                executeDailyMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU : DATE_FORMAT_HU_DASH), FILE_NAME_DAILY[i]);
+            } else {
+                log.warn("No station '{}' found for file import", STATION_NAME[i]);
             }
-        } else {
-            log.warn("No station '{}' found for file import", HOME_STATION_NAME);
         }
     }
 
-    private void executeTenMinuteMeasurmentSave(Station station) {
-        List<Measurement> tenminMeasurements = measurementRepository.saveAll(populateDataBase(csvData(FILE_NAME[0]), DATE_FORMAT_HU, station, Type.TEN_MIN));
-        log.info("saved {} ten minute measurments", tenminMeasurements.size());
+    private void executeTenMinuteMeasurementSave(Station station, String format, String fileName) {
+        List<Measurement> tenminMeasurements = measurementRepository.saveAll(populateDataBase(csvData(fileName), format, station, Type.TEN_MIN));
+        log.info("saved {} ten minute measurments at station: {}", tenminMeasurements.size(), station);
     }
 
-    private void executeHourlyMeasurmentSave(Station station) {
-        List<Measurement> hourlyMeasurements = measurementRepository.saveAll(populateDataBase(csvData(FILE_NAME[1]), DATE_FORMAT_HU_SPACED, station, Type.HOURLY));
-        log.info("saved {} hourly measurments", hourlyMeasurements.size());
+    private void executeHourlyMeasurementSave(Station station, String format, String fileName) {
+        List<Measurement> hourlyMeasurements = measurementRepository.saveAll(populateDataBase(csvData(fileName), format, station, Type.HOURLY));
+        log.info("saved {} hourly measurments at station: {}", hourlyMeasurements.size(), station);
     }
 
-    private void executeDailyMeasurmentSave(Station station) {
-        List<Measurement> dailyMeasurements = measurementRepository.saveAll(populateDataBase(csvData(FILE_NAME[2]), DATE_FORMAT_HU, station, Type.DAILY));
-        log.info("saved {} daily measurments", dailyMeasurements.size());
+    private void executeDailyMeasurementSave(Station station, String format, String fileName) {
+        List<Measurement> dailyMeasurements = measurementRepository.saveAll(populateDataBase(csvData(fileName), format, station, Type.DAILY));
+        log.info("saved {} daily measurments saved at station: {}", dailyMeasurements.size(), station);
     }
 
     private void executeStationSave() {
-        List<Station> stations = stationRepository.saveAll(populateStations(csvData(FILE_NAME[3])));
+        List<Station> stations = stationRepository.saveAll(populateStations(csvData("public_allomasok.csv")));
         log.info("saved {} station", stations.size());
     }
 
