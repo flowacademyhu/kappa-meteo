@@ -56,17 +56,17 @@ public class InitDataLoader implements CommandLineRunner {
 
     private void executeTenMinuteMeasurementSave(Station station, String format, String fileName) {
         List<Measurement> tenminMeasurements = measurementRepository.saveAll(populateDataBase(csvData(fileName), format, station, Type.TEN_MIN));
-        log.info("saved {} ten minute measurments at station: {}", tenminMeasurements.size(), station.getName());
+        log.info("saved {} ten minute measurments at station: {} with id: {}", tenminMeasurements.size(), station.getName(), station.getId());
     }
 
     private void executeHourlyMeasurementSave(Station station, String format, String fileName) {
         List<Measurement> hourlyMeasurements = measurementRepository.saveAll(populateDataBase(csvData(fileName), format, station, Type.HOURLY));
-        log.info("saved {} hourly measurments at station: {}", hourlyMeasurements.size(), station.getName());
+        log.info("saved {} hourly measurments at station: {} with id: {}", hourlyMeasurements.size(), station.getName(), station.getId());
     }
 
     private void executeDailyMeasurementSave(Station station, String format, String fileName) {
         List<Measurement> dailyMeasurements = measurementRepository.saveAll(populateDataBase(csvData(fileName), format, station, Type.DAILY));
-        log.info("saved {} daily measurments saved at station: {}", dailyMeasurements.size(), station.getName());
+        log.info("saved {} daily measurments saved at station: {} with id: {}", dailyMeasurements.size(), station.getName(), station.getId());
     }
 
     private void executeStationSave() {
