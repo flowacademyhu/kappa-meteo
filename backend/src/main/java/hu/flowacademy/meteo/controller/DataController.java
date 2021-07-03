@@ -35,7 +35,7 @@ public class DataController {
 
     @GetMapping("stations/{stationId}/air")
     public List<AirDataDto> findAllAirMeasurementsBy(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
-            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date endDate,
                                                      @RequestParam("type") Type type, @PathVariable Long stationId) throws ParseException {
         log.info("Getting {} data between {} and {} from the station with id: {}", type, startDate, endDate, stationId);
         return measurementService.findAllMeasurementsBy(startDate, endDate, type, stationId).stream().map(MeasurementDto::getAirDataDto).collect(Collectors.toList());
@@ -43,7 +43,7 @@ public class DataController {
 
     @GetMapping("stations/{stationId}/battery")
     public List<BatteryDataDto> findAllBatteryMeasurementsBy(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
-            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date endDate,
                                                              @RequestParam("type") Type type, @PathVariable Long stationId) throws ParseException {
         log.info("Getting {} data between {} and {} from the station with id: {}", type, startDate, endDate, stationId);
         return measurementService.findAllMeasurementsBy(startDate, endDate, type, stationId).stream().map(MeasurementDto::getBatteryDataDto).collect(Collectors.toList());
@@ -51,7 +51,7 @@ public class DataController {
 
     @GetMapping("stations/{stationId}/misc")
     public List<MiscDataDto> findAllMiscMeasurementsBy(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
-            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date endDate,
                                                        @RequestParam("type") Type type, @PathVariable Long stationId) throws ParseException {
         log.info("Getting {} data between {} and {} from the station with id: {}", type, startDate, endDate, stationId);
         return measurementService.findAllMeasurementsBy(startDate, endDate, type, stationId).stream().map(MeasurementDto::getMiscDataDto).collect(Collectors.toList());
@@ -59,7 +59,7 @@ public class DataController {
 
     @GetMapping("stations/{stationId}/soil")
     public List<SoilDataDto> findAllSoilMeasurementsBy(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
-            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date endDate,
                                                        @RequestParam("type") Type type, @PathVariable Long stationId) throws ParseException {
         log.info("Getting {} data between {} and {} from the station with id: {}", type, startDate, endDate, stationId);
         return measurementService.findAllMeasurementsBy(startDate, endDate, type, stationId).stream().map(MeasurementDto::getSoilDataDto).collect(Collectors.toList());
@@ -67,7 +67,7 @@ public class DataController {
 
     @GetMapping("stations/{stationId}/wind")
     public List<WindDataDto> findAllWindMeasurementsBy(@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate
-            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            , @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date endDate,
                                                        @RequestParam("type") Type type, @PathVariable Long stationId) throws ParseException {
         log.info("Getting {} data between {} and {} from the station with id: {}", type, startDate, endDate, stationId);
         return measurementService.findAllMeasurementsBy(startDate, endDate, type, stationId).stream().map(MeasurementDto::getWindDataDto).collect(Collectors.toList());
