@@ -11,15 +11,6 @@ import {
 import MyCheckbox from '../Components/Input/MyCheckbox';
 import { v4 as uuidv4 } from 'uuid';
 
-const measurements = [
-  'irradiation',
-  'freeze',
-  'rain',
-  'leafMoisture',
-  'lightUnit',
-  'precipitationCounter',
-];
-
 const axisLabel = [
   { dataKey: 'irradiation', value: 'Besugárzás W/m2', stroke: '#8884d8' },
   { dataKey: 'freeze', value: 'Fagy', stroke: '#82ca9d' },
@@ -84,19 +75,18 @@ const MiscChart = ({ linedata, xAxisDateFormat }) => {
     linedata !== null &&
     linedata !== undefined && (
       <>
-        <form>
-          {measurements.map((measurement, index) => (
+        <div className="row">
+          {labels.map((label, index) => (
             <MyCheckbox
               key={index}
-              name={measurement}
-              label={measurement}
+              name={label.dataKey}
+              label={label.name}
               changeMeasurement={changeMeasurement}
             />
           ))}
-        </form>
-
+        </div>
         <AreaChart
-          width={1000}
+          width={1300}
           height={500}
           data={linedata}
           margin={{

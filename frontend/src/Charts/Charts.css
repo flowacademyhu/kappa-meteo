@@ -1,0 +1,43 @@
+#mySidenav a {
+  margin-top: 140px;
+  position: absolute;
+  left: -162px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 220px;
+  text-decoration: none;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  border-radius: 0 5px 5px 0;
+}
+
+#mySidenav a:hover {
+  left: 0;
+  color: white;
+  background-color: green;
+}
+
+#MiscCharts {
+  top: 150px;
+  background-color: #c54b3c;
+}
+
+#AirCharts {
+  top: 250px;
+  background-color: #c54b3c;
+}
+
+#WindCharts {
+  top: 350px;
+  background-color: #c54b3c;
+}
+
+#SoilCharts {
+  top: 450px;
+  background-color: #c54b3c;
+}
+
+#BatteryCharts {
+  top: 550px;
+  background-color: #c54b3c;
+}

@@ -11,12 +11,6 @@ import {
 import MyCheckbox from '../Components/Input/MyCheckbox';
 import { v4 as uuidv4 } from 'uuid';
 
-const measurements = [
-  'solarCellChargingVoltage',
-  'externalBatteryVoltage',
-  'internalBatteryVoltage',
-];
-
 const axisLabel = [
   { dataKey: 'solarCellChargingVoltage', value: 'Napelem töltő feszültség V' },
   { dataKey: 'externalBatteryVoltage', value: 'Külső akku feszültség V' },
@@ -24,9 +18,9 @@ const axisLabel = [
 ];
 
 const labels = [
-  { dataKey: 'solarCellChargingVoltage', name: 'solarCellChargingVoltage' },
-  { dataKey: 'externalBatteryVoltage', name: 'externalBatteryVoltage' },
-  { dataKey: 'internalBatteryVoltage', name: 'internalBatteryVoltage' },
+  { dataKey: 'solarCellChargingVoltage', name: 'Napelem töltő feszültség' },
+  { dataKey: 'externalBatteryVoltage', name: 'Külső akku feszültség' },
+  { dataKey: 'internalBatteryVoltage', name: 'Belső akku feszültség' },
 ];
 
 const BatteryChart = ({ linedata, xAxisDateFormat }) => {
@@ -47,19 +41,18 @@ const BatteryChart = ({ linedata, xAxisDateFormat }) => {
     linedata !== null &&
     linedata !== undefined && (
       <>
-        <form>
-          {measurements.map((measurement, index) => (
+        <div className="row">
+          {labels.map((label, index) => (
             <MyCheckbox
               key={index}
-              name={measurement}
-              label={measurement}
+              name={label.dataKey}
+              label={label.name}
               changeMeasurement={changeMeasurement}
             />
           ))}
-        </form>
-
+        </div>
         <AreaChart
-          width={1000}
+          width={1300}
           height={500}
           data={linedata}
           margin={{
