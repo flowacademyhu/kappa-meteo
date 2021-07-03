@@ -12,12 +12,42 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import './Charts.css';
 
+import SideButtons from './SideButtons';
+import { GiWindsock, GiDrop } from 'react-icons/gi';
+import { RiBattery2ChargeLine, RiDatabaseLine } from 'react-icons/ri';
+import { FaTemperatureHigh } from 'react-icons/fa';
+
 const dataTypes = [
-  { text: 'Levegő-Adatok', id: 'AirCharts', name: 'air' },
-  { text: 'Szerviz-Adatok', id: 'BatteryCharts', name: 'battery' },
-  { text: 'Vegyes-Adatok', id: 'MiscCharts', name: 'misc' },
-  { text: 'Talaj-Adatok', id: 'SoilCharts', name: 'soil' },
-  { text: 'Szél-Adatok', id: 'WindCharts', name: 'wind' },
+  {
+    icon: RiDatabaseLine,
+    text: 'Vegyes-Adatok',
+    id: 'MiscCharts',
+    name: 'misc',
+  },
+  {
+    icon: FaTemperatureHigh,
+    text: 'Levegő-Adatok',
+    id: 'AirCharts',
+    name: 'air',
+  },
+  {
+    icon: GiWindsock,
+    text: 'Szél-Adatok',
+    id: 'WindCharts',
+    name: 'wind',
+  },
+  {
+    icon: GiDrop,
+    text: 'Talaj-Adatok',
+    id: 'SoilCharts',
+    name: 'soil',
+  },
+  {
+    icon: RiBattery2ChargeLine,
+    text: 'Szerviz-Adatok',
+    id: 'BatteryCharts',
+    name: 'battery',
+  },
 ];
 
 function Chart() {
@@ -72,9 +102,13 @@ function Chart() {
     <div>
       <div id="mySidenav">
         {dataTypes.map((type, index) => (
-          <button key={index} id={type.id} onClick={() => setTypeGroup(type.name)}>
-            {type.text}
-          </button>
+          <SideButtons
+            key={index}
+            Icon={type.icon}
+            id={type.id}
+            onClick={() => setTypeGroup(type.name)}
+            text={type.text}
+          ></SideButtons>
         ))}
       </div>
       <div className="container">

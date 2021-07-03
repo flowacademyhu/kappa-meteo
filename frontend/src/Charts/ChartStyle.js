@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import img from '../images/whiteBg.jpg'
+import styled from 'styled-components';
+import img from '../images/whiteBg.jpg';
 
 export const GroupText = styled.h2`
   color: Black;
@@ -10,4 +10,8 @@ export const GroupBorder = styled.div`
   margin: 10px;
   border-radius: 10px;
   background-image: url(${img});
+`;
+
+export const IconContainer = styled.div`
+  float: right !important;
 `;
