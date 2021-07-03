@@ -1,6 +1,6 @@
 #mySidenav button {
   margin-top: 140px;
-  position: absolute;
+  position: fixed;
   left: -165px;
   transition: 0.3s;
   padding: 15px;
