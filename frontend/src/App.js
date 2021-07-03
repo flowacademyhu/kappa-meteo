@@ -1,11 +1,10 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-
 import Home from './Pages/Home.js';
 import HeroSection from './Components/HeroSection/Hero';
 import MapView from './Pages/MapView';
 import Dashboard from './Pages/Dashboard';
-import Diagrams from './Pages/Diagrams.js';
+import Chart from './Charts/Chart.js';
 import Footer from './Components/Footer/Footer.js';
 
 import {
@@ -44,7 +43,7 @@ export default function App() {
               <Helmet>
                 <title>Diagramok</title>
               </Helmet>
-              <Diagrams />
+              <Chart />
             </Route>
             <Redirect from="/" to="/home" />
           </Switch>

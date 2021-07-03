@@ -12,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -22,18 +21,16 @@ import java.util.*;
 @RequiredArgsConstructor
 public class InitDataLoader implements CommandLineRunner {
 
-    private final AirDataRepository airDataRepository;
-    private final BatteryDataRepository batteryDataRepository;
-    private final MiscDataRepository miscDataRepository;
-    private final SoilDataRepository soilDataRepository;
-    private final WindDataRepository windDataRepository;
     private final StationRepository stationRepository;
-    private final MeasurmentRepository measurmentRepository;
+    private final MeasurementRepository measurementRepository;
 
-    private static final DateFormat DATE_FORMAT_HU = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.forLanguageTag("HU-hu"));
-    private static final DateFormat DATE_FORMAT_HU_SPACED = new SimpleDateFormat("yyyy. MM. dd. HH:mm", Locale.forLanguageTag("HU-hu"));
-    private static final String[] FILE_NAME = {"CSIHA_HQ_10perc.csv", "CSIHA_HQ_orai.csv", "CSIHA_HQ_napi.csv", "public_allomasok.csv"};
-    private static final String HOME_STATION_NAME = "Szeged";
+    private static final String DATE_FORMAT_HU = "yyyy.MM.dd HH:mm";
+    private static final String DATE_FORMAT_HU_SPACED = "yyyy. MM. dd. HH:mm";
+    private static final String DATE_FORMAT_HU_DASH = "yyyy-MM-dd HH:mm";
+    private static final String[] FILE_NAME_TEN = {"CSIHA_HQ_10perc.csv", "D_Baja_10perc.csv"};
+    private static final String[] FILE_NAME_HOURLY = {"CSIHA_HQ_orai.csv", "D_Baja_orai.csv"};
+    private static final String[] FILE_NAME_DAILY = {"CSIHA_HQ_napi.csv", "D_Baja_napi.csv"};
+    private static final String[] STATION_NAME = {"Szeged", "D_Baja"};
 
     @Override
     public void run(String... args) {
@@ -41,163 +38,94 @@ public class InitDataLoader implements CommandLineRunner {
         if (stationRepository.count() == 0) {
             executeStationSave();
         }
-        Optional<Station> homeStation = stationRepository.findFirstByName(HOME_STATION_NAME);
-        if (homeStation.isPresent()) {
-            if (measurmentRepository.count() == 0) {
-                executeTenMinuteMeasurmentSave(homeStation.orElseGet(null));
-                executeHourlyMeasurmentSave(homeStation.orElseGet(null));
-                executeDailyMeasurmentSave(homeStation.orElseGet(null));
+        if (measurementRepository.count() == 0) {
+            for (int i = 0; i < 2; i++) {
+                Optional<Station> homeStation = stationRepository.findFirstByName(STATION_NAME[i]);
+                if (homeStation.isPresent()) {
+                    executeTenMinuteMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU : DATE_FORMAT_HU_DASH), FILE_NAME_TEN[i]);
+                    executeHourlyMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU_SPACED : DATE_FORMAT_HU_DASH), FILE_NAME_HOURLY[i]);
+                    executeDailyMeasurementSave(homeStation.orElseGet(null), (i == 0 ? DATE_FORMAT_HU : DATE_FORMAT_HU_DASH), FILE_NAME_DAILY[i]);
+                } else {
+                    log.warn("No station '{}' found for file import", STATION_NAME[i]);
+                }
             }
-        } else {
-            log.warn("No station '{}' found for file import", HOME_STATION_NAME);
         }
     }
 
-    private void executeTenMinuteMeasurmentSave(Station station) {
-        List<Measurment> tenminMeasurments = measurmentRepository.saveAll(populateTenMin(csvData(FILE_NAME[0]), DATE_FORMAT_HU, station, Type.TEN_MIN));
-        log.info("saved {} ten minute measurments", tenminMeasurments.size());
+    private void executeTenMinuteMeasurementSave(Station station, String format, String fileName) {
+        List<Measurement> tenminMeasurements = measurementRepository.saveAll(populateDataBase(csvData(fileName), format, station, Type.TEN_MIN));
+        log.info("saved {} ten minute measurments at station: {} with id: {}", tenminMeasurements.size(), station.getName(), station.getId());
     }
 
-    private void executeHourlyMeasurmentSave(Station station) {
-        List<Measurment> hourlyMeasurments = measurmentRepository.saveAll(populateHourly(csvData(FILE_NAME[1]), DATE_FORMAT_HU_SPACED, station, Type.HOURLY));
-        log.info("saved {} hourly measurments", hourlyMeasurments.size());
+    private void executeHourlyMeasurementSave(Station station, String format, String fileName) {
+        List<Measurement> hourlyMeasurements = measurementRepository.saveAll(populateDataBase(csvData(fileName), format, station, Type.HOURLY));
+        log.info("saved {} hourly measurments at station: {} with id: {}", hourlyMeasurements.size(), station.getName(), station.getId());
     }
 
-    private void executeDailyMeasurmentSave(Station station) {
-        List<Measurment> dailyMeasurments = measurmentRepository.saveAll(populateDaily(csvData(FILE_NAME[2]), DATE_FORMAT_HU, station, Type.DAILY));
-        log.info("saved {} daily measurments", dailyMeasurments.size());
+    private void executeDailyMeasurementSave(Station station, String format, String fileName) {
+        List<Measurement> dailyMeasurements = measurementRepository.saveAll(populateDataBase(csvData(fileName), format, station, Type.DAILY));
+        log.info("saved {} daily measurments saved at station: {} with id: {}", dailyMeasurements.size(), station.getName(), station.getId());
     }
 
     private void executeStationSave() {
-        List<Station> stations = stationRepository.saveAll(populateStations(csvData(FILE_NAME[3])));
+        List<Station> stations = stationRepository.saveAll(populateStations(csvData("public_allomasok.csv")));
         log.info("saved {} station", stations.size());
     }
 
     public Object doubleFormatter(String str) {
-        if (str.equals("")) {
+        if (str.equals("") || str.equals("-9999,00000")) {
             return null;
         }
         return Double.parseDouble(str.replace(",", "."));
+    }
+
+    public String dataGetter(String[] data, Map<String, Integer> dataMap, String dataType) {
+        return dataMap.containsKey(dataType) ? data[dataMap.get(dataType)] : "";
     }
 
     private String csvData(String name) {
         return "/app/" + name;
     }
 
-    private List<Measurment> populateTenMin(String name, DateFormat format, Station station, Type type) {
+    private List<Measurement> populateDataBase(String name, String format, Station station, Type type) {
         String line;
-        List<Measurment> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
-            br.readLine();
-            int counter = 1;
-            while ((line = br.readLine()) != null && counter < 100) {
-                try {
-                    String[] data = line.split(";", -1);
-                    Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
-                            .airData(airDataRepository.save(AirData.builder().airHumidity((Double) doubleFormatter(data[1]))
-                                    .airPressure((Double) doubleFormatter(data[2]))
-                                    .airTemperature((Double) doubleFormatter(data[14])).build()))
-                            .miscData(miscDataRepository.save(MiscData.builder()
-                                    .irradiation((Double) doubleFormatter(data[6]))
-                                    .freeze((Double) doubleFormatter(data[7])).rain((Double) doubleFormatter(data[8]))
-                                    .leafMoisture((Double) doubleFormatter(data[12]))
-                                    .lightUnit((Double) doubleFormatter(data[18]))
-                                    .precipitationCounter((Double) doubleFormatter(data[20])).build()))
-                            .soilData(soilDataRepository.save(SoilData.builder().soilTemperature0cm((Double) doubleFormatter(data[13]))
-                                    .soilMoisture30cm((Double) doubleFormatter(data[16]))
-                                    .soilMoisture60cm((Double) doubleFormatter(data[17]))
-                                    .soilMoisture90cm((Double) doubleFormatter(data[11]))
-                                    .soilMoisture120cm((Double) doubleFormatter(data[19])).build()))
-                            .batteryData(batteryDataRepository.save(BatteryData.builder()
-                                    .solarCellChargingVoltage((Double) doubleFormatter(data[4]))
-                                    .externalBatteryVoltage((Double) doubleFormatter(data[5]))
-                                    .internalBatteryVoltage((Double) doubleFormatter(data[15])).build()))
-                            .windData(windDataRepository.save(WindData.builder().windGust((Double) doubleFormatter(data[10]))
-                                    .windDirection((Double) doubleFormatter(data[9])).windSpeed((Double) doubleFormatter(data[3])).build())).build();
-                    list.add(temp);
-                    counter++;
-                } catch (NumberFormatException | ParseException e) {
-                    log.error("Error while reading at the line {}: {}: {}", counter, br.readLine(), e.getMessage(), e);
-                }
+        List<Measurement> list = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.UTF_8))) {
+            String[] keys = br.readLine().split(";\\s*", -1);
+            Map<String, Integer> dataMap = new HashMap<>();
+            for (int i = 0; i < keys.length; i++) {
+                dataMap.put(keys[i], i);
             }
-        } catch (IOException e) {
-            log.error("Error while opening file {}: {}", name, e.getMessage());
-        }
-        return list;
-    }
-
-    private List<Measurment> populateHourly(String name, DateFormat format, Station station, Type type) {
-        String line;
-        List<Measurment> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
-            br.readLine();
             int counter = 1;
-            while ((line = br.readLine()) != null && counter < 100) {
+            while ((line = br.readLine()) != null) {
                 try {
-                    String[] data = line.split(";", -1);
-                    Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
-                            .airData(airDataRepository.save(AirData.builder().airHumidity((Double) doubleFormatter(data[1]))
-                                    .airPressure((Double) doubleFormatter(data[3]))
-                                    .airTemperature((Double) doubleFormatter(data[4])).build()))
-                            .miscData(miscDataRepository.save(MiscData.builder()
-                                    .irradiation((Double) doubleFormatter(data[13]))
-                                    .freeze((Double) doubleFormatter(data[18])).rain((Double) doubleFormatter(data[7]))
-                                    .leafMoisture((Double) doubleFormatter(data[12]))
-                                    .lightUnit((Double) doubleFormatter(data[16]))
-                                    .precipitationCounter((Double) doubleFormatter(data[11])).build()))
-                            .soilData(soilDataRepository.save(SoilData.builder().soilTemperature0cm((Double) doubleFormatter(data[8]))
-                                    .soilMoisture30cm((Double) doubleFormatter(data[20]))
-                                    .soilMoisture60cm((Double) doubleFormatter(data[2]))
-                                    .soilMoisture90cm((Double) doubleFormatter(data[15]))
-                                    .soilMoisture120cm((Double) doubleFormatter(data[17])).build()))
-                            .batteryData(batteryDataRepository.save(BatteryData.builder()
-                                    .solarCellChargingVoltage((Double) doubleFormatter(data[5]))
-                                    .externalBatteryVoltage((Double) doubleFormatter(data[6]))
-                                    .internalBatteryVoltage((Double) doubleFormatter(data[10])).build()))
-                            .windData(windDataRepository.save(WindData.builder().windGust((Double) doubleFormatter(data[14]))
-                                    .windDirection((Double) doubleFormatter(data[9])).windSpeed((Double) doubleFormatter(data[19])).build())).build();
-                    list.add(temp);
-                    counter++;
-                } catch (NumberFormatException | ParseException e) {
-                    log.error("Error while reading at the line {}: {}: {}", counter, br.readLine(), e.getMessage(), e);
-                }
-            }
-        } catch (IOException e) {
-            log.error("Error while opening file {}: {}", name, e.getMessage());
-        }
-        return list;
-    }
-
-    private List<Measurment> populateDaily(String name, DateFormat format, Station station, Type type) {
-        String line;
-        List<Measurment> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
-            br.readLine();
-            int counter = 1;
-            while ((line = br.readLine()) != null && counter < 100) {
-                try {
-                    String[] data = line.split(";", -1);
-                    Measurment temp = Measurment.builder().date(format.parse(data[0])).type(type).station(station)
-                            .airData(airDataRepository.save(AirData.builder().airHumidity((Double) doubleFormatter(data[13]))
-                                    .airPressure((Double) doubleFormatter(data[3]))
-                                    .airTemperature((Double) doubleFormatter(data[1])).build()))
-                            .miscData(miscDataRepository.save(MiscData.builder()
-                                    .irradiation((Double) doubleFormatter(data[16]))
-                                    .freeze((Double) doubleFormatter(data[11])).rain((Double) doubleFormatter(data[6]))
-                                    .leafMoisture((Double) doubleFormatter(data[4]))
-                                    .lightUnit((Double) doubleFormatter(data[15]))
-                                    .precipitationCounter((Double) doubleFormatter(data[20])).build()))
-                            .soilData(soilDataRepository.save(SoilData.builder().soilTemperature0cm((Double) doubleFormatter(data[18]))
-                                    .soilMoisture30cm((Double) doubleFormatter(data[9]))
-                                    .soilMoisture60cm((Double) doubleFormatter(data[19]))
-                                    .soilMoisture90cm((Double) doubleFormatter(data[2]))
-                                    .soilMoisture120cm((Double) doubleFormatter(data[14])).build()))
-                            .batteryData(batteryDataRepository.save(BatteryData.builder()
-                                    .solarCellChargingVoltage((Double) doubleFormatter(data[17]))
-                                    .externalBatteryVoltage((Double) doubleFormatter(data[5]))
-                                    .internalBatteryVoltage((Double) doubleFormatter(data[10])).build()))
-                            .windData(windDataRepository.save(WindData.builder().windGust((Double) doubleFormatter(data[7]))
-                                    .windDirection((Double) doubleFormatter(data[8])).windSpeed((Double) doubleFormatter(data[12])).build())).build();
+                    String[] data = line.split(";\\s*", -1);
+                    Measurement temp = Measurement.builder().date(new SimpleDateFormat(format).parse(data[dataMap.get("DATE")])).type(type).station(station)
+                            .airData(AirData.builder()
+                                    .airHumidity((Double) doubleFormatter(dataGetter(data, dataMap, "Levegő-páratartalom")))
+                                    .airPressure((Double) doubleFormatter(dataGetter(data, dataMap, "Légnyomás")))
+                                    .airTemperature((Double) doubleFormatter(dataGetter(data, dataMap, "Levegő-hőmérséklet"))).build())
+                            .miscData(MiscData.builder()
+                                    .irradiation((Double) doubleFormatter(dataGetter(data, dataMap, "Besugárzás")))
+                                    .freeze((Double) doubleFormatter(dataGetter(data, dataMap, "Fagy")))
+                                    .rain((Double) doubleFormatter(dataGetter(data, dataMap, "Csapadék")))
+                                    .leafMoisture((Double) doubleFormatter(dataGetter(data, dataMap, "Levélnedvesség")))
+                                    .lightUnit((Double) doubleFormatter(dataGetter(data, dataMap, "Fény egység")))
+                                    .precipitationCounter((Double) doubleFormatter(dataGetter(data, dataMap, "Csapadék Számláló"))).build())
+                            .soilData(SoilData.builder()
+                                    .soilTemperature0cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajhőmérséklet 0 cm")))
+                                    .soilMoisture30cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 30 cm")))
+                                    .soilMoisture60cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 60 cm")))
+                                    .soilMoisture90cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 90 cm")))
+                                    .soilMoisture120cm((Double) doubleFormatter(dataGetter(data, dataMap, "Talajnedvesség 120 cm"))).build())
+                            .batteryData(BatteryData.builder()
+                                    .solarCellChargingVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Napelem töltőfeszültség")))
+                                    .externalBatteryVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Külső akkufeszültség")))
+                                    .internalBatteryVoltage((Double) doubleFormatter(dataGetter(data, dataMap, "Belső akkufeszültség"))).build())
+                            .windData(WindData.builder()
+                                    .windGust((Double) doubleFormatter(dataGetter(data, dataMap, "Széllökés")))
+                                    .windDirection((Double) doubleFormatter(dataGetter(data, dataMap, "Szélirány")))
+                                    .windSpeed((Double) doubleFormatter(dataGetter(data, dataMap, "Szélsebesség"))).build()).build();
                     list.add(temp);
                     counter++;
                 } catch (NumberFormatException | ParseException e) {
@@ -213,7 +141,7 @@ public class InitDataLoader implements CommandLineRunner {
     private List<Station> populateStations(String name) {
         String line;
         List<Station> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.ISO_8859_1))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(name, StandardCharsets.UTF_8))) {
             br.readLine();
             int counter = 1;
             while ((line = br.readLine()) != null) {

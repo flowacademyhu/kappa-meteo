@@ -18,7 +18,7 @@ public class StationService {
     private final StationRepository stationRepository;
 
     public List<Station> listStations() {
-        List<Station> stationlist =  stationRepository.findAll();
+        List<Station> stationlist = stationRepository.findAll();
         log.debug("Number of all stations: {}", stationlist.size());
         return stationlist;
     }

@@ -34,5 +34,13 @@ build/
 /logs/
 
 src/main/resources/application-Vasi.yml
+
+src/main/resources/application-nandor.yml
+
+
 src/main/resources/application-buci.yml
+
+src/main/resources/application-barna.yml
+
+
 

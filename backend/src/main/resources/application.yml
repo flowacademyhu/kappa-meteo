@@ -13,3 +13,7 @@ spring:
       ddl-auto: create-drop # create, create-drop, update, validate, none
       show_sql: true
       format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB
