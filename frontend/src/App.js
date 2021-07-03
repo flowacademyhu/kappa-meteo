@@ -33,7 +33,7 @@ export default function App() {
               </Helmet>
               <MapView />
             </Route>
-            <Route path="/historicdata">
+            <Route path="/historicdata/:id">
               <Helmet>
                 <title>Dashboard</title>
               </Helmet>

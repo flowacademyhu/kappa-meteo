@@ -9,7 +9,11 @@ export default function Markers({ stations }) {
           (station) => station.latitude != null && station.longitude != null
         )
         .map((station) => (
-          <MarkerWithPopup key={station.id} station={station}></MarkerWithPopup>
+          <MarkerWithPopup
+            key={station.id}
+            stationId={station.id}
+            station={station}
+          ></MarkerWithPopup>
         ))}
     </div>
   );
