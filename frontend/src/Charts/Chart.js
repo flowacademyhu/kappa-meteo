@@ -31,7 +31,7 @@ function Chart() {
         const response = await axios.get(
           `/api/stations/${station}/${typeGroup}?start=${dateFormat(
             dateState[0].startDate
-          )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
+          )}&end=${dateFormat(dateState[0].endDate)} 23:50&type=${dataType}`
         );
         const mappedResult = response.data
           .map((item, index) => {
