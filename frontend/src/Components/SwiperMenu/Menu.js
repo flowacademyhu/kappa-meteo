@@ -1,8 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
-import { NavLinks } from './StyledElements';
+import { NavLinks, SwiperContainer } from './StyledElements';
 import CardElement from './CardElement';
-
 import { GiRadarDish } from 'react-icons/gi';
 import { RiDashboard2Line } from 'react-icons/ri';
 import { FaChartLine } from 'react-icons/fa';
@@ -13,11 +12,12 @@ import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/effect-coverflow/effect-coverflow.scss';
 import 'swiper/components/navigation/navigation.scss';
 
+
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
 export default function SwiperMenu() {
   return (
-    <div className="swiper-container">
+    <SwiperContainer className="swiper-container">
       <Swiper
         spaceBetween={200}
         effect={'coverflow'}
@@ -41,7 +41,7 @@ export default function SwiperMenu() {
             <CardElement
               Icon={GiRadarDish}
               text="Állomások"
-              descript="Országos térkép, valamint a moduláris mérőállomások megjelenitése."
+              descript="Országos térkép, saját lokáció, valamint a moduláris mérőállomások megjelenitése."
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
@@ -50,7 +50,7 @@ export default function SwiperMenu() {
             <CardElement
               Icon={RiDashboard2Line}
               text="Dashboard"
-              descript="Mérőállomások mért adatainak rendezett megtekintése Dashbordon."
+              descript="Mérőállomások mért adatainak csoportositott megtekintése Dashbordon."
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
@@ -64,6 +64,6 @@ export default function SwiperMenu() {
           </NavLinks>
         </SwiperSlide>
       </Swiper>
-    </div>
+    </SwiperContainer>
   );
 }
