@@ -33,7 +33,7 @@ export default function HistoricData() {
         const response = await axios.get(`/api/latest?stationId=${12}`);
         response.data && setWeatherData(response.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
     fetchData();
