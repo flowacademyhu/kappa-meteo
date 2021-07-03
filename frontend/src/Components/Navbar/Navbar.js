@@ -13,6 +13,8 @@ import {
   NavMenu,
   NavItem,
   NavLinks,
+  NavButton,
+  NavButtonLink,
 } from './NavbarElements';
 
 const Navbar = ({ toggle }) => {
@@ -55,6 +57,9 @@ const Navbar = ({ toggle }) => {
               </NavLinks>
             </NavItem>
           </NavMenu>
+          <NavButton>
+            <NavButtonLink to="/fileupload">Fájl feltöltés</NavButtonLink>
+          </NavButton>
         </NavbarContainer>
       </Nav>
     </>
