@@ -70,11 +70,11 @@ function Chart() {
 
   return (
     <div>
-      <div id="mySidenav" className="sidenav">
+      <div id="mySidenav">
         {dataTypes.map((type, index) => (
-          <a key={index} id={type.id} onClick={() => setTypeGroup(type.name)}>
+          <button key={index} id={type.id} onClick={() => setTypeGroup(type.name)}>
             {type.text}
-          </a>
+          </button>
         ))}
       </div>
       <div className="container">

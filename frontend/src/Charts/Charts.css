@@ -1,17 +1,17 @@
-#mySidenav a {
+#mySidenav button {
   margin-top: 140px;
   position: absolute;
-  left: -162px;
+  left: -165px;
   transition: 0.3s;
   padding: 15px;
-  width: 220px;
-  text-decoration: none;
+  width: 230px;
   font-size: 20px;
   color: rgb(255, 255, 255);
-  border-radius: 0 5px 5px 0;
+  border-radius: 15px;
+  text-align: left !important;
 }
 
-#mySidenav a:hover {
+#mySidenav button:hover {
   left: 0;
   color: white;
   background-color: green;
