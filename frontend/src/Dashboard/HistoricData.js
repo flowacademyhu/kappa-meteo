@@ -39,7 +39,7 @@ export default function HistoricData() {
       }
     }
     fetchData();
-  }, []);
+  }, [id]);
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD HH:mm');
