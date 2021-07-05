@@ -324,7 +324,7 @@ export default function HistoricData() {
           </SoilGrid>
         </CardBorder>
         <CardBorder>
-          <GroupText>Akkumulátor adatok:</GroupText>
+          <GroupText>Szerviz adatok:</GroupText>
           <BatteryGrid>
             {batteryData(weatherData).map((data) => {
               return (

@@ -111,14 +111,13 @@ export default function Map() {
           </>
         )}
       </StyledMapContainer>
-      )
       {myPosition.latitude !== null && (
-        <div className="justify-content-center d-flex m-2">
+        <div className="justify-content-center d-flex">
           <button
-            className="btn btn-primary mr-auto ml-auto"
+            className="btn btn-success"
             onClick={() => flyToMyPosition(myFirstPosition)}
           >
-            MyPosition
+            Saját lokáció
           </button>
         </div>
       )}
