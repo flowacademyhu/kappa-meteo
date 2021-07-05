@@ -29,7 +29,7 @@ public class MeasurementService {
     }
 
     public List<MeasurementDto> findAllMeasurementsBy(Date startDate, Date endDate, Type type, Long stationId) {
-        return toDto(measurementRepository.findAllMeasurementsBy(startDate, addHourAndMinutes(endDate,23,59), type, stationId));
+        return toDto(measurementRepository.findAllMeasurementsBy(startDate, prolongeDateTillEndOfDay(endDate), type, stationId));
     }
 
     public MeasurementDto toDto(Measurement measurement) {
@@ -53,11 +53,10 @@ public class MeasurementService {
         return measurementList.stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public Date addHourAndMinutes(Date date, int hours, int minutes) {
+    public Date prolongeDateTillEndOfDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.HOUR_OF_DAY, hours);
-        calendar.add(Calendar.MINUTE, minutes);
+        calendar.add(Calendar.DATE, 1);
         return calendar.getTime();
     }
 }
