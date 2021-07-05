@@ -1,7 +1,6 @@
 package hu.flowacademy.meteo.controller;
 
 import hu.flowacademy.meteo.Exception.ValidationException;
-import hu.flowacademy.meteo.model.enumPackage.Type;
 import hu.flowacademy.meteo.repository.StationRepository;
 import hu.flowacademy.meteo.service.FileUploadService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +29,8 @@ public class FileUploadController {
 
     @PostMapping("upload")
     public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
-        String dataType = getDataType(file.getOriginalFilename());
         validate(file);
+        String dataType = getDataType(file.getOriginalFilename());
         try {
             fileUploadService.fileUpload(file, dataType, getStationName(Objects.requireNonNull(file.getOriginalFilename())));
         } catch (Exception e) {

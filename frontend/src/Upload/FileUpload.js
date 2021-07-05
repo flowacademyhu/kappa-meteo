@@ -8,6 +8,15 @@ const StyledH1 = styled.h1`
   color: red;
 `;
 
+const validateFile = (file, names) => {
+  let split = file.name.split('_');
+  return (
+    ['napi.csv', 'orai.csv', '10perc.csv'].includes(split[2]) &&
+    names.length > 0 &&
+    names.includes(split[0] + '_' + split[1])
+  );
+};
+
 const FileUpload = () => {
   const [file, setFile] = useState('');
   const [resp, setResp] = useState('');
@@ -51,14 +60,6 @@ const FileUpload = () => {
       });
   };
 
-  const validateFile = (file) => {
-    let split = file.name.split('_');
-    return (
-      ['napi.csv', 'orai.csv', '10perc.csv'].includes(split[2]) &&
-      names.includes(split[0] + '_' + split[1])
-    );
-  };
-
   const onImageChange = (event) => {
     if (event.target.files[0]) {
       setFile(event.target.files[0]);
@@ -73,10 +74,7 @@ const FileUpload = () => {
     <div>
       <div className="row">
         <div className="col-md-6 offset-md-3 mt-5">
-          {file.size > 0 && validateFile(file) && (
-            <StyledH1>Válaszd ki a megfelelő adat tipust!!!</StyledH1>
-          )}
-          {file.size > 0 && !validateFile(file) && (
+          {file.size > 0 && !validateFile(file, names) && (
             <StyledH1>Nem megfelelő a fájl!!!</StyledH1>
           )}
           <div className="form-row mt-5">
@@ -86,7 +84,7 @@ const FileUpload = () => {
             <input id="file-upload" type="file" onChange={onImageChange} />
           </div>
           <div className="form-row">
-            {file.size > 0 && validateFile(file) && (
+            {file.size > 0 && validateFile(file, names) && (
               <div className="col-md-6">
                 <button
                   type="submit"
