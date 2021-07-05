@@ -3,8 +3,8 @@ package hu.flowacademy.meteo.bootstrap;
 import hu.flowacademy.meteo.model.*;
 import hu.flowacademy.meteo.model.enumPackage.Type;
 import hu.flowacademy.meteo.repository.*;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +18,16 @@ import java.util.*;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class InitDataLoader implements CommandLineRunner {
 
     private final StationRepository stationRepository;
     private final MeasurementRepository measurementRepository;
+
+    @Autowired
+    public InitDataLoader(StationRepository stationRepository, MeasurementRepository measurementRepository){
+        this.stationRepository = stationRepository;
+        this.measurementRepository = measurementRepository;
+    }
 
     private static final String DATE_FORMAT_HU = "yyyy.MM.dd HH:mm";
     private static final String DATE_FORMAT_HU_SPACED = "yyyy. MM. dd. HH:mm";
