@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './FileUpload.css';
 import Loading from './Loading';
 import styled from 'styled-components';
+import Success from './Success';
+import Failed from './Failed';
 
 const StyledH1 = styled.h1`
   color: red;
@@ -21,11 +22,11 @@ const StyledLabel = styled.label`
 
 const validateFile = (file, names) => {
   let split = file.name.split('_');
-  return (
-    ['napi.csv', 'orai.csv', '10perc.csv'].includes(split[2]) &&
-    names.length > 0 &&
-    names.includes(split[0] + '_' + split[1])
-  );
+  if (names.length > 0)
+    return (
+      ['napi.csv', 'orai.csv', '10perc.csv'].includes(split[2]) &&
+      names.includes(split[0] + '_' + split[1])
+    );
 };
 
 const FileUpload = () => {
@@ -33,6 +34,8 @@ const FileUpload = () => {
   const [resp, setResp] = useState('');
   const [loading, setLoading] = useState(false);
   const [names, setNames] = useState([]);
+  const [failed, setFailed] = useState(false);
+  const [successful, setSuccessful] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -59,19 +62,16 @@ const FileUpload = () => {
         console.warn(res);
         setResp(res.data);
         setLoading((loading) => !loading);
-        let timeOut = setTimeout(() => {
-          setResp('');
-          setFile('');
-          clearTimeout(timeOut);
-        }, 5000);
+        setSuccessful((successful) => !successful);
       })
       .catch((error) => {
         console.log(error.message);
         setLoading((loading) => !loading);
+        setFailed((failed) => !failed);
       });
   };
 
-  const onImageChange = (event) => {
+  const onChange = (event) => {
     if (event.target.files[0]) {
       setFile(event.target.files[0]);
     }
@@ -79,8 +79,10 @@ const FileUpload = () => {
 
   return loading ? (
     <Loading />
-  ) : resp.length > 0 ? (
-    resp
+  ) : successful ? (
+    <Success />
+  ) : failed ? (
+    <Failed />
   ) : (
     <div>
       <div className="row">
@@ -92,11 +94,7 @@ const FileUpload = () => {
             <StyledLabel htmlFor="file-upload" className="custom-file-upload">
               <i className="fa fa-cloud-upload"></i>Válaszd ki a fájlt
             </StyledLabel>
-            <StyledInput
-              id="file-upload"
-              type="file"
-              onChange={onImageChange}
-            />
+            <StyledInput id="file-upload" type="file" onChange={onChange} />
           </div>
           <div className="form-row">
             {file.size > 0 && validateFile(file, names) && (
