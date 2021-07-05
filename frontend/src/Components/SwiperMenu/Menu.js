@@ -12,7 +12,6 @@ import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/effect-coverflow/effect-coverflow.scss';
 import 'swiper/components/navigation/navigation.scss';
 
-
 SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
 export default function SwiperMenu() {

@@ -18,9 +18,24 @@ const axisLabel = [
 ];
 
 const labels = [
-  { dataKey: 'windSpeed', name: 'Szél sebesség', stroke: '#c54b3c', fill: '#c54b3c'},
-  { dataKey: 'windDirection', name: 'Szél irány', stroke: '#009900', fill: '#009900'},
-  { dataKey: 'windGust', name: 'Szél lökés', stroke: '#000000', fill: '#000000'},
+  {
+    dataKey: 'windSpeed',
+    name: 'Szél sebesség',
+    stroke: '#c54b3c',
+    fill: '#c54b3c',
+  },
+  {
+    dataKey: 'windDirection',
+    name: 'Szél irány',
+    stroke: '#009900',
+    fill: '#009900',
+  },
+  {
+    dataKey: 'windGust',
+    name: 'Szél lökés',
+    stroke: '#000000',
+    fill: '#000000',
+  },
 ];
 
 const WindChart = ({ linedata, xAxisDateFormat }) => {

@@ -34,22 +34,19 @@ const labels = [
     dataKey: 'solarCellChargingVoltage',
     name: 'Napelem töltő feszültség',
     stroke: '#c54b3c',
-    fill:"#c54b3c"
-
+    fill: '#c54b3c',
   },
   {
     dataKey: 'externalBatteryVoltage',
     name: 'Külső akku feszültség',
     stroke: '#009900',
-    fill:"#009900"
-
+    fill: '#009900',
   },
   {
     dataKey: 'internalBatteryVoltage',
     name: 'Belső akku feszültség',
     stroke: '#000000',
-    fill:"#000000"
-
+    fill: '#000000',
   },
 ];
 

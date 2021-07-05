@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-
 //SWIPER
 
 export const SwiperContainer = styled.div`

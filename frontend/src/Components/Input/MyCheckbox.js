@@ -10,7 +10,10 @@ export default function MyCheckbox({ label, name, changeMeasurement }) {
           changeMeasurement(name);
         }}
       />
-      <label className="m-2" htmlFor={name}> {label} </label>
+      <label className="m-2" htmlFor={name}>
+        {' '}
+        {label}{' '}
+      </label>
     </div>
   );
 }

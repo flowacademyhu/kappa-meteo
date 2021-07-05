@@ -7,7 +7,7 @@ import {
   FlipCardInner,
   CardFooter,
   FlipCardFront,
-  FlipCardBack
+  FlipCardBack,
 } from './StyledElements';
 
 export default function CardElement({ text, Icon, descript }) {
