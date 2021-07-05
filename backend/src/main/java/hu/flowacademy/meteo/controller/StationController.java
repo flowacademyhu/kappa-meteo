@@ -27,4 +27,12 @@ public class StationController {
         log.info("Get {} (all) stationDTO.", stationDTOList.size());
         return stationDTOList;
     }
+
+    @GetMapping("names")
+    public List<String> listAllNames() {
+        List<String> stationNameList = stationService.listStations().stream().map(StationDto::toDto).map(StationDto::getName).
+                collect(Collectors.toList());
+        log.info("Get {} station names.", stationNameList.size());
+        return stationNameList;
+    }
 }

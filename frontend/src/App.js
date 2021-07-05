@@ -33,12 +33,12 @@ export default function App() {
                 <title>Térkép nézet</title>
               </Helmet>
               <MapView />
-              <Route path="/upload">
-                <Helmet>
-                  <title>Fájl feltöltés</title>
-                </Helmet>
-                <FileUpload />
-              </Route>
+            </Route>
+            <Route path="/upload">
+              <Helmet>
+                <title>Fájl feltöltés</title>
+              </Helmet>
+              <FileUpload />
             </Route>
             <Route path="/historicdata/:id">
               <Helmet>
