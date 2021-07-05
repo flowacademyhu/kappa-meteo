@@ -4,8 +4,7 @@ import hu.flowacademy.meteo.dto.*;
 import hu.flowacademy.meteo.model.Measurement;
 import hu.flowacademy.meteo.model.enumPackage.Type;
 import hu.flowacademy.meteo.repository.MeasurementRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +14,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class MeasurementService {
 
     private final MeasurementRepository measurementRepository;
+
+    @Autowired
+    public MeasurementService(MeasurementRepository measurementRepository) {
+        this.measurementRepository = measurementRepository;
+    }
 
     public MeasurementDto getLastByStationId(Long stationId) {
         return toDto(measurementRepository.findFirstByStationIdOrderByDateDesc(stationId));
