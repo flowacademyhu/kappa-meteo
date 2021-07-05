@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class MeasurementService {
     }
 
     public List<MeasurementDto> findAllMeasurementsBy(Date startDate, Date endDate, Type type, Long stationId) {
-        return toDto(measurementRepository.findAllMeasurementsBy(startDate, endDate, type, stationId));
+        return toDto(measurementRepository.findAllMeasurementsBy(startDate, addHourAndMinutes(endDate,23,59), type, stationId));
     }
 
     public MeasurementDto toDto(Measurement measurement) {
@@ -46,5 +47,13 @@ public class MeasurementService {
 
     public List<MeasurementDto> toDto(List<Measurement> measurementList) {
         return measurementList.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    public Date addHourAndMinutes(Date date, int hours, int minutes) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY, hours);
+        calendar.add(Calendar.MINUTE, minutes);
+        return calendar.getTime();
     }
 }
