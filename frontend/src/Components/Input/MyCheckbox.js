@@ -11,8 +11,7 @@ export default function MyCheckbox({ label, name, changeMeasurement }) {
         }}
       />
       <label className="m-2" htmlFor={name}>
-        {' '}
-        {label}{' '}
+        {label}
       </label>
     </div>
   );

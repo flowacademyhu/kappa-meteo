@@ -4,7 +4,7 @@ import { IconContainer, StyledButton } from './ChartStyle.js';
 
 export default function SideButtons({ id, onClick, text, Icon }) {
   return (
-    <StyledButton id={id} onClick={onClick}>
+    <StyledButton onClick={onClick}>
       {text}
       <IconContainer className="push-right">
         <IconContext.Provider value={{ color: '#fff' }}>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  ResponsiveContainer,
   AreaChart,
   Area,
   XAxis,
@@ -78,60 +79,60 @@ const BatteryChart = ({ linedata, xAxisDateFormat }) => {
             />
           ))}
         </div>
-        <AreaChart
-          width={1300}
-          height={500}
-          data={linedata}
-          margin={{
-            top: 25,
-            right: 60,
-            left: 40,
-            bottom: 20,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
-          {axisLabel.map((axis, index) => {
-            if (measurementGroup.includes(axis.dataKey)) {
-              return (
-                <YAxis
-                  key={uuidv4()}
-                  className="mx-5"
-                  yAxisId={index}
-                  orientation="left"
-                  dataKey={axis.dataKey}
-                  label={{
-                    value: axis.value,
-                    angle: -90,
-                    dx: -15,
-                    position: 'outsideLeft',
-                    stroke: axis.stroke,
-                  }}
-                />
-              );
-            }
-            return null;
-          })}
-          <Tooltip />
-          <Legend />
-          {labels.map((label, index) => {
-            if (measurementGroup.includes(label.dataKey)) {
-              return (
-                <Area
-                  key={index}
-                  type="monotone"
-                  dataKey={label.dataKey}
-                  name={label.name}
-                  stroke={label.stroke}
-                  yAxisId={index}
-                  dot={false}
-                  fill={label.fill}
-                />
-              );
-            }
-            return null;
-          })}
-        </AreaChart>
+        <ResponsiveContainer width="100%" height={500}>
+          <AreaChart
+            data={linedata}
+            margin={{
+              top: 25,
+              right: 60,
+              left: 40,
+              bottom: 20,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
+            {axisLabel.map((axis, index) => {
+              if (measurementGroup.includes(axis.dataKey)) {
+                return (
+                  <YAxis
+                    key={uuidv4()}
+                    className="mx-5"
+                    yAxisId={index}
+                    orientation="left"
+                    dataKey={axis.dataKey}
+                    label={{
+                      value: axis.value,
+                      angle: -90,
+                      dx: -15,
+                      position: 'outsideLeft',
+                      stroke: axis.stroke,
+                    }}
+                  />
+                );
+              }
+              return null;
+            })}
+            <Tooltip />
+            <Legend />
+            {labels.map((label, index) => {
+              if (measurementGroup.includes(label.dataKey)) {
+                return (
+                  <Area
+                    key={index}
+                    type="monotone"
+                    dataKey={label.dataKey}
+                    name={label.name}
+                    stroke={label.stroke}
+                    yAxisId={index}
+                    dot={false}
+                    fill={label.fill}
+                  />
+                );
+              }
+              return null;
+            })}
+          </AreaChart>
+        </ResponsiveContainer>
       </>
     )
   );
