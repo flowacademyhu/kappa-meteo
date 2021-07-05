@@ -1,6 +1,7 @@
 package hu.flowacademy.meteo.controller;
 
 import hu.flowacademy.meteo.Exception.ValidationException;
+import hu.flowacademy.meteo.model.enumPackage.Type;
 import hu.flowacademy.meteo.repository.StationRepository;
 import hu.flowacademy.meteo.service.FileUploadService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,8 @@ public class FileUploadController {
     }
 
     @PostMapping("upload")
-    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("type") String dataType) {
+    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
+        String dataType = getDataType(file.getOriginalFilename());
         validate(file);
         try {
             fileUploadService.fileUpload(file, dataType, getStationName(Objects.requireNonNull(file.getOriginalFilename())));
@@ -51,6 +53,11 @@ public class FileUploadController {
         if (stationRepository.findFirstByName(getStationName(file.getOriginalFilename())).isEmpty()) {
             throw new ValidationException("Nincs ilyen állomás!!!");
         }
+    }
+
+    public String getDataType(String fileName) {
+        return fileName.split("_")[2].split("\\.")[0];
+
     }
 
     public String getStationName(String fileName) {

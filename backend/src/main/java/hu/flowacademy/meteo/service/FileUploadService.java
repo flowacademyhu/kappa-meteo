@@ -52,22 +52,22 @@ public class FileUploadService {
         }
     }
 
-    private Type getType(String dataType) {
+    public Type getType(String dataType) {
         return (DATA_TYPE_DAILY.equals(dataType) ? Type.DAILY : DATA_TYPE_HOURLY.equals(dataType) ? Type.HOURLY : Type.TEN_MIN);
     }
 
-    private Object formatDoubleData(String str) {
+    public Object formatDoubleData(String str) {
         if (str.equals("") || str.equals("-9999,00000")) {
             return null;
         }
         return Double.parseDouble(str.replace(",", "."));
     }
 
-    private String dataGetter(String[] data, Map<String, Integer> headerKeys, String header) {
+    public String dataGetter(String[] data, Map<String, Integer> headerKeys, String header) {
         return headerKeys.containsKey(header) ? data[headerKeys.get(header)] : "";
     }
 
-    private void executeMeasurementSave(Station station, Reader reader, Type type) {
+    public void executeMeasurementSave(Station station, Reader reader, Type type) {
         List<Measurement> measurements = measurementRepository.saveAll(populateDataBase(reader, station, type));
         log.info("saved {} {} measurments at station: {} with id: {}", measurements.size(), type, station.getName(), station.getId());
         if (measurements.size() == 0) {
@@ -75,7 +75,7 @@ public class FileUploadService {
         }
     }
 
-    private Map<String, Integer> getKeys(String firstLine) {
+    public Map<String, Integer> getKeys(String firstLine) {
         String[] keys = firstLine.split(";\\s*", -1);
         Map<String, Integer> dataMap = new HashMap<>();
         for (int i = 0; i < keys.length; i++) {
@@ -84,7 +84,7 @@ public class FileUploadService {
         return dataMap;
     }
 
-    private List<Measurement> populateDataBase(Reader reader, Station station, Type type) {
+    public List<Measurement> populateDataBase(Reader reader, Station station, Type type) {
         String line;
         List<Measurement> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(reader)) {
