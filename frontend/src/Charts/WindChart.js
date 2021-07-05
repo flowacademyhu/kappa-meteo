@@ -12,15 +12,15 @@ import MyCheckbox from '../Components/Input/MyCheckbox';
 import { v4 as uuidv4 } from 'uuid';
 
 const axisLabel = [
-  { dataKey: 'windSpeed', value: 'Szélsebesség km/h', stroke: '#8884d8' },
-  { dataKey: 'windDirection', value: 'Szélirány', stroke: '#82ca9d' },
+  { dataKey: 'windSpeed', value: 'Szélsebesség km/h', stroke: '#c54b3c' },
+  { dataKey: 'windDirection', value: 'Szélirány', stroke: '#009900' },
   { dataKey: 'windGust', value: 'Széllökés km/h', stroke: '#000000' },
 ];
 
 const labels = [
-  { dataKey: 'windSpeed', name: 'Szél sebesség', stroke: '#8884d8' },
-  { dataKey: 'windDirection', name: 'Szél irány', stroke: '#82ca9d' },
-  { dataKey: 'windGust', name: 'Szél lökés', stroke: '#000000' },
+  { dataKey: 'windSpeed', name: 'Szél sebesség', stroke: '#c54b3c', fill: '#c54b3c'},
+  { dataKey: 'windDirection', name: 'Szél irány', stroke: '#009900', fill: '#009900'},
+  { dataKey: 'windGust', name: 'Szél lökés', stroke: '#000000', fill: '#000000'},
 ];
 
 const WindChart = ({ linedata, xAxisDateFormat }) => {
@@ -99,7 +99,7 @@ const WindChart = ({ linedata, xAxisDateFormat }) => {
                   activeDot={{ r: 8 }}
                   dot={false}
                   yAxisId={index}
-                  fill="#111"
+                  fill={label.fill}
                 />
               );
             }

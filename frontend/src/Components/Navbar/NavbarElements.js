@@ -49,12 +49,12 @@ export const NavLinkIcon = styled.div`
 export const MobileIcon = styled.div`
   display: none;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1145px) {
     display: block;
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(-100%, 60%);
+    transform: translate(-100%, 50%);
     font-size: 1.8rem;
     cursor: pointer;
     color: #fff;
@@ -68,7 +68,7 @@ export const NavMenu = styled.div`
   text-align: center;
   margin-right: -22px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1145px) {
     display: none;
   }
 `;
@@ -89,34 +89,5 @@ export const NavLinks = styled(Link)`
   &:hover {
     border-bottom: 10px solid #c54b3c;
     transition: all 0.1s ease-out;
-  }
-`;
-
-export const NavButton = styled.nav`
-  display: flex;
-  align-items: center;
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-`;
-
-export const NavButtonLink = styled(Link)`
-  border-radius: 50px;
-  background: green;
-  white-space: nowrap;
-  padding: 10px 22px;
-  color: #fff;
-  font-size: 22px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
-
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    background: #c54b3c;
-    color: #fff;
   }
 `;

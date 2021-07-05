@@ -19,16 +19,16 @@ import { FaTemperatureHigh } from 'react-icons/fa';
 
 const dataTypes = [
   {
-    icon: RiDatabaseLine,
-    text: 'Vegyes-Adatok',
-    id: 'MiscCharts',
-    name: 'misc',
-  },
-  {
     icon: FaTemperatureHigh,
     text: 'Levegő-Adatok',
     id: 'AirCharts',
     name: 'air',
+  },
+  {
+    icon: RiDatabaseLine,
+    text: 'Vegyes-Adatok',
+    id: 'MiscCharts',
+    name: 'misc',
   },
   {
     icon: GiWindsock,

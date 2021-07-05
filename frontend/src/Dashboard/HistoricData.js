@@ -266,7 +266,7 @@ export default function HistoricData() {
               <GroupText>Levegő adatok:</GroupText>
               {airData(weatherData).map((data) => {
                 return (
-                  <div className="p-2 m-2" key={data.titleText}>
+                  <div className="p-2 m-3" key={data.titleText}>
                     <MeasureCard
                       Icon={data.icon}
                       titleText={data.titleText}
@@ -323,7 +323,7 @@ export default function HistoricData() {
             </SoilGrid>
           </CardBorder>
           <CardBorder>
-            <GroupText>Akkumulátor adatok:</GroupText>
+            <GroupText>Szerviz adatok:</GroupText>
             <BatteryGrid>
               {batteryData(weatherData).map((data) => {
                 return (

@@ -12,15 +12,45 @@ import MyCheckbox from '../Components/Input/MyCheckbox';
 import { v4 as uuidv4 } from 'uuid';
 
 const axisLabel = [
-  { dataKey: 'solarCellChargingVoltage', value: 'Napelem töltő feszültség V' },
-  { dataKey: 'externalBatteryVoltage', value: 'Külső akku feszültség V' },
-  { dataKey: 'internalBatteryVoltage', value: 'Belső akku feszültség V' },
+  {
+    dataKey: 'solarCellChargingVoltage',
+    value: 'Napelem töltő feszültség V',
+    stroke: '#c54b3c',
+  },
+  {
+    dataKey: 'externalBatteryVoltage',
+    value: 'Külső akku feszültség V',
+    stroke: '#009900',
+  },
+  {
+    dataKey: 'internalBatteryVoltage',
+    value: 'Belső akku feszültség V',
+    stroke: '#000000',
+  },
 ];
 
 const labels = [
-  { dataKey: 'solarCellChargingVoltage', name: 'Napelem töltő feszültség' },
-  { dataKey: 'externalBatteryVoltage', name: 'Külső akku feszültség' },
-  { dataKey: 'internalBatteryVoltage', name: 'Belső akku feszültség' },
+  {
+    dataKey: 'solarCellChargingVoltage',
+    name: 'Napelem töltő feszültség',
+    stroke: '#c54b3c',
+    fill:"#c54b3c"
+
+  },
+  {
+    dataKey: 'externalBatteryVoltage',
+    name: 'Külső akku feszültség',
+    stroke: '#009900',
+    fill:"#009900"
+
+  },
+  {
+    dataKey: 'internalBatteryVoltage',
+    name: 'Belső akku feszültség',
+    stroke: '#000000',
+    fill:"#000000"
+
+  },
 ];
 
 const BatteryChart = ({ linedata, xAxisDateFormat }) => {
@@ -78,7 +108,7 @@ const BatteryChart = ({ linedata, xAxisDateFormat }) => {
                     angle: -90,
                     dx: -15,
                     position: 'outsideLeft',
-                    stroke: '#000000',
+                    stroke: axis.stroke,
                   }}
                 />
               );
@@ -93,12 +123,12 @@ const BatteryChart = ({ linedata, xAxisDateFormat }) => {
                 <Area
                   key={index}
                   type="monotone"
-                  dataKey="solarCellChargingVoltage"
-                  name="solarCellChargingVoltage"
-                  stroke="#000000"
+                  dataKey={label.dataKey}
+                  name={label.name}
+                  stroke={label.stroke}
                   yAxisId={index}
                   dot={false}
-                  fill="#8884d8"
+                  fill={label.fill}
                 />
               );
             }

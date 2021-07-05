@@ -10,8 +10,6 @@ import {
   SidebarWrapper,
   SidebarMenu,
   SidebarLink,
-  SidebarButtonWrap,
-  SidebarButton
 } from './SidebarElements';
 
 export default function Sidebar({ isOpen, toggle }) {
@@ -41,9 +39,6 @@ export default function Sidebar({ isOpen, toggle }) {
             Diagramok
           </SidebarLink>
         </SidebarMenu>
-        <SidebarButtonWrap>
-          <SidebarButton to="/fileupload">Fájl feltöltés</SidebarButton>
-        </SidebarButtonWrap>
       </SidebarWrapper>
     </SidebarContainer>
   );

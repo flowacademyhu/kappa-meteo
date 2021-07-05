@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -12,10 +12,10 @@ import MyCheckbox from '../Components/Input/MyCheckbox';
 import { v4 as uuidv4 } from 'uuid';
 
 const axisLabel = [
-  { dataKey: 'irradiation', value: 'Besugárzás W/m2', stroke: '#8884d8' },
-  { dataKey: 'freeze', value: 'Fagy', stroke: '#82ca9d' },
-  { dataKey: 'rain', value: 'Csapadék mm', stroke: '#000000' },
-  { dataKey: 'leafMoisture', value: 'Levélnedvesség Perc', stroke: '#000000' },
+  { dataKey: 'irradiation', value: 'Besugárzás W/m2', stroke: '#c54b3c' },
+  { dataKey: 'freeze', value: 'Fagy', stroke: '#009900' },
+  { dataKey: 'rain', value: 'Csapadék mm', stroke: '#0066ff' },
+  { dataKey: 'leafMoisture', value: 'Levélnedvesség Perc', stroke: '#ff9900' },
   { dataKey: 'lightUnit', value: 'Fény egység cd', stroke: '#000000' },
   {
     dataKey: 'precipitationCounter',
@@ -28,22 +28,22 @@ const labels = [
   {
     dataKey: 'irradiation',
     name: 'Besugárzás',
-    stroke: '#8884d8',
+    stroke: '#c54b3c',
   },
   {
     dataKey: 'freeze',
     name: 'Fagy',
-    stroke: '#82ca9d',
+    stroke: '#009900',
   },
   {
     dataKey: 'rain',
     name: 'Csapadék',
-    stroke: '#000000',
+    stroke: '#0066ff',
   },
   {
     dataKey: 'leafMoisture',
     name: 'Levél nedvesség',
-    stroke: '#000000',
+    stroke: '#ff9900',
   },
   {
     dataKey: 'lightUnit',
@@ -85,7 +85,7 @@ const MiscChart = ({ linedata, xAxisDateFormat }) => {
             />
           ))}
         </div>
-        <AreaChart
+        <LineChart
           width={1300}
           height={500}
           data={linedata}
@@ -124,7 +124,7 @@ const MiscChart = ({ linedata, xAxisDateFormat }) => {
           {labels.map((label, index) => {
             if (measurementGroup.includes(label.dataKey)) {
               return (
-                <Area
+                <Line
                   key={index}
                   type="monotone"
                   dataKey={label.dataKey}
@@ -139,7 +139,7 @@ const MiscChart = ({ linedata, xAxisDateFormat }) => {
             }
             return null;
           })}
-        </AreaChart>
+        </LineChart>
       </>
     )
   );

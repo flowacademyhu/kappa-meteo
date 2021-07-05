@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -12,14 +12,14 @@ import MyCheckbox from '../Components/Input/MyCheckbox';
 import { v4 as uuidv4 } from 'uuid';
 
 const axisLabel = [
-  { dataKey: 'airTemperature', value: 'Hőmérséklet C', stroke: '#8884d8' },
-  { dataKey: 'airPressure', value: 'Légnyomás kPa', stroke: '#82ca9d' },
+  { dataKey: 'airTemperature', value: 'Hőmérséklet C', stroke: '#c54b3c' },
+  { dataKey: 'airPressure', value: 'Légnyomás kPa', stroke: '#009900' },
   { dataKey: 'airHumidity', value: 'Páratartalom %', stroke: '#000000' },
 ];
 
 const labels = [
-  { dataKey: 'airTemperature', name: 'Hőmérséklet', stroke: '#8884d8' },
-  { dataKey: 'airPressure', name: 'Légnyomás', stroke: '#82ca9d' },
+  { dataKey: 'airTemperature', name: 'Hőmérséklet', stroke: '#c54b3c' },
+  { dataKey: 'airPressure', name: 'Légnyomás', stroke: '#009900' },
   { dataKey: 'airHumidity', name: 'Páratartalom', stroke: '#000000' },
 ];
 
@@ -51,8 +51,8 @@ const AirChart = ({ linedata, xAxisDateFormat }) => {
             />
           ))}
         </div>
-       
-        <AreaChart
+
+        <LineChart
           width={1300}
           height={500}
           data={linedata}
@@ -92,7 +92,7 @@ const AirChart = ({ linedata, xAxisDateFormat }) => {
           {labels.map((label, index) => {
             if (measurementGroup.includes(label.dataKey)) {
               return (
-                <Area
+                <Line
                   key={index}
                   type="monotone"
                   dataKey={label.dataKey}
@@ -107,7 +107,7 @@ const AirChart = ({ linedata, xAxisDateFormat }) => {
             }
             return null;
           })}
-        </AreaChart>
+        </LineChart>
       </>
     )
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -15,22 +15,22 @@ const axisLabel = [
   {
     dataKey: 'soilMoisture30cm',
     value: 'Talaj nedvesség 30cm C',
-    stroke: '#8884d8',
+    stroke: '#c54b3c',
   },
   {
     dataKey: 'soilMoisture60cm',
     value: 'Talaj nedvesség 60cm C',
-    stroke: '#82ca9d',
+    stroke: '#009900',
   },
   {
     dataKey: 'soilMoisture90cm',
     value: 'Talaj nedvesség 90cm C',
-    stroke: '#000000',
+    stroke: '#ff9900',
   },
   {
     dataKey: 'soilMoisture120cm',
     value: 'Talaj nedvesség 120cm',
-    stroke: '#000000',
+    stroke: '#0066ff',
   },
   {
     dataKey: 'soilTemperature0cm',
@@ -43,22 +43,22 @@ const labels = [
   {
     dataKey: 'soilMoisture30cm',
     name: 'Talaj nedvesség 30cm',
-    stroke: '#8884d8',
+    stroke: '#c54b3c',
   },
   {
     dataKey: 'soilMoisture60cm',
     name: 'Talaj nedvesség 60cm',
-    stroke: '#82ca9d',
+    stroke: '#009900',
   },
   {
     dataKey: 'soilMoisture90cm',
     name: 'Talaj nedvesség 90cm',
-    stroke: '#000000',
+    stroke: '#ff9900',
   },
   {
     dataKey: 'soilMoisture120cm',
     name: 'Talaj nedvesség 120cm',
-    stroke: '#000000',
+    stroke: '#0066ff',
   },
   {
     dataKey: 'soilTemperature0cm',
@@ -95,7 +95,7 @@ const SoilChart = ({ linedata, xAxisDateFormat }) => {
             />
           ))}
         </div>
-        <AreaChart
+        <LineChart
           width={1300}
           height={500}
           data={linedata}
@@ -135,7 +135,7 @@ const SoilChart = ({ linedata, xAxisDateFormat }) => {
           {labels.map((label, index) => {
             if (measurementGroup.includes(label.dataKey)) {
               return (
-                <Area
+                <Line
                   key={index}
                   type="monotone"
                   dataKey={label.dataKey}
@@ -150,7 +150,7 @@ const SoilChart = ({ linedata, xAxisDateFormat }) => {
             }
             return null;
           })}
-        </AreaChart>
+        </LineChart>
       </>
     )
   );

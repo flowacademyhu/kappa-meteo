@@ -34,7 +34,7 @@ export const FlipCardInner = styled.div`
 `;
 
 export const FlipCardFront = styled.div`
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 20px;
   position: absolute;
   width: 100%;

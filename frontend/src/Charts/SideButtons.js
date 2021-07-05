@@ -1,9 +1,7 @@
 import React from 'react';
 import { IconContext } from 'react-icons';
 import { IconContainer } from './ChartStyle.js';
-import './Charts.css'
-
-
+import './Charts.css';
 
 export default function SideButtons({ id, onClick, text, Icon }) {
   return (
