@@ -8,6 +8,17 @@ const StyledH1 = styled.h1`
   color: red;
 `;
 
+const StyledInput = styled.input`
+  display: none;
+`;
+
+const StyledLabel = styled.label`
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+`;
+
 const validateFile = (file, names) => {
   let split = file.name.split('_');
   return (
@@ -78,10 +89,14 @@ const FileUpload = () => {
             <StyledH1>Nem megfelelő a fájl!!!</StyledH1>
           )}
           <div className="form-row mt-5">
-            <label htmlFor="file-upload" className="custom-file-upload">
+            <StyledLabel htmlFor="file-upload" className="custom-file-upload">
               <i className="fa fa-cloud-upload"></i>Válaszd ki a fájlt
-            </label>
-            <input id="file-upload" type="file" onChange={onImageChange} />
+            </StyledLabel>
+            <StyledInput
+              id="file-upload"
+              type="file"
+              onChange={onImageChange}
+            />
           </div>
           <div className="form-row">
             {file.size > 0 && validateFile(file, names) && (
