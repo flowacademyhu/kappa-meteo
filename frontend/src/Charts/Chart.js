@@ -7,10 +7,9 @@ import WindChart from './WindChart';
 import moment from 'moment';
 import axios from 'axios';
 import { DateRange } from 'react-date-range';
-import { GroupText, GroupBorder } from './ChartStyle.js';
+import { GroupText, GroupBorder, SideNav } from './ChartStyle.js';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import './Charts.css';
 
 import SideButtons from './SideButtons';
 import { GiWindsock, GiDrop } from 'react-icons/gi';
@@ -21,31 +20,26 @@ const dataTypes = [
   {
     icon: FaTemperatureHigh,
     text: 'Levegő-Adatok',
-    id: 'AirCharts',
     name: 'air',
   },
   {
     icon: RiDatabaseLine,
     text: 'Vegyes-Adatok',
-    id: 'MiscCharts',
     name: 'misc',
   },
   {
     icon: GiWindsock,
     text: 'Szél-Adatok',
-    id: 'WindCharts',
     name: 'wind',
   },
   {
     icon: GiDrop,
     text: 'Talaj-Adatok',
-    id: 'SoilCharts',
     name: 'soil',
   },
   {
     icon: RiBattery2ChargeLine,
     text: 'Szerviz-Adatok',
-    id: 'BatteryCharts',
     name: 'battery',
   },
 ];
@@ -100,17 +94,16 @@ function Chart() {
 
   return (
     <div>
-      <div id="mySidenav">
+      <SideNav>
         {dataTypes.map((type, index) => (
           <SideButtons
             key={index}
             Icon={type.icon}
-            id={type.id}
             onClick={() => setTypeGroup(type.name)}
             text={type.text}
           ></SideButtons>
         ))}
-      </div>
+      </SideNav>
       <div className="container">
         <div className="row text-center">
           <GroupBorder>
