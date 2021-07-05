@@ -35,20 +35,22 @@ const FileUpload = () => {
   const [loading, setLoading] = useState(false);
   const [names, setNames] = useState([]);
   const [failed, setFailed] = useState(false);
-  const [successful, setSuccessful] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get('/api/names/');
         setNames(response.data);
+        setResp('');
+        setFile('');
         console.log(response);
       } catch (err) {
         console.error('Error during api call:', err);
       }
     }
     fetchData();
-  }, []);
+  }, [failed, success]);
 
   const submit = () => {
     setLoading((loading) => !loading);
@@ -62,7 +64,7 @@ const FileUpload = () => {
         console.warn(res);
         setResp(res.data);
         setLoading((loading) => !loading);
-        setSuccessful((successful) => !successful);
+        setSuccess((success) => !success);
       })
       .catch((error) => {
         console.log(error.message);
@@ -79,10 +81,10 @@ const FileUpload = () => {
 
   return loading ? (
     <Loading />
-  ) : successful ? (
-    <Success />
+  ) : success ? (
+    <Success success={success} setSuccess={setSuccess} />
   ) : failed ? (
-    <Failed />
+    <Failed failed={failed} setFailed={setFailed} />
   ) : (
     <div>
       <div className="row">

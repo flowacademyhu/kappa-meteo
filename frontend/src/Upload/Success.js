@@ -6,6 +6,13 @@ const StyledH1 = styled.h1`
   color: green;
 `;
 
-const Success = () => <StyledH1>Sikeres fájl feltöltés!!!</StyledH1>;
+const Success = ({ success, setSuccess }) => {
+  return (
+    <>
+      <StyledH1>Sikeres fájl feltöltés!!!</StyledH1>
+      <NewUploadButton result={success} setResult={setSuccess} />
+    </>
+  );
+};
 
 export default Success;

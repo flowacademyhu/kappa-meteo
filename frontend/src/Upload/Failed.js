@@ -6,6 +6,13 @@ const StyledH1 = styled.h1`
   color: red;
 `;
 
-const Failed = () => <StyledH1>Sikertelen fájl feltöltés!!!</StyledH1>;
+const Failed = ({ failed, setFailed }) => {
+  return (
+    <>
+      <StyledH1>Sikertelen fájl feltöltés!!!</StyledH1>
+      <NewUploadButton result={failed} setResult={setFailed} />
+    </>
+  );
+};
 
 export default Failed;
