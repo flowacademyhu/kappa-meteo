@@ -31,7 +31,6 @@ const validateFile = (file, names) => {
 
 const FileUpload = () => {
   const [file, setFile] = useState('');
-  const [resp, setResp] = useState('');
   const [loading, setLoading] = useState(false);
   const [names, setNames] = useState([]);
   const [failed, setFailed] = useState(false);
@@ -42,7 +41,6 @@ const FileUpload = () => {
       try {
         const response = await axios.get('/api/names/');
         setNames(response.data);
-        setResp('');
         setFile('');
         console.log(response);
       } catch (err) {
@@ -62,7 +60,6 @@ const FileUpload = () => {
       .post(url, data, {})
       .then((res) => {
         console.warn(res);
-        setResp(res.data);
         setLoading((loading) => !loading);
         setSuccess((success) => !success);
       })
