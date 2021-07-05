@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
 @Slf4j
+@RestController
 public class StationController {
 
     private final StationService stationService;
 
     @Autowired
-    public StationController(StationService stationService){
+    public StationController(StationService stationService) {
         this.stationService = stationService;
     }
 

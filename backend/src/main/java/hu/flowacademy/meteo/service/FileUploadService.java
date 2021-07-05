@@ -5,12 +5,13 @@ import hu.flowacademy.meteo.model.*;
 import hu.flowacademy.meteo.model.enumPackage.Type;
 import hu.flowacademy.meteo.repository.MeasurementRepository;
 import hu.flowacademy.meteo.repository.StationRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
-@RequiredArgsConstructor
+@Transactional
 @Service
 public class FileUploadService {
 
@@ -30,6 +31,12 @@ public class FileUploadService {
 
     private final StationRepository stationRepository;
     private final MeasurementRepository measurementRepository;
+
+    @Autowired
+    public FileUploadService(StationRepository stationRepository, MeasurementRepository measurementRepository) {
+        this.stationRepository = stationRepository;
+        this.measurementRepository = measurementRepository;
+    }
 
     public void fileUpload(MultipartFile file, String dataType, String stationName) throws IOException {
         try (InputStreamReader fileStreamReader = new InputStreamReader(file.getInputStream())) {
