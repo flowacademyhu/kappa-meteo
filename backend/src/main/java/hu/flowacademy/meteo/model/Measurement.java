@@ -1,6 +1,5 @@
 package hu.flowacademy.meteo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hu.flowacademy.meteo.model.enumPackage.Type;
 import lombok.AllArgsConstructor;
@@ -16,11 +15,9 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @Entity
-@IdClass(MeasurmentId.class)
-public class Measurment {
+@IdClass(MeasurementId.class)
+public class Measurement {
 
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Id
     private Date date;
 
@@ -33,18 +30,18 @@ public class Measurment {
     @Id
     private Station station;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private AirData airData;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private MiscData miscData;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private SoilData soilData;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private BatteryData batteryData;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private WindData windData;
 }
