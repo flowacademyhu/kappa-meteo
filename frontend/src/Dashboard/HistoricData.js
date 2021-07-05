@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import MeasureCard from './MeasureCard.js';
 import axios from 'axios';
 import {
+  NavLink,
   TitleText,
+  CardData,
   GroupText,
   CardBorder,
   MiscGrid,
   WindGrid,
   SoilGrid,
   BatteryGrid,
+  InfoStyle,
+  StyleZoom,
 } from './StyledElements.js';
 import {
   RiCompassDiscoverFill,
@@ -277,7 +281,7 @@ export default function HistoricData() {
                   ></MeasureCard>
                 </div>
               );
-            })}
+            })}NavLink
             ;
           </CardBorder>
         </div>
@@ -347,6 +351,16 @@ export default function HistoricData() {
       </div>
     </>
   ) : (
-    <h1>Ehhez az állomáshoz sajnos nem áll rendelkezésre adat.</h1>
+    <div className="container">
+      <NavLink to="/mapview">
+        <StyleZoom>
+          <InfoStyle>
+            <CardData>
+              Ehhez az állomáshoz sajnos nem áll rendelkezésre adat!
+            </CardData>
+          </InfoStyle>
+        </StyleZoom>
+      </NavLink>
+    </div>
   );
 }
