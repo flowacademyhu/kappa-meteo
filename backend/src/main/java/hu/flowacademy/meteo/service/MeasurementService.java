@@ -5,6 +5,7 @@ import hu.flowacademy.meteo.model.Measurement;
 import hu.flowacademy.meteo.model.enumPackage.Type;
 import hu.flowacademy.meteo.repository.MeasurementRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
