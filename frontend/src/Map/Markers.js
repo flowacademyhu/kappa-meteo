@@ -1,25 +1,15 @@
 import React from 'react';
-import StationPopup from './StationPopup.js';
-import RadarIcon from '../Icon/Radaricon';
-import { Marker } from 'react-leaflet';
+import MarkerWithPopup from './MarkerWithPopup.js';
 
-export default function Markers({ coordinates }) {
+export default function Markers({ stations }) {
   return (
     <div>
-      {coordinates
+      {stations
         .filter(
-          (coordinate) =>
-            coordinate.latitude != null && coordinate.longitude != null
+          (station) => station.latitude != null && station.longitude != null
         )
-        .map((coordinate) => (
-          <Marker
-            key={coordinate.id}
-            name={coordinate.name}
-            position={[coordinate.latitude, coordinate.longitude]}
-            icon={RadarIcon}
-          >
-            <StationPopup station={coordinate}></StationPopup>
-          </Marker>
+        .map((station) => (
+          <MarkerWithPopup key={station.id} station={station}></MarkerWithPopup>
         ))}
     </div>
   );
