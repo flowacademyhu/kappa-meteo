@@ -25,7 +25,7 @@ public class MeasurementService {
     }
 
     public List<MeasurementDto> findAllMeasurementsBy(Date startDate, Date endDate, Type type, Long stationId) {
-        return toDto(measurementRepository.findAllMeasurementsBy(startDate, prolongeDateTillEndOfDay(endDate), type, stationId));
+        return toDto(measurementRepository.findAllMeasurementsBy(startDate, prolongDateTillEndOfDay(endDate), type, stationId));
     }
 
     public MeasurementDto toDto(Measurement measurement) {
@@ -49,7 +49,7 @@ public class MeasurementService {
         return measurementList.stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public Date prolongeDateTillEndOfDay(Date date) {
+    public Date prolongDateTillEndOfDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DATE, 1);
