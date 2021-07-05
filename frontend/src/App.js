@@ -6,6 +6,7 @@ import MapView from './Pages/MapView';
 import Dashboard from './Pages/Dashboard';
 import Chart from './Charts/Chart.js';
 import Footer from './Components/Footer/Footer.js';
+import FileUpload from './Upload/FileUpload.js';
 
 import {
   BrowserRouter as Router,
@@ -32,6 +33,12 @@ export default function App() {
                 <title>Térkép nézet</title>
               </Helmet>
               <MapView />
+              <Route path="/upload">
+                <Helmet>
+                  <title>Fájl feltöltés</title>
+                </Helmet>
+                <FileUpload />
+              </Route>
             </Route>
             <Route path="/historicdata/:id">
               <Helmet>
