@@ -6,7 +6,7 @@ import MapView from './Pages/MapView';
 import Dashboard from './Pages/Dashboard';
 import Chart from './Charts/Chart.js';
 import Footer from './Components/Footer/Footer.js';
-import FileUpload from './Upload/FileUpload.js';
+import FileUploadHero from './Upload/FileUploadHero.js';
 
 import {
   BrowserRouter as Router,
@@ -50,7 +50,7 @@ export default function App() {
               <Helmet>
                 <title>Fájl feltöltés</title>
               </Helmet>
-              <FileUpload />
+              <FileUploadHero />
             </Route>
             <Redirect from="/" to="/home" />
           </Switch>
