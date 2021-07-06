@@ -13,20 +13,18 @@ const iconChooser = (icons) => {
   let randomNum = Math.floor(Math.random() * 6);
   return icons[randomNum];
 };
-const WeatherIcon = new L.icon({
-  iconUrl: iconChooser(icons),
-  iconSize: [64, 64],
-});
-const currentIcon = () => {
-  return WeatherIcon;
-};
 
 export default function MarkerWithPopup({ station }) {
   return (
     <Marker
       name={station.name}
       position={[station.latitude, station.longitude]}
-      icon={currentIcon()}
+      icon={
+        new L.icon({
+          iconUrl: iconChooser(icons),
+          iconSize: [130, 130],
+        })
+      }
     >
       <StationPopup station={station}></StationPopup>
     </Marker>
