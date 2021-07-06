@@ -1,9 +1,9 @@
 import L from 'leaflet';
-import uRHere from './urhere.png';
+import uRHere from './urhere.jpg';
 
 const UserIcon = new L.icon({
   iconUrl: uRHere,
-  iconSize: [64, 64],
+  iconSize: [50, 64],
 });
 
 export default UserIcon;

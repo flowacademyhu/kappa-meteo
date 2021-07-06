@@ -10,8 +10,8 @@ import rainy6 from '../Icon/AnimateIcon/rainy-6.svg';
 let icons = [cloudyday2, cloudy, day, rainy1, rainy6, day];
 
 const iconChooser = (icons) => {
-  let randomNum = Math.floor(Math.random() * 6);
-  return icons[randomNum];
+    let randomNum = Math.floor(Math.random() * 6);
+     return icons[randomNum];
 };
 
 export default function MarkerWithPopup({ station }) {
