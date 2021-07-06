@@ -28,11 +28,12 @@ import { VscDashboard } from 'react-icons/vsc';
 import { GiDrop, GiChaliceDrops, GiCarBattery } from 'react-icons/gi';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
+import Loader from './Loader.js';
 
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
-  const [station, setStation] = useState();
-
+  const [station, setStation] = useState('');
+  const [stationsHasData, setStationsHasData] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -47,13 +48,39 @@ export default function HistoricData() {
     fetchData();
   }, [id]);
 
+  useEffect(() => {
+    async function fetchData() {
+      if (station.length > 0) {
+        try {
+          const response = await axios.get(`/api/latest?stationId=${station}`);
+          response.data && setWeatherData(response.data);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
+    fetchData();
+  }, [station]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`/api/hasdata`);
+        response.data && setStationsHasData(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchData();
+  }, []);
+
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD HH:mm');
   };
 
   const fixedTwoDigits = (data) => {
-    return data !== null ? data.toFixed(2) : 'Nem megfelelő adat!';
-  }
+    return data !== null && data !== undefined ? data.toFixed(2) : null;
+  };
 
   const miscData = (misc) => {
     return [
@@ -249,11 +276,14 @@ export default function HistoricData() {
     }
   };
 
-  return weatherData !== null ? (
+  return (
     <>
-      <TitleText>Dashboard</TitleText>
-      <div className="container">
-        <div className="row">
+      {stationsHasData.length < 1 ? (
+        <div className="container">
+          <Loader />
+        </div>
+      ) : (
+        <div className="container">
           <CardBorder className="col text-center">
             <GroupText htmlFor="stationId">Állomás választása:</GroupText>
             <select
@@ -263,18 +293,47 @@ export default function HistoricData() {
               id="stations"
               onChange={(e) => setStation(e.target.value)}
             >
-              <option value="12">Szeged</option>
+              <option defaultValue>-</option>
+              {stationsHasData.map((el) => (
+                <option key={el.id} value={el.id}>
+                  {el.name}
+                </option>
+              ))}
             </select>
           </CardBorder>
         </div>
-        <div className="row">
-          <CardBorder className="col">
-            <GroupText>Vegyes adatok:</GroupText>
-            <MiscGrid>
-              {miscData(weatherData).map((data) => {
-                return (
-                  <div className="p-2 m-2" key={data.titleText}>
-                    <div className="col">
+      )}
+      {weatherData !== null ? (
+        <>
+          <TitleText>Dashboard</TitleText>
+          <div className="container">
+            <div className="row">
+              <CardBorder className="col">
+                <GroupText>Vegyes adatok:</GroupText>
+                <MiscGrid>
+                  {miscData(weatherData).map((data) => {
+                    return (
+                      <div className="p-2 m-2" key={data.titleText}>
+                        <div className="col">
+                          <MeasureCard
+                            Icon={data.icon}
+                            titleText={data.titleText}
+                            text={data.text}
+                            unit={data.unit}
+                            footerText={dateFormat(weatherData.date)}
+                          ></MeasureCard>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  ;
+                </MiscGrid>
+              </CardBorder>
+              <CardBorder className="col">
+                <GroupText>Levegő adatok:</GroupText>
+                {airData(weatherData).map((data) => {
+                  return (
+                    <div className="p-2 m-2" key={data.titleText}>
                       <MeasureCard
                         Icon={data.icon}
                         titleText={data.titleText}
@@ -283,106 +342,88 @@ export default function HistoricData() {
                         footerText={dateFormat(weatherData.date)}
                       ></MeasureCard>
                     </div>
-                  </div>
-                );
-              })}
-              ;
-            </MiscGrid>
-          </CardBorder>
-          <CardBorder className="col">
-            <GroupText>Levegő adatok:</GroupText>
-            {airData(weatherData).map((data) => {
-              return (
-                <div className="p-2 m-2" key={data.titleText}>
-                  <MeasureCard
-                    Icon={data.icon}
-                    titleText={data.titleText}
-                    text={data.text}
-                    unit={data.unit}
-                    footerText={dateFormat(weatherData.date)}
-                  ></MeasureCard>
-                </div>
-              );
-            })}
-            NavLink ;
-          </CardBorder>
+                  );
+                })}
+              </CardBorder>
+            </div>
+            <CardBorder>
+              <GroupText>Szél adatok:</GroupText>
+              <WindGrid>
+                {windData(weatherData).map((data) => {
+                  return (
+                    <div className="p-2 m-2" key={data.titleText}>
+                      <div className="col">
+                        <MeasureCard
+                          Icon={data.icon}
+                          titleText={data.titleText}
+                          text={data.text}
+                          unit={data.unit}
+                          footerText={dateFormat(weatherData.date)}
+                        ></MeasureCard>
+                      </div>
+                    </div>
+                  );
+                })}
+                ;
+              </WindGrid>
+            </CardBorder>
+            <CardBorder>
+              <GroupText>Talajnedvesség adatok:</GroupText>
+              <SoilGrid>
+                {soilData(weatherData).map((data) => {
+                  return (
+                    <div className="p-2 m-2" key={data.titleText}>
+                      <div className="col">
+                        <MeasureCard
+                          Icon={data.icon}
+                          titleText={data.titleText}
+                          text={data.text}
+                          unit={data.unit}
+                          footerText={dateFormat(weatherData.date)}
+                        ></MeasureCard>
+                      </div>
+                    </div>
+                  );
+                })}
+                ;
+              </SoilGrid>
+            </CardBorder>
+            <CardBorder>
+              <GroupText>Szerviz adatok:</GroupText>
+              <BatteryGrid>
+                {batteryData(weatherData).map((data) => {
+                  return (
+                    <div className="p-2 m-2" key={data.titleText}>
+                      <div className="col">
+                        <MeasureCard
+                          Icon={data.icon}
+                          titleText={data.titleText}
+                          text={data.text}
+                          unit={data.unit}
+                          footerText={dateFormat(weatherData.date)}
+                        ></MeasureCard>
+                      </div>
+                    </div>
+                  );
+                })}
+                ;
+              </BatteryGrid>
+            </CardBorder>
+          </div>
+        </>
+      ) : (
+        <div className="container">
+          <div className="row">
+            <NavLink to="/mapview">
+              <StyleZoom>
+                <InfoStyle>
+                  <CardData>Nincs megjelenítendő adat!</CardData>
+                </InfoStyle>
+              </StyleZoom>
+            </NavLink>
+          </div>
         </div>
-        <CardBorder>
-          <GroupText>Szél adatok:</GroupText>
-          <WindGrid>
-            {windData(weatherData).map((data) => {
-              return (
-                <div className="p-2 m-2" key={data.titleText}>
-                  <div className="col">
-                    <MeasureCard
-                      Icon={data.icon}
-                      titleText={data.titleText}
-                      text={data.text}
-                      unit={data.unit}
-                      footerText={dateFormat(weatherData.date)}
-                    ></MeasureCard>
-                  </div>
-                </div>
-              );
-            })}
-            ;
-          </WindGrid>
-        </CardBorder>
-        <CardBorder>
-          <GroupText>Talajnedvesség adatok:</GroupText>
-          <SoilGrid>
-            {soilData(weatherData).map((data) => {
-              return (
-                <div className="p-2 m-2" key={data.titleText}>
-                  <div className="col">
-                    <MeasureCard
-                      Icon={data.icon}
-                      titleText={data.titleText}
-                      text={data.text}
-                      unit={data.unit}
-                      footerText={dateFormat(weatherData.date)}
-                    ></MeasureCard>
-                  </div>
-                </div>
-              );
-            })}
-            ;
-          </SoilGrid>
-        </CardBorder>
-        <CardBorder>
-          <GroupText>Szerviz adatok:</GroupText>
-          <BatteryGrid>
-            {batteryData(weatherData).map((data) => {
-              return (
-                <div className="p-2 m-2" key={data.titleText}>
-                  <div className="col">
-                    <MeasureCard
-                      Icon={data.icon}
-                      titleText={data.titleText}
-                      text={data.text}
-                      unit={data.unit}
-                      footerText={dateFormat(weatherData.date)}
-                    ></MeasureCard>
-                  </div>
-                </div>
-              );
-            })}
-            ;
-          </BatteryGrid>
-        </CardBorder>
-      </div>
+      )}
     </>
-  ) : (
-    <div className="container">
-      <NavLink to="/mapview">
-        <StyleZoom>
-          <InfoStyle>
-            <CardData>
-              Ehhez az állomáshoz sajnos nem áll rendelkezésre adat!
-            </CardData>
-          </InfoStyle>
-        </StyleZoom>
-      </NavLink>
-    </div>
   );
 }
