@@ -36,8 +36,6 @@ public class StationController {
 
     @GetMapping("hasdata")
     public List<StationDto> listAllWithData() {
-        List<StationDto> stations = stationRepository.findAll().stream().map(StationDto::toDto).collect(Collectors.toList());
-        return stations.stream().filter(el -> measurementRepository.findFirstByStationName(el.getName()).size() > 0).
-                collect(Collectors.toList());
+        return stationRepository.findAll().stream().map(StationDto::toDto).filter(StationDto::isHasData).collect(Collectors.toList());
     }
 }

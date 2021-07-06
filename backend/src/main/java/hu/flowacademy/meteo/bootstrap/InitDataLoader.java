@@ -24,7 +24,7 @@ public class InitDataLoader implements CommandLineRunner {
     private final MeasurementRepository measurementRepository;
 
     @Autowired
-    public InitDataLoader(StationRepository stationRepository, MeasurementRepository measurementRepository){
+    public InitDataLoader(StationRepository stationRepository, MeasurementRepository measurementRepository) {
         this.stationRepository = stationRepository;
         this.measurementRepository = measurementRepository;
     }
@@ -140,6 +140,7 @@ public class InitDataLoader implements CommandLineRunner {
         } catch (IOException e) {
             log.error("Error while opening file {}: {}", name, e.getMessage());
         }
+        stationRepository.save(station.toBuilder().hasData(true).build());
         return list;
     }
 
