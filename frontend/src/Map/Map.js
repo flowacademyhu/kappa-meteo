@@ -28,7 +28,7 @@ const mainStation = [
   'OVF_Nagykanizsa',
 ];
 
-export default function Map() {
+export default function Map({ weatherIcons }) {
   const myPosition = useGeolocation();
   const [stations, setStations] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(8);
@@ -46,17 +46,6 @@ export default function Map() {
       setMyFirstPosition(myPosition);
     }
   }, [myPosition]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get('', {
-  //       mode: 'no-cors',
-  //     })
-  //     .then((response) => {
-  //       setWeather(response.data);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
 
   useEffect(() => {
     axios
@@ -111,7 +100,10 @@ export default function Map() {
         <MapTypeButton myPosition={myPosition} />
         <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
 
-        <Markers stations={filteredStations(stations)} />
+        <Markers
+          stations={filteredStations(stations)}
+          weatherIcons={weatherIcons}
+        />
 
         {myPosition.latitude !== null && (
           <>
