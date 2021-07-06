@@ -10,7 +10,6 @@ import { DateRangePicker } from 'react-date-range';
 import { GroupText, GroupBorder, SideNav } from './ChartStyle.js';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-
 import SideButtons from './SideButtons';
 import { GiWindsock, GiDrop } from 'react-icons/gi';
 import { RiBattery2ChargeLine, RiDatabaseLine } from 'react-icons/ri';
@@ -41,6 +40,75 @@ const dataTypes = [
     icon: RiBattery2ChargeLine,
     text: 'Szerviz-Adatok',
     name: 'battery',
+  },
+];
+
+const rangeArray = [
+  {
+    label: 'Mai nap',
+    hasCustomRendering: false,
+    range: () => ({
+      startDate: new Date('2021-04-30'),
+      endDate: new Date('2021-04-30'),
+    }),
+    isSelected() {
+      return true;
+    },
+  },
+  {
+    label: 'Tegnap',
+    hasCustomRendering: false,
+    range: () => ({
+      startDate: new Date('2021-04-29'),
+      endDate: new Date('2021-04-29'),
+    }),
+    isSelected() {
+      return true;
+    },
+  },
+  {
+    label: 'Ez a hét',
+    hasCustomRendering: false,
+    range: () => ({
+      startDate: new Date('2021-04-26'),
+      endDate: new Date('2021-04-30'),
+    }),
+    isSelected() {
+      return true;
+    },
+  },
+  {
+    label: 'Előző hét',
+    hasCustomRendering: false,
+    range: () => ({
+      startDate: new Date('2021-04-19'),
+      endDate: new Date('2021-04-25'),
+    }),
+    isSelected() {
+      return true;
+    },
+  },
+  {
+    label: 'Ez a hónap',
+    hasCustomRendering: false,
+    range: () => ({
+      startDate: new Date('2021-04-01'),
+      endDate: new Date('2021-04-30'),
+    }),
+    isSelected() {
+      return true;
+    },
+  },
+  {
+    label: 'Előző hónap',
+    hasCustomRendering: false,
+    range: () => ({
+      startDate: new Date('2021-03-01'),
+      endDate: new Date('2021-03-31'),
+    }),
+    isSelected() {
+      return true;
+    },
   },
 ];
 
@@ -112,19 +180,7 @@ function Chart() {
               editableDateInputs={true}
               rangeColors={['#c54b3c']}
               onChange={(item) => setDateState([item.selection])}
-              staticRanges={[
-                {
-                  label: 'Mai nap',
-                  hasCustomRendering: false,
-                  range: () => ({
-                    startDate: new Date('2021-04-30'),
-                    endDate: new Date('2021-04-30'),
-                  }),
-                  isSelected() {
-                    return true;
-                  },
-                },
-              ]}
+              staticRanges={rangeArray}
               inputRanges={[]}
               moveRangeOnFirstSelection={false}
               ranges={dateState}
