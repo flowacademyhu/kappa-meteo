@@ -1,33 +1,17 @@
 import styled from 'styled-components';
+import RotateLoader from 'react-spinners/RotateLoader';
 
 const StyledSpinner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 150px;
 `;
 
 const Loading = () => (
   <>
     <StyledSpinner>
-      <div className="spinner-grow text-primary" role="status">
-        <span className="sr-only"></span>
-      </div>
-      <div className="spinner-grow text-secondary" role="status">
-        <span className="sr-only"></span>
-      </div>
-      <div className="spinner-grow text-success" role="status">
-        <span className="sr-only"></span>
-      </div>
-      <div className="spinner-grow text-danger" role="status">
-        <span className="sr-only"></span>
-      </div>
-      <div className="spinner-grow text-warning" role="status">
-        <span className="sr-only"></span>
-      </div>
-      <div className="spinner-grow text-info" role="status">
-        <span className="sr-only"></span>
-      </div>
+      <RotateLoader margin={30} size={40} color={'#fff'}></RotateLoader>
     </StyledSpinner>
   </>
 );
