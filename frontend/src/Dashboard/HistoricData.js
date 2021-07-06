@@ -31,6 +31,8 @@ import { useParams } from 'react-router-dom';
 
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
+  const [station, setStation] = useState();
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -48,6 +50,10 @@ export default function HistoricData() {
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD HH:mm');
   };
+
+  const fixedTwoDigits = (data) => {
+    return data !== null ? data.toFixed(2) : 'Nem megfelelő adat!';
+  }
 
   const miscData = (misc) => {
     return [
@@ -147,34 +153,36 @@ export default function HistoricData() {
       {
         icon: WiThermometer,
         titleText: 'Talaj hőmérséklet 0cm',
-        text: soil.soilDataDto.soilTemperature0cm.toFixed(2),
+        text: fixedTwoDigits(soil.soilDataDto.soilTemperature0cm),
         unit: <>&#8451;</>,
       },
 
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 30cm',
-        text: soil.soilDataDto.soilMoisture30cm.toFixed(2),
+        text: fixedTwoDigits(soil.soilDataDto.soilTemperature30cm),
+
         unit: 'V/V %',
       },
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 60cm',
-        text: soil.soilDataDto.soilMoisture60cm.toFixed(2),
+        text: fixedTwoDigits(soil.soilDataDto.soilTemperature60cm),
+
         unit: 'V/V %',
       },
 
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 90cm',
-        text: soil.soilDataDto.soilMoisture90cm.toFixed(2),
+        text: fixedTwoDigits(soil.soilDataDto.soilTemperature90cm),
         unit: 'V/V %',
       },
 
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 120cm',
-        text: soil.soilDataDto.soilMoisture120cm.toFixed(2),
+        text: fixedTwoDigits(soil.soilDataDto.soilTemperature120cm),
         unit: 'V/V %',
       },
     ];
@@ -185,21 +193,21 @@ export default function HistoricData() {
       {
         icon: RiBattery2ChargeLine,
         titleText: 'Napelem töltő feszültség',
-        text: battery.batteryDataDto.solarCellChargingVoltage.toFixed(2),
+        text: fixedTwoDigits(battery.batteryDataDto.solarCellChargingVoltage),
         unit: 'V',
       },
 
       {
         icon: GiCarBattery,
         titleText: 'Külső akkufeszültség',
-        text: battery.batteryDataDto.externalBatteryVoltage.toFixed(2),
+        text: fixedTwoDigits(battery.batteryDataDto.externalBatteryVoltage),
         unit: 'V',
       },
 
       {
         icon: GiCarBattery,
         titleText: 'Belső akkufeszültség',
-        text: battery.batteryDataDto.internalBatteryVoltage.toFixed(2),
+        text: fixedTwoDigits(battery.batteryDataDto.internalBatteryVoltage),
         unit: 'V',
       },
     ];
@@ -246,6 +254,20 @@ export default function HistoricData() {
       <TitleText>Dashboard</TitleText>
       <div className="container">
         <div className="row">
+          <CardBorder className="col text-center">
+            <GroupText htmlFor="stationId">Állomás választása:</GroupText>
+            <select
+              className="m-2"
+              value={station}
+              name="stations"
+              id="stations"
+              onChange={(e) => setStation(e.target.value)}
+            >
+              <option value="12">Szeged</option>
+            </select>
+          </CardBorder>
+        </div>
+        <div className="row">
           <CardBorder className="col">
             <GroupText>Vegyes adatok:</GroupText>
             <MiscGrid>
@@ -281,8 +303,8 @@ export default function HistoricData() {
                   ></MeasureCard>
                 </div>
               );
-            })}NavLink
-            ;
+            })}
+            NavLink ;
           </CardBorder>
         </div>
         <CardBorder>
