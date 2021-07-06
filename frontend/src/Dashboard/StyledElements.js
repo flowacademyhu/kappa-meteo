@@ -4,9 +4,12 @@ import styled from 'styled-components';
 
 export const CardStyle = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 0px -15px 30px 3px #c54b3c;
   border-radius: 20px;
+  &:hover {
+    box-shadow: 0px -15px 30px 3px #c54b3c;
+  }
 `;
+
 export const CardTitleText = styled.h5`
   color: #fff;
   text-align: center;
