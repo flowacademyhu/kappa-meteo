@@ -45,7 +45,7 @@ export const CardBody = styled.div`
   border-radius: 20px;
 
   &:hover {
-    box-shadow: 0px -15px 30px 3px #c54b3c;
+    box-shadow: 0px 0px 50px 15px #c54b3c;
     transition: transform 0.2s;
     transform: scale(1.1);
   }
@@ -74,4 +74,10 @@ export const StyledLabel = styled.label`
   display: inline-block;
   padding: 6px;
   cursor: pointer;
+
+  &:hover {
+    box-shadow: 0px 0px 15px 5px #c54b3c;
+    transition: transform 0.2s;
+    transform: scale(1.1);
+  }
 `;
