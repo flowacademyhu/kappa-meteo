@@ -14,6 +14,12 @@ import SideButtons from './SideButtons';
 import { GiWindsock, GiDrop } from 'react-icons/gi';
 import { RiBattery2ChargeLine, RiDatabaseLine } from 'react-icons/ri';
 import { FaTemperatureHigh } from 'react-icons/fa';
+import styled from 'styled-components';
+
+const NewDateRangePicker = styled(DateRangePicker)`
+  width: 90%;
+  justify-content: center;
+`;
 
 const dataTypes = [
   {
@@ -176,7 +182,8 @@ function Chart() {
         <div className="row text-center">
           <GroupBorder>
             <GroupText>Dátum választó</GroupText>
-            <DateRangePicker
+
+            <NewDateRangePicker
               editableDateInputs={true}
               rangeColors={['#c54b3c']}
               onChange={(item) => setDateState([item.selection])}
