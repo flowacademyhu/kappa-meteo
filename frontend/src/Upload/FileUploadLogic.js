@@ -101,7 +101,7 @@ const FileUploadLogic = () => {
           )}
           <div className="form-row mt-5">
             <StyledLabel htmlFor="file-upload" className="custom-file-upload m-2 p-3">
-              <i className="fa fa-cloud-upload"></i>File választása
+              <i className="fa fa-cloud-upload"></i>Fájl választása
             </StyledLabel>
             <StyledInput id="file-upload" type="file" onChange={onChange} />
           </div>

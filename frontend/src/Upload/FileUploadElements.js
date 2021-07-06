@@ -45,9 +45,7 @@ export const CardBody = styled.div`
   border-radius: 20px;
 
   &:hover {
-    box-shadow: 0px 0px 50px 15px #c54b3c;
-    transition: transform 0.2s;
-    transform: scale(1.1);
+    box-shadow: 0px 0px 50px 1px #fff;
   }
 `;
 
@@ -61,7 +59,7 @@ export const FooterText = styled.h3`
 `;
 
 export const StyledH1 = styled.h1`
-  color: red;
+  color: #c54b3c;
 `;
 
 export const StyledInput = styled.input`
