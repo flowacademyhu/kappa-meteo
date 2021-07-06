@@ -1,8 +1,8 @@
 import L from 'leaflet';
-import sunicon from './sun.png';
+import uRHere from './urhere.png';
 
 const UserIcon = new L.icon({
-  iconUrl: sunicon,
+  iconUrl: uRHere,
   iconSize: [64, 64],
 });
 
