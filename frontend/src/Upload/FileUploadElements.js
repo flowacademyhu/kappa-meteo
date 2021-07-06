@@ -23,8 +23,12 @@ export const HeroBg = styled.div`
   overflow: hidden;
 `;
 export const MenuWrapper = styled.div`
-  display: block;
-  padding-top: 400px;
+  display: flex;
+  top: 0;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const MyVideo = styled.video`
@@ -38,14 +42,17 @@ export const MyVideo = styled.video`
 //CARD
 
 export const CardBody = styled.div`
-  background-color: rgba(0, 0, 0, 0.8);
-  width: 800px;
-  height: 400px;
-  perspective: 1000px;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  top: 0;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-radius: 20px;
 
   &:hover {
-    box-shadow: 0px 0px 50px 1px #fff;
+    box-shadow: 0px 0px 10px 1px #fff;
   }
 `;
 
@@ -67,6 +74,7 @@ export const StyledInput = styled.input`
 `;
 
 export const StyledLabel = styled.label`
+  font-size: 20px;
   border: 1px solid #c54b3c;
   color: #fff;
   display: inline-block;

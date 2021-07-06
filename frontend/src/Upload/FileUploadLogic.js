@@ -3,7 +3,6 @@ import axios from 'axios';
 import Loading from './Loading';
 import Success from './Success';
 import Failed from './Failed';
-
 import { IconContext } from 'react-icons';
 import { ImUpload } from 'react-icons/im';
 
@@ -72,7 +71,7 @@ const FileUploadLogic = () => {
   return loading ? (
     <div className="container">
       <div className="row">
-        <CardBody className="card-body mx-auto text-center">
+        <CardBody className="card-body">
           <Loading />
         </CardBody>
       </div>
@@ -80,7 +79,7 @@ const FileUploadLogic = () => {
   ) : success ? (
     <div className="container">
       <div className="row">
-        <CardBody className="card-body mx-auto text-center">
+        <CardBody className="card-body">
           <Success success={success} setSuccess={setSuccess} />
         </CardBody>
       </div>
@@ -88,7 +87,7 @@ const FileUploadLogic = () => {
   ) : failed ? (
     <div className="container">
       <div className="row">
-        <CardBody className="card-body mx-auto text-center">
+        <CardBody className="card-body">
           <Failed failed={failed} setFailed={setFailed} />
         </CardBody>
       </div>
@@ -96,43 +95,44 @@ const FileUploadLogic = () => {
   ) : (
     <div className="container">
       <div className="row">
-        <CardBody className="card-body mx-auto text-center">
-          <IconContext.Provider value={{ color: '#c54b3c' }}>
-            <ImUpload size={100} />
-          </IconContext.Provider>
-          {file.size > 0 && !validateFile(file, names) && (
-            <StyledH1>Nem megfelelő a fájl!</StyledH1>
-          )}
-          <div className="form-row mt-5">
-            <StyledLabel
-              htmlFor="file-upload"
-              className="custom-file-upload m-2 p-3"
-            >
-              <i className="fa fa-cloud-upload"></i>Fájl választása
-            </StyledLabel>
-            <StyledInput id="file-upload" type="file" onChange={onChange} />
-          </div>
-          <div className="form-row">
-            {file.size > 0 && validateFile(file, names) && (
-              <div className="col p-2">
-                <button
-                  type="submit"
-                  className="btn btn-success"
-                  onClick={() => submit()}
-                >
-                  Feltöltés
-                </button>
-              </div>
+          <CardBody className="card-body">
+            <IconContext.Provider value={{ color: '#c54b3c' }}>
+              <ImUpload size={100} />
+            </IconContext.Provider>
+            {file.size > 0 && !validateFile(file, names) && (
+              <StyledH1>Nem megfelelő a fájl!</StyledH1>
             )}
-          </div>
-          <CardFooter className="card-footer">
-            <FooterText>
-              Válasszon fájlt, majd a megjelenitéshez töltse fel az adatbázisba!
-            </FooterText>
-          </CardFooter>
-        </CardBody>
+            <div className="form-row mt-5">
+              <StyledLabel
+                htmlFor="file-upload"
+                className="custom-file-upload m-2 p-3"
+              >
+                <i className="fa fa-cloud-upload"></i>Fájl választása
+              </StyledLabel>
+              <StyledInput id="file-upload" type="file" onChange={onChange} />
+            </div>
+            <div className="form-row">
+              {file.size > 0 && validateFile(file, names) && (
+                <div className="col p-2">
+                  <button
+                    type="submit"
+                    className="btn btn-success"
+                    onClick={() => submit()}
+                  >
+                    Feltöltés
+                  </button>
+                </div>
+              )}
+            </div>
+            <CardFooter className="card-footer">
+              <FooterText>
+                Válasszon fájlt, majd a megjelenitéshez töltse fel az
+                adatbázisba!
+              </FooterText>
+            </CardFooter>
+          </CardBody>
+        </div>
       </div>
-    </div>
   );
 };
 
