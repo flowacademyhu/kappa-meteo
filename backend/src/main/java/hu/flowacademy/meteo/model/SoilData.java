@@ -17,7 +17,7 @@ public class SoilData {
 
     @JsonIgnore
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private Double soilMoisture30cm;
     private Double soilMoisture60cm;

@@ -17,7 +17,7 @@ public class WindData {
 
     @JsonIgnore
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private Double windSpeed;
     private Double windDirection;
