@@ -5,7 +5,7 @@ const StyledSpinner = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 150px;
-  font-size: 50px;
+  font-size: 30px;
 `;
 
 const Loading = () => (

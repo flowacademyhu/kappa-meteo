@@ -38,7 +38,6 @@ const FileUploadLogic = () => {
         const response = await axios.get('/api/names/');
         setNames(response.data);
         setFile('');
-        console.log(response);
       } catch (err) {
         console.error('Error during api call:', err);
       }
@@ -50,17 +49,15 @@ const FileUploadLogic = () => {
     setLoading((loading) => !loading);
     const data = new FormData();
     data.append('file', file);
-    console.warn(file);
     let url = '/api/upload/';
     axios
       .post(url, data, {})
       .then((res) => {
-        console.warn(res);
         setLoading((loading) => !loading);
         setSuccess((success) => !success);
       })
       .catch((error) => {
-        console.log(error.message);
+        console.error(error.message);
         setLoading((loading) => !loading);
         setFailed((failed) => !failed);
       });
@@ -130,8 +127,7 @@ const FileUploadLogic = () => {
           </div>
           <CardFooter className="card-footer">
             <FooterText>
-              Válasszon fájlt, majd a megjelenitéshez töltse fel az
-              adatbázisába!
+              Válasszon fájlt, majd a megjelenitéshez töltse fel az adatbázisba!
             </FooterText>
           </CardFooter>
         </CardBody>
