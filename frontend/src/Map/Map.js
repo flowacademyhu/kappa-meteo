@@ -41,17 +41,6 @@ export default function Map() {
     });
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get('', {
-  //       mode: 'no-cors',
-  //     })
-  //     .then((response) => {
-  //       setWeather(response.data);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
-
   useEffect(() => {
     if (myPosition !== null) {
       setMyFirstPosition(myPosition);
@@ -108,7 +97,7 @@ export default function Map() {
         scrollWheelZoom={true}
         whenCreated={setMap}
       >
-        <MapTypeButton myPosition={myPosition} />
+        <MapTypeButton myPosition={myPosition} stations={stations} />
         <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
 
         <Markers stations={filteredStations(stations)} />

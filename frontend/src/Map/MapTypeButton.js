@@ -1,28 +1,14 @@
-import React, { useState, useEffect } from 'react';
-
+import React from 'react';
 import { LayersControl, TileLayer } from 'react-leaflet';
 import HeatLayer from './HeatLayer';
 
 const addressPoints = [
-  { lat: 46.219752, long: 20.196753, int: 50 },
-  { lat: 46.28048, long: 20.185456, int: 40 },
-  { lat: 46.252048, long: 20.175456, int: 80 },
+  { lat: 46.219752, long: 20.196753, int: 80 },
+  { lat: 46.28048, long: 20.185456, int: 50 },
+  { lat: 46.252048, long: 20.175456, int: 30 },
 ];
 
-export default function MapTypeButton() {
-  // const [addressPoints,setAdressPoint]=useState([]);
-
-  //   const useEffect = (() => {
-  //      axios
-  //     .get('', {
-  //       mode: 'no-cors',
-  //     })
-  //     .then((response) => {
-  //       setAddressPoint(response.data);
-  //     })
-  //     .catch((error) => console.log(error));
-  //   }, []);
-
+export default function MapTypeButton({ stations }) {
   return (
     <>
       <LayersControl position="topright">
@@ -40,7 +26,7 @@ export default function MapTypeButton() {
         </LayersControl.BaseLayer>
         <LayersControl.Overlay name="Heatmap">
           <HeatLayer
-            radius={200}
+            radius={60}
             blur={25}
             points={
               addressPoints
