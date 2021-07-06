@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-
 export const InfoStyle = styled.div`
   height: 100px;
   display: flex;
