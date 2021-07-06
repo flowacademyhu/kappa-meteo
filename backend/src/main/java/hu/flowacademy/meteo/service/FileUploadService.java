@@ -71,7 +71,7 @@ public class FileUploadService {
         List<Measurement> measurements = measurementRepository.saveAll(populateDataBase(reader, station, type));
         log.info("saved {} {} measurments at station: {} with id: {}", measurements.size(), type, station.getName(), station.getId());
         if (measurements.size() == 0) {
-            throw new ValidationException("Sikertelen feltöltés");
+            throw new ValidationException("File upload failed!");
         }
     }
 

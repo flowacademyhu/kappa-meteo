@@ -37,20 +37,20 @@ public class FileUploadController {
             log.error("Problem while uploading file {} : {} ", file.getOriginalFilename(), e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return ResponseEntity.ok("Sikeres fájl feltöltés.");
+        return ResponseEntity.ok("Successful file upload.");
     }
 
     public void validate(MultipartFile file) {
         if (!Objects.requireNonNull(file.getOriginalFilename()).matches("^.*(csv)$")) {
-            throw new ValidationException("Nem megfelelő a fájl tipusa!!!");
+            throw new ValidationException("Invalid file!!!");
         }
         if (!Objects.requireNonNull(file.getOriginalFilename()).contains("napi")
                 && !Objects.requireNonNull(file.getOriginalFilename()).contains("orai")
                 && !Objects.requireNonNull(file.getOriginalFilename()).contains("10perc")) {
-            throw new ValidationException("Nem megfelelő a fájl!!!");
+            throw new ValidationException("Invalid file!!!");
         }
         if (stationRepository.findFirstByName(getStationName(file.getOriginalFilename())).isEmpty()) {
-            throw new ValidationException("Nincs ilyen állomás!!!");
+            throw new ValidationException("There is no such station!");
         }
     }
 
