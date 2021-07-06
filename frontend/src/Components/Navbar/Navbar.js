@@ -39,7 +39,7 @@ const Navbar = ({ toggle }) => {
               </NavLinks>
             </NavItem>
             <NavItem>
-              <NavLinks to="/historicdata">
+              <NavLinks to="/dashboardtomap">
                 <NavLinkIcon>
                   <VscDashboard />
                 </NavLinkIcon>
