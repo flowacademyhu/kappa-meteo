@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loading from './Loading';
-import styled from 'styled-components';
 import Success from './Success';
 import Failed from './Failed';
 
-const StyledH1 = styled.h1`
-  color: red;
-`;
+import { IconContext } from 'react-icons';
+import { ImUpload } from 'react-icons/im';
 
-const StyledInput = styled.input`
-  display: none;
-`;
-
-const StyledLabel = styled.label`
-  border: 1px solid #ccc;
-  display: inline-block;
-  padding: 6px 12px;
-  cursor: pointer;
-`;
+import { FooterText, CardBody, CardFooter, StyledH1, StyledInput, StyledLabel } from './FileUploadElements.js';
 
 const validateFile = (file, names) => {
   let split = file.name.split('_');
@@ -77,30 +66,51 @@ const FileUpload = () => {
   };
 
   return loading ? (
-    <Loading />
-  ) : success ? (
-    <Success success={success} setSuccess={setSuccess} />
-  ) : failed ? (
-    <Failed failed={failed} setFailed={setFailed} />
-  ) : (
-    <div>
+    <div className="container">
       <div className="row">
-        <div className="col-md-6 offset-md-3 mt-5">
+        <CardBody className="card-body mx-auto text-center">
+          <Loading />
+        </CardBody>
+      </div>
+    </div>
+  ) : success ? (
+    <div className="container">
+      <div className="row">
+        <CardBody className="card-body mx-auto text-center">
+          <Success success={success} setSuccess={setSuccess} />
+        </CardBody>
+      </div>
+    </div>
+  ) : failed ? (
+    <div className="container">
+      <div className="row">
+        <CardBody className="card-body mx-auto text-center">
+          <Failed failed={failed} setFailed={setFailed} />
+        </CardBody>
+      </div>
+    </div>
+  ) : (
+    <div className="container">
+      <div className="row">
+        <CardBody className="card-body mx-auto text-center">
+          <IconContext.Provider value={{ color: '#c54b3c' }}>
+            <ImUpload size={100} />
+          </IconContext.Provider>
           {file.size > 0 && !validateFile(file, names) && (
-            <StyledH1>Nem megfelelő a fájl!!!</StyledH1>
+            <StyledH1>Nem megfelelő a fájl!</StyledH1>
           )}
           <div className="form-row mt-5">
             <StyledLabel htmlFor="file-upload" className="custom-file-upload">
-              <i className="fa fa-cloud-upload"></i>Válaszd ki a fájlt
+              <i className="fa fa-cloud-upload"></i>Tallózás
             </StyledLabel>
             <StyledInput id="file-upload" type="file" onChange={onChange} />
           </div>
           <div className="form-row">
             {file.size > 0 && validateFile(file, names) && (
-              <div className="col-md-6">
+              <div className="col p-4">
                 <button
                   type="submit"
-                  className="btn btn-dark"
+                  className="btn btn-success"
                   onClick={() => submit()}
                 >
                   Feltöltés
@@ -108,7 +118,13 @@ const FileUpload = () => {
               </div>
             )}
           </div>
-        </div>
+          <CardFooter className="card-footer">
+            <FooterText>
+              Válasszon fájlt, majd a megjelenitéshez töltse fel az
+              adatbázisába!
+            </FooterText>
+          </CardFooter>
+        </CardBody>
       </div>
     </div>
   );

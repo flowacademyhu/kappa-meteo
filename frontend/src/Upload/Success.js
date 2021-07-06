@@ -9,8 +9,8 @@ const StyledH1 = styled.h1`
 const Success = ({ success, setSuccess }) => {
   return (
     <>
-      <StyledH1>Sikeres fájl feltöltés!!!</StyledH1>
-      <NewUploadButton result={success} setResult={setSuccess} />
+      <StyledH1>Sikeres fájl feltöltés!</StyledH1>
+      <NewUploadButton className="d-flex" result={success} setResult={setSuccess} />
     </>
   );
 };

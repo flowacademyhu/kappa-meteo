@@ -9,7 +9,7 @@ const NewUploadButton = ({ result, setResult }) => {
   return (
     <>
       <Link to={'/upload'}>
-        <button onClick={() => backToNewUpload()} className="btn btn-success">
+        <button onClick={() => backToNewUpload()} className="btn btn-success m-4">
           Új fájl feltöltése
         </button>
       </Link>
