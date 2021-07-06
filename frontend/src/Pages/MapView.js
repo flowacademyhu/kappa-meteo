@@ -7,13 +7,12 @@ import rainy1 from '../Icon/AnimateIcon/rainy-1.svg';
 import rainy6 from '../Icon/AnimateIcon/rainy-6.svg';
 
 let icons = [cloudyday2, cloudy, day, rainy1, rainy6, day];
-var myrng = new Math.seedrandom('hello.');
 
 const iconChooser = (icons) => {
   let i = 0;
   let testArray = [];
   while (i < 238) {
-    let randomNum = Math.floor(myrng() * 6);
+    let randomNum = Math.floor(Math.random() * 6);
     let icon = icons[randomNum];
     testArray.push(icon);
     i++;
