@@ -7,7 +7,14 @@ import Failed from './Failed';
 import { IconContext } from 'react-icons';
 import { ImUpload } from 'react-icons/im';
 
-import { FooterText, CardBody, CardFooter, StyledH1, StyledInput, StyledLabel } from './FileUploadElements.js';
+import {
+  FooterText,
+  CardBody,
+  CardFooter,
+  StyledH1,
+  StyledInput,
+  StyledLabel,
+} from './FileUploadElements.js';
 
 const validateFile = (file, names) => {
   let split = file.name.split('_');
@@ -100,7 +107,10 @@ const FileUploadLogic = () => {
             <StyledH1>Nem megfelelő a fájl!</StyledH1>
           )}
           <div className="form-row mt-5">
-            <StyledLabel htmlFor="file-upload" className="custom-file-upload m-2 p-3">
+            <StyledLabel
+              htmlFor="file-upload"
+              className="custom-file-upload m-2 p-3"
+            >
               <i className="fa fa-cloud-upload"></i>Fájl választása
             </StyledLabel>
             <StyledInput id="file-upload" type="file" onChange={onChange} />

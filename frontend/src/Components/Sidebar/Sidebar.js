@@ -11,7 +11,7 @@ import {
   SidebarMenu,
   SidebarLink,
   SidebarButtonWrap,
-  SidebarButton
+  SidebarButton,
 } from './SidebarElements';
 
 export default function Sidebar({ isOpen, toggle }) {

@@ -11,7 +11,11 @@ const Success = ({ success, setSuccess }) => {
   return (
     <>
       <StyledH1>Sikeres fájl feltöltés!</StyledH1>
-      <NewUploadButton className="d-flex" result={success} setResult={setSuccess} />
+      <NewUploadButton
+        className="d-flex"
+        result={success}
+        setResult={setSuccess}
+      />
     </>
   );
 };
