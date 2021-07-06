@@ -13,7 +13,7 @@ export const SwiperContainer = styled.div`
 //FLIPCARDS
 
 export const FlipCardBody = styled.div`
-  padding-top: 15px;
+  padding-top: 20px;
   background-color: transparent;
   width: 300px;
   height: 300px;
@@ -58,7 +58,7 @@ export const FlipCardBack = styled.div`
 `;
 
 export const CardFooter = styled.div`
-  margin-top: 15px;
+  margin-top: 10px;
 `;
 
 export const FooterText = styled.h1`
