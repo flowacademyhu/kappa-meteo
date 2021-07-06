@@ -11,7 +11,7 @@ const StyledSpinner = styled.div`
 const Loading = () => (
   <>
     <StyledSpinner>
-      <div class="spinner-border text-primary" role="status">
+      <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden"></span>
       </div>
       <div class="spinner-border text-success" role="status">

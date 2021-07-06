@@ -52,7 +52,7 @@ export const CardBody = styled.div`
   border-radius: 20px;
 
   &:hover {
-    box-shadow: 0px 0px 10px 1px #fff;
+    box-shadow: 0px 0px 30px 10px #c54b3c;
   }
 `;
 
@@ -75,14 +75,14 @@ export const StyledInput = styled.input`
 
 export const StyledLabel = styled.label`
   font-size: 20px;
-  border: 1px solid #c54b3c;
+  border: 1px solid green;
   color: #fff;
   display: inline-block;
   padding: 6px;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0px 0px 15px 5px #c54b3c;
+    box-shadow: 0px 0px 15px 5px green;
     transition: transform 0.2s;
     transform: scale(1.1);
   }
