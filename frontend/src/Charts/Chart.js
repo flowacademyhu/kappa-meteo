@@ -6,7 +6,7 @@ import SoilChart from './SoilChart';
 import WindChart from './WindChart';
 import moment from 'moment';
 import axios from 'axios';
-import { DateRange } from 'react-date-range';
+import { DateRangePicker } from 'react-date-range';
 import { GroupText, GroupBorder, SideNav } from './ChartStyle.js';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -108,10 +108,24 @@ function Chart() {
         <div className="row text-center">
           <GroupBorder>
             <GroupText>Dátum választó</GroupText>
-            <DateRange
+            <DateRangePicker
               editableDateInputs={true}
               rangeColors={['#c54b3c']}
               onChange={(item) => setDateState([item.selection])}
+              staticRanges={[
+                {
+                  label: 'Mai nap',
+                  hasCustomRendering: false,
+                  range: () => ({
+                    startDate: new Date('2021-04-30'),
+                    endDate: new Date('2021-04-30'),
+                  }),
+                  isSelected() {
+                    return true;
+                  },
+                },
+              ]}
+              inputRanges={[]}
               moveRangeOnFirstSelection={false}
               ranges={dateState}
               minDate={new Date('2021-01-01')}
