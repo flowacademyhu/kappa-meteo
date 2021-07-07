@@ -158,10 +158,6 @@ function Chart() {
     return moment(date).format('YYYY-MM-DD');
   };
 
-  const xAxisDateFormat = (date) => {
-    return moment(date).format('MM-DD');
-  };
-
   const chartDateFormat = (date) => {
     return moment(date).format('MM-DD HH:mm');
   };
