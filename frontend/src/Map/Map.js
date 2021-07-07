@@ -8,6 +8,13 @@ import UserIcon from '../Icon/UserIcon';
 import Zoom from './Zoom';
 import MapTypeButton from './MapTypeButton';
 import Markers from './Markers';
+import cloudyday2 from '../Icon/AnimateIcon/cloudy-day-2.svg';
+import cloudy from '../Icon/AnimateIcon/cloudy.svg';
+import day from '../Icon/AnimateIcon/day.svg';
+import rainy1 from '../Icon/AnimateIcon/rainy-1.svg';
+import rainy6 from '../Icon/AnimateIcon/rainy-6.svg';
+
+const icons = [cloudyday2, cloudy, day, rainy1, rainy6, day];
 
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
@@ -53,7 +60,14 @@ export default function Map() {
         mode: 'no-cors',
       })
       .then((response) => {
-        setStations(response.data);
+        setStations(
+          response.data.map((el) => {
+            return {
+              ...el,
+              icon: icons[Math.floor(Math.random() * icons.length)],
+            };
+          })
+        );
       })
       .catch((error) => console.log(error));
   }, []);
