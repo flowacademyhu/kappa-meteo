@@ -32,7 +32,7 @@ import Loader from './Loader.js';
 
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
-  const [stationId, setStation] = useState(undefined);
+  const [stationId, setStationId] = useState();
   const [stationsWithData, setStationsWithData] = useState(null);
   const { id } = useParams();
 
@@ -289,7 +289,7 @@ export default function HistoricData() {
               value={stationId}
               name="stations"
               id="stations"
-              onChange={(e) => setStation(e.target.value)}
+              onChange={(e) => setStationId(e.target.value)}
             >
               <option defaultValue value="">
                 -

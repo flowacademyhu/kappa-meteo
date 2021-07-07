@@ -122,7 +122,7 @@ function Chart() {
   const [typeGroup, setTypeGroup] = useState('air');
   const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
-  const [stationId, setStation] = useState(undefined);
+  const [stationId, setStationId] = useState();
   const [stationsWithData, setStationsWithData] = useState(null);
   const [dateState, setDateState] = useState([
     {
@@ -221,7 +221,7 @@ function Chart() {
                   value={stationId}
                   name="stations"
                   id="stations"
-                  onChange={(e) => setStation(e.target.value)}
+                  onChange={(e) => setStationId(e.target.value)}
                 >
                   <option defaultValue value="">
                     -

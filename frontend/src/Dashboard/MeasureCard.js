@@ -8,7 +8,7 @@ import {
 } from './StyledElements';
 
 const fixedTwoDigits = (text) => {
-  if (typeof text != 'string') {
+  if (typeof text === 'number') {
     return text?.toFixed(2);
   }
   return text;
