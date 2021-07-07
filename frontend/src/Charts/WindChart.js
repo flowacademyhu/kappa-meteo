@@ -1,6 +1,5 @@
 import React from 'react';
 import GeneralChart from './GeneralChart.js';
-import { AreaChart } from 'recharts';
 
 const axisLabel = [
   { dataKey: 'windSpeed', value: 'Szélsebesség km/h', stroke: '#c54b3c' },

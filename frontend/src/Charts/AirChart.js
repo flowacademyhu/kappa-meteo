@@ -1,6 +1,5 @@
 import React from 'react';
 import GeneralChart from './GeneralChart.js';
-import { LineChart } from 'recharts';
 
 const axisLabel = [
   { dataKey: 'airTemperature', value: 'Hőmérséklet C', stroke: '#c54b3c' },
