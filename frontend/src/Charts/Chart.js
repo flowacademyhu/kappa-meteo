@@ -122,7 +122,8 @@ function Chart() {
   const [typeGroup, setTypeGroup] = useState('air');
   const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
-  const [station, setStation] = useState(42);
+  const [stationId, setStation] = useState(undefined);
+  const [stationsWithData, setStationsWithData] = useState(null);
   const [dateState, setDateState] = useState([
     {
       startDate: new Date('2021-04-24'),
@@ -134,8 +135,20 @@ function Chart() {
   useEffect(() => {
     async function fetchData() {
       try {
+        const response = await axios.get(`/api/stations/hasdata`);
+        response.data && setStationsWithData(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
         const response = await axios.get(
-          `/api/stations/${station}/${typeGroup}?start=${dateFormat(
+          `/api/stations/${stationId}/${typeGroup}?start=${dateFormat(
             dateState[0].startDate
           )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
         );
@@ -152,7 +165,7 @@ function Chart() {
       }
     }
     fetchData();
-  }, [dataType, station, dateState, typeGroup]);
+  }, [dataType, stationId, dateState, typeGroup]);
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD');
@@ -182,7 +195,6 @@ function Chart() {
         <div className="row text-center">
           <GroupBorder>
             <GroupText>Dátum választó</GroupText>
-
             <NewDateRangePicker
               editableDateInputs={true}
               rangeColors={['#c54b3c']}
@@ -206,12 +218,20 @@ function Chart() {
                 <label htmlFor="stationId">Állomás választása:</label>
                 <select
                   className="m-4"
-                  value={station}
+                  value={stationId}
                   name="stations"
                   id="stations"
                   onChange={(e) => setStation(e.target.value)}
                 >
-                  <option value="12">Szeged</option>
+                  <option defaultValue value="">
+                    -
+                  </option>
+                  {stationsWithData &&
+                    stationsWithData.map((el) => (
+                      <option key={el.id} value={el.id}>
+                        {el.name}
+                      </option>
+                    ))}
                 </select>
               </div>
               <div className="col">
