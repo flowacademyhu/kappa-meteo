@@ -42,7 +42,7 @@ export const MyVideo = styled.video`
 //CARD
 
 export const CardBody = styled.div`
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   top: 0;
   height: 100%;
@@ -50,10 +50,7 @@ export const CardBody = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-
-  &:hover {
-    box-shadow: 0px 0px 30px 10px #c54b3c;
-  }
+  box-shadow: 0px 0px 10px 2px #c54b3c;
 `;
 
 export const CardFooter = styled.div`

@@ -1,5 +1,5 @@
 import React from 'react';
-import Video from '../videos/fileupload.mp4';
+import Video from '../videos/Fileupload.mp4';
 import {
   HeroContainer,
   HeroBg,
