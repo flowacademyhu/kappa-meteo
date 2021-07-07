@@ -148,6 +148,7 @@ public class FileUploadService {
         } catch (IOException e) {
             log.error("Error while opening reader: {}", e.getMessage());
         }
+        stationRepository.save(station.toBuilder().hasData(true).build());
         return list;
     }
 }

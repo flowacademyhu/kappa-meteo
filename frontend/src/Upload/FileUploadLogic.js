@@ -34,7 +34,7 @@ const FileUploadLogic = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('/api/names/');
+        const response = await axios.get('/api/stations/names/');
         setNames(response.data);
         setFile('');
       } catch (err) {

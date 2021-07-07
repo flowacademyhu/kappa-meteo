@@ -1,4 +1,21 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+export const InfoStyle = styled.div`
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px -15px 30px 3px #c54b3c;
+  border-radius: 20px;
+  margin-top: 250px;
+`;
+export const NavLink = styled(Link)`
+  color: #fff !important;
+  text-decoration: none;
+  cursor: pointer;
+`;
 
 //CARDS
 
@@ -35,13 +52,12 @@ export const StyleZoom = styled.div`
 export const TitleText = styled.h1`
   color: #fff;
   text-align: center;
-  padding-bottom: 50px;
+  margin: 50px;
   text-shadow: 2px 2px black;
 `;
 export const GroupText = styled.h4`
   color: #fff;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  margin: 10px;
   text-shadow: 2px 2px black;
 `;
 export const CardBorder = styled.div`

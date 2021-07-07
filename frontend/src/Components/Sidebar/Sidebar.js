@@ -28,7 +28,7 @@ export default function Sidebar({ isOpen, toggle }) {
             </NavLinkIcon>
             Térképnézet
           </SidebarLink>
-          <SidebarLink onClick={toggle} to="historicdata">
+          <SidebarLink onClick={toggle} to="dashboardtomap">
             <NavLinkIcon>
               <VscDashboard />
             </NavLinkIcon>
