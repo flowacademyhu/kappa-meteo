@@ -1,6 +1,5 @@
 import React from 'react';
 import GeneralChart from './GeneralChart.js';
-import { AreaChart } from 'recharts';
 
 const axisLabel = [
   {

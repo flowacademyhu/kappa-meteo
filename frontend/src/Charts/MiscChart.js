@@ -1,6 +1,5 @@
 import React from 'react';
 import GeneralChart from './GeneralChart.js';
-import { LineChart } from 'recharts';
 
 const axisLabel = [
   { dataKey: 'irradiation', value: 'Besugárzás W/m2', stroke: '#c54b3c' },
