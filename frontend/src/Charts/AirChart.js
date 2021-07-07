@@ -21,6 +21,7 @@ const AirChart = ({ linedata }) => {
       axisLabel={axisLabel}
       labels={labels}
       Chart={LineChart}
+      isLineChart={true}
     />
   );
 };

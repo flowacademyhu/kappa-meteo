@@ -229,25 +229,10 @@ function Chart() {
               </div>
             </div>
             {typeGroup === 'air' && <AirChart linedata={linedata} />}
-            {typeGroup === 'battery' && (
-              <BatteryChart
-                linedata={linedata}
-                xAxisDateFormat={xAxisDateFormat}
-              />
-            )}
-            {typeGroup === 'misc' && (
-              <MiscChart
-                linedata={linedata}
-                xAxisDateFormat={xAxisDateFormat}
-              />
-            )}
+            {typeGroup === 'battery' && <BatteryChart linedata={linedata} />}
+            {typeGroup === 'misc' && <MiscChart linedata={linedata} />}
             {typeGroup === 'soil' && <SoilChart linedata={linedata} />}
-            {typeGroup === 'wind' && (
-              <WindChart
-                linedata={linedata}
-                xAxisDateFormat={xAxisDateFormat}
-              />
-            )}
+            {typeGroup === 'wind' && <WindChart linedata={linedata} />}
           </GroupBorder>
         </div>
       </div>
