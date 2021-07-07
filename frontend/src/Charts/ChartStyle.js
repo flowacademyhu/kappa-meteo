@@ -25,6 +25,7 @@ export const SideNav = styled.div`
   align-items: center;
   position: fixed;
   z-index: 999;
+  pointer-events: none;
 `;
 
 export const StyledButton = styled.button`
@@ -39,6 +40,7 @@ export const StyledButton = styled.button`
   border-radius: 15px;
   text-align: left !important;
   background-color: #c54b3c;
+  pointer-events: auto;
 
   &:hover {
     left: 0;
