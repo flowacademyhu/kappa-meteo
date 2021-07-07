@@ -21,7 +21,7 @@ export default function MapTypeButton({ stations }) {
         <LayersControl.Overlay name="Heatmap">
           <HeatLayer
             radius={100}
-            blur={10}
+            blur={25}
             gradient={{
               0: 'green',
               50: 'yellow',
