@@ -1,37 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { LayersControl, TileLayer } from 'react-leaflet';
 import HeatLayer from './HeatLayer';
 
-const addressPoints = [
-  { lat: 46.219752, long: 20.196753, int: 80 },
-  { lat: 46.28048, long: 20.185456, int: 50 },
-  { lat: 46.252048, long: 20.175456, int: 30 },
-];
-
 export default function MapTypeButton({ stations }) {
+  const [stationList, setStationList] = useState(null);
+
+  useEffect(() => {
+    if (stations) {
+      let tempArray = [];
+      stations?.forEach((element) => {
+        if (element.longitude !== null && element.latitude !== null) {
+          tempArray.push({
+            id: element.id,
+            name: element.name,
+            longitude: element.longitude,
+            latitude: element.latitude,
+            intensity: element.intensity,
+          });
+        }
+      });
+      setStationList(tempArray);
+    }
+  }, [stations]);
+
   return (
     <>
       <LayersControl position="topright">
         <LayersControl.BaseLayer checked name="Normal">
           <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer name="Black-White">
           <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
+            url="https://tiles.wmflabs.org/bw-mapnik/%7Bz%7D/%7Bx%7D/%7By%7D.png"
           />
         </LayersControl.BaseLayer>
         <LayersControl.Overlay name="Heatmap">
           <HeatLayer
-            radius={60}
+            radius={100}
             blur={25}
             points={
-              addressPoints
-                ? addressPoints.map((p) => {
-                    return [p.lat, p.long, p.int]; // lat lng intensity
+              stationList
+                ? stationList.map((p) => {
+                    return [p.latitude, p.longitude, p.intensity]; // lat lng intensity
                   })
                 : []
             }

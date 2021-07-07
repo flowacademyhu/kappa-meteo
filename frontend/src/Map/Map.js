@@ -79,7 +79,7 @@ export default function Map() {
 
   const filteredStations = (stations) => {
     if (zoomLevel < 10) {
-      return stations.filter((station) => mainStation.includes(station.name));
+      return stations?.filter((station) => mainStation.includes(station.name));
     } else {
       return stations;
     }

@@ -16,6 +16,7 @@ public class StationDto {
     private String name;
     private Double longitude;
     private Double latitude;
+    private int intensity;
 
     public static StationDto toDto(Station station) {
         StationDto stationDto = new StationDto();
@@ -23,6 +24,7 @@ public class StationDto {
         stationDto.setName(station.getName());
         stationDto.setLongitude(station.getLongitude());
         stationDto.setLatitude(station.getLatitude());
+        stationDto.setIntensity((int)Math.floor(Math.random()*98)+1);
         return stationDto;
     }
 }
