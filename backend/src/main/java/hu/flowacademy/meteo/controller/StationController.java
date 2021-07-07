@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
 @Slf4j
+@RestController
 public class StationController {
 
     private final StationService stationService;
 
     @Autowired
-    public StationController(StationService stationService){
+    public StationController(StationService stationService) {
         this.stationService = stationService;
     }
 
@@ -26,5 +26,12 @@ public class StationController {
         List<StationDto> stationDTOList = stationService.listStations().stream().map(StationDto::toDto).collect(Collectors.toList());
         log.info("Get {} (all) stationDTO.", stationDTOList.size());
         return stationDTOList;
+    }
+
+    @GetMapping("names")
+    public List<String> listAllNames() {
+        List<String> stationNameList = stationService.getAllNames();
+        log.info("Get {} station names.", stationNameList.size());
+        return stationNameList;
     }
 }

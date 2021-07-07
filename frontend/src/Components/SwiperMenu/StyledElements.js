@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 
 export const SwiperContainer = styled.div`
   width: 100%;
-  padding-top: 50px;
-  padding-bottom: 220px;
+  overflow: visible !important;
 `;
 
 //FLIPCARDS
 
 export const FlipCardBody = styled.div`
+  padding-top: 25px;
   background-color: transparent;
   width: 300px;
   height: 300px;
@@ -40,6 +40,7 @@ export const FlipCardFront = styled.div`
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  box-shadow: 0px 0px 10px 5px #fff;
 `;
 
 export const FlipCardBack = styled.div`
@@ -51,10 +52,11 @@ export const FlipCardBack = styled.div`
   background-color: #c54b3c;
   border-radius: 20px;
   transform: rotateY(180deg);
+  box-shadow: 0px 0px 10px 5px #fff;
 `;
 
 export const CardFooter = styled.div`
-  margin-top: 15px;
+  margin-top: 5px;
 `;
 
 export const FooterText = styled.h1`
@@ -72,11 +74,11 @@ export const RearFooterText = styled.h5`
   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
   color: white;
   text-align: center;
-  padding: 30px;
+  padding: 25px;
 `;
 
 export const RearTitleText = styled.h1`
   color: black;
   text-align: center;
-  padding: 30px;
+  padding: 20px;
 `;

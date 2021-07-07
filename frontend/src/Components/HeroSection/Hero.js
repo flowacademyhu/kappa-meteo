@@ -1,5 +1,5 @@
 import React from 'react';
-import Video from '../../videos/video2.mp4';
+import Video from '../../videos/Welcome.mp4';
 import { HeroContainer, HeroBg, MenuWrapper, MyVideo } from './HeroElements';
 
 import SwiperMenu from '../SwiperMenu/Menu';

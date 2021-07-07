@@ -122,7 +122,7 @@ function Chart() {
   const [typeGroup, setTypeGroup] = useState('air');
   const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
-  const [station, setStation] = useState(12);
+  const [station, setStation] = useState(42);
   const [dateState, setDateState] = useState([
     {
       startDate: new Date('2021-04-24'),
