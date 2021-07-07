@@ -18,6 +18,7 @@
     "d3-array": "^2.3.3",
     "date-fns": "^2.22.1",
     "leaflet": "^1.7.1",
+    "leaflet.heat": "^0.2.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "node-sass": "^6.0.0",
