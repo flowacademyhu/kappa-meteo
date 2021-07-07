@@ -1,34 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { LayersControl, TileLayer } from 'react-leaflet';
 import HeatLayer from './HeatLayer';
 
 export default function MapTypeButton({ stations }) {
-  const [stationList, setStationList] = useState(null);
-
-  useEffect(() => {
-    if (stations) {
-      let tempArray = [];
-      stations?.forEach((element) => {
-        if (element.longitude !== null && element.latitude !== null) {
-          tempArray.push({
-            id: element.id,
-            name: element.name,
-            longitude: element.longitude,
-            latitude: element.latitude,
-            intensity: element.intensity,
-          });
-        }
-      });
-      setStationList(tempArray);
-    }
-  }, [stations]);
-
   return (
     <>
       <LayersControl position="topright">
         <LayersControl.BaseLayer checked name="Normal">
           <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
         </LayersControl.BaseLayer>
@@ -41,12 +21,19 @@ export default function MapTypeButton({ stations }) {
         <LayersControl.Overlay name="Heatmap">
           <HeatLayer
             radius={100}
-            blur={25}
+            blur={10}
+            gradient={{
+              0: 'green',
+              50: 'yellow',
+              100: 'red',
+            }}
             points={
-              stationList
-                ? stationList.map((p) => {
-                    return [p.latitude, p.longitude, p.intensity]; // lat lng intensity
-                  })
+              stations
+                ? stations.map((station) => [
+                    station.latitude,
+                    station.longitude,
+                    station.intensity,
+                  ])
                 : []
             }
           />

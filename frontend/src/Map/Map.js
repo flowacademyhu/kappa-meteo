@@ -85,6 +85,12 @@ export default function Map() {
     }
   };
 
+  const filterStationLatLong = (stations) => {
+    return stations.filter(
+      (station) => station.latitude !== null && station.longitude !== null
+    );
+  };
+
   return (
     <>
       <StyledMapContainer
@@ -97,11 +103,12 @@ export default function Map() {
         scrollWheelZoom={true}
         whenCreated={setMap}
       >
-        <MapTypeButton myPosition={myPosition} stations={stations} />
+        <MapTypeButton
+          myPosition={myPosition}
+          stations={filterStationLatLong(stations)}
+        />
         <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
-
-        <Markers stations={filteredStations(stations)} />
-
+        <Markers stations={filteredStations(filterStationLatLong(stations))} />
         {myPosition.latitude !== null && (
           <>
             <Marker
