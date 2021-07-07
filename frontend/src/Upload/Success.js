@@ -4,7 +4,6 @@ import NewUploadButton from './NewUploadButton';
 
 const StyledH1 = styled.h1`
   color: green;
-  margin-top: 100px;
 `;
 
 const Success = ({ success, setSuccess }) => {

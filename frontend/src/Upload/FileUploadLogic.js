@@ -113,10 +113,10 @@ const FileUploadLogic = () => {
           </div>
           <div className="form-row">
             {file.size > 0 && validateFile(file, names) && (
-              <div className="col p-2">
+              <div className="col p-4">
                 <button
                   type="submit"
-                  className="btn btn-success"
+                  className="btn btn-success p-2"
                   onClick={() => submit()}
                 >
                   Feltöltés
