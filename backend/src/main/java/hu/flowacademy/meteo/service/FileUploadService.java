@@ -90,6 +90,9 @@ public class FileUploadService {
         try (BufferedReader br = new BufferedReader(reader)) {
             Map<String, Integer> dataMap = getKeys(br.readLine());
             log.debug("Found {} keys!!!", dataMap.size());
+            if (dataMap.size() < 2) {
+                throw new ValidationException("Error while reading file");
+            }
             int counter = 1;
             while ((line = br.readLine()) != null) {
                 try {

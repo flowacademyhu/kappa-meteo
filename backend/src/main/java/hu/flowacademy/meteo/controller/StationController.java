@@ -30,8 +30,7 @@ public class StationController {
 
     @GetMapping("names")
     public List<String> listAllNames() {
-        List<String> stationNameList = stationService.listStations().stream().map(StationDto::toDto).map(StationDto::getName).
-                collect(Collectors.toList());
+        List<String> stationNameList = stationService.getAllNames();
         log.info("Get {} station names.", stationNameList.size());
         return stationNameList;
     }
