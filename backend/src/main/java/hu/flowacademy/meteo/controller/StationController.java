@@ -1,8 +1,6 @@
 package hu.flowacademy.meteo.controller;
 
 import hu.flowacademy.meteo.dto.StationDto;
-import hu.flowacademy.meteo.repository.MeasurementRepository;
-import hu.flowacademy.meteo.repository.StationRepository;
 import hu.flowacademy.meteo.service.StationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +15,10 @@ import java.util.stream.Collectors;
 public class StationController {
 
     private final StationService stationService;
-    private final MeasurementRepository measurementRepository;
-    private final StationRepository stationRepository;
 
     @Autowired
-    public StationController(StationService stationService, MeasurementRepository measurementRepository, StationRepository stationRepository) {
+    public StationController(StationService stationService {
         this.stationService = stationService;
-        this.measurementRepository = measurementRepository;
-        this.stationRepository = stationRepository;
     }
 
     @GetMapping("stations")
@@ -36,6 +30,6 @@ public class StationController {
 
     @GetMapping("hasdata")
     public List<StationDto> listAllWithData() {
-        return stationRepository.findAll().stream().map(StationDto::toDto).filter(StationDto::isHasData).collect(Collectors.toList());
+        return stationService.listStations().stream().map(StationDto::toDto).filter(StationDto::isHasData).collect(Collectors.toList());
     }
 }

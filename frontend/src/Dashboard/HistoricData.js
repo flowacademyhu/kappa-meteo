@@ -33,7 +33,7 @@ import Loader from './Loader.js';
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
   const [station, setStation] = useState('');
-  const [stationsHasData, setStationsHasData] = useState([]);
+  const [stationsWithData, setStationsWithData] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function HistoricData() {
     async function fetchData() {
       try {
         const response = await axios.get(`/api/hasdata`);
-        response.data && setStationsHasData(response.data);
+        response.data && setStationsWithData(response.data);
       } catch (err) {
         console.error(err);
       }
@@ -278,7 +278,7 @@ export default function HistoricData() {
 
   return (
     <>
-      {stationsHasData.length < 1 ? (
+      {stationsWithData.length < 1 ? (
         <div className="container">
           <Loader />
         </div>
@@ -294,7 +294,7 @@ export default function HistoricData() {
               onChange={(e) => setStation(e.target.value)}
             >
               <option defaultValue>-</option>
-              {stationsHasData.map((el) => (
+              {stationsWithData.map((el) => (
                 <option key={el.id} value={el.id}>
                   {el.name}
                 </option>
