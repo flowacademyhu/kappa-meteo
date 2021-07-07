@@ -65,6 +65,7 @@ const SoilChart = ({ linedata }) => {
       axisLabel={axisLabel}
       labels={labels}
       Chart={LineChart}
+      isLineChart={true}
     />
   );
 };

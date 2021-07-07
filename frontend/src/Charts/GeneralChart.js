@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import {
   ResponsiveContainer,
   Line,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
+  AreaChart,
+  LineChart,
 } from 'recharts';
 import MyCheckbox from '../Components/Input/MyCheckbox';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,7 +19,7 @@ const xAxisDateFormat = (date) => {
   return moment(date).format('MM-DD');
 };
 
-const GeneralChart = ({ linedata, axisLabel, labels, Chart }) => {
+const GeneralChart = ({ linedata, axisLabel, labels, isLineChart }) => {
   const [measurementGroup, setMeasurementGroup] = useState([]);
 
   const changeMeasurement = (data) => {
@@ -29,6 +32,9 @@ const GeneralChart = ({ linedata, axisLabel, labels, Chart }) => {
       }
     }
   };
+
+  const Chart = isLineChart ? LineChart : AreaChart;
+  const ChartData = isLineChart ? Line : Area;
 
   return (
     linedata !== null &&
@@ -82,7 +88,7 @@ const GeneralChart = ({ linedata, axisLabel, labels, Chart }) => {
             {labels.map((label, index) => {
               if (measurementGroup.includes(label.dataKey)) {
                 return (
-                  <Line
+                  <ChartData
                     key={index}
                     type="monotone"
                     dataKey={label.dataKey}
