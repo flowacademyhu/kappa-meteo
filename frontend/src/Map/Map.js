@@ -62,7 +62,10 @@ export default function Map() {
       .then((response) => {
         setStations(
           response.data.map((el) => {
-            return { ...el, icon: icons[Math.floor(Math.random() * 6)] };
+            return {
+              ...el,
+              icon: icons[Math.floor(Math.random() * icons.length)],
+            };
           })
         );
       })
