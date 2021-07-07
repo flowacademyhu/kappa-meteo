@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
 @Slf4j
+@RestController
 public class StationController {
 
     private final StationService stationService;
@@ -31,5 +31,12 @@ public class StationController {
     @GetMapping("hasdata")
     public List<StationDto> listAllWithData() {
         return stationService.listStations().stream().map(StationDto::toDto).filter(StationDto::isHasData).collect(Collectors.toList());
+    }
+
+    @GetMapping("names")
+    public List<String> listAllNames() {
+        List<String> stationNameList = stationService.getAllNames();
+        log.info("Get {} station names.", stationNameList.size());
+        return stationNameList;
     }
 }

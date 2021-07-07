@@ -16,15 +16,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
 @Slf4j
+@RestController
 public class DataController {
 
     private final MeasurementService measurementService;
     private static final String API_DATE = "yyyy-MM-dd";
 
     @Autowired
-    public DataController(MeasurementService measurementService){
+    public DataController(MeasurementService measurementService) {
         this.measurementService = measurementService;
     }
 
