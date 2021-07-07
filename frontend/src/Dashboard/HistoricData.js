@@ -67,7 +67,7 @@ export default function HistoricData() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`/api/hasdata`);
+        const response = await axios.get(`/api/stations/hasdata`);
         response.data && setStationsWithData(response.data);
       } catch (err) {
         console.error(err);
