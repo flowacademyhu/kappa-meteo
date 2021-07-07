@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Transactional
 @Service
+@Transactional
 @Slf4j
 public class StationService {
 
@@ -25,6 +26,10 @@ public class StationService {
         List<Station> stationlist = stationRepository.findAll();
         log.debug("Number of all stations: {}", stationlist.size());
         return stationlist;
+    }
+
+    public List<String> getAllNames() {
+        return stationRepository.findAll().stream().map(Station::getName).collect(Collectors.toList());
     }
 }
 
