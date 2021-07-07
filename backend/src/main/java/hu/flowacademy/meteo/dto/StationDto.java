@@ -18,7 +18,7 @@ public class StationDto {
     private String name;
     private Double longitude;
     private Double latitude;
-    private int intensity;ű
+    private int intensity;
     private boolean hasData;
 
     public static StationDto toDto(Station station) {
