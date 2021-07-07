@@ -28,19 +28,20 @@ import { VscDashboard } from 'react-icons/vsc';
 import { GiDrop, GiChaliceDrops, GiCarBattery } from 'react-icons/gi';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
-import Loader from './Loader.js';
+import StationSelector from '../StationSelector.js';
 
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
   const [stationId, setStationId] = useState();
-  const [stationsWithData, setStationsWithData] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get(`/api/latest?stationId=${id}`);
-        response.data && setWeatherData(response.data);
+        if (response.data) {
+          setWeatherData(response.data);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -55,7 +56,9 @@ export default function HistoricData() {
           const response = await axios.get(
             `/api/latest?stationId=${stationId}`
           );
-          response.data && setWeatherData(response.data);
+          if (response.data) {
+            setWeatherData(response.data);
+          }
         } catch (err) {
           console.error(err);
         }
@@ -63,18 +66,6 @@ export default function HistoricData() {
     }
     fetchData();
   }, [stationId]);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(`/api/stations/hasdata`);
-        response.data && setStationsWithData(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    fetchData();
-  }, []);
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD HH:mm');
@@ -276,33 +267,21 @@ export default function HistoricData() {
 
   return (
     <>
-      {stationsWithData === null ? (
-        <div className="container">
-          <Loader />
-        </div>
-      ) : (
-        <div className="container">
-          <CardBorder className="col text-center">
-            <GroupText htmlFor="stationId">Állomás választása:</GroupText>
-            <select
-              className="m-2"
-              value={stationId}
-              name="stations"
-              id="stations"
-              onChange={(e) => setStationId(e.target.value)}
-            >
-              <option defaultValue value="">
-                -
-              </option>
-              {stationsWithData.map((el) => (
-                <option key={el.id} value={el.id}>
-                  {el.name}
-                </option>
-              ))}
-            </select>
-          </CardBorder>
-        </div>
-      )}
+      <div className="container">
+        <CardBorder className="col text-center">
+          <GroupText htmlFor="stationId">Állomás választása:</GroupText>
+          <select
+            className="m-2"
+            value={stationId}
+            name="stations"
+            id="stations"
+            onChange={(e) => setStationId(e.target.value)}
+          >
+            <StationSelector />
+          </select>
+        </CardBorder>
+      </div>
+
       {weatherData !== null ? (
         <>
           <TitleText>Dashboard</TitleText>

@@ -15,6 +15,7 @@ import { GiWindsock, GiDrop } from 'react-icons/gi';
 import { RiBattery2ChargeLine, RiDatabaseLine } from 'react-icons/ri';
 import { FaTemperatureHigh } from 'react-icons/fa';
 import styled from 'styled-components';
+import StationSelector from '../StationSelector';
 
 const NewDateRangePicker = styled(DateRangePicker)`
   width: 90%;
@@ -123,7 +124,6 @@ function Chart() {
   const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
   const [stationId, setStationId] = useState();
-  const [stationsWithData, setStationsWithData] = useState(null);
   const [dateState, setDateState] = useState([
     {
       startDate: new Date('2021-04-24'),
@@ -131,18 +131,6 @@ function Chart() {
       key: 'selection',
     },
   ]);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(`/api/stations/hasdata`);
-        response.data && setStationsWithData(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    fetchData();
-  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -223,15 +211,7 @@ function Chart() {
                   id="stations"
                   onChange={(e) => setStationId(e.target.value)}
                 >
-                  <option defaultValue value="">
-                    -
-                  </option>
-                  {stationsWithData &&
-                    stationsWithData.map((el) => (
-                      <option key={el.id} value={el.id}>
-                        {el.name}
-                      </option>
-                    ))}
+                  <StationSelector />
                 </select>
               </div>
               <div className="col">
