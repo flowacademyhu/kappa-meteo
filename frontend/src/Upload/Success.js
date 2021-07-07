@@ -4,13 +4,18 @@ import NewUploadButton from './NewUploadButton';
 
 const StyledH1 = styled.h1`
   color: green;
+  margin-top: 100px;
 `;
 
 const Success = ({ success, setSuccess }) => {
   return (
     <>
-      <StyledH1>Sikeres fájl feltöltés!!!</StyledH1>
-      <NewUploadButton result={success} setResult={setSuccess} />
+      <StyledH1>Sikeres fájl feltöltés!</StyledH1>
+      <NewUploadButton
+        className="d-flex"
+        result={success}
+        setResult={setSuccess}
+      />
     </>
   );
 };

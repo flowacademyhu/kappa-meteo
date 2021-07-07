@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import NewUploadButton from './NewUploadButton';
 
 const StyledH1 = styled.h1`
-  color: red;
+  color: #c54b3c;
+  margin-top: 100px;
 `;
 
 const Failed = ({ failed, setFailed }) => {
   return (
     <>
-      <StyledH1>Sikertelen fájl feltöltés!!!</StyledH1>
+      <StyledH1>Sikertelen fájl feltöltés!</StyledH1>
       <NewUploadButton result={failed} setResult={setFailed} />
     </>
   );

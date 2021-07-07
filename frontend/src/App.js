@@ -34,12 +34,6 @@ export default function App() {
               </Helmet>
               <MapView />
             </Route>
-            <Route path="/upload">
-              <Helmet>
-                <title>Fájl feltöltés</title>
-              </Helmet>
-              <FileUpload />
-            </Route>
             <Route path="/historicdata/:id">
               <Helmet>
                 <title>Dashboard</title>
@@ -51,6 +45,12 @@ export default function App() {
                 <title>Diagramok</title>
               </Helmet>
               <Chart />
+            </Route>
+            <Route path="/upload">
+              <Helmet>
+                <title>Fájl feltöltés</title>
+              </Helmet>
+              <FileUpload />
             </Route>
             <Redirect from="/" to="/home" />
           </Switch>

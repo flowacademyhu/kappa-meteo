@@ -5,6 +5,7 @@ import CardElement from './CardElement';
 import { GiRadarDish } from 'react-icons/gi';
 import { RiDashboard2Line } from 'react-icons/ri';
 import { FaChartLine } from 'react-icons/fa';
+import { ImUpload } from 'react-icons/im';
 
 import 'swiper/swiper.scss';
 import './Style.css';
@@ -59,6 +60,15 @@ export default function SwiperMenu() {
               Icon={FaChartLine}
               text="Diagramok"
               descript="Mért adatok diagramos megjelenitése, kimutatása és összehasonlitása."
+            ></CardElement>
+          </NavLinks>
+        </SwiperSlide>
+        <SwiperSlide>
+          <NavLinks to="/upload">
+            <CardElement
+              Icon={ImUpload}
+              text="Fájl feltöltés"
+              descript="Állomásadatok feltöltése, majd megjelenitése Dashboardon és Diagramon."
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
