@@ -30,12 +30,12 @@ public class FileUploadController {
     @PostMapping("upload")
     public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
         validate(file);
-        String dataType = getDataType(file.getOriginalFilename());
         try {
+            String dataType = getDataType(Objects.requireNonNull(file.getOriginalFilename()));
             fileUploadService.fileUpload(file, dataType, getStationName(Objects.requireNonNull(file.getOriginalFilename())));
         } catch (Exception e) {
             log.error("Problem while uploading file {} : {} ", file.getOriginalFilename(), e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
         return ResponseEntity.ok("Successful file upload.");
     }

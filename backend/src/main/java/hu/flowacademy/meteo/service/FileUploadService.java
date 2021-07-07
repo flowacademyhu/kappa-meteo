@@ -26,8 +26,13 @@ import java.util.*;
 public class FileUploadService {
 
     private static final String DATE_FORMAT_HU_DASH = "yyyy-MM-dd HH:mm";
+    private static final String DATE_FORMAT_HU = "yyyy.MM.dd HH:mm";
+    private static final String DATE_FORMAT_HU_SPACED = "yyyy. MM. dd. HH:mm";
     private static final String DATA_TYPE_DAILY = "napi";
     private static final String DATA_TYPE_HOURLY = "orai";
+    private static final String SZEGED_TEN = "D_SZEGED_10perc.csv";
+    private static final String SZEGED_HOURLY = "D_SZEGED_orai.csv";
+    private static final String SZEGED_DAILY = "D_SZEGED_napi.csv";
 
     private final StationRepository stationRepository;
     private final MeasurementRepository measurementRepository;
@@ -42,14 +47,20 @@ public class FileUploadService {
         try (InputStreamReader fileStreamReader = new InputStreamReader(file.getInputStream())) {
             Optional<Station> station = stationRepository.findFirstByName(stationName);
             if (station.isPresent()) {
+                String format = getDateFormat(Objects.requireNonNull(file.getOriginalFilename()));
                 log.debug("Repsository size before upload: {}", measurementRepository.count());
-                executeMeasurementSave(station.get(), fileStreamReader, getType(dataType));
+                executeMeasurementSave(station.get(), fileStreamReader, getType(dataType), format);
                 log.debug("Repsository size after upload: {}", measurementRepository.count());
             }
         } catch (IOException e) {
             log.error("Error while reading file: {}", file.getOriginalFilename(), e);
             throw e;
         }
+    }
+
+    public String getDateFormat(String name) {
+        return (name.equals(SZEGED_TEN) || name.equals(SZEGED_DAILY)) ? DATE_FORMAT_HU
+                : name.equals(SZEGED_HOURLY) ? DATE_FORMAT_HU_SPACED : DATE_FORMAT_HU_DASH;
     }
 
     public Type getType(String dataType) {
@@ -67,8 +78,8 @@ public class FileUploadService {
         return headerKeys.containsKey(header) ? data[headerKeys.get(header)] : "";
     }
 
-    public void executeMeasurementSave(Station station, Reader reader, Type type) {
-        List<Measurement> measurements = measurementRepository.saveAll(populateDataBase(reader, station, type));
+    public void executeMeasurementSave(Station station, Reader reader, Type type, String format) {
+        List<Measurement> measurements = measurementRepository.saveAll(populateDataBase(reader, station, type, format));
         log.info("saved {} {} measurments at station: {} with id: {}", measurements.size(), type, station.getName(), station.getId());
         if (measurements.size() == 0) {
             throw new ValidationException("File upload failed!");
@@ -84,12 +95,15 @@ public class FileUploadService {
         return dataMap;
     }
 
-    public List<Measurement> populateDataBase(Reader reader, Station station, Type type) {
+    public List<Measurement> populateDataBase(Reader reader, Station station, Type type, String format) {
         String line;
         List<Measurement> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(reader)) {
             Map<String, Integer> dataMap = getKeys(br.readLine());
             log.debug("Found {} keys!!!", dataMap.size());
+            if (dataMap.size() < 2) {
+                throw new ValidationException("Error while reading file");
+            }
             int counter = 1;
             while ((line = br.readLine()) != null) {
                 try {
@@ -97,7 +111,7 @@ public class FileUploadService {
                     Integer dateIndex = dataMap.get("DATE");
                     if (dateIndex != null && StringUtils.hasText(data[dateIndex])) {
                         String dateData = data != null ? data[dateIndex] : "";
-                        Measurement temp = Measurement.builder().date(new SimpleDateFormat(DATE_FORMAT_HU_DASH).parse(dateData)).type(type).station(station)
+                        Measurement temp = Measurement.builder().date(new SimpleDateFormat(format).parse(dateData)).type(type).station(station)
                                 .airData(AirData.builder()
                                         .airHumidity((Double) formatDoubleData(dataGetter(data, dataMap, "Levegő-páratartalom")))
                                         .airPressure((Double) formatDoubleData(dataGetter(data, dataMap, "Légnyomás")))
