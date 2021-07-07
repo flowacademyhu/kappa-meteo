@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import MeasureCard from './MeasureCard.js';
 import axios from 'axios';
 import {
+  NavLink,
   TitleText,
+  CardData,
   GroupText,
   CardBorder,
   MiscGrid,
   WindGrid,
   SoilGrid,
   BatteryGrid,
+  InfoStyle,
+  StyleZoom,
 } from './StyledElements.js';
 import {
   RiCompassDiscoverFill,
@@ -24,22 +28,44 @@ import { VscDashboard } from 'react-icons/vsc';
 import { GiDrop, GiChaliceDrops, GiCarBattery } from 'react-icons/gi';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
+import StationSelector from '../StationSelector.js';
 
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
+  const [stationId, setStationId] = useState();
   const { id } = useParams();
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get(`/api/latest?stationId=${id}`);
-        response.data && setWeatherData(response.data);
+        if (response.data) {
+          setWeatherData(response.data);
+        }
       } catch (err) {
         console.error(err);
       }
     }
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (stationId !== null) {
+        try {
+          const response = await axios.get(
+            `/api/latest?stationId=${stationId}`
+          );
+          if (response.data) {
+            setWeatherData(response.data);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
+    fetchData();
+  }, [stationId]);
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD HH:mm');
@@ -143,34 +169,36 @@ export default function HistoricData() {
       {
         icon: WiThermometer,
         titleText: 'Talaj hőmérséklet 0cm',
-        text: soil.soilDataDto.soilTemperature0cm.toFixed(2),
+        text: soil.soilDataDto.soilTemperature0cm,
         unit: <>&#8451;</>,
       },
 
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 30cm',
-        text: soil.soilDataDto.soilMoisture30cm.toFixed(2),
+        text: soil.soilDataDto.soilTemperature30cm,
+
         unit: 'V/V %',
       },
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 60cm',
-        text: soil.soilDataDto.soilMoisture60cm.toFixed(2),
+        text: soil.soilDataDto.soilTemperature60cm,
+
         unit: 'V/V %',
       },
 
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 90cm',
-        text: soil.soilDataDto.soilMoisture90cm.toFixed(2),
+        text: soil.soilDataDto.soilTemperature90cm,
         unit: 'V/V %',
       },
 
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 120cm',
-        text: soil.soilDataDto.soilMoisture120cm.toFixed(2),
+        text: soil.soilDataDto.soilTemperature120cm,
         unit: 'V/V %',
       },
     ];
@@ -181,21 +209,21 @@ export default function HistoricData() {
       {
         icon: RiBattery2ChargeLine,
         titleText: 'Napelem töltő feszültség',
-        text: battery.batteryDataDto.solarCellChargingVoltage.toFixed(2),
+        text: battery.batteryDataDto.solarCellChargingVoltage,
         unit: 'V',
       },
 
       {
         icon: GiCarBattery,
         titleText: 'Külső akkufeszültség',
-        text: battery.batteryDataDto.externalBatteryVoltage.toFixed(2),
+        text: battery.batteryDataDto.externalBatteryVoltage,
         unit: 'V',
       },
 
       {
         icon: GiCarBattery,
         titleText: 'Belső akkufeszültség',
-        text: battery.batteryDataDto.internalBatteryVoltage.toFixed(2),
+        text: battery.batteryDataDto.internalBatteryVoltage,
         unit: 'V',
       },
     ];
@@ -237,18 +265,54 @@ export default function HistoricData() {
     }
   };
 
-  return weatherData !== null ? (
+  return (
     <>
-      <TitleText>Dashboard</TitleText>
       <div className="container">
-        <div className="row">
-          <CardBorder className="col">
-            <GroupText>Vegyes adatok:</GroupText>
-            <MiscGrid>
-              {miscData(weatherData).map((data) => {
-                return (
-                  <div className="p-2 m-2" key={data.titleText}>
-                    <div className="col">
+        <CardBorder className="col text-center">
+          <GroupText htmlFor="stationId">Állomás választása:</GroupText>
+          <select
+            className="m-2"
+            value={stationId}
+            name="stations"
+            id="stations"
+            onChange={(e) => setStationId(e.target.value)}
+          >
+            <StationSelector />
+          </select>
+        </CardBorder>
+      </div>
+
+      {weatherData !== null ? (
+        <>
+          <TitleText>Dashboard</TitleText>
+          <div className="container">
+            <div className="row">
+              <CardBorder className="col">
+                <GroupText>Vegyes adatok:</GroupText>
+                <MiscGrid>
+                  {miscData(weatherData).map((data) => {
+                    return (
+                      <div className="p-2 m-2" key={data.titleText}>
+                        <div className="col">
+                          <MeasureCard
+                            Icon={data.icon}
+                            titleText={data.titleText}
+                            text={data.text}
+                            unit={data.unit}
+                            footerText={dateFormat(weatherData.date)}
+                          ></MeasureCard>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  ;
+                </MiscGrid>
+              </CardBorder>
+              <CardBorder className="col">
+                <GroupText>Levegő adatok:</GroupText>
+                {airData(weatherData).map((data) => {
+                  return (
+                    <div className="p-2 m-2" key={data.titleText}>
                       <MeasureCard
                         Icon={data.icon}
                         titleText={data.titleText}
@@ -257,96 +321,88 @@ export default function HistoricData() {
                         footerText={dateFormat(weatherData.date)}
                       ></MeasureCard>
                     </div>
-                  </div>
-                );
-              })}
-              ;
-            </MiscGrid>
-          </CardBorder>
-          <CardBorder className="col">
-            <GroupText>Levegő adatok:</GroupText>
-            {airData(weatherData).map((data) => {
-              return (
-                <div className="p-2 m-2" key={data.titleText}>
-                  <MeasureCard
-                    Icon={data.icon}
-                    titleText={data.titleText}
-                    text={data.text}
-                    unit={data.unit}
-                    footerText={dateFormat(weatherData.date)}
-                  ></MeasureCard>
-                </div>
-              );
-            })}
-            ;
-          </CardBorder>
+                  );
+                })}
+              </CardBorder>
+            </div>
+            <CardBorder>
+              <GroupText>Szél adatok:</GroupText>
+              <WindGrid>
+                {windData(weatherData).map((data) => {
+                  return (
+                    <div className="p-2 m-2" key={data.titleText}>
+                      <div className="col">
+                        <MeasureCard
+                          Icon={data.icon}
+                          titleText={data.titleText}
+                          text={data.text}
+                          unit={data.unit}
+                          footerText={dateFormat(weatherData.date)}
+                        ></MeasureCard>
+                      </div>
+                    </div>
+                  );
+                })}
+                ;
+              </WindGrid>
+            </CardBorder>
+            <CardBorder>
+              <GroupText>Talajnedvesség adatok:</GroupText>
+              <SoilGrid>
+                {soilData(weatherData).map((data) => {
+                  return (
+                    <div className="p-2 m-2" key={data.titleText}>
+                      <div className="col">
+                        <MeasureCard
+                          Icon={data.icon}
+                          titleText={data.titleText}
+                          text={data.text}
+                          unit={data.unit}
+                          footerText={dateFormat(weatherData.date)}
+                        ></MeasureCard>
+                      </div>
+                    </div>
+                  );
+                })}
+                ;
+              </SoilGrid>
+            </CardBorder>
+            <CardBorder>
+              <GroupText>Szerviz adatok:</GroupText>
+              <BatteryGrid>
+                {batteryData(weatherData).map((data) => {
+                  return (
+                    <div className="p-2 m-2" key={data.titleText}>
+                      <div className="col">
+                        <MeasureCard
+                          Icon={data.icon}
+                          titleText={data.titleText}
+                          text={data.text}
+                          unit={data.unit}
+                          footerText={dateFormat(weatherData.date)}
+                        ></MeasureCard>
+                      </div>
+                    </div>
+                  );
+                })}
+                ;
+              </BatteryGrid>
+            </CardBorder>
+          </div>
+        </>
+      ) : (
+        <div className="container">
+          <div className="row">
+            <NavLink to="/mapview">
+              <StyleZoom>
+                <InfoStyle>
+                  <CardData>Nincs megjelenítendő adat!</CardData>
+                </InfoStyle>
+              </StyleZoom>
+            </NavLink>
+          </div>
         </div>
-        <CardBorder>
-          <GroupText>Szél adatok:</GroupText>
-          <WindGrid>
-            {windData(weatherData).map((data) => {
-              return (
-                <div className="p-2 m-2" key={data.titleText}>
-                  <div className="col">
-                    <MeasureCard
-                      Icon={data.icon}
-                      titleText={data.titleText}
-                      text={data.text}
-                      unit={data.unit}
-                      footerText={dateFormat(weatherData.date)}
-                    ></MeasureCard>
-                  </div>
-                </div>
-              );
-            })}
-            ;
-          </WindGrid>
-        </CardBorder>
-        <CardBorder>
-          <GroupText>Talajnedvesség adatok:</GroupText>
-          <SoilGrid>
-            {soilData(weatherData).map((data) => {
-              return (
-                <div className="p-2 m-2" key={data.titleText}>
-                  <div className="col">
-                    <MeasureCard
-                      Icon={data.icon}
-                      titleText={data.titleText}
-                      text={data.text}
-                      unit={data.unit}
-                      footerText={dateFormat(weatherData.date)}
-                    ></MeasureCard>
-                  </div>
-                </div>
-              );
-            })}
-            ;
-          </SoilGrid>
-        </CardBorder>
-        <CardBorder>
-          <GroupText>Szerviz adatok:</GroupText>
-          <BatteryGrid>
-            {batteryData(weatherData).map((data) => {
-              return (
-                <div className="p-2 m-2" key={data.titleText}>
-                  <div className="col">
-                    <MeasureCard
-                      Icon={data.icon}
-                      titleText={data.titleText}
-                      text={data.text}
-                      unit={data.unit}
-                      footerText={dateFormat(weatherData.date)}
-                    ></MeasureCard>
-                  </div>
-                </div>
-              );
-            })}
-            ;
-          </BatteryGrid>
-        </CardBorder>
-      </div>
+      )}
     </>
-  ) : (
-    <h1>Ehhez az állomáshoz sajnos nem áll rendelkezésre adat.</h1>
   );
 }

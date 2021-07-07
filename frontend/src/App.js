@@ -6,6 +6,7 @@ import MapView from './Pages/MapView';
 import Dashboard from './Pages/Dashboard';
 import Chart from './Charts/Chart.js';
 import Footer from './Components/Footer/Footer.js';
+import DashboardToMap from './Dashboard/DashboardToMap.js';
 import FileUpload from './Upload/FileUpload.js';
 import styled from 'styled-components';
 
@@ -49,6 +50,12 @@ export default function App() {
                     <title>Térkép nézet</title>
                   </Helmet>
                   <MapView />
+                </Route>
+                <Route path="/dashboardtomap">
+                  <Helmet>
+                    <title>Dashboard</title>
+                  </Helmet>
+                  <DashboardToMap />
                 </Route>
                 <Route path="/historicdata/:id">
                   <Helmet>

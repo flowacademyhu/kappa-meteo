@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -20,4 +20,5 @@ public class Station {
     private String name;
     private Double longitude;
     private Double latitude;
+    private boolean hasData;
 }

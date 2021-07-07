@@ -15,6 +15,7 @@ import { GiWindsock, GiDrop } from 'react-icons/gi';
 import { RiBattery2ChargeLine, RiDatabaseLine } from 'react-icons/ri';
 import { FaTemperatureHigh } from 'react-icons/fa';
 import styled from 'styled-components';
+import StationSelector from '../StationSelector';
 
 const NewDateRangePicker = styled(DateRangePicker)`
   width: 90%;
@@ -122,7 +123,7 @@ function Chart() {
   const [typeGroup, setTypeGroup] = useState('air');
   const [linedata, setLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
-  const [station, setStation] = useState(42);
+  const [stationId, setStationId] = useState();
   const [dateState, setDateState] = useState([
     {
       startDate: new Date('2021-04-24'),
@@ -135,7 +136,7 @@ function Chart() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `/api/stations/${station}/${typeGroup}?start=${dateFormat(
+          `/api/stations/${stationId}/${typeGroup}?start=${dateFormat(
             dateState[0].startDate
           )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
         );
@@ -152,7 +153,7 @@ function Chart() {
       }
     }
     fetchData();
-  }, [dataType, station, dateState, typeGroup]);
+  }, [dataType, stationId, dateState, typeGroup]);
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD');
@@ -178,7 +179,6 @@ function Chart() {
         <div className="row text-center">
           <GroupBorder>
             <GroupText>Dátum választó</GroupText>
-
             <NewDateRangePicker
               editableDateInputs={true}
               rangeColors={['#c54b3c']}
@@ -202,12 +202,12 @@ function Chart() {
                 <label htmlFor="stationId">Állomás választása:</label>
                 <select
                   className="m-4"
-                  value={station}
+                  value={stationId}
                   name="stations"
                   id="stations"
-                  onChange={(e) => setStation(e.target.value)}
+                  onChange={(e) => setStationId(e.target.value)}
                 >
-                  <option value="12">Szeged</option>
+                  <StationSelector />
                 </select>
               </div>
               <div className="col">

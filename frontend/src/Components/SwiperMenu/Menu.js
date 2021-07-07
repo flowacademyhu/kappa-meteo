@@ -46,7 +46,7 @@ export default function SwiperMenu() {
           </NavLinks>
         </SwiperSlide>
         <SwiperSlide>
-          <NavLinks to="/historicdata">
+          <NavLinks to="/dashboardtomap">
             <CardElement
               Icon={RiDashboard2Line}
               text="Dashboard"

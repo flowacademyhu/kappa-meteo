@@ -16,6 +16,7 @@ public class StationDto {
     private String name;
     private Double longitude;
     private Double latitude;
+    private boolean hasData;
 
     public static StationDto toDto(Station station) {
         StationDto stationDto = new StationDto();
@@ -23,6 +24,7 @@ public class StationDto {
         stationDto.setName(station.getName());
         stationDto.setLongitude(station.getLongitude());
         stationDto.setLatitude(station.getLatitude());
+        stationDto.setHasData(station.isHasData());
         return stationDto;
     }
 }
