@@ -5,15 +5,13 @@ import { Link } from 'react-router-dom';
 
 export const SwiperContainer = styled.div`
   width: 100%;
-  padding-top: 50px;
-  padding-bottom: 220px;
   overflow: visible !important;
 `;
 
 //FLIPCARDS
 
 export const FlipCardBody = styled.div`
-  padding-top: 20px;
+  padding-top: 25px;
   background-color: transparent;
   width: 300px;
   height: 300px;
@@ -58,7 +56,7 @@ export const FlipCardBack = styled.div`
 `;
 
 export const CardFooter = styled.div`
-  margin-top: 10px;
+  margin-top: 5px;
 `;
 
 export const FooterText = styled.h1`
@@ -76,7 +74,7 @@ export const RearFooterText = styled.h5`
   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
   color: white;
   text-align: center;
-  padding: 30px;
+  padding: 25px;
 `;
 
 export const RearTitleText = styled.h1`
