@@ -32,10 +32,10 @@ export default function MapTypeButton({ stations }) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Black-White">
+        <LayersControl.BaseLayer name="BlackAndWhite">
           <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
-            url="https://tiles.wmflabs.org/bw-mapnik/%7Bz%7D/%7Bx%7D/%7By%7D.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
           />
         </LayersControl.BaseLayer>
         <LayersControl.Overlay name="Heatmap">
