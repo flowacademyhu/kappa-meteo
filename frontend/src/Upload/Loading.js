@@ -8,16 +8,11 @@ const StyledSpinner = styled.div`
 const Loading = () => (
   <>
     <StyledSpinner>
-      <div class="spinner-border text-light" role="status">
-      </div>
-      <div class="spinner-border text-danger" role="status">
-      </div>
-      <div class="spinner-border text-success" role="status">
-      </div>
-      <div class="spinner-border text-danger" role="status">
-      </div>
-      <div class="spinner-border text-light" role="status">
-      </div>
+      <div class="spinner-border text-light" role="status"></div>
+      <div class="spinner-border text-danger" role="status"></div>
+      <div class="spinner-border text-success" role="status"></div>
+      <div class="spinner-border text-danger" role="status"></div>
+      <div class="spinner-border text-light" role="status"></div>
     </StyledSpinner>
   </>
 );

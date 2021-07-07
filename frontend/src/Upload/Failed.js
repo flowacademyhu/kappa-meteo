@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import NewUploadButton from './NewUploadButton';
 
 const StyledH1 = styled.h1`
-  color: #c54b3c
+  color: #c54b3c;
 `;
 
 const Failed = ({ failed, setFailed }) => {
