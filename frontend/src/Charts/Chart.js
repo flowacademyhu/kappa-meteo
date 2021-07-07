@@ -228,9 +228,7 @@ function Chart() {
                 </select>
               </div>
             </div>
-            {typeGroup === 'air' && (
-              <AirChart linedata={linedata} xAxisDateFormat={xAxisDateFormat} />
-            )}
+            {typeGroup === 'air' && <AirChart linedata={linedata} />}
             {typeGroup === 'battery' && (
               <BatteryChart
                 linedata={linedata}
@@ -243,12 +241,7 @@ function Chart() {
                 xAxisDateFormat={xAxisDateFormat}
               />
             )}
-            {typeGroup === 'soil' && (
-              <SoilChart
-                linedata={linedata}
-                xAxisDateFormat={xAxisDateFormat}
-              />
-            )}
+            {typeGroup === 'soil' && <SoilChart linedata={linedata} />}
             {typeGroup === 'wind' && (
               <WindChart
                 linedata={linedata}
