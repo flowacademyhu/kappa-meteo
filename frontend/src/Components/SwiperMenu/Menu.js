@@ -1,11 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, EffectCoverflow } from 'swiper';
-import { NavLinks } from './StyledElements';
+import { NavLinks, SwiperContainer } from './StyledElements';
 import CardElement from './CardElement';
-
 import { GiRadarDish } from 'react-icons/gi';
 import { RiDashboard2Line } from 'react-icons/ri';
 import { FaChartLine } from 'react-icons/fa';
+import { ImUpload } from 'react-icons/im';
 
 import 'swiper/swiper.scss';
 import './Style.css';
@@ -17,7 +17,7 @@ SwiperCore.use([Navigation, Pagination, EffectCoverflow]);
 
 export default function SwiperMenu() {
   return (
-    <div className="swiper-container">
+    <SwiperContainer className="swiper-container">
       <Swiper
         spaceBetween={200}
         effect={'coverflow'}
@@ -41,7 +41,7 @@ export default function SwiperMenu() {
             <CardElement
               Icon={GiRadarDish}
               text="Állomások"
-              descript="Országos térkép, valamint a moduláris mérőállomások megjelenitése."
+              descript="Országos térkép, saját lokáció, valamint a moduláris mérőállomások megjelenitése."
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
@@ -50,7 +50,7 @@ export default function SwiperMenu() {
             <CardElement
               Icon={RiDashboard2Line}
               text="Dashboard"
-              descript="Mérőállomások mért adatainak rendezett megtekintése Dashbordon."
+              descript="Mérőállomások mért adatainak csoportositott megtekintése Dashbordon."
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
@@ -63,7 +63,16 @@ export default function SwiperMenu() {
             ></CardElement>
           </NavLinks>
         </SwiperSlide>
+        <SwiperSlide>
+          <NavLinks to="/upload">
+            <CardElement
+              Icon={ImUpload}
+              text="Fájl feltöltés"
+              descript="Állomásadatok feltöltése, majd megjelenitése Dashboardon és Diagramon."
+            ></CardElement>
+          </NavLinks>
+        </SwiperSlide>
       </Swiper>
-    </div>
+    </SwiperContainer>
   );
 }

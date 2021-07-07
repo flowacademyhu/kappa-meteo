@@ -16,7 +16,6 @@ public class MeasurementDto {
 
     private Date date;
     private Type type;
-
     private AirDataDto airDataDto;
     private MiscDataDto miscDataDto;
     private SoilDataDto soilDataDto;

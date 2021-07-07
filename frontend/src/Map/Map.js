@@ -11,7 +11,7 @@ import Markers from './Markers';
 
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
-  height: 80vh;
+  height: 78vh;
 `;
 const mainStation = [
   'Szeged',
@@ -115,14 +115,13 @@ export default function Map({ weatherIcons }) {
           </>
         )}
       </StyledMapContainer>
-      )
       {myPosition.latitude !== null && (
-        <div className="justify-content-center d-flex m-2">
+        <div className="justify-content-center d-flex">
           <button
-            className="btn btn-primary mr-auto ml-auto"
+            className="btn btn-success"
             onClick={() => flyToMyPosition(myFirstPosition)}
           >
-            MyPosition
+            Saját lokáció
           </button>
         </div>
       )}

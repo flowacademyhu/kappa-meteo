@@ -3,10 +3,13 @@ import styled from 'styled-components';
 //CARDS
 
 export const CardStyle = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 0px -15px 30px 3px #c54b3c;
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 20px;
+  &:hover {
+    box-shadow: 0px 0px 30px 10px #c54b3c;
+  }
 `;
+
 export const CardTitleText = styled.h5`
   color: #fff;
   text-align: center;

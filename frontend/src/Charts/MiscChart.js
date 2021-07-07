@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
-  AreaChart,
-  Area,
+  ResponsiveContainer,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -11,20 +12,11 @@ import {
 import MyCheckbox from '../Components/Input/MyCheckbox';
 import { v4 as uuidv4 } from 'uuid';
 
-const measurements = [
-  'irradiation',
-  'freeze',
-  'rain',
-  'leafMoisture',
-  'lightUnit',
-  'precipitationCounter',
-];
-
 const axisLabel = [
-  { dataKey: 'irradiation', value: 'Besugárzás W/m2', stroke: '#8884d8' },
-  { dataKey: 'freeze', value: 'Fagy', stroke: '#82ca9d' },
-  { dataKey: 'rain', value: 'Csapadék mm', stroke: '#000000' },
-  { dataKey: 'leafMoisture', value: 'Levélnedvesség Perc', stroke: '#000000' },
+  { dataKey: 'irradiation', value: 'Besugárzás W/m2', stroke: '#c54b3c' },
+  { dataKey: 'freeze', value: 'Fagy', stroke: '#009900' },
+  { dataKey: 'rain', value: 'Csapadék mm', stroke: '#0066ff' },
+  { dataKey: 'leafMoisture', value: 'Levélnedvesség Perc', stroke: '#ff9900' },
   { dataKey: 'lightUnit', value: 'Fény egység cd', stroke: '#000000' },
   {
     dataKey: 'precipitationCounter',
@@ -37,22 +29,22 @@ const labels = [
   {
     dataKey: 'irradiation',
     name: 'Besugárzás',
-    stroke: '#8884d8',
+    stroke: '#c54b3c',
   },
   {
     dataKey: 'freeze',
     name: 'Fagy',
-    stroke: '#82ca9d',
+    stroke: '#009900',
   },
   {
     dataKey: 'rain',
     name: 'Csapadék',
-    stroke: '#000000',
+    stroke: '#0066ff',
   },
   {
     dataKey: 'leafMoisture',
     name: 'Levél nedvesség',
-    stroke: '#000000',
+    stroke: '#ff9900',
   },
   {
     dataKey: 'lightUnit',
@@ -84,72 +76,71 @@ const MiscChart = ({ linedata, xAxisDateFormat }) => {
     linedata !== null &&
     linedata !== undefined && (
       <>
-        <form>
-          {measurements.map((measurement, index) => (
+        <div className="row">
+          {labels.map((label, index) => (
             <MyCheckbox
               key={index}
-              name={measurement}
-              label={measurement}
+              name={label.dataKey}
+              label={label.name}
               changeMeasurement={changeMeasurement}
             />
           ))}
-        </form>
-
-        <AreaChart
-          width={1000}
-          height={500}
-          data={linedata}
-          margin={{
-            top: 25,
-            right: 60,
-            left: 40,
-            bottom: 20,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
-          {axisLabel.map((axis, index) => {
-            if (measurementGroup.includes(axis.dataKey)) {
-              return (
-                <YAxis
-                  key={uuidv4()}
-                  className="mx-5"
-                  yAxisId={index}
-                  orientation="left"
-                  dataKey={axis.dataKey}
-                  label={{
-                    value: axis.value,
-                    angle: -90,
-                    dx: -15,
-                    position: 'outsideLeft',
-                    stroke: axis.stroke,
-                  }}
-                />
-              );
-            }
-            return null;
-          })}
-          <Tooltip />
-          <Legend />
-          {labels.map((label, index) => {
-            if (measurementGroup.includes(label.dataKey)) {
-              return (
-                <Area
-                  key={index}
-                  type="monotone"
-                  dataKey={label.dataKey}
-                  name={label.name}
-                  stroke={label.stroke}
-                  activeDot={{ r: 8 }}
-                  dot={false}
-                  yAxisId={index}
-                  fill="#111"
-                />
-              );
-            }
-            return null;
-          })}
-        </AreaChart>
+        </div>
+        <ResponsiveContainer width="100%" height={500}>
+          <LineChart
+            data={linedata}
+            margin={{
+              top: 25,
+              right: 60,
+              left: 40,
+              bottom: 20,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
+            {axisLabel.map((axis, index) => {
+              if (measurementGroup.includes(axis.dataKey)) {
+                return (
+                  <YAxis
+                    key={uuidv4()}
+                    className="mx-5"
+                    yAxisId={index}
+                    orientation="left"
+                    dataKey={axis.dataKey}
+                    label={{
+                      value: axis.value,
+                      angle: -90,
+                      dx: -15,
+                      position: 'outsideLeft',
+                      stroke: axis.stroke,
+                    }}
+                  />
+                );
+              }
+              return null;
+            })}
+            <Tooltip />
+            <Legend />
+            {labels.map((label, index) => {
+              if (measurementGroup.includes(label.dataKey)) {
+                return (
+                  <Line
+                    key={index}
+                    type="monotone"
+                    dataKey={label.dataKey}
+                    name={label.name}
+                    stroke={label.stroke}
+                    activeDot={{ r: 8 }}
+                    dot={false}
+                    yAxisId={index}
+                    fill="#111"
+                  />
+                );
+              }
+              return null;
+            })}
+          </LineChart>
+        </ResponsiveContainer>
       </>
     )
   );
