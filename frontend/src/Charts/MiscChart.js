@@ -54,7 +54,6 @@ const MiscChart = ({ linedata }) => {
       linedata={linedata}
       axisLabel={axisLabel}
       labels={labels}
-      Chart={LineChart}
       isLineChart={true}
     />
   );

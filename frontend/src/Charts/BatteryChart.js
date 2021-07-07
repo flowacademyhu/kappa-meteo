@@ -42,13 +42,11 @@ const labels = [
 ];
 
 const BatteryChart = ({ linedata }) => {
-  console.log(linedata);
   return (
     <GeneralChart
       linedata={linedata}
       axisLabel={axisLabel}
       labels={labels}
-      Chart={AreaChart}
       isLineChart={false}
     />
   );

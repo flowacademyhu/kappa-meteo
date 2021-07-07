@@ -35,7 +35,6 @@ const WindChart = ({ linedata }) => {
       linedata={linedata}
       axisLabel={axisLabel}
       labels={labels}
-      Chart={AreaChart}
       isLineChart={false}
     />
   );
