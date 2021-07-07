@@ -32,8 +32,8 @@ import Loader from './Loader.js';
 
 export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
-  const [station, setStation] = useState('');
-  const [stationsWithData, setStationsWithData] = useState([]);
+  const [stationId, setStation] = useState(undefined);
+  const [stationsWithData, setStationsWithData] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -50,9 +50,11 @@ export default function HistoricData() {
 
   useEffect(() => {
     async function fetchData() {
-      if (station.length > 0) {
+      if (stationId !== null) {
         try {
-          const response = await axios.get(`/api/latest?stationId=${station}`);
+          const response = await axios.get(
+            `/api/latest?stationId=${stationId}`
+          );
           response.data && setWeatherData(response.data);
         } catch (err) {
           console.error(err);
@@ -60,7 +62,7 @@ export default function HistoricData() {
       }
     }
     fetchData();
-  }, [station]);
+  }, [stationId]);
 
   useEffect(() => {
     async function fetchData() {
@@ -76,10 +78,6 @@ export default function HistoricData() {
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD HH:mm');
-  };
-
-  const fixedTwoDigits = (data) => {
-    return data !== null && data !== undefined ? data.toFixed(2) : null;
   };
 
   const miscData = (misc) => {
@@ -180,21 +178,21 @@ export default function HistoricData() {
       {
         icon: WiThermometer,
         titleText: 'Talaj hőmérséklet 0cm',
-        text: fixedTwoDigits(soil.soilDataDto.soilTemperature0cm),
+        text: soil.soilDataDto.soilTemperature0cm,
         unit: <>&#8451;</>,
       },
 
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 30cm',
-        text: fixedTwoDigits(soil.soilDataDto.soilTemperature30cm),
+        text: soil.soilDataDto.soilTemperature30cm,
 
         unit: 'V/V %',
       },
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 60cm',
-        text: fixedTwoDigits(soil.soilDataDto.soilTemperature60cm),
+        text: soil.soilDataDto.soilTemperature60cm,
 
         unit: 'V/V %',
       },
@@ -202,14 +200,14 @@ export default function HistoricData() {
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 90cm',
-        text: fixedTwoDigits(soil.soilDataDto.soilTemperature90cm),
+        text: soil.soilDataDto.soilTemperature90cm,
         unit: 'V/V %',
       },
 
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 120cm',
-        text: fixedTwoDigits(soil.soilDataDto.soilTemperature120cm),
+        text: soil.soilDataDto.soilTemperature120cm,
         unit: 'V/V %',
       },
     ];
@@ -220,21 +218,21 @@ export default function HistoricData() {
       {
         icon: RiBattery2ChargeLine,
         titleText: 'Napelem töltő feszültség',
-        text: fixedTwoDigits(battery.batteryDataDto.solarCellChargingVoltage),
+        text: battery.batteryDataDto.solarCellChargingVoltage,
         unit: 'V',
       },
 
       {
         icon: GiCarBattery,
         titleText: 'Külső akkufeszültség',
-        text: fixedTwoDigits(battery.batteryDataDto.externalBatteryVoltage),
+        text: battery.batteryDataDto.externalBatteryVoltage,
         unit: 'V',
       },
 
       {
         icon: GiCarBattery,
         titleText: 'Belső akkufeszültség',
-        text: fixedTwoDigits(battery.batteryDataDto.internalBatteryVoltage),
+        text: battery.batteryDataDto.internalBatteryVoltage,
         unit: 'V',
       },
     ];
@@ -278,7 +276,7 @@ export default function HistoricData() {
 
   return (
     <>
-      {stationsWithData.length < 1 ? (
+      {stationsWithData === null ? (
         <div className="container">
           <Loader />
         </div>
@@ -288,12 +286,14 @@ export default function HistoricData() {
             <GroupText htmlFor="stationId">Állomás választása:</GroupText>
             <select
               className="m-2"
-              value={station}
+              value={stationId}
               name="stations"
               id="stations"
               onChange={(e) => setStation(e.target.value)}
             >
-              <option defaultValue>-</option>
+              <option defaultValue value="">
+                -
+              </option>
               {stationsWithData.map((el) => (
                 <option key={el.id} value={el.id}>
                   {el.name}

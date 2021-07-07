@@ -7,6 +7,13 @@ import {
   StyleZoom,
 } from './StyledElements';
 
+const fixedTwoDigits = (text) => {
+  if (typeof text != 'string') {
+    return text?.toFixed(2);
+  }
+  return text;
+};
+
 export default function MeasureCard({
   titleText,
   text,
@@ -23,7 +30,7 @@ export default function MeasureCard({
           </IconContext.Provider>
           <CardTitleText className="card-title">{titleText}</CardTitleText>
           <CardData className="card-text">
-            {text} {unit}
+            {fixedTwoDigits(text)} {unit}
           </CardData>
         </div>
         <div className="card-footer">

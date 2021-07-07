@@ -49,13 +49,12 @@ export const StyleZoom = styled.div`
 export const TitleText = styled.h1`
   color: #fff;
   text-align: center;
-  padding-bottom: 50px;
+  margin: 50px;
   text-shadow: 2px 2px black;
 `;
 export const GroupText = styled.h4`
   color: #fff;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  margin: 10px;
   text-shadow: 2px 2px black;
 `;
 export const CardBorder = styled.div`
