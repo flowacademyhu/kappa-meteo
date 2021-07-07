@@ -2,7 +2,7 @@ import StationPopup from './StationPopup.js';
 import { Marker } from 'react-leaflet';
 import L from 'leaflet';
 
-export default function MarkerWithPopup({ station, icon }) {
+export default function MarkerWithPopup({ station }) {
   return (
     <Marker
       name={station.name}

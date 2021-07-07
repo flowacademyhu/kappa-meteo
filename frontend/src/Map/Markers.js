@@ -8,11 +8,10 @@ export default function Markers({ stations }) {
         .filter(
           (station) => station.latitude != null && station.longitude != null
         )
-        .map((station, index) => (
+        .map((station) => (
           <MarkerWithPopup
             key={station.id}
             station={station}
-            index={index}
           ></MarkerWithPopup>
         ))}
     </div>

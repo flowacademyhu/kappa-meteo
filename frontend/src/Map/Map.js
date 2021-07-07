@@ -8,6 +8,13 @@ import UserIcon from '../Icon/UserIcon';
 import Zoom from './Zoom';
 import MapTypeButton from './MapTypeButton';
 import Markers from './Markers';
+import cloudyday2 from '../Icon/AnimateIcon/cloudy-day-2.svg';
+import cloudy from '../Icon/AnimateIcon/cloudy.svg';
+import day from '../Icon/AnimateIcon/day.svg';
+import rainy1 from '../Icon/AnimateIcon/rainy-1.svg';
+import rainy6 from '../Icon/AnimateIcon/rainy-6.svg';
+
+const icons = [cloudyday2, cloudy, day, rainy1, rainy6, day];
 
 const StyledMapContainer = styled(MapContainer)`
   width: 100%;
@@ -28,7 +35,7 @@ const mainStation = [
   'OVF_Nagykanizsa',
 ];
 
-export default function Map({ weatherIcons }) {
+export default function Map() {
   const myPosition = useGeolocation();
   const [stations, setStations] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(8);
@@ -54,13 +61,13 @@ export default function Map({ weatherIcons }) {
       })
       .then((response) => {
         setStations(
-          response.data.map((el, index) => {
-            return { ...el, icon: weatherIcons[index] };
+          response.data.map((el) => {
+            return { ...el, icon: icons[Math.floor(Math.random() * 6)] };
           })
         );
       })
       .catch((error) => console.log(error));
-  }, [weatherIcons]);
+  }, []);
 
   const flyToPosition = useCallback(
     (myFirstPosition) => {
