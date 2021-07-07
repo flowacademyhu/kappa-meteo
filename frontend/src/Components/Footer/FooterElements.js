@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const FooterStyle = styled.div`
   text-color: #fff;
+  position: relative;
   background-color: rgba(0, 0, 0, 0.4);
   text-align: center;
-  position: fixed;
+  top: 0;
   left: 0;
+  right: 0;
   bottom: 0;
   height: 60px;
   width: 100%;
