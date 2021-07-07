@@ -33,6 +33,7 @@ public class FileUploadService {
     private static final String SZEGED_TEN = "D_SZEGED_10perc.csv";
     private static final String SZEGED_HOURLY = "D_SZEGED_orai.csv";
     private static final String SZEGED_DAILY = "D_SZEGED_napi.csv";
+    private static final String NO_DATA = "-9999,00000";
 
     private final StationRepository stationRepository;
     private final MeasurementRepository measurementRepository;
@@ -68,7 +69,7 @@ public class FileUploadService {
     }
 
     public Object formatDoubleData(String str) {
-        if (str.equals("") || str.equals("-9999,00000")) {
+        if (str.equals("") || str.equals(NO_DATA)) {
             return null;
         }
         return Double.parseDouble(str.replace(",", "."));
