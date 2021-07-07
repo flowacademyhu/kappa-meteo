@@ -93,10 +93,16 @@ export default function Map() {
 
   const filteredStations = (stations) => {
     if (zoomLevel < 10) {
-      return stations.filter((station) => mainStation.includes(station.name));
+      return stations?.filter((station) => mainStation.includes(station.name));
     } else {
       return stations;
     }
+  };
+
+  const filterStationLatLong = (stations) => {
+    return stations.filter(
+      (station) => station.latitude !== null && station.longitude !== null
+    );
   };
 
   return (
@@ -111,11 +117,12 @@ export default function Map() {
         scrollWheelZoom={true}
         whenCreated={setMap}
       >
-        <MapTypeButton myPosition={myPosition} />
+        <MapTypeButton
+          myPosition={myPosition}
+          stations={filterStationLatLong(stations)}
+        />
         <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
-
-        <Markers stations={filteredStations(stations)} />
-
+        <Markers stations={filteredStations(filterStationLatLong(stations))} />
         {myPosition.latitude !== null && (
           <>
             <Marker

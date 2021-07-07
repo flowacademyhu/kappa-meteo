@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Random;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +18,7 @@ public class StationDto {
     private String name;
     private Double longitude;
     private Double latitude;
+    private int intensity;
     private boolean hasData;
 
     public static StationDto toDto(Station station) {
@@ -24,7 +27,9 @@ public class StationDto {
         stationDto.setName(station.getName());
         stationDto.setLongitude(station.getLongitude());
         stationDto.setLatitude(station.getLatitude());
+        stationDto.setIntensity(new Random().nextInt(100));
         stationDto.setHasData(station.isHasData());
+
         return stationDto;
     }
 }
