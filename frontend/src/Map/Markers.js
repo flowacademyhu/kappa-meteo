@@ -1,7 +1,7 @@
 import React from 'react';
 import MarkerWithPopup from './MarkerWithPopup.js';
 
-export default function Markers({ stations, weatherIcons }) {
+export default function Markers({ stations }) {
   return (
     <div>
       {stations
@@ -10,7 +10,6 @@ export default function Markers({ stations, weatherIcons }) {
         )
         .map((station, index) => (
           <MarkerWithPopup
-            weatherIcons={weatherIcons}
             key={station.id}
             station={station}
             index={index}

@@ -53,10 +53,14 @@ export default function Map({ weatherIcons }) {
         mode: 'no-cors',
       })
       .then((response) => {
-        setStations(response.data);
+        setStations(
+          response.data.map((el, index) => {
+            return { ...el, icon: weatherIcons[index] };
+          })
+        );
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [weatherIcons]);
 
   const flyToPosition = useCallback(
     (myFirstPosition) => {
@@ -100,10 +104,7 @@ export default function Map({ weatherIcons }) {
         <MapTypeButton myPosition={myPosition} />
         <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
 
-        <Markers
-          stations={filteredStations(stations)}
-          weatherIcons={weatherIcons}
-        />
+        <Markers stations={filteredStations(stations)} />
 
         {myPosition.latitude !== null && (
           <>

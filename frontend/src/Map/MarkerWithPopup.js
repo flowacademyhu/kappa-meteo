@@ -2,14 +2,14 @@ import StationPopup from './StationPopup.js';
 import { Marker } from 'react-leaflet';
 import L from 'leaflet';
 
-export default function MarkerWithPopup({ station, weatherIcons, index }) {
+export default function MarkerWithPopup({ station, icon }) {
   return (
     <Marker
       name={station.name}
       position={[station.latitude, station.longitude]}
       icon={
         new L.icon({
-          iconUrl: weatherIcons[index],
+          iconUrl: station.icon,
           iconSize: [130, 130],
         })
       }

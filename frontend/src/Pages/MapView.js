@@ -10,14 +10,14 @@ let icons = [cloudyday2, cloudy, day, rainy1, rainy6, day];
 
 const iconChooser = (icons) => {
   let i = 0;
-  let testArray = [];
+  let choosenIcon = [];
   while (i < 238) {
-    let randomNum = Math.floor(Math.random() * 6);
+    let randomNum = Math.floor(Math.random() * icons.length);
     let icon = icons[randomNum];
-    testArray.push(icon);
+    choosenIcon.push(icon);
     i++;
   }
-  return testArray;
+  return choosenIcon;
 };
 
 export default function MapView() {
