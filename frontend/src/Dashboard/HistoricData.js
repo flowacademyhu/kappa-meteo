@@ -289,6 +289,7 @@ export default function HistoricData() {
             <div className="row">
               <CardBorder className="col">
                 <GroupText>Vegyes adatok:</GroupText>
+
                 <MiscGrid>
                   {miscData(weatherData).map((data) => {
                     return (
