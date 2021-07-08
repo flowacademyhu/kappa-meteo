@@ -19,7 +19,13 @@ const xAxisDateFormat = (date) => {
   return moment(date).format('MM-DD');
 };
 
-const GeneralChart = ({ linedata, axisLabel, labels, isLineChart }) => {
+const GeneralChart = ({
+  linedata,
+  linedata2,
+  axisLabel,
+  labels,
+  isLineChart,
+}) => {
   const [measurementGroup, setMeasurementGroup] = useState([]);
 
   const changeMeasurement = (data) => {
@@ -32,14 +38,58 @@ const GeneralChart = ({ linedata, axisLabel, labels, isLineChart }) => {
       }
     }
   };
+  const renameKeys = (arr, num) => {
+    for (let i = 0; i < arr.length; i++) {
+      const transform = (x) => x + num;
+      Object.keys(arr[i]).forEach((key) => {
+        if (typeof arr[i][key] === 'number') {
+          const val = arr[i][key];
+          delete arr[i][key];
+          arr[i][transform(key)] = val;
+        }
+      });
+    }
+    return arr;
+  };
+
+  const merge = function (arr1, arr2) {
+    if (arr1) {
+      renameKeys(arr1, '1');
+    }
+
+    if (arr2) {
+      renameKeys(arr2, '2');
+    }
+
+    let res = [];
+
+    if (arr1 && arr2) {
+      for (let i = 0; i < arr1.length; i++) {
+        res.push({ ...arr1[i], ...arr2[i] });
+      }
+    }
+
+    return res;
+  };
+
+  let mergedData = {};
+
+  if (linedata && linedata.length > 0 && linedata2 && linedata2.length > 0) {
+    mergedData = merge(linedata, linedata2);
+  }
+
+  console.log(linedata);
 
   const Chart = isLineChart ? LineChart : AreaChart;
   const ChartData = isLineChart ? Line : Area;
 
   return (
     linedata !== null &&
-    linedata !== undefined && (
+    linedata !== undefined &&
+    linedata2 !== null &&
+    linedata2 !== undefined && (
       <>
+        {console.log()}
         <div className="row">
           {labels.map((label, index) => (
             <MyCheckbox
@@ -52,7 +102,7 @@ const GeneralChart = ({ linedata, axisLabel, labels, isLineChart }) => {
         </div>
         <ResponsiveContainer width="100%" height={500}>
           <Chart
-            data={linedata}
+            data={mergedData}
             margin={{
               top: 25,
               right: 60,
@@ -89,9 +139,28 @@ const GeneralChart = ({ linedata, axisLabel, labels, isLineChart }) => {
               if (measurementGroup.includes(label.dataKey)) {
                 return (
                   <ChartData
-                    key={index}
+                    key={label.dataKey + '111'}
                     type="monotone"
-                    dataKey={label.dataKey}
+                    dataKey={label.dataKey + '111'}
+                    name={label.name}
+                    stroke={label.stroke}
+                    activeDot={{ r: 8 }}
+                    dot={false}
+                    yAxisId={index}
+                    fill="#462"
+                  />
+                );
+              }
+              return null;
+            })}
+
+            {labels.map((label, index) => {
+              if (measurementGroup.includes(label.dataKey)) {
+                return (
+                  <ChartData
+                    key={label.dataKey + '222'}
+                    type="monotone"
+                    dataKey={label.dataKey + '222'}
                     name={label.name}
                     stroke={label.stroke}
                     activeDot={{ r: 8 }}

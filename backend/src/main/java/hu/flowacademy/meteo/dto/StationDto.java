@@ -29,7 +29,6 @@ public class StationDto {
         stationDto.setLatitude(station.getLatitude());
         stationDto.setIntensity(new Random().nextInt(100));
         stationDto.setHasData(station.isHasData());
-
         return stationDto;
     }
 }

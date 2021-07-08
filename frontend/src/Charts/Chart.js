@@ -122,8 +122,10 @@ const rangeArray = [
 function Chart() {
   const [typeGroup, setTypeGroup] = useState('air');
   const [linedata, setLineData] = useState(null);
+  const [secondLinedata, setSecondLineData] = useState(null);
   const [dataType, setDataType] = useState('DAILY');
   const [stationId, setStationId] = useState();
+  const [secondStationId, setSecondStationId] = useState();
   const [dateState, setDateState] = useState([
     {
       startDate: new Date('2021-04-24'),
@@ -152,8 +154,35 @@ function Chart() {
         console.error('Error during api call:', err);
       }
     }
-    fetchData();
+    if (stationId) {
+      fetchData();
+    }
   }, [dataType, stationId, dateState, typeGroup]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `/api/stations/${secondStationId}/${typeGroup}?start=${dateFormat(
+            dateState[0].startDate
+          )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
+        );
+        const mappedResult = response.data
+          .map((item, index) => {
+            return { ...item, number: index };
+          })
+          .map((el) => {
+            return { ...el, date: chartDateFormat(el.date) };
+          });
+        setSecondLineData(mappedResult);
+      } catch (err) {
+        console.error('Error during api call:', err);
+      }
+    }
+    if (secondStationId) {
+      fetchData();
+    }
+  }, [dataType, secondStationId, dateState, typeGroup]);
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD');
@@ -211,6 +240,18 @@ function Chart() {
                 </select>
               </div>
               <div className="col">
+                <label htmlFor="stationId">Összehasonlítás:</label>
+                <select
+                  className="m-4"
+                  value={secondStationId}
+                  name="stations"
+                  id="stations"
+                  onChange={(e) => setSecondStationId(e.target.value)}
+                >
+                  <StationSelector />
+                </select>
+              </div>
+              <div className="col">
                 <label htmlFor="dateTime">Intervallum választás:</label>
                 <select
                   className="m-4"
@@ -224,7 +265,9 @@ function Chart() {
                 </select>
               </div>
             </div>
-            {typeGroup === 'air' && <AirChart linedata={linedata} />}
+            {typeGroup === 'air' && (
+              <AirChart linedata={linedata} linedata2={secondLinedata} />
+            )}
             {typeGroup === 'battery' && <BatteryChart linedata={linedata} />}
             {typeGroup === 'misc' && <MiscChart linedata={linedata} />}
             {typeGroup === 'soil' && <SoilChart linedata={linedata} />}

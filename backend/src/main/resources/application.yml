@@ -10,11 +10,11 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: update # create, create-drop, update, validate, none
+      ddl-auto: create-drop # create, create-drop, update, validate, none
       show_sql: true
       format_sql: true
   servlet:
     multipart:
-      max-file-size: 4MB
-      max-request-size: 4MB
+      max-file-size: 5MB
+      max-request-size: 5MB
 

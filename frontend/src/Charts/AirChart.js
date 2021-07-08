@@ -13,10 +13,11 @@ const labels = [
   { dataKey: 'airHumidity', name: 'Páratartalom', stroke: '#000000' },
 ];
 
-const AirChart = ({ linedata }) => {
+const AirChart = ({ linedata, linedata2 }) => {
   return (
     <GeneralChart
       linedata={linedata}
+      linedata2={linedata2}
       axisLabel={axisLabel}
       labels={labels}
       isLineChart={true}
