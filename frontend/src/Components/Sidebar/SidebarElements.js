@@ -79,7 +79,6 @@ export const SidebarButtonWrap = styled.div`
 `;
 
 export const SidebarButton = styled(Link)`
-  
   border-radius: 50px;
   background: green;
   white-space: nowrap;
