@@ -42,7 +42,7 @@ export const NavIcon = styled.div`
 
 export const NavLinkIcon = styled.div`
   color: green;
-  margin: 10px;
+  margin-right: 10px;
   font-size: 35px;
 `;
 
@@ -75,6 +75,7 @@ export const NavMenu = styled.div`
 
 export const NavItem = styled.li`
   height: 80px;
+  padding-right: 30px;
 `;
 
 export const NavLinks = styled(Link)`
@@ -82,7 +83,6 @@ export const NavLinks = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0px 12px 0px 8px;
   height: 100%;
   cursor: pointer;
 
