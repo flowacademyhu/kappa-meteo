@@ -289,7 +289,6 @@ export default function HistoricData() {
             <div className="row">
               <CardBorder className="col">
                 <GroupText>Vegyes adatok:</GroupText>
-
                 <MiscGrid>
                   {miscData(weatherData).map((data) => {
                     return (
@@ -298,7 +297,7 @@ export default function HistoricData() {
                           <MeasureCard
                             Icon={data.icon}
                             titleText={data.titleText}
-                            text={data.text}
+                            text={data.text == null ? '-' : data.text}
                             unit={data.unit}
                             footerText={dateFormat(weatherData.date)}
                           ></MeasureCard>
@@ -317,7 +316,7 @@ export default function HistoricData() {
                       <MeasureCard
                         Icon={data.icon}
                         titleText={data.titleText}
-                        text={data.text}
+                        text={data.text == null ? '-' : data.text}
                         unit={data.unit}
                         footerText={dateFormat(weatherData.date)}
                       ></MeasureCard>
@@ -336,7 +335,7 @@ export default function HistoricData() {
                         <MeasureCard
                           Icon={data.icon}
                           titleText={data.titleText}
-                          text={data.text}
+                          text={data.text == null ? '-' : data.text}
                           unit={data.unit}
                           footerText={dateFormat(weatherData.date)}
                         ></MeasureCard>
@@ -357,7 +356,7 @@ export default function HistoricData() {
                         <MeasureCard
                           Icon={data.icon}
                           titleText={data.titleText}
-                          text={data.text}
+                          text={data.text == null ? '-' : data.text}
                           unit={data.unit}
                           footerText={dateFormat(weatherData.date)}
                         ></MeasureCard>
@@ -378,7 +377,7 @@ export default function HistoricData() {
                         <MeasureCard
                           Icon={data.icon}
                           titleText={data.titleText}
-                          text={data.text}
+                          text={data.text == null ? '-' : data.text}
                           unit={data.unit}
                           footerText={dateFormat(weatherData.date)}
                         ></MeasureCard>
