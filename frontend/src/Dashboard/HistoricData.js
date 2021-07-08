@@ -46,25 +46,25 @@ export default function HistoricData() {
         console.error(err);
       }
     }
-    fetchData();
+    if (id) {
+      fetchData();
+    }
   }, [id]);
 
   useEffect(() => {
     async function fetchData() {
-      if (stationId !== null) {
-        try {
-          const response = await axios.get(
-            `/api/latest?stationId=${stationId}`
-          );
-          if (response.data) {
-            setWeatherData(response.data);
-          }
-        } catch (err) {
-          console.error(err);
+      try {
+        const response = await axios.get(`/api/latest?stationId=${stationId}`);
+        if (response.data) {
+          setWeatherData(response.data);
         }
+      } catch (err) {
+        console.error(err);
       }
     }
-    fetchData();
+    if (stationId) {
+      fetchData();
+    }
   }, [stationId]);
 
   const dateFormat = (date) => {

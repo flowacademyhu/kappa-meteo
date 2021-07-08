@@ -121,8 +121,8 @@ const rangeArray = [
 
 function Chart() {
   const [typeGroup, setTypeGroup] = useState('air');
-  const [linedata, setLineData] = useState(null);
-  const [secondLinedata, setSecondLineData] = useState(null);
+  const [linedata, setLineData] = useState([]);
+  const [secondLinedata, setSecondLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [stationId, setStationId] = useState();
   const [secondStationId, setSecondStationId] = useState();
@@ -149,7 +149,7 @@ function Chart() {
           .map((el) => {
             return { ...el, date: chartDateFormat(el.date) };
           });
-        setLineData(mappedResult);
+        setLineData(renameKeys(mappedResult, '1'));
       } catch (err) {
         console.error('Error during api call:', err);
       }
@@ -174,7 +174,7 @@ function Chart() {
           .map((el) => {
             return { ...el, date: chartDateFormat(el.date) };
           });
-        setSecondLineData(mappedResult);
+        setSecondLineData(renameKeys(mappedResult, '2'));
       } catch (err) {
         console.error('Error during api call:', err);
       }
@@ -183,6 +183,30 @@ function Chart() {
       fetchData();
     }
   }, [dataType, secondStationId, dateState, typeGroup]);
+
+  const renameKeys = (arr, num) => {
+    for (let i = 0; i < arr.length; i++) {
+      const transform = (x) => x + num;
+      Object.keys(arr[i]).forEach((key) => {
+        if (typeof arr[i][key] === 'number') {
+          const val = arr[i][key];
+          delete arr[i][key];
+          arr[i][transform(key)] = val;
+        }
+      });
+    }
+    return arr;
+  };
+
+  const merge = (arr1, arr2) => {
+    let res = [];
+    for (let i = 0; i < arr1.length; i++) {
+      res.push({ ...arr1[i], ...arr2[i] });
+    }
+    return res;
+  };
+
+  const mergedData = merge(linedata, secondLinedata);
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD');
@@ -266,7 +290,11 @@ function Chart() {
               </div>
             </div>
             {typeGroup === 'air' && (
-              <AirChart linedata={linedata} linedata2={secondLinedata} />
+              <AirChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                mergedData={mergedData}
+              />
             )}
             {typeGroup === 'battery' && <BatteryChart linedata={linedata} />}
             {typeGroup === 'misc' && <MiscChart linedata={linedata} />}
