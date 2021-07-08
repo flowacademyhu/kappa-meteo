@@ -176,14 +176,14 @@ export default function HistoricData() {
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 30cm',
-        text: soil.soilDataDto.soilTemperature30cm,
+        text: soil.soilDataDto.soilMoisture30cm,
 
         unit: 'V/V %',
       },
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 60cm',
-        text: soil.soilDataDto.soilTemperature60cm,
+        text: soil.soilDataDto.soilMoisture60cm,
 
         unit: 'V/V %',
       },
@@ -191,14 +191,14 @@ export default function HistoricData() {
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 90cm',
-        text: soil.soilDataDto.soilTemperature90cm,
+        text: soil.soilDataDto.soilMoisture90cm,
         unit: 'V/V %',
       },
 
       {
         icon: GiDrop,
         titleText: 'Talaj nedvesség 120cm',
-        text: soil.soilDataDto.soilTemperature120cm,
+        text: soil.soilDataDto.soilMoisture120cm,
         unit: 'V/V %',
       },
     ];
