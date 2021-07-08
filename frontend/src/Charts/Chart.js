@@ -121,7 +121,7 @@ const rangeArray = [
 
 const fixedTwoDigits = (linedata) => {
   if (typeof linedata === 'number') {
-    return linedata?.toFixed(2);
+    return linedata.toFixed(2);
   }
   return linedata;
 };
@@ -149,7 +149,6 @@ function Chart() {
         );
         const mappedResult = response.data
           .map((item) => {
-            console.log(item);
             Object.keys(item).forEach((key) => {
               const roundedvalue = fixedTwoDigits(item[key]);
               item[key] = roundedvalue;
