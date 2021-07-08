@@ -149,7 +149,7 @@ function Chart() {
           .map((el) => {
             return { ...el, date: chartDateFormat(el.date) };
           });
-        setLineData(renameKeys(mappedResult, '1'));
+        setLineData(mappedResult);
       } catch (err) {
         console.error('Error during api call:', err);
       }
@@ -174,7 +174,7 @@ function Chart() {
           .map((el) => {
             return { ...el, date: chartDateFormat(el.date) };
           });
-        setSecondLineData(renameKeys(mappedResult, '2'));
+        setSecondLineData(mappedResult);
       } catch (err) {
         console.error('Error during api call:', err);
       }
@@ -183,30 +183,6 @@ function Chart() {
       fetchData();
     }
   }, [dataType, secondStationId, dateState, typeGroup]);
-
-  const renameKeys = (arr, num) => {
-    for (let i = 0; i < arr.length; i++) {
-      const transform = (x) => x + num;
-      Object.keys(arr[i]).forEach((key) => {
-        if (typeof arr[i][key] === 'number') {
-          const val = arr[i][key];
-          delete arr[i][key];
-          arr[i][transform(key)] = val;
-        }
-      });
-    }
-    return arr;
-  };
-
-  const merge = (arr1, arr2) => {
-    let res = [];
-    for (let i = 0; i < arr1.length; i++) {
-      res.push({ ...arr1[i], ...arr2[i] });
-    }
-    return res;
-  };
-
-  const mergedData = merge(linedata, secondLinedata);
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD');
@@ -290,11 +266,7 @@ function Chart() {
               </div>
             </div>
             {typeGroup === 'air' && (
-              <AirChart
-                linedata={linedata}
-                linedata2={secondLinedata}
-                mergedData={mergedData}
-              />
+              <AirChart linedata={linedata} linedata2={secondLinedata} />
             )}
             {typeGroup === 'battery' && <BatteryChart linedata={linedata} />}
             {typeGroup === 'misc' && <MiscChart linedata={linedata} />}

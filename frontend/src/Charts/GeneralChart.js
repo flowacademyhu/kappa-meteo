@@ -20,13 +20,41 @@ const xAxisDateFormat = (date) => {
 };
 
 const GeneralChart = ({
-  mergedData,
   axisLabel,
+  axisLabel2,
   labels,
   labels2,
   isLineChart,
+  linedata,
+  linedata2,
 }) => {
   const [measurementGroup, setMeasurementGroup] = useState([]);
+
+  const renameKeys = (stationData, num) => {
+    for (let i = 0; i < stationData.length; i++) {
+      Object.keys(stationData[i]).forEach((key) => {
+        if (typeof stationData[i][key] === 'number') {
+          const val = stationData[i][key];
+          delete stationData[i][key];
+          stationData[i][key + num] = val;
+        }
+      });
+    }
+    return stationData;
+  };
+
+  const merge = (firstStationData, secondStaionData) => {
+    renameKeys(firstStationData, '1');
+    renameKeys(secondStaionData, '2');
+    let mergedData = [];
+    for (let i = 0; i < firstStationData.length; i++) {
+      mergedData.push({ ...firstStationData[i], ...secondStaionData[i] });
+    }
+    console.log(JSON.stringify(mergedData));
+    return mergedData;
+  };
+
+  const mergedData = merge(linedata, linedata2);
 
   const changeMeasurement = (data) => {
     if (measurementGroup !== null && measurementGroup !== undefined) {
@@ -77,6 +105,28 @@ const GeneralChart = ({
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
           {axisLabel.map((axis, index) => {
+            if (measurementGroup.includes(axis.dataKey)) {
+              return (
+                <YAxis
+                  key={uuidv4()}
+                  className="mx-5"
+                  yAxisId={index}
+                  orientation="left"
+                  dataKey={axis.dataKey}
+                  label={{
+                    value: axis.value,
+                    angle: -90,
+                    dx: -15,
+                    position: 'outsideLeft',
+                    stroke: axis.stroke,
+                  }}
+                />
+              );
+            }
+            return null;
+          })}
+          <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
+          {axisLabel2.map((axis, index) => {
             if (measurementGroup.includes(axis.dataKey)) {
               return (
                 <YAxis
