@@ -315,13 +315,15 @@ export default function HistoricData() {
                   {airData(weatherData).map((data) => {
                     return (
                       <div className="p-2 m-2" key={data.titleText}>
-                        <MeasureCard
-                          Icon={data.icon}
-                          titleText={data.titleText}
-                          text={data.text}
-                          unit={data.unit}
-                          footerText={dateFormat(weatherData.date)}
-                        ></MeasureCard>
+                        <div className="col">
+                          <MeasureCard
+                            Icon={data.icon}
+                            titleText={data.titleText}
+                            text={data.text}
+                            unit={data.unit}
+                            footerText={dateFormat(weatherData.date)}
+                          ></MeasureCard>
+                        </div>
                       </div>
                     );
                   })}

@@ -73,12 +73,12 @@ export const MiscGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 `;
 export const AirGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  display: flex;
+  flex-direction: column;
 `;
 export const WindGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 `;
 export const SoilGrid = styled.div`
   display: grid;
@@ -86,5 +86,5 @@ export const SoilGrid = styled.div`
 `;
 export const BatteryGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 `;
