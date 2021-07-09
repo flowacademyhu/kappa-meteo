@@ -21,36 +21,37 @@ const xAxisDateFormat = (date) => {
 
 const GeneralChart = ({
   axisLabel,
-  axisLabel2,
   labels,
-  labels2,
   isLineChart,
   linedata,
   linedata2,
+  station,
 }) => {
   const [measurementGroup, setMeasurementGroup] = useState([]);
 
-  const renameKeys = (stationData, num) => {
-    for (let i = 0; i < stationData.length; i++) {
-      Object.keys(stationData[i]).forEach((key) => {
-        if (typeof stationData[i][key] === 'number') {
-          const val = stationData[i][key];
-          delete stationData[i][key];
-          stationData[i][key + num] = val;
+  const renameKeys = (data, num) => {
+    let stationData = data.map((stationDataPoint) => {
+      let mappedData = {};
+      Object.keys(stationDataPoint).forEach((key) => {
+        if (typeof stationDataPoint[key] === 'number') {
+          const val = stationDataPoint[key];
+          mappedData[key + num] = val;
+        } else {
+          mappedData[key] = stationDataPoint[key];
         }
       });
-    }
+      return mappedData;
+    });
     return stationData;
   };
 
-  const merge = (firstStationData, secondStaionData) => {
-    renameKeys(firstStationData, '1');
-    renameKeys(secondStaionData, '2');
+  const merge = (firstStationData, secondStationData) => {
+    const processedFirstData = renameKeys(firstStationData, '1');
+    const processedSecondData = renameKeys(secondStationData, '2');
     let mergedData = [];
-    for (let i = 0; i < firstStationData.length; i++) {
-      mergedData.push({ ...firstStationData[i], ...secondStaionData[i] });
+    for (let i = 0; i < processedFirstData.length; i++) {
+      mergedData.push({ ...processedFirstData[i], ...processedSecondData[i] });
     }
-    console.log(JSON.stringify(mergedData));
     return mergedData;
   };
 
@@ -82,16 +83,6 @@ const GeneralChart = ({
           />
         ))}
       </div>
-      <div className="row">
-        {labels2.map((label, index) => (
-          <MyCheckbox
-            key={index}
-            name={label.dataKey}
-            label={label.name}
-            changeMeasurement={changeMeasurement}
-          />
-        ))}
-      </div>
       <ResponsiveContainer width="100%" height={500}>
         <Chart
           data={mergedData}
@@ -112,7 +103,6 @@ const GeneralChart = ({
                   className="mx-5"
                   yAxisId={index}
                   orientation="left"
-                  dataKey={axis.dataKey}
                   label={{
                     value: axis.value,
                     angle: -90,
@@ -125,61 +115,42 @@ const GeneralChart = ({
             }
             return null;
           })}
-          <XAxis dataKey="date" tickFormatter={xAxisDateFormat} />
-          {axisLabel2.map((axis, index) => {
-            if (measurementGroup.includes(axis.dataKey)) {
-              return (
-                <YAxis
-                  key={uuidv4()}
-                  className="mx-5"
-                  yAxisId={index}
-                  orientation="left"
-                  dataKey={axis.dataKey}
-                  label={{
-                    value: axis.value,
-                    angle: -90,
-                    dx: -15,
-                    position: 'outsideLeft',
-                    stroke: axis.stroke,
-                  }}
-                />
-              );
-            }
-            return null;
-          })}
+
           <Tooltip />
           <Legend />
           {labels.map((label, index) => {
             if (measurementGroup.includes(label.dataKey)) {
               return (
                 <ChartData
-                  key={label.dataKey}
+                  key={label.dataKey + '1'}
                   type="monotone"
-                  dataKey={label.dataKey}
-                  name={label.name}
+                  dataKey={label.dataKey + '1'}
+                  name={label.name + ' ' + station[0].name}
                   stroke={label.stroke}
                   activeDot={{ r: 8 }}
                   dot={false}
                   yAxisId={index}
                   fill="#462"
+                  strokeWidth={4}
                 />
               );
             }
             return null;
           })}
-          {labels2.map((label, index) => {
+          {labels.map((label, index) => {
             if (measurementGroup.includes(label.dataKey)) {
               return (
                 <ChartData
-                  key={label.dataKey}
+                  key={label.dataKey + '2'}
                   type="monotone"
-                  dataKey={label.dataKey}
-                  name={label.name}
-                  stroke={label.stroke}
+                  dataKey={label.dataKey + '2'}
+                  name={label.name + ' ' + station[0].name}
+                  stroke={label.stroke2}
                   activeDot={{ r: 8 }}
                   dot={false}
                   yAxisId={index}
                   fill="#462"
+                  strokeWidth={4}
                 />
               );
             }

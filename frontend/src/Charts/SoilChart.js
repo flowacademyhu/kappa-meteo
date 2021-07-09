@@ -20,7 +20,7 @@ const axisLabel = [
   {
     dataKey: 'soilMoisture120cm',
     value: 'Talaj nedvesség 120cm',
-    stroke: '#0066ff',
+    stroke: '#cc00ff',
   },
   {
     dataKey: 'soilTemperature0cm',
@@ -34,36 +34,42 @@ const labels = [
     dataKey: 'soilMoisture30cm',
     name: 'Talaj nedvesség 30cm',
     stroke: '#c54b3c',
+    stroke2: '#0099cc',
   },
   {
     dataKey: 'soilMoisture60cm',
     name: 'Talaj nedvesség 60cm',
     stroke: '#009900',
+    stroke2: '#0099cc',
   },
   {
     dataKey: 'soilMoisture90cm',
     name: 'Talaj nedvesség 90cm',
     stroke: '#ff9900',
+    stroke2: '#0099cc',
   },
   {
     dataKey: 'soilMoisture120cm',
     name: 'Talaj nedvesség 120cm',
-    stroke: '#0066ff',
+    stroke: '#cc00ff',
+    stroke2: '#0099cc',
   },
   {
     dataKey: 'soilTemperature0cm',
     name: 'Talaj hőmérséklet 0cm',
     stroke: '#000000',
+    stroke2: '#0099cc',
   },
 ];
 
-const SoilChart = ({ linedata }) => {
+const SoilChart = ({ linedata, linedata2 }) => {
   return (
     <GeneralChart
-      linedata={linedata}
       axisLabel={axisLabel}
       labels={labels}
       isLineChart={true}
+      linedata={linedata}
+      linedata2={linedata2}
     />
   );
 };

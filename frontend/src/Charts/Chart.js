@@ -134,6 +134,22 @@ function Chart() {
     },
   ]);
 
+  const [stationsWithData, setStationsWithData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`/api/stations/hasdata`);
+        if (response.data) {
+          setStationsWithData(response.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchData();
+  }, []);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -156,6 +172,8 @@ function Chart() {
     }
     if (stationId) {
       fetchData();
+    } else {
+      setLineData([]);
     }
   }, [dataType, stationId, dateState, typeGroup]);
 
@@ -181,6 +199,8 @@ function Chart() {
     }
     if (secondStationId) {
       fetchData();
+    } else {
+      setSecondLineData([]);
     }
   }, [dataType, secondStationId, dateState, typeGroup]);
 
@@ -236,7 +256,7 @@ function Chart() {
                   id="stations"
                   onChange={(e) => setStationId(e.target.value)}
                 >
-                  <StationSelector />
+                  <StationSelector stationsWithData={stationsWithData} />
                 </select>
               </div>
               <div className="col">
@@ -248,7 +268,7 @@ function Chart() {
                   id="stations"
                   onChange={(e) => setSecondStationId(e.target.value)}
                 >
-                  <StationSelector />
+                  <StationSelector stationsWithData={stationsWithData} />
                 </select>
               </div>
               <div className="col">
@@ -266,12 +286,24 @@ function Chart() {
               </div>
             </div>
             {typeGroup === 'air' && (
-              <AirChart linedata={linedata} linedata2={secondLinedata} />
+              <AirChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                station={stationsWithData}
+              />
             )}
-            {typeGroup === 'battery' && <BatteryChart linedata={linedata} />}
-            {typeGroup === 'misc' && <MiscChart linedata={linedata} />}
-            {typeGroup === 'soil' && <SoilChart linedata={linedata} />}
-            {typeGroup === 'wind' && <WindChart linedata={linedata} />}
+            {typeGroup === 'battery' && (
+              <BatteryChart linedata={linedata} linedata2={secondLinedata} />
+            )}
+            {typeGroup === 'misc' && (
+              <MiscChart linedata={linedata} linedata2={secondLinedata} />
+            )}
+            {typeGroup === 'soil' && (
+              <SoilChart linedata={linedata} linedata2={secondLinedata} />
+            )}
+            {typeGroup === 'wind' && (
+              <WindChart linedata={linedata} linedata2={secondLinedata} />
+            )}
           </GroupBorder>
         </div>
       </div>
