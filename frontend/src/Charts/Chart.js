@@ -121,7 +121,7 @@ const rangeArray = [
 
 const fixedTwoDigits = (linedata) => {
   if (typeof linedata === 'number') {
-    return linedata.toFixed(2);
+    return parseFloat(linedata.toFixed(2));
   }
   return linedata;
 };
