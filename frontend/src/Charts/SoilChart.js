@@ -62,14 +62,13 @@ const labels = [
   },
 ];
 
-const SoilChart = ({ linedata, linedata2 }) => {
+const SoilChart = (props) => {
   return (
     <GeneralChart
       axisLabel={axisLabel}
       labels={labels}
       isLineChart={true}
-      linedata={linedata}
-      linedata2={linedata2}
+      {...props}
     />
   );
 };

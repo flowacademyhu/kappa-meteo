@@ -28,15 +28,13 @@ const labels = [
   },
 ];
 
-const AirChart = ({ linedata, linedata2, station }) => {
+const AirChart = (props) => {
   return (
     <GeneralChart
       axisLabel={axisLabel}
       labels={labels}
       isLineChart={true}
-      linedata={linedata}
-      linedata2={linedata2}
-      station={station}
+      {...props}
     />
   );
 };

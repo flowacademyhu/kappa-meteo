@@ -25,7 +25,8 @@ const GeneralChart = ({
   isLineChart,
   linedata,
   linedata2,
-  station,
+  firstStationName = '',
+  secondStationName = '',
 }) => {
   const [measurementGroup, setMeasurementGroup] = useState([]);
 
@@ -125,7 +126,7 @@ const GeneralChart = ({
                   key={label.dataKey + '1'}
                   type="monotone"
                   dataKey={label.dataKey + '1'}
-                  name={label.name + ' ' + station[0].name}
+                  name={label.name + ' ' + firstStationName}
                   stroke={label.stroke}
                   activeDot={{ r: 8 }}
                   dot={false}
@@ -144,7 +145,7 @@ const GeneralChart = ({
                   key={label.dataKey + '2'}
                   type="monotone"
                   dataKey={label.dataKey + '2'}
-                  name={label.name + ' ' + station[0].name}
+                  name={label.name + ' ' + secondStationName}
                   stroke={label.stroke2}
                   activeDot={{ r: 8 }}
                   dot={false}

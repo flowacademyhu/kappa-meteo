@@ -212,6 +212,13 @@ function Chart() {
     return moment(date).format('MM-DD HH:mm');
   };
 
+  const firstStation = stationsWithData?.find(
+    (station) => station.id.toString() === stationId
+  );
+  const secondStation = stationsWithData?.find(
+    (station) => station.id.toString() === secondStationId
+  );
+
   return (
     <div>
       <SideNav>
@@ -289,20 +296,41 @@ function Chart() {
               <AirChart
                 linedata={linedata}
                 linedata2={secondLinedata}
-                station={stationsWithData}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
               />
             )}
             {typeGroup === 'battery' && (
-              <BatteryChart linedata={linedata} linedata2={secondLinedata} />
+              <BatteryChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
+              />
             )}
             {typeGroup === 'misc' && (
-              <MiscChart linedata={linedata} linedata2={secondLinedata} />
+              <MiscChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
+              />
             )}
             {typeGroup === 'soil' && (
-              <SoilChart linedata={linedata} linedata2={secondLinedata} />
+              <SoilChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
+              />
             )}
             {typeGroup === 'wind' && (
-              <WindChart linedata={linedata} linedata2={secondLinedata} />
+              <WindChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
+              />
             )}
           </GroupBorder>
         </div>

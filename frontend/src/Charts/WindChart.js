@@ -31,14 +31,13 @@ const labels = [
   },
 ];
 
-const WindChart = ({ linedata, linedata2 }) => {
+const WindChart = (props) => {
   return (
     <GeneralChart
       axisLabel={axisLabel}
       labels={labels}
-      isLineChart={false}
-      linedata={linedata}
-      linedata2={linedata2}
+      isLineChart={true}
+      {...props}
     />
   );
 };
