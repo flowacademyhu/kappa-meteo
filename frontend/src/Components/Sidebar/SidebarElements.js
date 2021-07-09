@@ -13,6 +13,7 @@ export const SidebarContainer = styled.aside`
   top: 0;
   left: 0;
   transition: 0.8s ease-in-out;
+  overflow: hidden;
   opacity: ${({ isOpen }) => (isOpen ? '100%' : '0')};
   top: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
 `;
@@ -33,7 +34,7 @@ export const Icon = styled.div`
 
 export const NavLinkIcon = styled.div`
   color: green;
-  margin: 10px;
+  margin: 0px 10px 0px 0px;
   font-size: 35px;
 `;
 
@@ -42,21 +43,18 @@ export const SidebarWrapper = styled.div`
 `;
 
 export const SidebarMenu = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(6, 100px);
-  text-align: center;
-  padding-left: 0rem;
-
-  @media screen and (max-width: 480px) {
-    grid-template-rows: repeat(6, 60px);
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 `;
 
 export const SidebarLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 30px;
   font-size: 1.5rem;
   text-decoration: none;
   list-style: none;
@@ -74,14 +72,17 @@ export const SidebarLink = styled(Link)`
 
 export const SidebarButtonWrap = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  padding: 50px;
 `;
 
 export const SidebarButton = styled(Link)`
   border-radius: 50px;
   background: green;
   white-space: nowrap;
-  padding: 10px 65px;
+  padding: 25px 65px;
   color: #fff;
   font-size: 20px;
   outline: none;

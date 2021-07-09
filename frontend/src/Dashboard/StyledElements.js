@@ -7,9 +7,11 @@ export const InfoStyle = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 0px -15px 30px 3px #c54b3c;
   border-radius: 20px;
   margin-top: 250px;
+  &:hover {
+    box-shadow: 0px 0px 30px 10px #c54b3c;
+  }
 `;
 export const NavLink = styled(Link)`
   color: #fff !important;
@@ -70,15 +72,19 @@ export const MiscGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 `;
+export const AirGrid = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 export const WindGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 `;
 export const SoilGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 `;
 export const BatteryGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 `;

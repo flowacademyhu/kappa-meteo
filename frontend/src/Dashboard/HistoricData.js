@@ -8,6 +8,7 @@ import {
   GroupText,
   CardBorder,
   MiscGrid,
+  AirGrid,
   WindGrid,
   SoilGrid,
   BatteryGrid,
@@ -310,19 +311,23 @@ export default function HistoricData() {
               </CardBorder>
               <CardBorder className="col">
                 <GroupText>Levegő adatok:</GroupText>
-                {airData(weatherData).map((data) => {
-                  return (
-                    <div className="p-2 m-2" key={data.titleText}>
-                      <MeasureCard
-                        Icon={data.icon}
-                        titleText={data.titleText}
-                        text={data.text == null ? '-' : data.text}
-                        unit={data.unit}
-                        footerText={dateFormat(weatherData.date)}
-                      ></MeasureCard>
-                    </div>
-                  );
-                })}
+                <AirGrid>
+                  {airData(weatherData).map((data) => {
+                    return (
+                      <div className="p-2 m-2" key={data.titleText}>
+                        <div className="col">
+                          <MeasureCard
+                            Icon={data.icon}
+                            titleText={data.titleText}
+                            text={data.text}
+                            unit={data.unit}
+                            footerText={dateFormat(weatherData.date)}
+                          ></MeasureCard>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </AirGrid>
               </CardBorder>
             </div>
             <CardBorder>
