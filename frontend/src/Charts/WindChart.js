@@ -36,7 +36,7 @@ const WindChart = (props) => {
     <GeneralChart
       axisLabel={axisLabel}
       labels={labels}
-      isLineChart={true}
+      isLineChart={false}
       {...props}
     />
   );

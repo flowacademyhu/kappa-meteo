@@ -48,7 +48,7 @@ const BatteryChart = (props) => {
     <GeneralChart
       axisLabel={axisLabel}
       labels={labels}
-      isLineChart={true}
+      isLineChart={false}
       {...props}
     />
   );
