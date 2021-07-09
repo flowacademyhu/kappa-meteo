@@ -119,6 +119,13 @@ const rangeArray = [
   },
 ];
 
+const fixedTwoDigits = (linedata) => {
+  if (typeof linedata === 'number') {
+    return linedata.toFixed(2);
+  }
+  return linedata;
+};
+
 function Chart() {
   const [typeGroup, setTypeGroup] = useState('air');
   const [linedata, setLineData] = useState(null);
@@ -141,12 +148,20 @@ function Chart() {
           )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
         );
         const mappedResult = response.data
+          .map((item) => {
+            Object.keys(item).forEach((key) => {
+              const roundedvalue = fixedTwoDigits(item[key]);
+              item[key] = roundedvalue;
+            });
+            return item;
+          })
           .map((item, index) => {
             return { ...item, number: index };
           })
           .map((el) => {
             return { ...el, date: chartDateFormat(el.date) };
           });
+
         setLineData(mappedResult);
       } catch (err) {
         console.error('Error during api call:', err);
