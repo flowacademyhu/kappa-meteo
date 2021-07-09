@@ -35,6 +35,21 @@ export default function HistoricData() {
   const [weatherData, setWeatherData] = useState(null);
   const [stationId, setStationId] = useState();
   const { id } = useParams();
+  const [stationsWithData, setStationsWithData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`/api/stations/hasdata`);
+        if (response.data) {
+          setStationsWithData(response.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -47,25 +62,25 @@ export default function HistoricData() {
         console.error(err);
       }
     }
-    fetchData();
+    if (id) {
+      fetchData();
+    }
   }, [id]);
 
   useEffect(() => {
     async function fetchData() {
-      if (stationId !== null) {
-        try {
-          const response = await axios.get(
-            `/api/latest?stationId=${stationId}`
-          );
-          if (response.data) {
-            setWeatherData(response.data);
-          }
-        } catch (err) {
-          console.error(err);
+      try {
+        const response = await axios.get(`/api/latest?stationId=${stationId}`);
+        if (response.data) {
+          setWeatherData(response.data);
         }
+      } catch (err) {
+        console.error(err);
       }
     }
-    fetchData();
+    if (stationId) {
+      fetchData();
+    }
   }, [stationId]);
 
   const dateFormat = (date) => {
@@ -278,7 +293,7 @@ export default function HistoricData() {
             id="stations"
             onChange={(e) => setStationId(e.target.value)}
           >
-            <StationSelector />
+            <StationSelector stationsWithData={stationsWithData} />
           </select>
         </CardBorder>
       </div>

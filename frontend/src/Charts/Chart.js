@@ -128,9 +128,11 @@ const fixedTwoDigits = (linedata) => {
 
 function Chart() {
   const [typeGroup, setTypeGroup] = useState('air');
-  const [linedata, setLineData] = useState(null);
+  const [linedata, setLineData] = useState([]);
+  const [secondLinedata, setSecondLineData] = useState([]);
   const [dataType, setDataType] = useState('DAILY');
   const [stationId, setStationId] = useState();
+  const [secondStationId, setSecondStationId] = useState();
   const [dateState, setDateState] = useState([
     {
       startDate: new Date('2021-04-24'),
@@ -138,6 +140,22 @@ function Chart() {
       key: 'selection',
     },
   ]);
+
+  const [stationsWithData, setStationsWithData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`/api/stations/hasdata`);
+        if (response.data) {
+          setStationsWithData(response.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -167,8 +185,39 @@ function Chart() {
         console.error('Error during api call:', err);
       }
     }
-    fetchData();
+    if (stationId) {
+      fetchData();
+    } else {
+      setLineData([]);
+    }
   }, [dataType, stationId, dateState, typeGroup]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `/api/stations/${secondStationId}/${typeGroup}?start=${dateFormat(
+            dateState[0].startDate
+          )}&end=${dateFormat(dateState[0].endDate)}&type=${dataType}`
+        );
+        const mappedResult = response.data
+          .map((item, index) => {
+            return { ...item, number: index };
+          })
+          .map((el) => {
+            return { ...el, date: chartDateFormat(el.date) };
+          });
+        setSecondLineData(mappedResult);
+      } catch (err) {
+        console.error('Error during api call:', err);
+      }
+    }
+    if (secondStationId) {
+      fetchData();
+    } else {
+      setSecondLineData([]);
+    }
+  }, [dataType, secondStationId, dateState, typeGroup]);
 
   const dateFormat = (date) => {
     return moment(date).format('YYYY-MM-DD');
@@ -177,6 +226,13 @@ function Chart() {
   const chartDateFormat = (date) => {
     return moment(date).format('MM-DD HH:mm');
   };
+
+  const firstStation = stationsWithData?.find(
+    (station) => station.id.toString() === stationId
+  );
+  const secondStation = stationsWithData?.find(
+    (station) => station.id.toString() === secondStationId
+  );
 
   return (
     <div>
@@ -222,7 +278,19 @@ function Chart() {
                   id="stations"
                   onChange={(e) => setStationId(e.target.value)}
                 >
-                  <StationSelector />
+                  <StationSelector stationsWithData={stationsWithData} />
+                </select>
+              </div>
+              <div className="col">
+                <label htmlFor="stationId">Összehasonlítás:</label>
+                <select
+                  className="m-4"
+                  value={secondStationId}
+                  name="stations"
+                  id="stations"
+                  onChange={(e) => setSecondStationId(e.target.value)}
+                >
+                  <StationSelector stationsWithData={stationsWithData} />
                 </select>
               </div>
               <div className="col">
@@ -239,11 +307,46 @@ function Chart() {
                 </select>
               </div>
             </div>
-            {typeGroup === 'air' && <AirChart linedata={linedata} />}
-            {typeGroup === 'battery' && <BatteryChart linedata={linedata} />}
-            {typeGroup === 'misc' && <MiscChart linedata={linedata} />}
-            {typeGroup === 'soil' && <SoilChart linedata={linedata} />}
-            {typeGroup === 'wind' && <WindChart linedata={linedata} />}
+            {typeGroup === 'air' && (
+              <AirChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
+              />
+            )}
+            {typeGroup === 'battery' && (
+              <BatteryChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
+              />
+            )}
+            {typeGroup === 'misc' && (
+              <MiscChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
+              />
+            )}
+            {typeGroup === 'soil' && (
+              <SoilChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
+              />
+            )}
+            {typeGroup === 'wind' && (
+              <WindChart
+                linedata={linedata}
+                linedata2={secondLinedata}
+                firstStationName={firstStation?.name}
+                secondStationName={secondStation?.name}
+              />
+            )}
           </GroupBorder>
         </div>
       </div>

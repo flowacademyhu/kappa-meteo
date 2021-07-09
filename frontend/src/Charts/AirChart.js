@@ -8,18 +8,33 @@ const axisLabel = [
 ];
 
 const labels = [
-  { dataKey: 'airTemperature', name: 'Hőmérséklet', stroke: '#c54b3c' },
-  { dataKey: 'airPressure', name: 'Légnyomás', stroke: '#009900' },
-  { dataKey: 'airHumidity', name: 'Páratartalom', stroke: '#000000' },
+  {
+    dataKey: 'airTemperature',
+    name: 'Hőmérséklet',
+    stroke: '#c54b3c',
+    stroke2: '#0099cc',
+  },
+  {
+    dataKey: 'airPressure',
+    name: 'Légnyomás',
+    stroke: '#009900',
+    stroke2: '#0099cc',
+  },
+  {
+    dataKey: 'airHumidity',
+    name: 'Páratartalom',
+    stroke: '#000000',
+    stroke2: '#0099cc',
+  },
 ];
 
-const AirChart = ({ linedata }) => {
+const AirChart = (props) => {
   return (
     <GeneralChart
-      linedata={linedata}
       axisLabel={axisLabel}
       labels={labels}
       isLineChart={true}
+      {...props}
     />
   );
 };

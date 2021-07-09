@@ -25,28 +25,31 @@ const labels = [
     name: 'Napelem töltő feszültség',
     stroke: '#c54b3c',
     fill: '#c54b3c',
+    stroke2: '#0099cc',
   },
   {
     dataKey: 'externalBatteryVoltage',
     name: 'Külső akku feszültség',
     stroke: '#009900',
     fill: '#009900',
+    stroke2: '#0099cc',
   },
   {
     dataKey: 'internalBatteryVoltage',
     name: 'Belső akku feszültség',
     stroke: '#000000',
     fill: '#000000',
+    stroke2: '#0099cc',
   },
 ];
 
-const BatteryChart = ({ linedata }) => {
+const BatteryChart = (props) => {
   return (
     <GeneralChart
-      linedata={linedata}
       axisLabel={axisLabel}
       labels={labels}
-      isLineChart={false}
+      isLineChart={true}
+      {...props}
     />
   );
 };
